@@ -1,0 +1,11 @@
+{
+  "id": "finance-data-engineering",
+  "title": "Finance data engineering",
+  "kind": "function",
+  "description": "Recipes for data engineers working with finance-domain data and controls.",
+  "selector": {
+    "function": [
+      "finance"
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "microsoft-fabric",
+  "title": "Microsoft Fabric",
+  "kind": "platform",
+  "description": "Recipes that can execute against Microsoft Fabric Lakehouse, Fabric Warehouse, or both.",
+  "selector": {
+    "platforms_any": [
+      "fabric_lakehouse",
+      "fabric_warehouse"
+    ]
+  },
+  "subfilters": [
+    {
+      "id": "all",
+      "title": "All",
+      "platforms_any": [
+        "fabric_lakehouse",
+        "fabric_warehouse"
+      ]
+    },
+    {
+      "id": "lakehouse",
+      "title": "Lakehouse",
+      "platforms_any": [
+        "fabric_lakehouse"
+      ]
+    },
+    {
+      "id": "warehouse",
+      "title": "Warehouse",
+      "platforms_any": [
+        "fabric_warehouse"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "id": "dbt-performance-and-maintainability",
+  "title": "dbt performance and maintainability",
+  "kind": "curated",
+  "description": "Recipes for improving dbt performance and maintainability while preserving required behaviour.",
+  "members": [
+    "dbt-full-refresh-to-incremental"
+  ]
+}
