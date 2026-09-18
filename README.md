@@ -84,6 +84,8 @@ Optional contextual metadata includes `function`, `industry`, `domain_objects`, 
 - `supported` — current capabilities and supported objects can execute the Recipe end to end, without a dedicated Recipe-level eval for that exact shape.
 - `planned` — at least one required capability, integration, or object type is unsupported today.
 
+`scripts/build_catalog.py` enforces `proven` as a checkable claim rather than an unenforced convention: any Recipe with `readiness: "proven"` must declare at least one non-empty entry in `evidence.evals`, naming the eval/journey that proves it. A `proven` Recipe with an empty or missing `evidence.evals` fails both the plain build and `--check`.
+
 ## Platform compatibility
 
 Current exact execution-target values are:

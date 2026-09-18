@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -46,6 +47,22 @@ REQUIRED_RECIPE_FIELDS = {
 
 def fail(message: str) -> None:
     raise SystemExit(f"cookbook validation error: {message}")
+
+
+def git_revision() -> str | None:
+    """Return the full 40-char commit SHA for HEAD, or None outside a git repo."""
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    revision = result.stdout.strip()
+    return revision or None
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -129,6 +146,14 @@ def validate_recipe(path: Path, recipe: dict[str, Any]) -> None:
         for key in ("features", "evals"):
             if key in evidence:
                 require_string_list(evidence[key], f"{recipe_id}: evidence.{key}")
+
+    if recipe["readiness"] == "proven":
+        evals = (recipe.get("evidence") or {}).get("evals") or []
+        if not evals:
+            fail(
+                f"{recipe_id}: readiness 'proven' requires at least one non-empty entry in "
+                "evidence.evals (a dedicated Recipe-level eval/journey)"
+            )
 
 
 def recipe_matches_selector(recipe: dict[str, Any], selector: dict[str, Any]) -> bool:
@@ -332,6 +357,7 @@ def build_outputs() -> tuple[dict[Path, str], dict[str, Any]]:
 
     catalog = {
         "source": REPO_URL,
+        "revision": git_revision(),
         "recipes": catalog_recipes,
         "collections": sorted(collections, key=lambda item: item["id"]),
     }
