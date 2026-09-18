@@ -37,11 +37,11 @@ Inspect the existing model, dependencies, source behaviour, and current full-ref
 
 ### Compose
 
-- `profile-source-data`
-- `modify-dbt-model`
-- `run-dbt-in-sandbox`
-- `compare-to-baseline`
-- `test-incremental-behaviour`
+- `profiling-source-data`
+- `generating-dbt-model`
+- `running-dbt-in-sandbox`
+- `validating-against-baseline`
+- `dbt-unit-testing`
 
 ### Ask first
 

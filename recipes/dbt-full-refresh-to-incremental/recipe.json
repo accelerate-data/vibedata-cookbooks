@@ -33,11 +33,11 @@
   "agent_guidance": {
     "instructions": "Inspect the existing model, dependencies, source behaviour, and current full-refresh result before changing materialization. Use evidence to choose the incremental strategy and key. Implement the smallest change that preserves the model's required semantics. Run the old and new paths in the appropriate isolated environment and collect actual comparison and runtime evidence before declaring the Recipe complete.",
     "compose": [
-      "profile-source-data",
-      "modify-dbt-model",
-      "run-dbt-in-sandbox",
-      "compare-to-baseline",
-      "test-incremental-behaviour"
+      "profiling-source-data",
+      "generating-dbt-model",
+      "running-dbt-in-sandbox",
+      "validating-against-baseline",
+      "dbt-unit-testing"
     ],
     "ask_first": [
       "Ask for the intended late-arriving-data policy only if it cannot be inferred from approved project requirements or existing model behaviour.",
@@ -51,11 +51,11 @@
   },
   "evidence": {
     "features": [
-      "profile-source-data",
-      "modify-dbt-model",
-      "run-dbt-in-sandbox",
-      "compare-to-baseline",
-      "test-incremental-behaviour"
+      "profiling-source-data",
+      "generating-dbt-model",
+      "running-dbt-in-sandbox",
+      "validating-against-baseline",
+      "dbt-unit-testing"
     ],
     "evals": []
   }
