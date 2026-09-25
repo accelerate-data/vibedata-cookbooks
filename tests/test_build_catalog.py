@@ -114,6 +114,9 @@ REJECTIONS = {
     "collection_markup": (write_file("collections/sample.json", json.dumps({**COLLECTION, "description": "A <script> view.", "members": ["sample-recipe"]})), "HTML or tool-call tag"),
     "collection_not_json": (write_file("collections/sample.json", "{"), "not valid JSON"),
     "unversioned_schema": (drop_schema_version, "top-level 'version'"),
+    "crlf_in_frontmatter": (replace_in_recipe("id: sample-recipe\n", "id: sample-recipe\r\n"), "must use LF line endings"),
+    "lone_cr_in_frontmatter": (replace_in_recipe("area: transformation\n", "area: transformation\r"), "must use LF line endings"),
+    "byte_order_mark": (write_file(RECIPE_REL, "\ufeff" + VALID_RECIPE), "byte-order mark"),
 }
 
 

@@ -91,6 +91,10 @@ def load_recipe(root: Path, directory: Path, schema: dict[str, Any]) -> Recipe:
     raw = path.read_bytes()
     if len(raw) > spec["max_bytes"]:
         raise CookbookError(f"{rel}: {len(raw)} bytes exceeds the {spec['max_bytes']}-byte cap")
+    if raw.startswith(b"\xef\xbb\xbf"):
+        raise CookbookError(f"{rel}: must not start with a byte-order mark")
+    if b"\r" in raw:
+        raise CookbookError(f"{rel}: must use LF line endings, with no carriage returns")
     try:
         text = raw.decode("utf-8")
     except UnicodeDecodeError as exc:
