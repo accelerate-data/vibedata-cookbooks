@@ -101,7 +101,6 @@ def load_recipe(root: Path, directory: Path, schema: dict[str, Any]) -> Recipe:
         raise CookbookError(f"{rel}: not UTF-8 ({exc.reason})") from exc
     if not text.endswith("\n") or text.endswith("\n\n"):
         raise CookbookError(f"{rel}: must end with exactly one newline")
-    # format-rules: end
     try:
         frontmatter, body_text = split_frontmatter(text)
         meta = load_frontmatter(frontmatter)
@@ -112,6 +111,7 @@ def load_recipe(root: Path, directory: Path, schema: dict[str, Any]) -> Recipe:
         raise_first_schema_error(schema, meta, "frontmatter")
         check_markup(body_text, spec["markup"], "body")
         body = parse_body(body_text, spec)
+        # format-rules: end
     except CookbookError as exc:
         raise CookbookError(f"{rel}: {exc}") from exc
     if meta["id"] != directory.name:

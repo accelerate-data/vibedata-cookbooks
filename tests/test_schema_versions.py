@@ -270,5 +270,11 @@ def test_repository_marks_the_code_that_enforces_the_format_rules():
     regions = {rel: "\n".join(format_rule_regions((REPO_ROOT / rel).read_text(encoding="utf-8")) or []) for rel in FORMAT_RULE_FILES}
     for fragment in ("def split_frontmatter", "_NOT_A_PARAGRAPH = ", "def _section_value", "def parse_body"):
         assert fragment in regions["scripts/recipe_format.py"], fragment
-    for fragment in ('raw.decode("utf-8")', 'text.endswith("\\n\\n")'):
+    for fragment in (
+        'raw.decode("utf-8")',
+        'text.endswith("\\n\\n")',
+        'b"\\r" in raw',
+        '"\\r" in value',
+        "parse_body(body_text, spec)",
+    ):
         assert fragment in regions["scripts/build_catalog.py"], fragment
