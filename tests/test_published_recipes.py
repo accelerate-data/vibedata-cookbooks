@@ -17,6 +17,7 @@ EXPECTED = {
     },
     "api-to-bronze-incremental-contract": {"readiness": "supported", "platforms": ALL_PLATFORMS},
     "fabric-data-pipeline-as-code": {"readiness": "supported", "platforms": ["fabric_lakehouse", "fabric_warehouse"]},
+    "motherduck-flight-scheduling": {"readiness": "supported", "platforms": ["motherduck"]},
 }
 
 

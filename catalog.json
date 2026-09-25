@@ -195,6 +195,43 @@
           "dbt"
         ]
       }
+    },
+    {
+      "area": "orchestration",
+      "description": "Author a MotherDuck Flight as committed code that runs a dlt load and then a dbt build in order on a schedule, with every credential declared as a secret, and prove one on-demand run succeeded on the workload's own result as well as the Flight's status.",
+      "domain_objects": [
+        "motherduck_flight",
+        "schedule"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "generating-orchestration",
+          "evaluating-orchestration",
+          "running-orchestration-in-sandbox",
+          "documenting-orchestration"
+        ]
+      },
+      "id": "motherduck-flight-scheduling",
+      "job_category": "build",
+      "path": "recipes/motherduck-flight-scheduling/recipe.md",
+      "pitch": "Replace the laptop cron with a committed MotherDuck Flight that loads and builds on a schedule.",
+      "readiness": "supported",
+      "sha256": "eb9c19cf1ca5f56065b6bec12e3bd27f8dad141def591983d47ac4abe3cd3df7",
+      "title": "Schedule a dlt load and a dbt build on MotherDuck as a committed MotherDuck Flight",
+      "trigger": [
+        "The MotherDuck load and build run from a cron job on someone's laptop.",
+        "A dlt load and a dbt build on MotherDuck have to run in order on a schedule without standing up an orchestrator."
+      ],
+      "works_with": {
+        "platforms": [
+          "motherduck"
+        ],
+        "tools": [
+          "dlt",
+          "dbt"
+        ]
+      }
     }
   ],
   "schema_versions": {
