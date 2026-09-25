@@ -11,6 +11,7 @@ from samples import VALID_BODY, VALID_BODY_FIELDS, load_schema
 
 SPEC = load_schema("recipe")["x-body"]
 PROMPT = VALID_BODY_FIELDS["prompt"]
+INSTRUCTIONS = VALID_BODY_FIELDS["agent_guidance"]["instructions"]
 
 
 def test_valid_body_parses_to_fields():
@@ -24,6 +25,11 @@ def test_prompt_at_cap_passes():
 def test_twelve_verified_by_bullets_pass():
     body = VALID_BODY.replace("- The model builds in the sandbox.\n", "- Condition.\n" * 11)
     assert len(parse_body(body, SPEC)["verified_by"]) == 12
+
+
+def test_instructions_at_cap_passes():
+    body = VALID_BODY.replace(INSTRUCTIONS, "x" * 1500)
+    assert parse_body(body, SPEC)["agent_guidance"]["instructions"] == "x" * 1500
 
 
 SWAPPED = VALID_BODY.replace("## Prompt", "## TEMP").replace("## Verified by", "## Prompt").replace("## TEMP", "## Verified by")
@@ -53,6 +59,15 @@ REJECTIONS = {
     "bullet_over_cap": (VALID_BODY.replace("Do not invent a key.", "x" * 301), "300-character cap"),
     "compose_over_cap": (VALID_BODY.replace("generating-dbt-model", "x" * 81), "80-character cap"),
     "too_many_bullets": (VALID_BODY.replace("- The model builds in the sandbox.\n", "- Condition.\n" * 12), "between 1 and 12"),
+    "instructions_over_cap": (VALID_BODY.replace(INSTRUCTIONS, "x" * 1501), "1500-character cap"),
+    "too_many_compose": (VALID_BODY.replace("- generating-dbt-model\n", "- Compose item.\n" * 13), "between 1 and 12"),
+    "too_many_ask_first": (
+        VALID_BODY.replace("- Ask for the grain only if it cannot be inferred.\n", "- Ask item.\n" * 9),
+        "between 1 and 8",
+    ),
+    "too_many_guardrails": (VALID_BODY.replace("- Do not invent a key.\n", "- Guardrail item.\n" * 11), "between 1 and 10"),
+    "empty_ask_first": (VALID_BODY.replace("- Ask for the grain only if it cannot be inferred.\n", ""), "between 1 and 8"),
+    "empty_guardrails": (VALID_BODY.replace("- Do not invent a key.\n", ""), "between 1 and 10"),
 }
 
 

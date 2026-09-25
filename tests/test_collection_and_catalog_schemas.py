@@ -94,11 +94,63 @@ def test_valid_collection_passes():
         {**VALID_COLLECTION, "kind": "persona"},
         {**VALID_COLLECTION, "members": ["Not An Id"]},
         {**VALID_COLLECTION, "owner": "someone"},
+        {**VALID_COLLECTION, "title": "x" * 121},
+        {**VALID_COLLECTION, "title": "two\nlines"},
+        {**VALID_COLLECTION, "description": "x" * 401},
+        {**VALID_COLLECTION, "members": [f"r{i}" for i in range(501)]},
+        {**VALID_COLLECTION, "members": ["sample-recipe", "sample-recipe"]},
+        {**VALID_COLLECTION, "selector": {"function": []}},
+        {**VALID_COLLECTION, "selector": {"function": ["Not A Token"]}},
+        {**VALID_COLLECTION, "selector": {"industry": []}},
+        {**VALID_COLLECTION, "selector": {"industry": ["finance", "finance"]}},
+        {**VALID_COLLECTION, "selector": {"job_category": ["migrate"]}},
+        {**VALID_COLLECTION, "selector": {"job_category": []}},
+        {**VALID_COLLECTION, "subfilters": [{"id": f"sf{i}", "title": f"Subfilter {i}"} for i in range(21)]},
+        {**VALID_COLLECTION, "subfilters": [{"id": "local", "title": "x" * 61}]},
+        {**VALID_COLLECTION, "subfilters": [{"id": "local"}]},
+        {**VALID_COLLECTION, "subfilters": [{"id": "local", "title": "Local", "owner": "x"}]},
     ],
-    ids=["no_members_or_selector", "legacy_duckdb_selector", "empty_selector_list", "legacy_duckdb_subfilter", "unknown_kind", "bad_member_id", "extra_key"],
+    ids=[
+        "no_members_or_selector",
+        "legacy_duckdb_selector",
+        "empty_selector_list",
+        "legacy_duckdb_subfilter",
+        "unknown_kind",
+        "bad_member_id",
+        "extra_key",
+        "title_over_cap",
+        "title_multiline",
+        "description_over_cap",
+        "members_over_cap",
+        "members_duplicate",
+        "selector_function_empty",
+        "selector_function_invalid_token",
+        "selector_industry_empty",
+        "selector_industry_duplicate",
+        "selector_job_category_unknown",
+        "selector_job_category_empty",
+        "subfilters_over_cap",
+        "subfilter_title_over_cap",
+        "subfilter_missing_title",
+        "subfilter_extra_key",
+    ],
 )
 def test_collection_rejects_wrong_control(collection):
     assert errors(COLLECTION, collection)
+
+
+def test_selector_with_every_key_passes():
+    collection = {
+        **{k: v for k, v in VALID_COLLECTION.items() if k != "members"},
+        "selector": {
+            "function": ["finance"],
+            "industry": ["retail"],
+            "platforms_any": ["motherduck"],
+            "job_category": ["build"],
+        },
+        "subfilters": [{"id": "local", "title": "Local"}],
+    }
+    assert errors(COLLECTION, collection) == []
 
 
 def test_valid_catalog_passes():

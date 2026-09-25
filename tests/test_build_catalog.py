@@ -131,3 +131,48 @@ def test_main_reports_a_violation_and_exits_1(cookbook, capsys):
     write_file("recipes/sample-recipe/recipe.json", "{}")(cookbook)
     assert main([], root=cookbook) == 1
     assert "cookbook validation error" in capsys.readouterr().err
+
+
+def test_collections_are_sorted_by_id(cookbook):
+    (cookbook / "collections/zeta.json").write_text(
+        json.dumps({**COLLECTION, "id": "zeta", "members": ["sample-recipe"]}), encoding="utf-8"
+    )
+    (cookbook / "collections/alpha.json").write_text(
+        json.dumps({**COLLECTION, "id": "alpha", "members": ["sample-recipe"]}), encoding="utf-8"
+    )
+    catalog, _ = build_catalog(cookbook)
+    assert [collection["id"] for collection in catalog["collections"]] == ["alpha", "zeta"]
+
+
+def test_function_collection_needs_three_supported_recipes(cookbook):
+    (cookbook / "collections/sample.json").write_text(
+        json.dumps({**COLLECTION, "kind": "function", "members": ["sample-recipe"]}), encoding="utf-8"
+    )
+    catalog, _ = build_catalog(cookbook)
+    (collection,) = catalog["collections"]
+    assert collection["website_publication_threshold"] == 3
+    assert collection["supported_or_proven_count"] == 1
+    assert collection["website_visible"] is False
+
+    write_recipe(cookbook, "another-recipe", VALID_RECIPE.replace("id: sample-recipe", "id: another-recipe"))
+    write_recipe(cookbook, "third-recipe", VALID_RECIPE.replace("id: sample-recipe", "id: third-recipe"))
+    (cookbook / "collections/sample.json").write_text(
+        json.dumps(
+            {**COLLECTION, "kind": "function", "members": ["sample-recipe", "another-recipe", "third-recipe"]}
+        ),
+        encoding="utf-8",
+    )
+    catalog, _ = build_catalog(cookbook)
+    (collection,) = catalog["collections"]
+    assert collection["website_visible"] is True
+
+
+def test_planned_recipes_do_not_count(cookbook):
+    write_recipe(cookbook, "sample-recipe", VALID_RECIPE.replace("readiness: supported", "readiness: planned"))
+    (cookbook / "collections/sample.json").write_text(
+        json.dumps({**COLLECTION, "members": ["sample-recipe"]}), encoding="utf-8"
+    )
+    catalog, _ = build_catalog(cookbook)
+    (collection,) = catalog["collections"]
+    assert collection["supported_or_proven_count"] == 0
+    assert collection["website_visible"] is False
