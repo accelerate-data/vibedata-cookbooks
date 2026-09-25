@@ -16,6 +16,7 @@ EXPECTED = {
         "platforms": ["duckdb_local", "motherduck", "fabric_lakehouse", "fabric_warehouse"],
     },
     "api-to-bronze-incremental-contract": {"readiness": "supported", "platforms": ALL_PLATFORMS},
+    "fabric-data-pipeline-as-code": {"readiness": "supported", "platforms": ["fabric_lakehouse", "fabric_warehouse"]},
 }
 
 

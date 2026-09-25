@@ -36,7 +36,8 @@
       "kind": "platform",
       "resolved_members": [
         "api-to-bronze-incremental-contract",
-        "dbt-full-refresh-to-incremental"
+        "dbt-full-refresh-to-incremental",
+        "fabric-data-pipeline-as-code"
       ],
       "selector": {
         "platforms_any": [
@@ -68,7 +69,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 2,
+      "supported_or_proven_count": 3,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -152,6 +153,45 @@
           "fabric_warehouse"
         ],
         "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "orchestration",
+      "description": "Author a Fabric Data Pipeline and its schedule as committed code that runs ingestion, the dbt job and a downstream step in order, validate its dependency graph statically, run it once on demand, and document its schedule and dependency order.",
+      "domain_objects": [
+        "fabric_data_pipeline",
+        "dbt_job",
+        "schedule"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "generating-orchestration",
+          "evaluating-orchestration",
+          "running-orchestration-in-sandbox",
+          "documenting-orchestration"
+        ]
+      },
+      "id": "fabric-data-pipeline-as-code",
+      "job_category": "build",
+      "path": "recipes/fabric-data-pipeline-as-code/recipe.md",
+      "pitch": "Turn a clicked-together Fabric pipeline into committed code that runs ingestion, dbt and the downstream refresh in order.",
+      "readiness": "supported",
+      "sha256": "29159f5e5339cf756b3c72510ab2f4b4c1f5953f6fce83186404af7042b522ef",
+      "title": "Author a Fabric Data Pipeline that sequences ingestion, dbt, and downstream refresh as committed code",
+      "trigger": [
+        "A Fabric Data Pipeline was built by clicking and lives only in the workspace.",
+        "Ingestion, the dbt build and a downstream refresh have to run in order on a schedule in Fabric."
+      ],
+      "works_with": {
+        "platforms": [
+          "fabric_lakehouse",
+          "fabric_warehouse"
+        ],
+        "tools": [
+          "dlt",
           "dbt"
         ]
       }
