@@ -1,77 +1,9 @@
 {
-  "source": "https://github.com/accelerate-data/vibedata-cookbooks",
-  "revision": "12f2bbf8e83ca0fb22e95d31efa463d320458758",
-  "recipes": [
-    {
-      "id": "dbt-full-refresh-to-incremental",
-      "title": "Convert a full-refresh dbt model to incremental and show the runtime delta",
-      "trigger": [
-        "A dbt model is correct but a full refresh is too slow or too expensive to run routinely.",
-        "A full-refresh model needs to become incremental without changing its required consumer-visible output."
-      ],
-      "description": "Convert an existing full-refresh dbt model to an incremental implementation while preserving its required semantics, handling agreed late-arriving data correctly, and recording the before-and-after runtime.",
-      "prompt": "Convert the existing full-refresh dbt model to an incremental model. Preserve the required consumer-visible output and downstream contract. Determine and implement the appropriate incremental strategy from the model and source evidence, verify the unique-key and late-arriving-data behaviour, and record the runtime change against the current full-refresh baseline.",
-      "job_category": "re-engineer",
-      "area": "transformation",
-      "readiness": "supported",
-      "domain_objects": [
-        "dbt_model"
-      ],
-      "works_with": {
-        "platforms": [
-          "duckdb",
-          "motherduck",
-          "fabric_lakehouse",
-          "fabric_warehouse"
-        ],
-        "tools": [
-          "dbt"
-        ]
-      },
-      "verified_by": [
-        "Incremental output matches the approved full-refresh baseline on the agreed comparison slice.",
-        "A repeated incremental run produces no duplicate unique keys or unintended row changes.",
-        "The agreed late-arriving-data case updates exactly the expected records.",
-        "The before-and-after runtime is recorded from observed executions."
-      ],
-      "agent_guidance": {
-        "instructions": "Inspect the existing model, dependencies, source behaviour, and current full-refresh result before changing materialization. Use evidence to choose the incremental strategy and key. Implement the smallest change that preserves the model's required semantics. Run the old and new paths in the appropriate isolated environment and collect actual comparison and runtime evidence before declaring the Recipe complete.",
-        "compose": [
-          "profiling-source-data",
-          "generating-dbt-model",
-          "running-dbt-in-sandbox",
-          "validating-against-baseline",
-          "dbt-unit-testing"
-        ],
-        "ask_first": [
-          "Ask for the intended late-arriving-data policy only if it cannot be inferred from approved project requirements or existing model behaviour.",
-          "Ask for the intended business key only if no defensible unique key can be established from repository and data evidence."
-        ],
-        "guardrails": [
-          "Do not invent a unique key merely to make the incremental materialization compile.",
-          "Do not change consumer-visible model semantics merely to make incremental processing easier.",
-          "Do not treat predicted performance as evidence; record observed runtime from actual executions."
-        ]
-      },
-      "evidence": {
-        "features": [
-          "profiling-source-data",
-          "generating-dbt-model",
-          "running-dbt-in-sandbox",
-          "validating-against-baseline",
-          "dbt-unit-testing"
-        ],
-        "evals": []
-      },
-      "canonical_url": "https://github.com/accelerate-data/vibedata-cookbooks/tree/main/recipes/dbt-full-refresh-to-incremental"
-    }
-  ],
   "collections": [
     {
-      "id": "dbt-performance-and-maintainability",
-      "title": "dbt performance and maintainability",
-      "kind": "curated",
       "description": "Recipes for improving dbt performance and maintainability while preserving required behaviour.",
+      "id": "dbt-performance-and-maintainability",
+      "kind": "curated",
       "members": [
         "dbt-full-refresh-to-incremental"
       ],
@@ -79,29 +11,32 @@
         "dbt-full-refresh-to-incremental"
       ],
       "supported_or_proven_count": 1,
+      "title": "dbt performance and maintainability",
       "website_publication_threshold": 1,
       "website_visible": true
     },
     {
-      "id": "finance-data-engineering",
-      "title": "Finance data engineering",
-      "kind": "function",
       "description": "Recipes for data engineers working with finance-domain data and controls.",
+      "id": "finance-data-engineering",
+      "kind": "function",
+      "resolved_members": [],
       "selector": {
         "function": [
           "finance"
         ]
       },
-      "resolved_members": [],
       "supported_or_proven_count": 0,
+      "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": false
     },
     {
-      "id": "microsoft-fabric",
-      "title": "Microsoft Fabric",
-      "kind": "platform",
       "description": "Recipes that can execute against Microsoft Fabric Lakehouse, Fabric Warehouse, or both.",
+      "id": "microsoft-fabric",
+      "kind": "platform",
+      "resolved_members": [
+        "dbt-full-refresh-to-incremental"
+      ],
       "selector": {
         "platforms_any": [
           "fabric_lakehouse",
@@ -111,33 +46,78 @@
       "subfilters": [
         {
           "id": "all",
-          "title": "All",
           "platforms_any": [
             "fabric_lakehouse",
             "fabric_warehouse"
-          ]
+          ],
+          "title": "All"
         },
         {
           "id": "lakehouse",
-          "title": "Lakehouse",
           "platforms_any": [
             "fabric_lakehouse"
-          ]
+          ],
+          "title": "Lakehouse"
         },
         {
           "id": "warehouse",
-          "title": "Warehouse",
           "platforms_any": [
             "fabric_warehouse"
-          ]
+          ],
+          "title": "Warehouse"
         }
       ],
-      "resolved_members": [
-        "dbt-full-refresh-to-incremental"
-      ],
       "supported_or_proven_count": 1,
+      "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
     }
-  ]
+  ],
+  "recipes": [
+    {
+      "area": "transformation",
+      "description": "Convert an existing full-refresh dbt model to an incremental implementation while preserving its required semantics, handling agreed late-arriving data correctly, and recording the before-and-after runtime.",
+      "domain_objects": [
+        "dbt_model"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "validating-against-baseline",
+          "dbt-unit-testing"
+        ]
+      },
+      "id": "dbt-full-refresh-to-incremental",
+      "job_category": "re-engineer",
+      "path": "recipes/dbt-full-refresh-to-incremental/recipe.md",
+      "pitch": "Make a slow full-refresh dbt model incremental and prove both the output parity and the runtime saving.",
+      "readiness": "supported",
+      "sha256": "0cb71391258d005d32afdd490f03f285cbb6109b37caed16de0f64fcbde29129",
+      "title": "Convert a full-refresh dbt model to incremental and show the runtime delta",
+      "trigger": [
+        "A dbt model is correct but a full refresh is too slow or too expensive to run routinely.",
+        "A full-refresh model needs to become incremental without changing its required consumer-visible output."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    }
+  ],
+  "schema_versions": {
+    "catalog": 1,
+    "collection": 1,
+    "recipe": 1
+  },
+  "source": "https://github.com/accelerate-data/vibedata-cookbooks"
 }

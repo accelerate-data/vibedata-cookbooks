@@ -1,399 +1,221 @@
 #!/usr/bin/env python3
-"""Validate canonical Cookbook JSON and generate Recipe pages + catalog.json.
+"""Validate the cookbook and generate catalog.json from Recipe frontmatter.
 
-No third-party dependencies are required. JSON Schema files document the public
-contract; this script enforces the invariants needed to keep generated surfaces
-and discovery data consistent.
+Run `python3 scripts/build_catalog.py` to regenerate catalog.json, or pass
+`--check` to fail when catalog.json differs from a fresh build. The contract
+rules live in schema/*.json; this script applies them.
 """
 
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
-import subprocess
+import sys
+from collections.abc import Iterator
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from jsonschema import Draft202012Validator
+from jsonschema.exceptions import SchemaError
+
+from recipe_format import CookbookError, check_markup, load_frontmatter, parse_body, split_frontmatter
+
 ROOT = Path(__file__).resolve().parents[1]
-RECIPES_DIR = ROOT / "recipes"
-COLLECTIONS_DIR = ROOT / "collections"
-CATALOG_PATH = ROOT / "catalog.json"
 REPO_URL = "https://github.com/accelerate-data/vibedata-cookbooks"
-
-JOB_CATEGORIES = {
-    "get-running",
-    "re-engineer",
-    "build",
-    "prove",
-    "explain",
-    "cross-platform",
-}
-READINESS = {"proven", "supported", "planned"}
-PLATFORMS = {"fabric_lakehouse", "fabric_warehouse", "motherduck", "duckdb"}
-COLLECTION_KINDS = {"function", "industry", "platform", "curated", "problem-area"}
-REQUIRED_RECIPE_FIELDS = {
-    "id",
-    "title",
-    "trigger",
-    "description",
-    "job_category",
-    "area",
-    "readiness",
-    "prompt",
-    "verified_by",
-    "agent_guidance",
-}
+SCHEMA_NAMES = ("recipe", "catalog", "collection")
+RECIPE_FILE = "recipe.md"
+COUNTED_READINESS = {"supported", "proven"}
 
 
-def fail(message: str) -> None:
-    raise SystemExit(f"cookbook validation error: {message}")
+@dataclass(frozen=True)
+class Recipe:
+    meta: dict[str, Any]
+    body: dict[str, Any]
+    path: str
+    sha256: str
 
 
-def git_revision() -> str | None:
-    """Return the full 40-char commit SHA for HEAD, or None outside a git repo."""
+def load_schemas(root: Path) -> dict[str, dict[str, Any]]:
+    schemas: dict[str, dict[str, Any]] = {}
+    for name in SCHEMA_NAMES:
+        rel = f"schema/{name}.schema.json"
+        schema = json.loads((root / rel).read_text(encoding="utf-8"))
+        version = schema.get("version")
+        if type(version) is not int or version < 1:
+            raise CookbookError(f"{rel}: top-level 'version' must be an integer >= 1")
+        try:
+            Draft202012Validator.check_schema(schema)
+        except SchemaError as exc:
+            raise CookbookError(f"{rel}: not a valid JSON Schema: {exc.message}") from exc
+        schemas[name] = schema
+    return schemas
+
+
+def raise_first_schema_error(schema: dict[str, Any], instance: Any, label: str) -> None:
+    errors = sorted(
+        Draft202012Validator(schema).iter_errors(instance),
+        key=lambda error: ([str(part) for part in error.absolute_path], error.message),
+    )
+    if errors:
+        error = errors[0]
+        where = "/".join(str(part) for part in error.absolute_path) or "(root)"
+        raise CookbookError(f"{label}: {where}: {error.message}")
+
+
+def walk_strings(value: Any, label: str) -> Iterator[tuple[str, str]]:
+    if isinstance(value, str):
+        yield label, value
+    elif isinstance(value, dict):
+        for key, item in value.items():
+            yield from walk_strings(item, f"{label}.{key}")
+    elif isinstance(value, list):
+        for index, item in enumerate(value):
+            yield from walk_strings(item, f"{label}[{index}]")
+
+
+def visible_entries(directory: Path) -> list[Path]:
+    return sorted(path for path in directory.iterdir() if not path.name.startswith("."))
+
+
+def load_recipe(root: Path, directory: Path, schema: dict[str, Any]) -> Recipe:
+    rel_dir = directory.relative_to(root).as_posix()
+    names = [path.name for path in visible_entries(directory)]
+    if names != [RECIPE_FILE]:
+        raise CookbookError(f"{rel_dir}: must contain only {RECIPE_FILE}; found {names}")
+    path = directory / RECIPE_FILE
+    rel = path.relative_to(root).as_posix()
+    spec = schema["x-body"]
+    raw = path.read_bytes()
+    if len(raw) > spec["max_bytes"]:
+        raise CookbookError(f"{rel}: {len(raw)} bytes exceeds the {spec['max_bytes']}-byte cap")
     try:
-        result = subprocess.run(
-            ["git", "rev-parse", "HEAD"],
-            cwd=ROOT,
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-    except (OSError, subprocess.CalledProcessError):
-        return None
-    revision = result.stdout.strip()
-    return revision or None
-
-
-def load_json(path: Path) -> dict[str, Any]:
+        text = raw.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise CookbookError(f"{rel}: not UTF-8 ({exc.reason})") from exc
+    if not text.endswith("\n") or text.endswith("\n\n"):
+        raise CookbookError(f"{rel}: must end with exactly one newline")
     try:
-        value = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
-        fail(f"{path.relative_to(ROOT)}: {exc}")
-    if not isinstance(value, dict):
-        fail(f"{path.relative_to(ROOT)} must contain one JSON object")
-    return value
+        frontmatter, body_text = split_frontmatter(text)
+        meta = load_frontmatter(frontmatter)
+        for label, value in walk_strings(meta, "frontmatter"):
+            if "\n" in value or "\r" in value:
+                raise CookbookError(f"{label}: must be a single line")
+            check_markup(value, spec["markup"], label)
+        raise_first_schema_error(schema, meta, "frontmatter")
+        check_markup(body_text, spec["markup"], "body")
+        body = parse_body(body_text, spec)
+    except CookbookError as exc:
+        raise CookbookError(f"{rel}: {exc}") from exc
+    if meta["id"] != directory.name:
+        raise CookbookError(f"{rel}: id {meta['id']!r} must match directory name {directory.name!r}")
+    return Recipe(meta=meta, body=body, path=rel, sha256=hashlib.sha256(raw).hexdigest())
 
 
-def require_non_empty_string(value: Any, label: str) -> str:
-    if not isinstance(value, str) or not value.strip():
-        fail(f"{label} must be a non-empty string")
-    return value
-
-
-def require_string_list(value: Any, label: str, *, non_empty: bool = False) -> list[str]:
-    if not isinstance(value, list) or (non_empty and not value):
-        requirement = "a non-empty list" if non_empty else "a list"
-        fail(f"{label} must be {requirement} of strings")
-    for index, item in enumerate(value):
-        require_non_empty_string(item, f"{label}[{index}]")
-    if len(value) != len(set(value)):
-        fail(f"{label} must not contain duplicates")
-    return value
-
-
-def validate_recipe(path: Path, recipe: dict[str, Any]) -> None:
-    missing = sorted(REQUIRED_RECIPE_FIELDS - recipe.keys())
-    if missing:
-        fail(f"{path.relative_to(ROOT)} missing required fields: {', '.join(missing)}")
-
-    recipe_id = require_non_empty_string(recipe["id"], f"{path}: id")
-    if path.parent.name != recipe_id:
-        fail(f"{path.relative_to(ROOT)} id must match directory name {path.parent.name!r}")
-
-    require_non_empty_string(recipe["title"], f"{recipe_id}: title")
-    require_string_list(recipe["trigger"], f"{recipe_id}: trigger", non_empty=True)
-    require_non_empty_string(recipe["description"], f"{recipe_id}: description")
-    require_non_empty_string(recipe["area"], f"{recipe_id}: area")
-    require_non_empty_string(recipe["prompt"], f"{recipe_id}: prompt")
-    require_string_list(recipe["verified_by"], f"{recipe_id}: verified_by", non_empty=True)
-
-    if recipe["job_category"] not in JOB_CATEGORIES:
-        fail(f"{recipe_id}: unknown job_category {recipe['job_category']!r}")
-    if recipe["readiness"] not in READINESS:
-        fail(f"{recipe_id}: unknown readiness {recipe['readiness']!r}")
-
-    for key in ("function", "industry", "domain_objects", "qualifiers", "related"):
-        if key in recipe:
-            require_string_list(recipe[key], f"{recipe_id}: {key}")
-
-    works_with = recipe.get("works_with")
-    if works_with is not None:
-        if not isinstance(works_with, dict):
-            fail(f"{recipe_id}: works_with must be an object")
-        platforms = works_with.get("platforms", [])
-        require_string_list(platforms, f"{recipe_id}: works_with.platforms")
-        unknown = sorted(set(platforms) - PLATFORMS)
+def load_recipes(root: Path, schema: dict[str, Any]) -> list[Recipe]:
+    entries = visible_entries(root / "recipes")
+    stray = [path.name for path in entries if not path.is_dir()]
+    if stray:
+        raise CookbookError(f"recipes/: only Recipe directories are allowed; found {stray}")
+    recipes = [load_recipe(root, directory, schema) for directory in entries]
+    ids = {recipe.meta["id"] for recipe in recipes}
+    for recipe in recipes:
+        unknown = sorted(set(recipe.meta.get("related", [])) - ids)
         if unknown:
-            fail(f"{recipe_id}: unsupported platform values: {', '.join(unknown)}")
-        if "fabric" in platforms:
-            fail(f"{recipe_id}: generic 'fabric' is not an execution target")
-        if "tools" in works_with:
-            require_string_list(works_with["tools"], f"{recipe_id}: works_with.tools")
-
-    guidance = recipe["agent_guidance"]
-    if not isinstance(guidance, dict):
-        fail(f"{recipe_id}: agent_guidance must be an object")
-    require_non_empty_string(guidance.get("instructions"), f"{recipe_id}: agent_guidance.instructions")
-    for key in ("compose", "ask_first", "guardrails"):
-        if key in guidance:
-            require_string_list(guidance[key], f"{recipe_id}: agent_guidance.{key}")
-
-    evidence = recipe.get("evidence")
-    if evidence is not None:
-        if not isinstance(evidence, dict):
-            fail(f"{recipe_id}: evidence must be an object")
-        for key in ("features", "evals"):
-            if key in evidence:
-                require_string_list(evidence[key], f"{recipe_id}: evidence.{key}")
-
-    if recipe["readiness"] == "proven":
-        evals = (recipe.get("evidence") or {}).get("evals") or []
-        if not evals:
-            fail(
-                f"{recipe_id}: readiness 'proven' requires at least one non-empty entry in "
-                "evidence.evals (a dedicated Recipe-level eval/journey)"
-            )
+            raise CookbookError(f"{recipe.path}: related names unknown Recipes: {', '.join(unknown)}")
+    return recipes
 
 
-def recipe_matches_selector(recipe: dict[str, Any], selector: dict[str, Any]) -> bool:
-    if not selector:
-        return True
-
-    if "function" in selector:
-        held = set(recipe.get("function", []))
-        if not held.intersection(selector["function"]):
+def matches(meta: dict[str, Any], selector: dict[str, Any]) -> bool:
+    for key in ("function", "industry"):
+        if key in selector and not set(meta.get(key, [])) & set(selector[key]):
             return False
-    if "industry" in selector:
-        held = set(recipe.get("industry", []))
-        if not held.intersection(selector["industry"]):
-            return False
-    if "platforms_any" in selector:
-        held = set(recipe.get("works_with", {}).get("platforms", []))
-        if not held.intersection(selector["platforms_any"]):
-            return False
-    if "job_category" in selector:
-        if recipe["job_category"] not in selector["job_category"]:
-            return False
+    if "platforms_any" in selector and not set(meta["works_with"]["platforms"]) & set(selector["platforms_any"]):
+        return False
+    if "job_category" in selector and meta["job_category"] not in selector["job_category"]:
+        return False
     return True
 
 
-def validate_collection(path: Path, collection: dict[str, Any], recipe_ids: set[str]) -> None:
-    for key in ("id", "title", "kind", "description"):
-        if key not in collection:
-            fail(f"{path.relative_to(ROOT)} missing required field {key}")
-    collection_id = require_non_empty_string(collection["id"], f"{path}: id")
-    if path.stem != collection_id:
-        fail(f"{path.relative_to(ROOT)} id must match filename {path.stem!r}")
-    require_non_empty_string(collection["title"], f"{collection_id}: title")
-    require_non_empty_string(collection["description"], f"{collection_id}: description")
-    if collection["kind"] not in COLLECTION_KINDS:
-        fail(f"{collection_id}: unknown kind {collection['kind']!r}")
-    if "members" not in collection and "selector" not in collection:
-        fail(f"{collection_id}: define members or selector")
-    if "members" in collection:
-        members = require_string_list(collection["members"], f"{collection_id}: members")
-        missing = sorted(set(members) - recipe_ids)
-        if missing:
-            fail(f"{collection_id}: unknown Recipe members: {', '.join(missing)}")
-    selector = collection.get("selector")
-    if selector is not None:
-        if not isinstance(selector, dict):
-            fail(f"{collection_id}: selector must be an object")
-        for key in ("function", "industry", "platforms_any", "job_category"):
-            if key in selector:
-                require_string_list(selector[key], f"{collection_id}: selector.{key}")
-        if "platforms_any" in selector:
-            unknown = sorted(set(selector["platforms_any"]) - PLATFORMS)
-            if unknown:
-                fail(f"{collection_id}: unknown platform selector values: {', '.join(unknown)}")
-        if "job_category" in selector:
-            unknown = sorted(set(selector["job_category"]) - JOB_CATEGORIES)
-            if unknown:
-                fail(f"{collection_id}: unknown job categories: {', '.join(unknown)}")
-
-
-def resolve_collection_members(
-    collection: dict[str, Any], recipes_by_id: dict[str, dict[str, Any]]
-) -> list[str]:
-    members = set(collection.get("members", []))
-    selector = collection.get("selector")
-    if selector:
-        members.update(
-            recipe_id
-            for recipe_id, recipe in recipes_by_id.items()
-            if recipe_matches_selector(recipe, selector)
-        )
-    return sorted(members)
-
-
-def render_recipe(recipe: dict[str, Any]) -> str:
-    def bullets(items: list[str]) -> str:
-        return "\n".join(f"- {item}" for item in items)
-
-    lines = [
-        f"# {recipe['title']}",
-        "",
-        f"**Recipe ID:** `{recipe['id']}`  ",
-        f"**Job:** `{recipe['job_category']}`  ",
-        f"**Area:** `{recipe['area']}`  ",
-        f"**Readiness:** `{recipe['readiness']}`",
-        "",
-        recipe["description"],
-        "",
-        "## When to use this Recipe",
-        "",
-        bullets(recipe["trigger"]),
-        "",
-    ]
-
-    function = recipe.get("function", [])
-    industry = recipe.get("industry", [])
-    domain_objects = recipe.get("domain_objects", [])
-    platforms = recipe.get("works_with", {}).get("platforms", [])
-    tools = recipe.get("works_with", {}).get("tools", [])
-    if function or industry or domain_objects or platforms or tools:
-        lines.extend(["## Compatibility and context", ""])
-        if function:
-            lines.append(f"- **Function:** {', '.join(function)}")
-        if industry:
-            lines.append(f"- **Industry:** {', '.join(industry)}")
-        if domain_objects:
-            lines.append(f"- **Objects:** {', '.join(f'`{x}`' for x in domain_objects)}")
-        if platforms:
-            lines.append(f"- **Platforms:** {', '.join(f'`{x}`' for x in platforms)}")
-        if tools:
-            lines.append(f"- **Tools:** {', '.join(f'`{x}`' for x in tools)}")
-        lines.append("")
-
-    lines.extend(
-        [
-            "## Recipe prompt",
-            "",
-            "> This is the canonical task specification the agent reads after the Recipe is selected. It is not the website copy/paste invocation pointer.",
-            "",
-            recipe["prompt"],
-            "",
-            "## Verified by",
-            "",
-            bullets(recipe["verified_by"]),
-            "",
-            "## Agent guidance",
-            "",
-            recipe["agent_guidance"]["instructions"],
-            "",
-        ]
-    )
-
-    guidance = recipe["agent_guidance"]
-    if guidance.get("compose"):
-        lines.extend(["### Compose", "", bullets([f"`{x}`" for x in guidance["compose"]]), ""])
-    if guidance.get("ask_first"):
-        lines.extend(["### Ask first", "", bullets(guidance["ask_first"]), ""])
-    if guidance.get("guardrails"):
-        lines.extend(["### Guardrails", "", bullets(guidance["guardrails"]), ""])
-
-    lines.extend(
-        [
-            "## Invocation",
-            "",
-            "The Recipe executes in the current Intent context. A website or discovery surface should invoke it by ID/canonical URL rather than copying this entire page into a prompt.",
-            "",
-            "Canonical path:",
-            "",
-            f"`{REPO_URL}/tree/main/recipes/{recipe['id']}`",
-            "",
-            "<!-- Generated by scripts/build_catalog.py from recipe.json. Do not edit this README by hand. -->",
-            "",
-        ]
-    )
-    return "\n".join(lines)
-
-
-def build_outputs() -> tuple[dict[Path, str], dict[str, Any]]:
-    recipes: list[dict[str, Any]] = []
-    outputs: dict[Path, str] = {}
-
-    for path in sorted(RECIPES_DIR.glob("*/recipe.json")):
-        recipe = load_json(path)
-        validate_recipe(path, recipe)
-        recipes.append(recipe)
-        outputs[path.parent / "README.md"] = render_recipe(recipe)
-
-    recipe_ids = [recipe["id"] for recipe in recipes]
-    if len(recipe_ids) != len(set(recipe_ids)):
-        fail("Recipe IDs must be unique")
-    recipes_by_id = {recipe["id"]: recipe for recipe in recipes}
-
+def load_collections(
+    root: Path, schema: dict[str, Any], markup: dict[str, Any], recipes: list[Recipe]
+) -> list[dict[str, Any]]:
+    by_id = {recipe.meta["id"]: recipe.meta for recipe in recipes}
     collections: list[dict[str, Any]] = []
-    for path in sorted(COLLECTIONS_DIR.glob("*.json")):
-        collection = load_json(path)
-        validate_collection(path, collection, set(recipe_ids))
-        member_ids = resolve_collection_members(collection, recipes_by_id)
-        supported_count = sum(
-            1
-            for recipe_id in member_ids
-            if recipes_by_id[recipe_id]["readiness"] in {"supported", "proven"}
-        )
+    for path in sorted((root / "collections").glob("*.json")):
+        rel = path.relative_to(root).as_posix()
+        try:
+            collection = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            raise CookbookError(f"{rel}: not valid JSON: {exc}") from exc
+        raise_first_schema_error(schema, collection, rel)
+        for label, value in walk_strings(collection, rel):
+            check_markup(value, markup, label)
+        if collection["id"] != path.stem:
+            raise CookbookError(f"{rel}: id {collection['id']!r} must match filename {path.stem!r}")
+        unknown = sorted(set(collection.get("members", [])) - by_id.keys())
+        if unknown:
+            raise CookbookError(f"{rel}: members name unknown Recipes: {', '.join(unknown)}")
+        members = set(collection.get("members", []))
+        if "selector" in collection:
+            members |= {recipe_id for recipe_id, meta in by_id.items() if matches(meta, collection["selector"])}
+        resolved = sorted(members)
+        count = sum(1 for recipe_id in resolved if by_id[recipe_id]["readiness"] in COUNTED_READINESS)
         threshold = 3 if collection["kind"] == "function" else 1
         collections.append(
             {
                 **collection,
-                "resolved_members": member_ids,
-                "supported_or_proven_count": supported_count,
+                "resolved_members": resolved,
+                "supported_or_proven_count": count,
                 "website_publication_threshold": threshold,
-                "website_visible": supported_count >= threshold,
+                "website_visible": count >= threshold,
             }
         )
+    return collections
 
-    catalog_recipes = []
-    for recipe in sorted(recipes, key=lambda item: item["id"]):
-        catalog_recipes.append(
-            {
-                **recipe,
-                "canonical_url": f"{REPO_URL}/tree/main/recipes/{recipe['id']}",
-            }
-        )
 
+def build_catalog(root: Path = ROOT) -> tuple[dict[str, Any], str]:
+    schemas = load_schemas(root)
+    recipes = load_recipes(root, schemas["recipe"])
+    collections = load_collections(root, schemas["collection"], schemas["recipe"]["x-body"]["markup"], recipes)
     catalog = {
         "source": REPO_URL,
-        "revision": git_revision(),
-        "recipes": catalog_recipes,
-        "collections": sorted(collections, key=lambda item: item["id"]),
+        "schema_versions": {name: schemas[name]["version"] for name in SCHEMA_NAMES},
+        "recipes": [
+            {**recipe.meta, "path": recipe.path, "sha256": recipe.sha256}
+            for recipe in sorted(recipes, key=lambda recipe: recipe.meta["id"])
+        ],
+        "collections": sorted(collections, key=lambda collection: collection["id"]),
     }
-    outputs[CATALOG_PATH] = json.dumps(catalog, indent=2, ensure_ascii=False) + "\n"
-    return outputs, catalog
+    raise_first_schema_error(schemas["catalog"], catalog, "catalog.json")
+    return catalog, json.dumps(catalog, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--check",
-        action="store_true",
-        help="validate sources and fail if generated output differs from disk",
-    )
-    args = parser.parse_args()
-
-    outputs, catalog = build_outputs()
-    stale: list[str] = []
-    for path, content in outputs.items():
-        if args.check:
-            current = path.read_text(encoding="utf-8") if path.exists() else None
-            if current != content:
-                stale.append(str(path.relative_to(ROOT)))
-        else:
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text(content, encoding="utf-8")
-
-    if stale:
-        fail("generated files are stale: " + ", ".join(stale))
-
+def main(argv: list[str] | None = None, root: Path = ROOT) -> int:
+    parser = argparse.ArgumentParser(description="Validate the cookbook and generate catalog.json.")
+    parser.add_argument("--check", action="store_true", help="fail if catalog.json differs from a fresh build")
+    args = parser.parse_args(argv)
+    try:
+        catalog, text = build_catalog(root)
+    except CookbookError as exc:
+        print(f"cookbook validation error: {exc}", file=sys.stderr)
+        return 1
+    path = root / "catalog.json"
+    if args.check:
+        current = path.read_bytes().decode("utf-8") if path.exists() else None
+        if current != text:
+            print("cookbook validation error: catalog.json is stale; run python3 scripts/build_catalog.py", file=sys.stderr)
+            return 1
+    else:
+        path.write_bytes(text.encode("utf-8"))
     visible = sum(1 for collection in catalog["collections"] if collection["website_visible"])
     print(
-        f"validated {len(catalog['recipes'])} recipe(s), "
-        f"{len(catalog['collections'])} collection(s); {visible} collection(s) website-visible"
+        f"validated {len(catalog['recipes'])} recipe(s), {len(catalog['collections'])} collection(s); "
+        f"{visible} collection(s) website-visible"
     )
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
