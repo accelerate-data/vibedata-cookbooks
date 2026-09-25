@@ -1,77 +1,53 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/accelerate-data/vibedata-cookbooks/schema/collection.schema.json",
+  "version": 1,
   "title": "VibeData Cookbook Collection",
+  "description": "collections/<id>.json: a non-executable discovery view over Recipes.",
   "type": "object",
   "additionalProperties": false,
   "required": ["id", "title", "kind", "description"],
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 64 },
+    "line": { "type": "string", "pattern": "^[^\\r\\n]*\\S[^\\r\\n]*$" },
+    "token": { "type": "string", "pattern": "^[a-z0-9]+(?:[_-][a-z0-9]+)*$", "maxLength": 64 },
+    "platform": { "enum": ["duckdb_local", "motherduck", "fabric_lakehouse", "fabric_warehouse", "redshift"] }
+  },
   "properties": {
-    "id": {
-      "type": "string",
-      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
-    },
-    "title": { "type": "string", "minLength": 1 },
-    "description": { "type": "string", "minLength": 1 },
-    "kind": {
-      "enum": ["function", "industry", "platform", "curated", "problem-area"]
-    },
-    "members": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": { "type": "string", "minLength": 1 }
-    },
+    "id": { "$ref": "#/$defs/id" },
+    "title": { "$ref": "#/$defs/line", "maxLength": 120 },
+    "description": { "$ref": "#/$defs/line", "maxLength": 400 },
+    "kind": { "enum": ["function", "industry", "platform", "curated", "problem-area"] },
+    "members": { "type": "array", "maxItems": 500, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
     "selector": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "function": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": { "type": "string", "minLength": 1 }
-        },
-        "industry": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": { "type": "string", "minLength": 1 }
-        },
-        "platforms_any": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "enum": ["fabric_lakehouse", "fabric_warehouse", "motherduck", "duckdb"]
-          }
-        },
+        "function": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/token" } },
+        "industry": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/token" } },
+        "platforms_any": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/platform" } },
         "job_category": {
           "type": "array",
+          "minItems": 1,
           "uniqueItems": true,
-          "items": {
-            "enum": ["get-running", "re-engineer", "build", "prove", "explain", "cross-platform"]
-          }
+          "items": { "enum": ["get-running", "re-engineer", "build", "prove", "explain", "cross-platform"] }
         }
       }
     },
     "subfilters": {
       "type": "array",
+      "maxItems": 20,
       "items": {
         "type": "object",
         "additionalProperties": false,
         "required": ["id", "title"],
         "properties": {
-          "id": { "type": "string", "minLength": 1 },
-          "title": { "type": "string", "minLength": 1 },
-          "platforms_any": {
-            "type": "array",
-            "uniqueItems": true,
-            "items": {
-              "enum": ["fabric_lakehouse", "fabric_warehouse", "motherduck", "duckdb"]
-            }
-          }
+          "id": { "$ref": "#/$defs/id" },
+          "title": { "$ref": "#/$defs/line", "maxLength": 60 },
+          "platforms_any": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/platform" } }
         }
       }
     }
   },
-  "anyOf": [
-    { "required": ["members"] },
-    { "required": ["selector"] }
-  ]
+  "anyOf": [{ "required": ["members"] }, { "required": ["selector"] }]
 }
