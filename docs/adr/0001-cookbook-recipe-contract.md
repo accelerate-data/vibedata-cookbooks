@@ -23,6 +23,7 @@ Recipes were JSON even though most of each one is guidance written by people and
 - Adding an optional frontmatter field is not breaking, but it touches both `recipe.schema.json` and `catalog.schema.json`, whose copies a test keeps identical.
 - The caps were set from the published Recipes with headroom; a legitimate Recipe that hits one raises the cap, which is not a breaking change.
 - Signed releases, release tags and branch protection stay out of scope; readers keep following `main`.
+- Markup rules apply to frontmatter values, not to YAML comments. A comment is stripped by the parser before the frontmatter becomes fields, so it never reaches the catalog or a reader's parsed Recipe; this is an accepted limitation, and it must be revisited if a reader ever serves raw frontmatter text verbatim.
 
 ## Alternatives considered
 
