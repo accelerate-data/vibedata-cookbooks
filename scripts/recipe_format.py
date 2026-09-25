@@ -149,3 +149,23 @@ def parse_body(body: str, spec: dict[str, Any]) -> dict[str, Any]:
         if "field" in section:
             _assign(result, section["field"], value)
     return result
+
+
+def check_markup(text: str, markup: dict[str, Any], label: str) -> None:
+    """Reject markup that could escape its section; allow <lower_snake_case> placeholders."""
+    if re.search(markup["forbidden_chars_pattern"], text):
+        raise CookbookError(f"{label}: contains a control, zero-width, bidirectional or byte-order character")
+    for token in markup["forbidden_substrings"]:
+        if token in text:
+            raise CookbookError(f"{label}: contains forbidden markup {token!r}")
+    if re.search(markup["entity_pattern"], text):
+        raise CookbookError(f"{label}: contains an HTML entity")
+    placeholder = re.compile(markup["placeholder_pattern"])
+    denied = set(markup["denied_placeholder_names"])
+    for opening in re.finditer("<", text):
+        match = placeholder.match(text, opening.start())
+        if match is None:
+            raise CookbookError(f"{label}: every '<' must open a lower_snake_case placeholder such as <model_name>")
+        name = match.group(0)[1:-1]
+        if name in denied:
+            raise CookbookError(f"{label}: <{name}> is an HTML or tool-call tag, not a placeholder")
