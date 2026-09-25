@@ -16,6 +16,7 @@ class CookbookError(Exception):
     """A cookbook contract violation."""
 
 
+# format-rules: begin
 def split_frontmatter(text: str) -> tuple[str, str]:
     """Return (frontmatter YAML text, body text) for a recipe.md file."""
     if not text.startswith("---\n"):
@@ -24,6 +25,7 @@ def split_frontmatter(text: str) -> tuple[str, str]:
     if end == -1:
         raise CookbookError("frontmatter has no closing '---' line")
     return text[4 : end + 1], text[end + 5 :]
+# format-rules: end
 
 
 class _StrictLoader(yaml.SafeLoader):
@@ -71,6 +73,7 @@ def load_frontmatter(yaml_text: str) -> dict[str, Any]:
     return value
 
 
+# format-rules: begin
 _NOT_A_PARAGRAPH = re.compile(r"^(?:[-*+]\s|\d+[.)]\s|>|\|)")
 
 
@@ -149,6 +152,7 @@ def parse_body(body: str, spec: dict[str, Any]) -> dict[str, Any]:
         if "field" in section:
             _assign(result, section["field"], value)
     return result
+# format-rules: end
 
 
 def check_markup(text: str, markup: dict[str, Any], label: str) -> None:

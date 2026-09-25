@@ -6,7 +6,8 @@ Usage: python3 scripts/check_schema_versions.py --base <git-rev>
 Each schema/*.schema.json in the working tree is compared with the same file at
 <git-rev> (CI passes the merge base). A breaking change needs version + 1; a
 non-breaking change keeps the version. Any change this classifier cannot prove
-is loosening counts as breaking.
+is loosening counts as breaking. An edit inside a format-rule region of the
+build scripts counts as a breaking change to recipe.schema.json.
 """
 
 from __future__ import annotations
@@ -29,6 +30,9 @@ SUBSCHEMAS = {"items", "not", "if", "then", "else", "contains"}
 SUBSCHEMA_LISTS = {"allOf", "anyOf", "oneOf", "prefixItems"}
 BODY_UPPER = ("max_chars", "max_items")
 MARKUP_LISTS = ("forbidden_substrings", "denied_placeholder_names")
+FORMAT_RULE_FILES = ("scripts/recipe_format.py", "scripts/build_catalog.py")
+FORMAT_BEGIN = "# format-rules: begin"
+FORMAT_END = "# format-rules: end"
 
 
 def _markup_changes(old: dict[str, Any], new: dict[str, Any], where: str) -> list[str]:
@@ -142,9 +146,53 @@ def _is_version(value: Any) -> bool:
     return type(value) is int and value >= 1
 
 
+def format_rule_regions(text: str) -> list[str] | None:
+    """Return the text of each marked format-rule region, or None when the markers are unbalanced."""
+    regions: list[str] = []
+    current: list[str] | None = None
+    for line in text.split("\n"):
+        marker = line.strip()
+        if marker == FORMAT_BEGIN:
+            if current is not None:
+                return None
+            current = []
+        elif marker == FORMAT_END:
+            if current is None:
+                return None
+            regions.append("\n".join(current))
+            current = None
+        elif current is not None:
+            current.append(line)
+    return None if current is not None else regions
+
+
+def format_rule_changes(root: Path, base_rev: str) -> list[str]:
+    """List edits, relative to base_rev, to the code that enforces the prose file and line rules.
+
+    Those rules are not x-body data, so readers hard-code them; an edit is a breaking
+    change to recipe.schema.json. A base without markers has nothing to compare.
+    """
+    changes: list[str] = []
+    for rel in FORMAT_RULE_FILES:
+        head_path = root / rel
+        head = format_rule_regions(head_path.read_text(encoding="utf-8")) if head_path.exists() else []
+        shown = _git(root, "show", f"{base_rev}:{rel}")
+        base = format_rule_regions(shown.stdout) if shown.returncode == 0 else []
+        if head is None:
+            changes.append(f"{rel}: unbalanced '{FORMAT_BEGIN}' / '{FORMAT_END}' markers")
+        elif not base:
+            continue
+        elif not head:
+            changes.append(f"{rel}: format-rule regions removed")
+        elif head != base:
+            changes.append(f"{rel}: format-rule region changed")
+    return changes
+
+
 def check_versions(root: Path, base_rev: str) -> list[str]:
     if _git(root, "rev-parse", "--verify", "--quiet", f"{base_rev}^{{commit}}").returncode != 0:
         return [f"base revision {base_rev!r} is not a commit"]
+    format_changes = format_rule_changes(root, base_rev)
     errors: list[str] = []
     for name in SCHEMA_FILES:
         rel = f"schema/{name}"
@@ -171,6 +219,8 @@ def check_versions(root: Path, base_rev: str) -> list[str]:
                 errors.append(f"{rel}: the first versioned schema is version 1, not {head_version}")
             continue
         breaking = breaking_changes(base, head)
+        if name == "recipe.schema.json":
+            breaking += format_changes
         if breaking and head_version != base_version + 1:
             errors.append(
                 f"{rel}: breaking change without a version bump to {base_version + 1} "

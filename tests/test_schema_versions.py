@@ -10,8 +10,8 @@ from typing import Any, Callable
 
 import pytest
 
-from check_schema_versions import SCHEMA_FILES, breaking_changes, check_versions
-from samples import load_schema
+from check_schema_versions import FORMAT_RULE_FILES, SCHEMA_FILES, breaking_changes, check_versions, format_rule_regions
+from samples import REPO_ROOT, load_schema
 
 BASE: dict[str, Any] = {
     "version": 1,
@@ -211,3 +211,64 @@ def test_first_versioned_schema_is_version_1(repo):
 def test_unknown_base_revision_fails(repo):
     (error,) = check_versions(repo, "no-such-rev")
     assert "not a commit" in error
+
+
+MARKED = "def keep():\n    pass\n\n# format-rules: begin\ndef rule():\n    return 1\n# format-rules: end\n"
+
+
+def write_script(root: Path, rel: str, text: str) -> None:
+    path = root / rel
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8")
+
+
+@pytest.fixture
+def marked_repo(repo: Path) -> Path:
+    for rel in FORMAT_RULE_FILES:
+        write_script(repo, rel, MARKED)
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "format-rule markers")
+    return repo
+
+
+def test_introducing_format_rule_markers_needs_no_bump(repo):
+    write_script(repo, "scripts/recipe_format.py", MARKED)
+    assert check_versions(repo, "HEAD") == []
+
+
+def test_format_rule_edit_without_bump_fails(marked_repo):
+    write_script(marked_repo, "scripts/recipe_format.py", MARKED.replace("return 1", "return 2"))
+    (error,) = check_versions(marked_repo, "HEAD")
+    assert error.startswith("schema/recipe.schema.json: breaking change without a version bump to 2")
+    assert "scripts/recipe_format.py: format-rule region changed" in error
+
+
+def test_format_rule_edit_with_bump_passes(marked_repo):
+    write_script(marked_repo, "scripts/build_catalog.py", MARKED.replace("return 1", "return 2"))
+    write(marked_repo, "recipe.schema.json", changed(lambda s: s.update(version=2)))
+    assert check_versions(marked_repo, "HEAD") == []
+
+
+def test_edit_outside_format_rules_needs_no_bump(marked_repo):
+    write_script(marked_repo, "scripts/recipe_format.py", MARKED.replace("pass", "return None"))
+    assert check_versions(marked_repo, "HEAD") == []
+
+
+def test_removing_format_rule_markers_fails(marked_repo):
+    write_script(marked_repo, "scripts/build_catalog.py", "def rule():\n    return 1\n")
+    (error,) = check_versions(marked_repo, "HEAD")
+    assert "scripts/build_catalog.py: format-rule regions removed" in error
+
+
+def test_unbalanced_format_rule_markers_fail(marked_repo):
+    write_script(marked_repo, "scripts/recipe_format.py", MARKED.replace("# format-rules: end\n", ""))
+    (error,) = check_versions(marked_repo, "HEAD")
+    assert "scripts/recipe_format.py: unbalanced" in error
+
+
+def test_repository_marks_the_code_that_enforces_the_format_rules():
+    regions = {rel: "\n".join(format_rule_regions((REPO_ROOT / rel).read_text(encoding="utf-8")) or []) for rel in FORMAT_RULE_FILES}
+    for fragment in ("def split_frontmatter", "_NOT_A_PARAGRAPH = ", "def _section_value", "def parse_body"):
+        assert fragment in regions["scripts/recipe_format.py"], fragment
+    for fragment in ('raw.decode("utf-8")', 'text.endswith("\\n\\n")'):
+        assert fragment in regions["scripts/build_catalog.py"], fragment

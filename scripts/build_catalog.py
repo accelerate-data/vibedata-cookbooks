@@ -87,6 +87,7 @@ def load_recipe(root: Path, directory: Path, schema: dict[str, Any]) -> Recipe:
     path = directory / RECIPE_FILE
     rel = path.relative_to(root).as_posix()
     spec = schema["x-body"]
+    # format-rules: begin
     raw = path.read_bytes()
     if len(raw) > spec["max_bytes"]:
         raise CookbookError(f"{rel}: {len(raw)} bytes exceeds the {spec['max_bytes']}-byte cap")
@@ -96,6 +97,7 @@ def load_recipe(root: Path, directory: Path, schema: dict[str, Any]) -> Recipe:
         raise CookbookError(f"{rel}: not UTF-8 ({exc.reason})") from exc
     if not text.endswith("\n") or text.endswith("\n\n"):
         raise CookbookError(f"{rel}: must end with exactly one newline")
+    # format-rules: end
     try:
         frontmatter, body_text = split_frontmatter(text)
         meta = load_frontmatter(frontmatter)
