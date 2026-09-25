@@ -10,6 +10,8 @@
 
 **Spec:** Linear VD-6115 (acceptance criteria) and the agreed decisions recorded in the Contract section below, which is the binding copy for this repository. Downstream plans (Studio VD-6112/VD-6116 and the plugin VD-6114) consume the Contract section verbatim.
 
+> **Review gate:** the product owner reviews this Contract section and the three new Recipes' full text (Tasks 10, 11 and 12) before any task starts. Do not begin Task 1 until that review is recorded, and apply any change it asks for to this plan first.
+
 ## Contract
 
 Two downstream plans read these exact values. Any change to them during implementation must be reported back before it lands.
