@@ -26,7 +26,7 @@
     "description": { "$ref": "#/$defs/line", "maxLength": 400 },
     "pitch": { "$ref": "#/$defs/line", "maxLength": 160, "pattern": "^(?!.*[.!?]\\s).*[.!?]$" },
     "job_category": { "enum": ["get-running", "re-engineer", "build", "prove", "explain", "cross-platform"] },
-    "area": { "type": "string", "pattern": "^[a-z0-9]+(?:[a-z0-9]*-[a-z0-9]+)*$", "maxLength": 40 },
+    "area": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 40 },
     "readiness": { "enum": ["proven", "supported", "planned"] },
     "function": { "type": "array", "maxItems": 10, "uniqueItems": true, "items": { "$ref": "#/$defs/token" } },
     "industry": { "type": "array", "maxItems": 10, "uniqueItems": true, "items": { "$ref": "#/$defs/token" } },
