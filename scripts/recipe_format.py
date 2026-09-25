@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from typing import Any
 
+import re
 import yaml
 
 
@@ -68,3 +69,83 @@ def load_frontmatter(yaml_text: str) -> dict[str, Any]:
     for key, item in value.items():
         _require_json_types(item, key)
     return value
+
+
+_NOT_A_PARAGRAPH = re.compile(r"^(?:[-*+]\s|\d+[.)]\s|>|\|)")
+
+
+def _check_cap(heading: str, text: str, cap: int) -> None:
+    if len(text) > cap:
+        raise CookbookError(f"{heading}: {len(text)} characters exceeds the {cap}-character cap")
+
+
+def _section_value(section: dict[str, Any], content: list[str]) -> Any:
+    heading = section["heading"]
+    kind = section["kind"]
+    if kind == "container":
+        if content:
+            raise CookbookError(f"{heading}: must hold only its subsections")
+        return None
+    if kind == "paragraph":
+        if len(content) != 1:
+            raise CookbookError(f"{heading}: must be exactly one paragraph on one line")
+        text = content[0]
+        if _NOT_A_PARAGRAPH.match(text):
+            raise CookbookError(f"{heading}: must be a paragraph, not a list, quote or table")
+        for token in section.get("forbid", []):
+            if token in text:
+                raise CookbookError(f"{heading}: must not contain {token!r}")
+        _check_cap(heading, text, section["max_chars"])
+        return text
+    if kind == "bullets":
+        items: list[str] = []
+        for line in content:
+            if not line.startswith("- ") or len(line) < 3:
+                raise CookbookError(f"{heading}: every line must be a '- ' bullet, with no blank lines between bullets")
+            item = line[2:]
+            if item != item.strip():
+                raise CookbookError(f"{heading}: bullet text must have no leading or trailing whitespace")
+            items.append(item)
+        low, high = section["min_items"], section["max_items"]
+        if not low <= len(items) <= high:
+            raise CookbookError(f"{heading}: needs between {low} and {high} bullets; found {len(items)}")
+        for item in items:
+            _check_cap(heading, item, section["max_chars"])
+        return items
+    raise CookbookError(f"{heading}: unknown section kind {kind!r}")
+
+
+def _assign(result: dict[str, Any], field: str, value: Any) -> None:
+    *parents, leaf = field.split(".")
+    target = result
+    for parent in parents:
+        target = target.setdefault(parent, {})
+    target[leaf] = value
+
+
+def parse_body(body: str, spec: dict[str, Any]) -> dict[str, Any]:
+    """Parse a recipe.md body into its fields, enforcing the x-body section rules."""
+    lines = body.split("\n")
+    for number, line in enumerate(lines, start=1):
+        if line != line.strip():
+            raise CookbookError(f"body line {number}: no leading or trailing whitespace is allowed")
+    sections = spec["sections"]
+    expected = [section["heading"] for section in sections]
+    positions = [index for index, line in enumerate(lines) if line.startswith("#")]
+    found = [lines[index] for index in positions]
+    if found != expected:
+        raise CookbookError(f"body headings must be exactly {expected}, in order; found {found}")
+    if any(lines[: positions[0]]):
+        raise CookbookError(f"body has text before {expected[0]!r}")
+    result: dict[str, Any] = {}
+    ends = positions[1:] + [len(lines)]
+    for section, start, end in zip(sections, positions, ends):
+        content = lines[start + 1 : end]
+        while content and content[0] == "":
+            content.pop(0)
+        while content and content[-1] == "":
+            content.pop()
+        value = _section_value(section, content)
+        if "field" in section:
+            _assign(result, section["field"], value)
+    return result
