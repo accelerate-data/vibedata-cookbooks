@@ -35,6 +35,7 @@
       "id": "microsoft-fabric",
       "kind": "platform",
       "resolved_members": [
+        "api-to-bronze-incremental-contract",
         "dbt-full-refresh-to-incremental"
       ],
       "selector": {
@@ -67,13 +68,55 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 1,
+      "supported_or_proven_count": 2,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
     }
   ],
   "recipes": [
+    {
+      "area": "ingestion",
+      "description": "Build a dlt pipeline that lands a SaaS or REST API into bronze with cursor-based incremental loading and a schema contract that decides how new or changed columns are handled, with pytest coverage of both and a sandbox load that proves the landed row counts.",
+      "domain_objects": [
+        "dlt_pipeline",
+        "dlt_resource",
+        "bronze_table"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "discovering-source-schema",
+          "generating-dlt-pipeline",
+          "running-dlt-in-sandbox",
+          "dlt-unit-testing",
+          "ingestion-data-testing"
+        ]
+      },
+      "id": "api-to-bronze-incremental-contract",
+      "job_category": "build",
+      "path": "recipes/api-to-bronze-incremental-contract/recipe.md",
+      "pitch": "Land an API into bronze incrementally, with a schema contract that decides what happens when a field changes.",
+      "readiness": "supported",
+      "sha256": "05fd902641f8f907ac9ad83ed107d3aec41b5d2f2e2071a13aadd002a562e227",
+      "title": "Land a SaaS or REST API into bronze with an incremental cursor and a schema contract",
+      "trigger": [
+        "An API source has to load into bronze incrementally instead of reloading everything on every run.",
+        "A pipeline breaks whenever the source API adds or changes a field."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dlt"
+        ]
+      }
+    },
     {
       "area": "transformation",
       "description": "Convert an existing full-refresh dbt model to an incremental implementation while preserving its required semantics, handling agreed late-arriving data correctly, and recording the before-and-after runtime.",
