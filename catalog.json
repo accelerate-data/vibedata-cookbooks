@@ -1,77 +1,9 @@
 {
-  "source": "https://github.com/accelerate-data/vibedata-cookbooks",
-  "revision": "12f2bbf8e83ca0fb22e95d31efa463d320458758",
-  "recipes": [
-    {
-      "id": "dbt-full-refresh-to-incremental",
-      "title": "Convert a full-refresh dbt model to incremental and show the runtime delta",
-      "trigger": [
-        "A dbt model is correct but a full refresh is too slow or too expensive to run routinely.",
-        "A full-refresh model needs to become incremental without changing its required consumer-visible output."
-      ],
-      "description": "Convert an existing full-refresh dbt model to an incremental implementation while preserving its required semantics, handling agreed late-arriving data correctly, and recording the before-and-after runtime.",
-      "prompt": "Convert the existing full-refresh dbt model to an incremental model. Preserve the required consumer-visible output and downstream contract. Determine and implement the appropriate incremental strategy from the model and source evidence, verify the unique-key and late-arriving-data behaviour, and record the runtime change against the current full-refresh baseline.",
-      "job_category": "re-engineer",
-      "area": "transformation",
-      "readiness": "supported",
-      "domain_objects": [
-        "dbt_model"
-      ],
-      "works_with": {
-        "platforms": [
-          "duckdb",
-          "motherduck",
-          "fabric_lakehouse",
-          "fabric_warehouse"
-        ],
-        "tools": [
-          "dbt"
-        ]
-      },
-      "verified_by": [
-        "Incremental output matches the approved full-refresh baseline on the agreed comparison slice.",
-        "A repeated incremental run produces no duplicate unique keys or unintended row changes.",
-        "The agreed late-arriving-data case updates exactly the expected records.",
-        "The before-and-after runtime is recorded from observed executions."
-      ],
-      "agent_guidance": {
-        "instructions": "Inspect the existing model, dependencies, source behaviour, and current full-refresh result before changing materialization. Use evidence to choose the incremental strategy and key. Implement the smallest change that preserves the model's required semantics. Run the old and new paths in the appropriate isolated environment and collect actual comparison and runtime evidence before declaring the Recipe complete.",
-        "compose": [
-          "profiling-source-data",
-          "generating-dbt-model",
-          "running-dbt-in-sandbox",
-          "validating-against-baseline",
-          "dbt-unit-testing"
-        ],
-        "ask_first": [
-          "Ask for the intended late-arriving-data policy only if it cannot be inferred from approved project requirements or existing model behaviour.",
-          "Ask for the intended business key only if no defensible unique key can be established from repository and data evidence."
-        ],
-        "guardrails": [
-          "Do not invent a unique key merely to make the incremental materialization compile.",
-          "Do not change consumer-visible model semantics merely to make incremental processing easier.",
-          "Do not treat predicted performance as evidence; record observed runtime from actual executions."
-        ]
-      },
-      "evidence": {
-        "features": [
-          "profiling-source-data",
-          "generating-dbt-model",
-          "running-dbt-in-sandbox",
-          "validating-against-baseline",
-          "dbt-unit-testing"
-        ],
-        "evals": []
-      },
-      "canonical_url": "https://github.com/accelerate-data/vibedata-cookbooks/tree/main/recipes/dbt-full-refresh-to-incremental"
-    }
-  ],
   "collections": [
     {
-      "id": "dbt-performance-and-maintainability",
-      "title": "dbt performance and maintainability",
-      "kind": "curated",
       "description": "Recipes for improving dbt performance and maintainability while preserving required behaviour.",
+      "id": "dbt-performance-and-maintainability",
+      "kind": "curated",
       "members": [
         "dbt-full-refresh-to-incremental"
       ],
@@ -79,29 +11,34 @@
         "dbt-full-refresh-to-incremental"
       ],
       "supported_or_proven_count": 1,
+      "title": "dbt performance and maintainability",
       "website_publication_threshold": 1,
       "website_visible": true
     },
     {
-      "id": "finance-data-engineering",
-      "title": "Finance data engineering",
-      "kind": "function",
       "description": "Recipes for data engineers working with finance-domain data and controls.",
+      "id": "finance-data-engineering",
+      "kind": "function",
+      "resolved_members": [],
       "selector": {
         "function": [
           "finance"
         ]
       },
-      "resolved_members": [],
       "supported_or_proven_count": 0,
+      "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": false
     },
     {
-      "id": "microsoft-fabric",
-      "title": "Microsoft Fabric",
-      "kind": "platform",
       "description": "Recipes that can execute against Microsoft Fabric Lakehouse, Fabric Warehouse, or both.",
+      "id": "microsoft-fabric",
+      "kind": "platform",
+      "resolved_members": [
+        "api-to-bronze-incremental-contract",
+        "dbt-full-refresh-to-incremental",
+        "fabric-data-pipeline-as-code"
+      ],
       "selector": {
         "platforms_any": [
           "fabric_lakehouse",
@@ -111,33 +48,196 @@
       "subfilters": [
         {
           "id": "all",
-          "title": "All",
           "platforms_any": [
             "fabric_lakehouse",
             "fabric_warehouse"
-          ]
+          ],
+          "title": "All"
         },
         {
           "id": "lakehouse",
-          "title": "Lakehouse",
           "platforms_any": [
             "fabric_lakehouse"
-          ]
+          ],
+          "title": "Lakehouse"
         },
         {
           "id": "warehouse",
-          "title": "Warehouse",
           "platforms_any": [
             "fabric_warehouse"
-          ]
+          ],
+          "title": "Warehouse"
         }
       ],
-      "resolved_members": [
-        "dbt-full-refresh-to-incremental"
-      ],
-      "supported_or_proven_count": 1,
+      "supported_or_proven_count": 3,
+      "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
     }
-  ]
+  ],
+  "recipes": [
+    {
+      "area": "ingestion",
+      "description": "Build a dlt pipeline that lands a SaaS or REST API into bronze with cursor-based incremental loading and a schema contract that decides how new or changed columns are handled, with pytest coverage of both and a sandbox load that proves the landed row counts.",
+      "domain_objects": [
+        "dlt_pipeline",
+        "dlt_resource",
+        "bronze_table"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "discovering-source-schema",
+          "generating-dlt-pipeline",
+          "running-dlt-in-sandbox",
+          "dlt-unit-testing",
+          "ingestion-data-testing"
+        ]
+      },
+      "id": "api-to-bronze-incremental-contract",
+      "job_category": "build",
+      "path": "recipes/api-to-bronze-incremental-contract/recipe.md",
+      "pitch": "Land an API into bronze incrementally, with a schema contract that decides what happens when a field changes.",
+      "readiness": "supported",
+      "sha256": "05fd902641f8f907ac9ad83ed107d3aec41b5d2f2e2071a13aadd002a562e227",
+      "title": "Land a SaaS or REST API into bronze with an incremental cursor and a schema contract",
+      "trigger": [
+        "An API source has to load into bronze incrementally instead of reloading everything on every run.",
+        "A pipeline breaks whenever the source API adds or changes a field."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dlt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Convert an existing full-refresh dbt model to an incremental implementation while preserving its required semantics, handling agreed late-arriving data correctly, and recording the before-and-after runtime.",
+      "domain_objects": [
+        "dbt_model"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "validating-against-baseline",
+          "dbt-unit-testing"
+        ]
+      },
+      "id": "dbt-full-refresh-to-incremental",
+      "job_category": "re-engineer",
+      "path": "recipes/dbt-full-refresh-to-incremental/recipe.md",
+      "pitch": "Make a slow full-refresh dbt model incremental and prove both the output parity and the runtime saving.",
+      "readiness": "supported",
+      "sha256": "0cb71391258d005d32afdd490f03f285cbb6109b37caed16de0f64fcbde29129",
+      "title": "Convert a full-refresh dbt model to incremental and show the runtime delta",
+      "trigger": [
+        "A dbt model is correct but a full refresh is too slow or too expensive to run routinely.",
+        "A full-refresh model needs to become incremental without changing its required consumer-visible output."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "orchestration",
+      "description": "Author a Fabric Data Pipeline and its schedule as committed code that runs ingestion, the dbt job and a downstream step in order, validate its dependency graph statically, run it once on demand, and document its schedule and dependency order.",
+      "domain_objects": [
+        "fabric_data_pipeline",
+        "dbt_job",
+        "schedule"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "generating-orchestration",
+          "evaluating-orchestration",
+          "running-orchestration-in-sandbox",
+          "documenting-orchestration"
+        ]
+      },
+      "id": "fabric-data-pipeline-as-code",
+      "job_category": "build",
+      "path": "recipes/fabric-data-pipeline-as-code/recipe.md",
+      "pitch": "Turn a clicked-together Fabric pipeline into committed code that runs ingestion, dbt and the downstream refresh in order.",
+      "readiness": "supported",
+      "sha256": "29159f5e5339cf756b3c72510ab2f4b4c1f5953f6fce83186404af7042b522ef",
+      "title": "Author a Fabric Data Pipeline that sequences ingestion, dbt, and downstream refresh as committed code",
+      "trigger": [
+        "A Fabric Data Pipeline was built by clicking and lives only in the workspace.",
+        "Ingestion, the dbt build and a downstream refresh have to run in order on a schedule in Fabric."
+      ],
+      "works_with": {
+        "platforms": [
+          "fabric_lakehouse",
+          "fabric_warehouse"
+        ],
+        "tools": [
+          "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "orchestration",
+      "description": "Author a MotherDuck Flight as committed code that runs a dlt load and then a dbt build in order on a schedule, with every credential declared as a secret, and prove one on-demand run succeeded on the workload's own result as well as the Flight's status.",
+      "domain_objects": [
+        "motherduck_flight",
+        "schedule"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "generating-orchestration",
+          "evaluating-orchestration",
+          "running-orchestration-in-sandbox",
+          "documenting-orchestration"
+        ]
+      },
+      "id": "motherduck-flight-scheduling",
+      "job_category": "build",
+      "path": "recipes/motherduck-flight-scheduling/recipe.md",
+      "pitch": "Replace the laptop cron with a committed MotherDuck Flight that loads and builds on a schedule.",
+      "readiness": "supported",
+      "sha256": "eb9c19cf1ca5f56065b6bec12e3bd27f8dad141def591983d47ac4abe3cd3df7",
+      "title": "Schedule a dlt load and a dbt build on MotherDuck as a committed MotherDuck Flight",
+      "trigger": [
+        "The MotherDuck load and build run from a cron job on someone's laptop.",
+        "A dlt load and a dbt build on MotherDuck have to run in order on a schedule without standing up an orchestrator."
+      ],
+      "works_with": {
+        "platforms": [
+          "motherduck"
+        ],
+        "tools": [
+          "dlt",
+          "dbt"
+        ]
+      }
+    }
+  ],
+  "schema_versions": {
+    "catalog": 1,
+    "collection": 1,
+    "recipe": 1
+  },
+  "source": "https://github.com/accelerate-data/vibedata-cookbooks"
 }

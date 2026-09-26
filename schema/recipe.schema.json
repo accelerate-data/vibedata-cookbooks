@@ -1,139 +1,93 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/accelerate-data/vibedata-cookbooks/schema/recipe.schema.json",
-  "title": "VibeData Recipe",
+  "version": 1,
+  "title": "VibeData Recipe frontmatter",
+  "description": "The YAML frontmatter of recipes/<id>/recipe.md. x-body publishes the body and markup rules that scripts/build_catalog.py enforces.",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "id",
-    "title",
-    "trigger",
-    "description",
-    "job_category",
-    "area",
-    "readiness",
-    "prompt",
-    "verified_by",
-    "agent_guidance"
-  ],
+  "required": ["id", "title", "trigger", "description", "job_category", "area", "readiness", "works_with"],
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 64 },
+    "line": { "type": "string", "pattern": "^[^\\r\\n]*\\S[^\\r\\n]*$" },
+    "token": { "type": "string", "pattern": "^[a-z0-9]+(?:[_-][a-z0-9]+)*$", "maxLength": 64 },
+    "platform": { "enum": ["duckdb_local", "motherduck", "fabric_lakehouse", "fabric_warehouse", "redshift"] }
+  },
   "properties": {
-    "id": {
-      "type": "string",
-      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
-    },
-    "title": { "type": "string", "minLength": 1 },
+    "id": { "$ref": "#/$defs/id" },
+    "title": { "$ref": "#/$defs/line", "maxLength": 120 },
     "trigger": {
       "type": "array",
       "minItems": 1,
-      "items": { "type": "string", "minLength": 1 }
-    },
-    "description": { "type": "string", "minLength": 1 },
-    "prompt": { "type": "string", "minLength": 1 },
-    "job_category": {
-      "enum": [
-        "get-running",
-        "re-engineer",
-        "build",
-        "prove",
-        "explain",
-        "cross-platform"
-      ]
-    },
-    "area": {
-      "type": "string",
-      "minLength": 1
-    },
-    "readiness": {
-      "enum": ["proven", "supported", "planned"]
-    },
-    "function": {
-      "type": "array",
+      "maxItems": 5,
       "uniqueItems": true,
-      "items": { "type": "string", "minLength": 1 }
+      "items": { "$ref": "#/$defs/line", "maxLength": 200 }
     },
-    "industry": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": { "type": "string", "minLength": 1 }
-    },
-    "domain_objects": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": { "type": "string", "minLength": 1 }
-    },
+    "description": { "$ref": "#/$defs/line", "maxLength": 400 },
+    "pitch": { "$ref": "#/$defs/line", "maxLength": 160, "pattern": "^(?!.*[.!?]\\s).*[.!?]$" },
+    "job_category": { "enum": ["get-running", "re-engineer", "build", "prove", "explain", "cross-platform"] },
+    "area": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 40 },
+    "readiness": { "enum": ["proven", "supported", "planned"] },
+    "function": { "type": "array", "maxItems": 10, "uniqueItems": true, "items": { "$ref": "#/$defs/token" } },
+    "industry": { "type": "array", "maxItems": 10, "uniqueItems": true, "items": { "$ref": "#/$defs/token" } },
+    "domain_objects": { "type": "array", "maxItems": 20, "uniqueItems": true, "items": { "$ref": "#/$defs/token" } },
     "works_with": {
       "type": "object",
       "additionalProperties": false,
+      "required": ["platforms"],
       "properties": {
-        "platforms": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "enum": [
-              "fabric_lakehouse",
-              "fabric_warehouse",
-              "motherduck",
-              "duckdb"
-            ]
-          }
-        },
-        "tools": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": { "type": "string", "minLength": 1 }
-        }
+        "platforms": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/platform" } },
+        "tools": { "type": "array", "maxItems": 10, "uniqueItems": true, "items": { "$ref": "#/$defs/token" } }
       }
     },
-    "qualifiers": {
-      "type": "array",
-      "items": { "type": "string", "minLength": 1 }
-    },
-    "verified_by": {
-      "type": "array",
-      "minItems": 1,
-      "items": { "type": "string", "minLength": 1 }
-    },
-    "agent_guidance": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["instructions"],
-      "properties": {
-        "instructions": { "type": "string", "minLength": 1 },
-        "compose": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": { "type": "string", "minLength": 1 }
-        },
-        "ask_first": {
-          "type": "array",
-          "items": { "type": "string", "minLength": 1 }
-        },
-        "guardrails": {
-          "type": "array",
-          "items": { "type": "string", "minLength": 1 }
-        }
-      }
-    },
-    "related": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": { "type": "string", "minLength": 1 }
-    },
+    "qualifiers": { "type": "array", "maxItems": 10, "uniqueItems": true, "items": { "$ref": "#/$defs/line", "maxLength": 120 } },
+    "related": { "type": "array", "maxItems": 10, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
     "evidence": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "features": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": { "type": "string", "minLength": 1 }
-        },
-        "evals": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": { "type": "string", "minLength": 1 }
-        }
+        "features": { "type": "array", "maxItems": 20, "uniqueItems": true, "items": { "$ref": "#/$defs/token" } },
+        "evals": { "type": "array", "maxItems": 20, "uniqueItems": true, "items": { "$ref": "#/$defs/line", "maxLength": 200 } }
       }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "required": ["readiness"], "properties": { "readiness": { "const": "proven" } } },
+      "then": {
+        "required": ["evidence"],
+        "properties": { "evidence": { "required": ["evals"], "properties": { "evals": { "minItems": 1 } } } }
+      }
+    }
+  ],
+  "x-body": {
+    "max_bytes": 16384,
+    "sections": [
+      { "heading": "## Prompt", "kind": "paragraph", "field": "prompt", "max_chars": 1200, "forbid": ["|"] },
+      { "heading": "## Verified by", "kind": "bullets", "field": "verified_by", "min_items": 1, "max_items": 12, "max_chars": 300 },
+      { "heading": "## Agent guidance", "kind": "container" },
+      { "heading": "### Instructions", "kind": "paragraph", "field": "agent_guidance.instructions", "max_chars": 1500 },
+      { "heading": "### Compose", "kind": "bullets", "field": "agent_guidance.compose", "min_items": 1, "max_items": 12, "max_chars": 80 },
+      { "heading": "### Ask first", "kind": "bullets", "field": "agent_guidance.ask_first", "min_items": 1, "max_items": 8, "max_chars": 300 },
+      { "heading": "### Guardrails", "kind": "bullets", "field": "agent_guidance.guardrails", "min_items": 1, "max_items": 10, "max_chars": 300 }
+    ],
+    "markup": {
+      "forbidden_substrings": ["</", "<!", "<?", "]]>", "```", "~~~", "antml:"],
+      "forbidden_chars_pattern": "[\\u0000-\\u0009\\u000B-\\u001F\\u007F\\u200B-\\u200F\\u202A-\\u202E\\u2066-\\u2069\\uFEFF]",
+      "entity_pattern": "&(?:#[0-9]+|#[xX][0-9a-fA-F]+|[A-Za-z][A-Za-z0-9]*);",
+      "placeholder_pattern": "<[a-z][a-z0-9_]*>",
+      "denied_placeholder_names": [
+        "a", "abbr", "address", "area", "article", "aside", "audio", "b", "base", "bdi", "bdo", "blockquote", "body", "br", "button",
+        "canvas", "caption", "cite", "code", "col", "colgroup", "data", "datalist", "dd", "del", "details", "dfn", "dialog", "div", "dl", "dt",
+        "em", "embed", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hgroup",
+        "hr", "html", "i", "iframe", "img", "input", "ins", "kbd", "label", "legend", "li", "link", "main", "map", "mark", "math", "menu",
+        "meta", "meter", "nav", "noscript", "object", "ol", "optgroup", "option", "output", "p", "param", "picture", "pre", "progress", "q",
+        "rp", "rt", "ruby", "s", "samp", "script", "search", "section", "select", "slot", "small", "source", "span", "strong", "style", "sub",
+        "summary", "sup", "svg", "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead", "time", "title", "tr", "track", "u",
+        "ul", "var", "video", "wbr",
+        "assistant", "function_calls", "function_results", "human", "invoke", "parameter", "system", "system_reminder", "thinking",
+        "tool_call", "tool_result", "tool_use", "user"
+      ]
     }
   }
 }
