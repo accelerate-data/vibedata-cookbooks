@@ -31,13 +31,50 @@
       "website_visible": false
     },
     {
+      "description": "Logistics and fleet analytics Recipes, including reusable modelling patterns with relevant operational triggers and domain-specific fleet and shift outcomes.",
+      "id": "logistics-and-fleet-analytics",
+      "kind": "curated",
+      "members": [
+        "business-event-fact",
+        "metric-population-and-rollups",
+        "event-resource-attribution",
+        "dbt-snapshot-history",
+        "operational-state-duration",
+        "logistics-fleet-utilization",
+        "shift-unit-economics",
+        "effective-dated-business-rules"
+      ],
+      "resolved_members": [
+        "business-event-fact",
+        "dbt-snapshot-history",
+        "effective-dated-business-rules",
+        "event-resource-attribution",
+        "logistics-fleet-utilization",
+        "metric-population-and-rollups",
+        "operational-state-duration",
+        "shift-unit-economics"
+      ],
+      "supported_or_proven_count": 8,
+      "title": "Logistics and fleet analytics",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
       "description": "Recipes that can execute against Microsoft Fabric Lakehouse, Fabric Warehouse, or both.",
       "id": "microsoft-fabric",
       "kind": "platform",
       "resolved_members": [
         "api-to-bronze-incremental-contract",
+        "business-event-fact",
         "dbt-full-refresh-to-incremental",
-        "fabric-data-pipeline-as-code"
+        "effective-dated-business-rules",
+        "event-resource-attribution",
+        "fabric-data-pipeline-as-code",
+        "logistics-fleet-utilization",
+        "metric-population-and-rollups",
+        "operational-state-duration",
+        "prove-dbt-change-safe",
+        "shift-unit-economics"
       ],
       "selector": {
         "platforms_any": [
@@ -69,8 +106,39 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 3,
+      "supported_or_proven_count": 11,
       "title": "Microsoft Fabric",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
+      "description": "Recipes for building analytical models with explicit grain, populations, relationships, history, operational time and business rules.",
+      "id": "modelling-correctness",
+      "kind": "curated",
+      "members": [
+        "business-event-fact",
+        "metric-population-and-rollups",
+        "event-resource-attribution",
+        "dbt-snapshot-history",
+        "operational-state-duration",
+        "logistics-fleet-utilization",
+        "shift-unit-economics",
+        "effective-dated-business-rules",
+        "prove-dbt-change-safe"
+      ],
+      "resolved_members": [
+        "business-event-fact",
+        "dbt-snapshot-history",
+        "effective-dated-business-rules",
+        "event-resource-attribution",
+        "logistics-fleet-utilization",
+        "metric-population-and-rollups",
+        "operational-state-duration",
+        "prove-dbt-change-safe",
+        "shift-unit-economics"
+      ],
+      "supported_or_proven_count": 9,
+      "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
     }
@@ -99,11 +167,12 @@
       "path": "recipes/api-to-bronze-incremental-contract/recipe.md",
       "pitch": "Land an API into bronze incrementally, with a schema contract that decides what happens when a field changes.",
       "readiness": "supported",
-      "sha256": "05fd902641f8f907ac9ad83ed107d3aec41b5d2f2e2071a13aadd002a562e227",
+      "sha256": "0e7eee461064b142e0390ad1019530703a43f1b496aa78b0b8c3b9112d9abd86",
       "title": "Land a SaaS or REST API into bronze with an incremental cursor and a schema contract",
       "trigger": [
         "An API source has to load into bronze incrementally instead of reloading everything on every run.",
-        "A pipeline breaks whenever the source API adds or changes a field."
+        "A pipeline breaks whenever the source API adds or changes a field.",
+        "A logistics API repeats shipment events across source rows that must remain traceable for downstream modelling."
       ],
       "works_with": {
         "platforms": [
@@ -120,6 +189,50 @@
     },
     {
       "area": "transformation",
+      "description": "Build an agreed event-grain fact with an evidence-backed identity rule, deterministic duplicate and correction handling, source lineage, explicit exceptions, and reconciled event counts and additive amounts.",
+      "domain_objects": [
+        "business_event",
+        "fact_table",
+        "source_record"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "business-event-fact",
+      "job_category": "build",
+      "path": "recipes/business-event-fact/recipe.md",
+      "pitch": "Count business events with a defensible identity rule and an audit trail for every source row.",
+      "readiness": "supported",
+      "sha256": "6acd7d37bb78219e6f4d7e3b5ebd51142d5b7952bc70e4d7216310a716c80ad5",
+      "title": "Build a business-event fact with auditable duplicate handling",
+      "trigger": [
+        "Transaction feeds overlap, and source deliveries may be counted as separate business events.",
+        "Replayed deliveries change a report's unique event count or additive totals.",
+        "A trip or consignment fact must preserve valid similar events and explain conflicting records."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Convert an existing full-refresh dbt model to an incremental implementation while preserving its required semantics, handling agreed late-arriving data correctly, and recording the before-and-after runtime.",
       "domain_objects": [
         "dbt_model"
@@ -130,7 +243,7 @@
           "profiling-source-data",
           "generating-dbt-model",
           "running-dbt-in-sandbox",
-          "validating-against-baseline",
+          "verifying",
           "dbt-unit-testing"
         ]
       },
@@ -139,11 +252,12 @@
       "path": "recipes/dbt-full-refresh-to-incremental/recipe.md",
       "pitch": "Make a slow full-refresh dbt model incremental and prove both the output parity and the runtime saving.",
       "readiness": "supported",
-      "sha256": "0cb71391258d005d32afdd490f03f285cbb6109b37caed16de0f64fcbde29129",
+      "sha256": "5037ec07a2936455834f6e578c06c8d3248b36ca208381f1f24abf7fe7afa717",
       "title": "Convert a full-refresh dbt model to incremental and show the runtime delta",
       "trigger": [
         "A dbt model is correct but a full refresh is too slow or too expensive to run routinely.",
-        "A full-refresh model needs to become incremental without changing its required consumer-visible output."
+        "A full-refresh model needs to become incremental without changing its required consumer-visible output.",
+        "A logistics event model must run incrementally, but loader rows may repeat the same shipment event."
       ],
       "works_with": {
         "platforms": [
@@ -151,6 +265,140 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Record dimension changes with dbt snapshots and build a bounded historical consumer that selects the agreed version for each fact, with controlled changes, boundary tests and reconciliation.",
+      "domain_objects": [
+        "dimension",
+        "business_event",
+        "history"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "authoring-dbt-project-artifact",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "dbt-snapshot-history",
+      "job_category": "build",
+      "path": "recipes/dbt-snapshot-history/recipe.md",
+      "pitch": "Preserve recorded dimension changes and prove that historical events select the right version.",
+      "qualifiers": [
+        "Complete snapshot outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Records available changes; present-state snapshots cannot reconstruct unobserved history."
+      ],
+      "readiness": "supported",
+      "sha256": "7a53e55172c50eb51108ba02c62d6bd0783e9a501d321f3b004d9611773aa106",
+      "title": "Add dimension history with verified historical fact classification",
+      "trigger": [
+        "Customer, asset or vendor attributes change, but past events need a defensible historical classification.",
+        "Reports join facts to today's dimension row and silently restate earlier results after master data changes.",
+        "A vehicle, driver or delivery zone changes classification and logistics reporting must select the version valid for each event."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build an event calculation model that selects applicable dated rules, calculates expected amounts and exposes missing or ambiguous matches under approved precedence and correction policies.",
+      "domain_objects": [
+        "business_event",
+        "effective_dated_rule",
+        "rate_component",
+        "expected_amount"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "effective-dated-business-rules",
+      "job_category": "build",
+      "path": "recipes/effective-dated-business-rules/recipe.md",
+      "pitch": "Calculate historical amounts from the rules that apply to each event, with visible exceptions and independent amount checks.",
+      "readiness": "supported",
+      "sha256": "d49e093ffc38553c9c0f34b71a3ba97ab2699fd3ddd1680f828c6a76378d3e83",
+      "title": "Build historical event amounts from effective-dated business rules",
+      "trigger": [
+        "Historical fees or surcharges change when a current rate is applied to past events.",
+        "Fleet tariffs or fare components vary by resource, customer or service date and need traceable historical calculations.",
+        "Overlapping rate versions or retroactive corrections make historical amounts ambiguous."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build event-to-resource relationships with source provenance, approved cardinality and temporal rules, visible unresolved cases, and count and amount reconciliation for observed assignments or approved allocations.",
+      "domain_objects": [
+        "business_event",
+        "resource",
+        "assignment",
+        "allocation"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "event-resource-attribution",
+      "job_category": "build",
+      "path": "recipes/event-resource-attribution/recipe.md",
+      "pitch": "Explain who or what is responsible for each event, with evidence and totals that survive attribution joins.",
+      "readiness": "supported",
+      "sha256": "6d2d568d0174149b9ca30778d8e9c0085b7f0911db3a05b08c437e92dc6aa834",
+      "title": "Build auditable event-to-resource attribution",
+      "trigger": [
+        "Revenue or productivity must be reported by employee, asset or team, but responsibility for each event is unclear.",
+        "Joining events to resource assignments duplicates amounts or assigns events outside the relationship's valid time.",
+        "Trip or delivery reporting needs defensible driver, vehicle or garage attribution, including shared responsibility."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
@@ -197,6 +445,99 @@
       }
     },
     {
+      "area": "transformation",
+      "description": "Build fleet utilisation with authoritative asset availability, maintenance-adjusted time, separate observation coverage and traceable numerator and denominator components that reconcile across daily and monthly reporting.",
+      "domain_objects": [
+        "asset",
+        "availability_interval",
+        "maintenance_interval",
+        "operational_observation",
+        "reporting_period"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "logistics-fleet-utilization",
+      "industry": [
+        "logistics"
+      ],
+      "job_category": "build",
+      "path": "recipes/logistics-fleet-utilization/recipe.md",
+      "pitch": "Measure fleet use against defensible available asset time while keeping missing observations and maintenance evidence visible.",
+      "readiness": "supported",
+      "sha256": "4afab5882fbb3c186aff5e52a4ed2e820f1abc6e83edac3a1e4b861af35cc5e0",
+      "title": "Build fleet utilisation against explicit asset availability",
+      "trigger": [
+        "A fleet dashboard labels observed vehicle occupancy as utilisation without an authoritative available-time denominator.",
+        "Fleet capacity reports omit available vehicles that never come online or subtract overlapping maintenance twice.",
+        "Daily and monthly vehicle utilisation disagree because roster, observation and downtime windows differ."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Implement a metric with approved eligibility, numerator and denominator components, missing-value and zero-denominator policies, weighting, dimension coverage and verified rollups at supported grains.",
+      "domain_objects": [
+        "metric",
+        "eligible_population",
+        "calculation_component"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "metric-population-and-rollups",
+      "job_category": "build",
+      "path": "recipes/metric-population-and-rollups/recipe.md",
+      "pitch": "Make the metric's population and components explicit so its values and supported totals can be checked.",
+      "readiness": "supported",
+      "sha256": "cc6ea13e2c23052935b8073afcb4a1a910ab7360f4fecb1ddf6c3469ad7d2df1",
+      "title": "Build a metric with explicit eligibility and reconcilable rollups",
+      "trigger": [
+        "A new percentage, rate or average needs a defensible eligible population and missing-value policy.",
+        "Daily and monthly metrics disagree, or totals change when a report groups the same records differently.",
+        "Trip tips, vehicle occupancy or delivery service rates depend on eligibility, measurement coverage and weighting."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
       "area": "orchestration",
       "description": "Author a MotherDuck Flight as committed code that runs a dlt load and then a dbt build in order on a schedule, with every credential declared as a secret, and prove one on-demand run succeeded on the workload's own result as well as the Flight's status.",
       "domain_objects": [
@@ -229,6 +570,145 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build evidence-backed state and location intervals, split them across agreed reporting boundaries, and reconcile durations with explicit unknown periods, missing closes and source lineage.",
+      "domain_objects": [
+        "operational_event",
+        "entity",
+        "state_interval",
+        "location",
+        "reporting_period"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "operational-state-duration",
+      "job_category": "build",
+      "path": "recipes/operational-state-duration/recipe.md",
+      "pitch": "Explain how long each entity spent in a state and where, without inventing locations or filling unknown time with activity.",
+      "readiness": "supported",
+      "sha256": "8aa3088c3d9ded5751e811521819f3fa385d488bbb1951823810aabc375348c9",
+      "title": "Build state durations by entity, location and reporting period",
+      "trigger": [
+        "Waiting, idle, available or busy time must be measured by site or zone and hour from operational event histories.",
+        "State and location change independently, leaving reports unable to explain where an entity spent its time.",
+        "Vehicle or equipment events have missing closes or observation gaps that could inflate operational duration totals."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "data-quality",
+      "description": "Produce an independent assessment of an existing dbt change against approved requirements and baselines, with semantic checks, evidence gaps and a merge recommendation while preserving the reviewed implementation.",
+      "domain_objects": [
+        "dbt_change",
+        "assurance_requirement",
+        "approved_baseline",
+        "assessment_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "evaluating-dbt-project",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "prove-dbt-change-safe",
+      "job_category": "prove",
+      "path": "recipes/prove-dbt-change-safe/recipe.md",
+      "pitch": "Review the business answers behind a dbt change with independent evidence and leave its implementation unchanged.",
+      "readiness": "supported",
+      "sha256": "4976eec6a7357fa915f20f67f7aaa9470f6803e2f70c57112522251c15aadf45",
+      "title": "Assess an existing dbt change for safe merge without modifying it",
+      "trigger": [
+        "An existing dbt change builds successfully but reviewers still need evidence that its business answers remain valid.",
+        "A change to fleet, shipment or financial models needs independent checks against agreed requirements and an approved baseline.",
+        "A reviewer must distinguish an implementation defect from missing data, missing relationships or insufficient test coverage."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build shift-grain revenue, cost and margin components from defensible event assignments and approved cost allocations, with visible cost completeness and reconciled driver, vehicle and period rollups.",
+      "domain_objects": [
+        "shift",
+        "driver",
+        "vehicle",
+        "revenue_event",
+        "cost_component",
+        "allocation"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "shift-unit-economics",
+      "industry": [
+        "logistics"
+      ],
+      "job_category": "build",
+      "path": "recipes/shift-unit-economics/recipe.md",
+      "pitch": "Explain shift economics with traceable revenue, complete cost status and allocations that conserve source amounts.",
+      "readiness": "supported",
+      "sha256": "8debaef4cfdb2d2abf143eb2a86dcfad2695ab62ee42750a07ca8cfcf5cce5e6",
+      "title": "Build shift revenue, cost and margin with reconciled rollups",
+      "trigger": [
+        "A fleet dashboard reports revenue per shift but cannot establish whether a shift covers its applicable costs.",
+        "Driver performance or vehicle economics need supported trip assignments and shared costs allocated at shift grain.",
+        "Shift margins disagree with driver, vehicle or period totals, or low-exposure shifts dominate a ranking."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
           "dbt"
         ]
       }

@@ -11,6 +11,10 @@ from samples import REPO_ROOT
 ALL_PLATFORMS = ["duckdb_local", "motherduck", "fabric_lakehouse", "fabric_warehouse", "redshift"]
 
 EXPECTED = {
+    "dbt-snapshot-history": {"readiness": "supported", "platforms": ["duckdb_local"]},
+    "business-event-fact": {"readiness": "supported", "platforms": ALL_PLATFORMS},
+    "event-resource-attribution": {"readiness": "supported", "platforms": ALL_PLATFORMS},
+    "effective-dated-business-rules": {"readiness": "supported", "platforms": ALL_PLATFORMS},
     "dbt-full-refresh-to-incremental": {
         "readiness": "supported",
         "platforms": ["duckdb_local", "motherduck", "fabric_lakehouse", "fabric_warehouse"],
@@ -18,6 +22,11 @@ EXPECTED = {
     "api-to-bronze-incremental-contract": {"readiness": "supported", "platforms": ALL_PLATFORMS},
     "fabric-data-pipeline-as-code": {"readiness": "supported", "platforms": ["fabric_lakehouse", "fabric_warehouse"]},
     "motherduck-flight-scheduling": {"readiness": "supported", "platforms": ["motherduck"]},
+    "logistics-fleet-utilization": {"readiness": "supported", "platforms": ALL_PLATFORMS},
+    "metric-population-and-rollups": {"readiness": "supported", "platforms": ALL_PLATFORMS},
+    "operational-state-duration": {"readiness": "supported", "platforms": ALL_PLATFORMS},
+    "prove-dbt-change-safe": {"readiness": "supported", "platforms": ALL_PLATFORMS},
+    "shift-unit-economics": {"readiness": "supported", "platforms": ALL_PLATFORMS},
 }
 
 
