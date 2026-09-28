@@ -38,7 +38,8 @@
         "api-to-bronze-incremental-contract",
         "business-event-fact",
         "dbt-full-refresh-to-incremental",
-        "fabric-data-pipeline-as-code"
+        "fabric-data-pipeline-as-code",
+        "metric-population-and-rollups"
       ],
       "selector": {
         "platforms_any": [
@@ -70,7 +71,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 4,
+      "supported_or_proven_count": 5,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -237,6 +238,50 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Implement a metric with approved eligibility, numerator and denominator components, missing-value and zero-denominator policies, weighting, dimension coverage and verified rollups at supported grains.",
+      "domain_objects": [
+        "metric",
+        "eligible_population",
+        "calculation_component"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "metric-population-and-rollups",
+      "job_category": "build",
+      "path": "recipes/metric-population-and-rollups/recipe.md",
+      "pitch": "Make the metric's population and components explicit so its values and supported totals can be checked.",
+      "readiness": "supported",
+      "sha256": "cc6ea13e2c23052935b8073afcb4a1a910ab7360f4fecb1ddf6c3469ad7d2df1",
+      "title": "Build a metric with explicit eligibility and reconcilable rollups",
+      "trigger": [
+        "A new percentage, rate or average needs a defensible eligible population and missing-value policy.",
+        "Daily and monthly metrics disagree, or totals change when a report groups the same records differently.",
+        "Trip tips, vehicle occupancy or delivery service rates depend on eligibility, measurement coverage and weighting."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
           "dbt"
         ]
       }
