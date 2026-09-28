@@ -266,7 +266,7 @@
       "path": "recipes/metric-population-and-rollups/recipe.md",
       "pitch": "Make the metric's population and components explicit so its values and supported totals can be checked.",
       "readiness": "supported",
-      "sha256": "ddc28431452d62dd91b09a12188c7c96de10263a1094a033f802a9f241617f0e",
+      "sha256": "cc6ea13e2c23052935b8073afcb4a1a910ab7360f4fecb1ddf6c3469ad7d2df1",
       "title": "Build a metric with explicit eligibility and reconcilable rollups",
       "trigger": [
         "A new percentage, rate or average needs a defensible eligible population and missing-value policy.",

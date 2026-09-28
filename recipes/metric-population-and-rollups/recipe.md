@@ -42,7 +42,7 @@ Build <metric_name> for the analytical questions, dimensions and aggregation gra
 
 - The documented definition states the source and output grains, eligible population, numerator, denominator, units, weighting, missing-value treatment, zero-denominator policy and supported rollups; outputs implement that approved definition.
 - A small independently specified fixture checks numerator and denominator membership separately, including eligible, ineligible and unresolved cases and any eligibility thresholds; expected components and values are fixed before comparison with model output.
-- An unknown or unobserved measurement and a measured zero produce the approved, distinguishable dispositions and contributions; unmeasurable cases and missing weights remain visible instead of becoming zero or silently leaving the population.
+- Unknown or unobserved measurements retain distinct statuses and reasons from measured zero, even when approval assigns them a zero contribution; unmeasurable cases and missing weights remain visible, not silently zeroed or removed.
 - Empty eligible populations and non-empty groups whose denominator is zero produce the explicitly approved value and status, without division errors or an unapproved zero, NULL or exclusion.
 - Unequal groups discriminate weighting choices: a labelled synthetic rate example with components 1/2 and 9/10 gives 5/6 for a pooled ratio or 7/10 for an equal-group mean. The approved rule selects the expectation; other formulas get equivalent independent cases.
 - Each requested supported dimension and time rollup matches independent recomputation from retained underlying components under the approved formula, weights and missing-value rules; rounded display values are not used as inputs.
@@ -79,7 +79,7 @@ Inherit the Intent's repository, platform, Domain and sources. Inspect approved 
 ### Guardrails
 
 - Do not mandate ratio-of-sums, average rates or choose weights for convenience. Use the approved definition, including non-ratio formulas and metrics that do not aggregate additively.
-- Do not substitute zero for absence or silently remove unknown, unmapped, ambiguous or unmeasurable records. Retain reasons and show their effect on coverage and components under the approved policy.
+- Do not assign zero to absence without approval or silently remove unknown, unmapped, ambiguous or unmeasurable records. Preserve missing status, reasons and coverage/component effects; approved zero contributions remain distinct from measured zero.
 - Do not sum percentages or average precomputed averages unless that is the approved formula. Retain sufficient components and weights; distinguish calculation precision from display rounding.
 - A fully specified simple ratio is a Feature, not a new Recipe. This Recipe resolves population, measurement and rollup semantics for one bounded metric outcome.
 - Do not invent dimensions, history, mappings or relationships for optional analytical breakdowns. Expose missing evidence for required questions; label synthetic fixtures and approved allocations accurately.
