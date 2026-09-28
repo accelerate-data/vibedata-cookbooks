@@ -107,11 +107,12 @@
       "path": "recipes/api-to-bronze-incremental-contract/recipe.md",
       "pitch": "Land an API into bronze incrementally, with a schema contract that decides what happens when a field changes.",
       "readiness": "supported",
-      "sha256": "05fd902641f8f907ac9ad83ed107d3aec41b5d2f2e2071a13aadd002a562e227",
+      "sha256": "0e7eee461064b142e0390ad1019530703a43f1b496aa78b0b8c3b9112d9abd86",
       "title": "Land a SaaS or REST API into bronze with an incremental cursor and a schema contract",
       "trigger": [
         "An API source has to load into bronze incrementally instead of reloading everything on every run.",
-        "A pipeline breaks whenever the source API adds or changes a field."
+        "A pipeline breaks whenever the source API adds or changes a field.",
+        "A logistics API repeats shipment events across source rows that must remain traceable for downstream modelling."
       ],
       "works_with": {
         "platforms": [
@@ -182,7 +183,7 @@
           "profiling-source-data",
           "generating-dbt-model",
           "running-dbt-in-sandbox",
-          "validating-against-baseline",
+          "verifying",
           "dbt-unit-testing"
         ]
       },
@@ -191,11 +192,12 @@
       "path": "recipes/dbt-full-refresh-to-incremental/recipe.md",
       "pitch": "Make a slow full-refresh dbt model incremental and prove both the output parity and the runtime saving.",
       "readiness": "supported",
-      "sha256": "0cb71391258d005d32afdd490f03f285cbb6109b37caed16de0f64fcbde29129",
+      "sha256": "5037ec07a2936455834f6e578c06c8d3248b36ca208381f1f24abf7fe7afa717",
       "title": "Convert a full-refresh dbt model to incremental and show the runtime delta",
       "trigger": [
         "A dbt model is correct but a full refresh is too slow or too expensive to run routinely.",
-        "A full-refresh model needs to become incremental without changing its required consumer-visible output."
+        "A full-refresh model needs to become incremental without changing its required consumer-visible output.",
+        "A logistics event model must run incrementally, but loader rows may repeat the same shipment event."
       ],
       "works_with": {
         "platforms": [
