@@ -14,7 +14,7 @@ Readers such as Studio follow `main` (ADR 0001). Any change merged to `main` rea
 3. **Only the owners change `main`.** Branch protection on `main` limits pushes and merges to `admiraldata`, `hbanerjee74` and `ukakkad`, and applies to administrators too. It requires a pull request that passes `Cookbook contract` and `Promotion source`. It does not require the head to be up to date with `main`: each promotion adds a merge commit that `pre-prod` never receives, and the pull request checks already run on the merge result. It needs no approving review, so one owner can open and merge a promotion alone. `.github/CODEOWNERS` names the same owners, so GitHub requests their review.
 4. **Only `pre-prod` promotes.** The `Promotion source` CI job fails a pull request to `main` unless its head is `pre-prod` in this repository.
 5. **`pre-prod` is open to writers.** Branch protection on `pre-prod` requires a pull request that passes `Cookbook contract` and blocks force-pushes. Anyone with write access can merge. Administrators can bypass this rule.
-6. **Promotions use a merge commit.** A squash or rebase would give `main` commits that `pre-prod` does not have, and the two branches would drift apart.
+6. **Promotions use a merge commit.** A merge commit keeps every `pre-prod` commit in the history of `main`. A squash or rebase writes new commits instead, so the next promotion carries the already-released changes again and can conflict with them.
 
 ## Consequences
 
