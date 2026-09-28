@@ -2,7 +2,7 @@
 
 **Batch ID:** `2026-09-28-modelling-recipes`
 **Decision status:** Approved by SS on 2026-09-28. Execute; do not restart requirements discovery.
-**Execution status at this checkpoint:** Not started. No batch issues have been created or updated by the planning session.
+**Execution status at this checkpoint:** In execution. See the batch tracker and Codex checkpoint below; the original planning baseline is historical.
 **Repository:** `accelerate-data/vibedata-cookbooks` (the only repository writable for this work).
 **Target branch:** `pre-prod`. Promotion to `main` is outside scope.
 **Plan path:** `docs/plans/2026-09-28-modelling-recipes-materialization.md`.
@@ -406,17 +406,17 @@ On resume, read this file, then actual Linear state and GitHub branches/PRs/CI. 
 
 | Key | Issue | Preparation | Execution | Branch / PR | Support | Merge / post-merge CI | Blocker / next action |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| B01 | Not created | Not started | Not started | None | Not assessed | None | Prepare candidate |
-| B02 | Not created | Not started | Not started | None | Not assessed | None | Prepare candidate |
-| B03 | Not created | Not started | Not started | None | Not assessed | None | Prepare candidate |
-| B04 | GTM-187 | Not started | Not started | None | Not assessed | None | Read and strengthen existing candidate |
-| B05 | Not created | Not started | Not started | None | Not assessed | None | Prepare candidate |
-| B06 | GTM-241 | Not started | Not started | None | Not assessed | None | Read and strengthen existing candidate |
-| B07 | Not created | Not started | Not started | None | Not assessed | None | Prepare candidate |
-| B08 | Not created | Not started | Not started | None | Not assessed | None | Prepare candidate |
-| B09 | GTM-243 | Not started | Not started | None | Not assessed | None | Read and strengthen existing candidate |
-| B10 | Not created | Not started | Not started | None | Not assessed | None | Prepare one combined change issue |
-| B11 | Not created | Not started | Not started | None | Non-executable | None | Prepare one issue; execute after B01-B09 |
+| B01 | [GTM-296](https://linear.app/acceleratedata/issue/GTM-296) | Verified; SS; Backlog | Authoring; In Progress | recipes/gtm-296-business-event-fact; PR not created | All 5 targets (supported) | None | Author and review full scope |
+| B02 | [GTM-297](https://linear.app/acceleratedata/issue/GTM-297) | Verified; SS; Backlog | Not started | None | All 5 targets (supported) | None | Select sequentially |
+| B03 | [GTM-298](https://linear.app/acceleratedata/issue/GTM-298) | Verified; SS; Backlog | Not started | None | All 5 targets (supported) | None | Select sequentially |
+| B04 | [GTM-187](https://linear.app/acceleratedata/issue/GTM-187) | Verified; SS; Backlog | Not started | None | duckdb_local (supported); others unassessed | None | Select sequentially |
+| B05 | [GTM-299](https://linear.app/acceleratedata/issue/GTM-299) | Verified; SS; Backlog | Not started | None | All 5 targets (supported) | None | Select sequentially |
+| B06 | [GTM-241](https://linear.app/acceleratedata/issue/GTM-241) | Verified; SS; Backlog | Not started | None | All 5 targets (supported) | None | Select sequentially |
+| B07 | [GTM-300](https://linear.app/acceleratedata/issue/GTM-300) | Verified; SS; Backlog | Not started | None | All 5 targets (supported) | None | Select sequentially |
+| B08 | [GTM-301](https://linear.app/acceleratedata/issue/GTM-301) | Verified; SS; Backlog | Not started | None | All 5 targets (supported) | None | Select sequentially |
+| B09 | [GTM-243](https://linear.app/acceleratedata/issue/GTM-243) | Verified; SS; Backlog | Not started | None | All 5 targets (supported) | None | Select sequentially |
+| B10 | [GTM-302](https://linear.app/acceleratedata/issue/GTM-302) | Verified; SS; Backlog | Not started | None | Existing 4 dbt / 5 ingestion targets | None | Select sequentially |
+| B11 | [GTM-303](https://linear.app/acceleratedata/issue/GTM-303) | Verified; SS; Backlog | Not started | None | Non-executable; member-dependent | None | Wait for B01-B09 membership |
 
 ### Evidence record for each item
 
@@ -454,3 +454,22 @@ Suggested skills, when available and applicable:
 - Repository-provided contribution and validation guidance is mandatory. Do not restart brainstorming/grilling for settled decisions. If new information makes an approved decision impossible, record a blocker rather than expanding scope.
 
 No additional product design, website implementation or data-analysis dashboard work is authorized by this plan.
+
+### Codex execution checkpoint
+
+User amendment: execute in the local cookbook repository with GitHub CLI and connected Linear tools. This supersedes the original temporary-container, connector-only and no-Mac clauses. Repository scope, definition-only scope and completion gates remain unchanged. Mechanical work uses Luna xhigh; substantive authoring and capability assessment use Astra high.
+
+- 2026-09-28 11:50 GST: Reconciled initialization PR #9 as merged at 4003b0244113b91003de27dfd7524469f2611f5e. Verified push CI https://github.com/accelerate-data/vibedata-cookbooks/actions/runs/36387593499: Cookbook contract succeeded; promotion-only job intentionally inapplicable. Local exact pinned dependencies present; 284 tests passed; catalog --check and schema-version check passed. ENV-01 from the previous temporary environment is resolved for this authorized checkout. Reuse GTM-296/297/298; GTM-187/241/243 retain original provenance. No Recipe runtime evaluation performed.
+- 2026-09-28 11:56 GST: B01: reused/updated GTM-296; preserved original provenance and unrelated metadata. SS assigned; unstarted Backlog.
+- 2026-09-28 11:56 GST: B02: reused/updated GTM-297; preserved original provenance and unrelated metadata. SS assigned; unstarted Backlog.
+- 2026-09-28 11:56 GST: B03: reused/updated GTM-298; preserved original provenance and unrelated metadata. SS assigned; unstarted Backlog.
+- 2026-09-28 11:56 GST: B04: reused/updated GTM-187; preserved original provenance and unrelated metadata. SS assigned; unstarted Backlog.
+- 2026-09-28 11:56 GST: B05: created GTM-299; preserved original provenance and unrelated metadata. SS assigned; unstarted Backlog.
+- 2026-09-28 11:56 GST: B06: reused/updated GTM-241; preserved original provenance and unrelated metadata. SS assigned; unstarted Backlog.
+- 2026-09-28 11:56 GST: B07: created GTM-300; preserved original provenance and unrelated metadata. SS assigned; unstarted Backlog.
+- 2026-09-28 11:56 GST: B08: created GTM-301; preserved original provenance and unrelated metadata. SS assigned; unstarted Backlog.
+- 2026-09-28 11:56 GST: B09: reused/updated GTM-243; preserved original provenance and unrelated metadata. SS assigned; unstarted Backlog.
+- 2026-09-28 11:56 GST: B10: created GTM-302; preserved original provenance and unrelated metadata. SS assigned; unstarted Backlog.
+- 2026-09-28 11:56 GST: B11: created GTM-303; preserved original provenance and unrelated metadata. SS assigned; unstarted Backlog.
+- 2026-09-28 11:58 GST: Reconciled initialization PR #9 as merged at 4003b0244113b91003de27dfd7524469f2611f5e. Verified push CI https://github.com/accelerate-data/vibedata-cookbooks/actions/runs/36387593499: Cookbook contract succeeded; promotion-only job intentionally inapplicable. Local exact pinned dependencies present; 284 tests passed; catalog --check and schema-version check passed. ENV-01 from the previous temporary environment is resolved for this authorized checkout. Reuse GTM-296/297/298; GTM-187/241/243 retain original provenance. No Recipe runtime evaluation performed.
+- 2026-09-28 11:58 GST: Complete 11-ticket batch prepared, read back and assigned to SS; five additional tickets GTM-299 through GTM-303 created, six existing tickets reused. Capability evidence recorded privately in each Linear issue. B01 selected through Todo to In Progress; base 4003b0244113b91003de27dfd7524469f2611f5e. B04 supported on duckdb_local only; other four snapshot targets unassessed; no runtime-proven claims.
