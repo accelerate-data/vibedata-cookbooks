@@ -44,6 +44,7 @@
         "logistics-fleet-utilization",
         "metric-population-and-rollups",
         "operational-state-duration",
+        "prove-dbt-change-safe",
         "shift-unit-economics"
       ],
       "selector": {
@@ -76,7 +77,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 10,
+      "supported_or_proven_count": 11,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -543,6 +544,49 @@
         "Waiting, idle, available or busy time must be measured by site or zone and hour from operational event histories.",
         "State and location change independently, leaving reports unable to explain where an entity spent its time.",
         "Vehicle or equipment events have missing closes or observation gaps that could inflate operational duration totals."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "data-quality",
+      "description": "Produce an independent assessment of an existing dbt change against approved requirements and baselines, with semantic checks, evidence gaps and a merge recommendation while preserving the reviewed implementation.",
+      "domain_objects": [
+        "dbt_change",
+        "assurance_requirement",
+        "approved_baseline",
+        "assessment_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "evaluating-dbt-project",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "prove-dbt-change-safe",
+      "job_category": "prove",
+      "path": "recipes/prove-dbt-change-safe/recipe.md",
+      "pitch": "Review the business answers behind a dbt change with independent evidence and leave its implementation unchanged.",
+      "readiness": "supported",
+      "sha256": "4976eec6a7357fa915f20f67f7aaa9470f6803e2f70c57112522251c15aadf45",
+      "title": "Assess an existing dbt change for safe merge without modifying it",
+      "trigger": [
+        "An existing dbt change builds successfully but reviewers still need evidence that its business answers remain valid.",
+        "A change to fleet, shipment or financial models needs independent checks against agreed requirements and an approved baseline.",
+        "A reviewer must distinguish an implementation defect from missing data, missing relationships or insufficient test coverage."
       ],
       "works_with": {
         "platforms": [
