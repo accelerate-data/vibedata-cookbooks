@@ -38,6 +38,7 @@
         "api-to-bronze-incremental-contract",
         "business-event-fact",
         "dbt-full-refresh-to-incremental",
+        "effective-dated-business-rules",
         "event-resource-attribution",
         "fabric-data-pipeline-as-code",
         "logistics-fleet-utilization",
@@ -75,7 +76,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 9,
+      "supported_or_proven_count": 10,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -245,6 +246,51 @@
       "works_with": {
         "platforms": [
           "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build an event calculation model that selects applicable dated rules, calculates expected amounts and exposes missing or ambiguous matches under approved precedence and correction policies.",
+      "domain_objects": [
+        "business_event",
+        "effective_dated_rule",
+        "rate_component",
+        "expected_amount"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "effective-dated-business-rules",
+      "job_category": "build",
+      "path": "recipes/effective-dated-business-rules/recipe.md",
+      "pitch": "Calculate historical amounts from the rules that apply to each event, with visible exceptions and independent amount checks.",
+      "readiness": "supported",
+      "sha256": "d49e093ffc38553c9c0f34b71a3ba97ab2699fd3ddd1680f828c6a76378d3e83",
+      "title": "Build historical event amounts from effective-dated business rules",
+      "trigger": [
+        "Historical fees or surcharges change when a current rate is applied to past events.",
+        "Fleet tariffs or fare components vary by resource, customer or service date and need traceable historical calculations.",
+        "Overlapping rate versions or retroactive corrections make historical amounts ambiguous."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
