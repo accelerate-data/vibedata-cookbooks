@@ -1,0 +1,16 @@
+{
+  "id": "logistics-and-fleet-analytics",
+  "title": "Logistics and fleet analytics",
+  "kind": "curated",
+  "description": "Logistics and fleet analytics Recipes, including reusable modelling patterns with relevant operational triggers and domain-specific fleet and shift outcomes.",
+  "members": [
+    "business-event-fact",
+    "metric-population-and-rollups",
+    "event-resource-attribution",
+    "dbt-snapshot-history",
+    "operational-state-duration",
+    "logistics-fleet-utilization",
+    "shift-unit-economics",
+    "effective-dated-business-rules"
+  ]
+}

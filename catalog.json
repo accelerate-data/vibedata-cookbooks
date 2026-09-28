@@ -31,6 +31,35 @@
       "website_visible": false
     },
     {
+      "description": "Logistics and fleet analytics Recipes, including reusable modelling patterns with relevant operational triggers and domain-specific fleet and shift outcomes.",
+      "id": "logistics-and-fleet-analytics",
+      "kind": "curated",
+      "members": [
+        "business-event-fact",
+        "metric-population-and-rollups",
+        "event-resource-attribution",
+        "dbt-snapshot-history",
+        "operational-state-duration",
+        "logistics-fleet-utilization",
+        "shift-unit-economics",
+        "effective-dated-business-rules"
+      ],
+      "resolved_members": [
+        "business-event-fact",
+        "dbt-snapshot-history",
+        "effective-dated-business-rules",
+        "event-resource-attribution",
+        "logistics-fleet-utilization",
+        "metric-population-and-rollups",
+        "operational-state-duration",
+        "shift-unit-economics"
+      ],
+      "supported_or_proven_count": 8,
+      "title": "Logistics and fleet analytics",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
       "description": "Recipes that can execute against Microsoft Fabric Lakehouse, Fabric Warehouse, or both.",
       "id": "microsoft-fabric",
       "kind": "platform",
@@ -79,6 +108,37 @@
       ],
       "supported_or_proven_count": 11,
       "title": "Microsoft Fabric",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
+      "description": "Recipes for building analytical models with explicit grain, populations, relationships, history, operational time and business rules.",
+      "id": "modelling-correctness",
+      "kind": "curated",
+      "members": [
+        "business-event-fact",
+        "metric-population-and-rollups",
+        "event-resource-attribution",
+        "dbt-snapshot-history",
+        "operational-state-duration",
+        "logistics-fleet-utilization",
+        "shift-unit-economics",
+        "effective-dated-business-rules",
+        "prove-dbt-change-safe"
+      ],
+      "resolved_members": [
+        "business-event-fact",
+        "dbt-snapshot-history",
+        "effective-dated-business-rules",
+        "event-resource-attribution",
+        "logistics-fleet-utilization",
+        "metric-population-and-rollups",
+        "operational-state-duration",
+        "prove-dbt-change-safe",
+        "shift-unit-economics"
+      ],
+      "supported_or_proven_count": 9,
+      "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
     }
