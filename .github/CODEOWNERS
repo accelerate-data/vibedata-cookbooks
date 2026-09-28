@@ -1,0 +1,3 @@
+# Owners of the cookbook. main takes changes only from these accounts;
+# the branch rule on main enforces it, and this file requests their review.
+* @admiraldata @hbanerjee74 @ukakkad

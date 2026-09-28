@@ -52,6 +52,12 @@ Nothing may escape its section: no HTML tags or comments, no HTML entities, no c
 
 A Collection in `collections/<id>.json` is a discovery view over Recipes: a `members` list of existing Recipe ids, a `selector` over Recipe metadata, or both. `schema/collection.schema.json` holds the rules.
 
+## Branches
+
+`pre-prod` is the default branch, so a new pull request already targets it. Every pull request to `pre-prod` must pass the `Cookbook contract` CI job; anyone with write access can merge it.
+
+`main` is what readers follow. It takes changes only as a promotion: a pull request from `pre-prod` to `main`, merged with a merge commit, never a squash. Only `admiraldata`, `hbanerjee74` and `ukakkad` can merge it, and it must pass `Cookbook contract` and `Promotion source`. [ADR 0002](docs/adr/0002-branches-and-promotion.md) records the rules.
+
 ## Checks
 
 ```bash
@@ -59,7 +65,7 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 .venv/bin/python -m pytest -q
 .venv/bin/python scripts/build_catalog.py
-.venv/bin/python scripts/check_schema_versions.py --base "$(git merge-base origin/main HEAD)"
+.venv/bin/python scripts/check_schema_versions.py --base "$(git merge-base origin/pre-prod HEAD)"
 ```
 
 `build_catalog.py` validates everything and rewrites `catalog.json`; CI runs it with `--check` and fails when the committed catalog is stale.
