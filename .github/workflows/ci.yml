@@ -3,7 +3,7 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [pre-prod, main]
 
 permissions:
   contents: read
@@ -42,3 +42,21 @@ jobs:
             exit 0
           fi
           python scripts/check_schema_versions.py --base "$base"
+
+  promotion-source:
+    name: Promotion source
+    # Work lands on pre-prod; main takes only a promotion from pre-prod.
+    # Skipped outside pull requests to main, which GitHub counts as passing.
+    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: The pull request comes from pre-prod in this repository
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          BASE_REPO: ${{ github.repository }}
+        run: |
+          if [ "$HEAD_REF" != "pre-prod" ] || [ "$HEAD_REPO" != "$BASE_REPO" ]; then
+            echo "::error::main takes only pull requests from $BASE_REPO:pre-prod, not $HEAD_REPO:$HEAD_REF. Target pre-prod instead."
+            exit 1
+          fi

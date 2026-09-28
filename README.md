@@ -54,7 +54,7 @@ python3 -m venv .venv
 .venv/bin/python scripts/build_catalog.py --check
 ```
 
-Run `scripts/build_catalog.py` without `--check` to regenerate `catalog.json`. CI (`.github/workflows/ci.yml`) runs the tests, the `--check` build and the schema version-bump check on every pull request and every push to `main`.
+Run `scripts/build_catalog.py` without `--check` to regenerate `catalog.json`. CI (`.github/workflows/ci.yml`) runs the tests, the `--check` build and the schema version-bump check on every pull request and every push to `pre-prod` and `main`. Work lands on `pre-prod`, the default branch; `main` takes only promotions from `pre-prod`. See [CONTRIBUTING.md](CONTRIBUTING.md#branches).
 
 ## Platforms
 
@@ -80,3 +80,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) and the Recipe template in [templates/rec
 - [Land a SaaS or REST API into bronze with an incremental cursor and a schema contract](recipes/api-to-bronze-incremental-contract/recipe.md)
 - [Author a Fabric Data Pipeline that sequences ingestion, dbt, and downstream refresh as committed code](recipes/fabric-data-pipeline-as-code/recipe.md)
 - [Schedule a dlt load and a dbt build on MotherDuck as a committed MotherDuck Flight](recipes/motherduck-flight-scheduling/recipe.md)
+
+## License
+
+Elastic License 2.0. See [LICENSE](LICENSE).
