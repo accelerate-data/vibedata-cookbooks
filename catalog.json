@@ -40,7 +40,8 @@
         "dbt-full-refresh-to-incremental",
         "event-resource-attribution",
         "fabric-data-pipeline-as-code",
-        "metric-population-and-rollups"
+        "metric-population-and-rollups",
+        "operational-state-duration"
       ],
       "selector": {
         "platforms_any": [
@@ -72,7 +73,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 6,
+      "supported_or_proven_count": 7,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -409,6 +410,52 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build evidence-backed state and location intervals, split them across agreed reporting boundaries, and reconcile durations with explicit unknown periods, missing closes and source lineage.",
+      "domain_objects": [
+        "operational_event",
+        "entity",
+        "state_interval",
+        "location",
+        "reporting_period"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "operational-state-duration",
+      "job_category": "build",
+      "path": "recipes/operational-state-duration/recipe.md",
+      "pitch": "Explain how long each entity spent in a state and where, without inventing locations or filling unknown time with activity.",
+      "readiness": "supported",
+      "sha256": "8aa3088c3d9ded5751e811521819f3fa385d488bbb1951823810aabc375348c9",
+      "title": "Build state durations by entity, location and reporting period",
+      "trigger": [
+        "Waiting, idle, available or busy time must be measured by site or zone and hour from operational event histories.",
+        "State and location change independently, leaving reports unable to explain where an entity spent its time.",
+        "Vehicle or equipment events have missing closes or observation gaps that could inflate operational duration totals."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
           "dbt"
         ]
       }

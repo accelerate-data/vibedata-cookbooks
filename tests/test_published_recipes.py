@@ -22,6 +22,7 @@ EXPECTED = {
     "fabric-data-pipeline-as-code": {"readiness": "supported", "platforms": ["fabric_lakehouse", "fabric_warehouse"]},
     "motherduck-flight-scheduling": {"readiness": "supported", "platforms": ["motherduck"]},
     "metric-population-and-rollups": {"readiness": "supported", "platforms": ALL_PLATFORMS},
+    "operational-state-duration": {"readiness": "supported", "platforms": ALL_PLATFORMS},
 }
 
 
