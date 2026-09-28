@@ -579,3 +579,26 @@ This final local Markdown is newer than committed tracker head `2a24154ef7e63307
 ### Authorized merged-branch cleanup
 
 After this tracker update passes required CI and merges, delete unprotected local and remote branches whose tips are already contained in pre-prod. Preserve main and pre-prod. Verify each deletion against the remote branch list, branch protection and merge state. Record the deleted branch list in the final local Markdown; do not create another tracker PR only to record cleanup.
+
+### Branch cleanup completion (local note after PR #22)
+
+2026-09-28 18:22 GST: Deleted 15 unprotected remote branches and 13 local branches. Eligibility was checked against current origin/pre-prod; each deleted head was contained in pre-prod or was the head of a merged PR to pre-prod. The feature branch below had merged to main in PR #1 and its head was also contained in pre-prod. Protected main and pre-prod were retained. Verified remote and local branch lists now contain only main and pre-prod.
+
+Deleted remote branches:
+- `docs/2026-09-28-modelling-recipes-plan`
+- `docs/modelling-materialization-final-checkpoint`
+- `docs/modelling-materialization-finalize`
+- `feature/vd-5827-recipe-definition-fixes`
+- `recipes/gtm-187-dbt-snapshot-history`
+- `recipes/gtm-241-logistics-fleet-utilization`
+- `recipes/gtm-243-prove-dbt-change-safe`
+- `recipes/gtm-296-business-event-fact`
+- `recipes/gtm-297-metric-population-and-rollups`
+- `recipes/gtm-298-event-resource-attribution`
+- `recipes/gtm-299-operational-state-duration`
+- `recipes/gtm-300-shift-unit-economics`
+- `recipes/gtm-301-effective-dated-business-rules`
+- `recipes/gtm-302-business-grain-safeguards`
+- `recipes/gtm-303-modelling-collections`
+
+Deleted local branches are the same list except `docs/2026-09-28-modelling-recipes-plan`, which was not present locally. No other branch was deleted.
