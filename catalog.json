@@ -42,7 +42,8 @@
         "fabric-data-pipeline-as-code",
         "logistics-fleet-utilization",
         "metric-population-and-rollups",
-        "operational-state-duration"
+        "operational-state-duration",
+        "shift-unit-economics"
       ],
       "selector": {
         "platforms_any": [
@@ -74,7 +75,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 8,
+      "supported_or_proven_count": 9,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -496,6 +497,56 @@
         "Waiting, idle, available or busy time must be measured by site or zone and hour from operational event histories.",
         "State and location change independently, leaving reports unable to explain where an entity spent its time.",
         "Vehicle or equipment events have missing closes or observation gaps that could inflate operational duration totals."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build shift-grain revenue, cost and margin components from defensible event assignments and approved cost allocations, with visible cost completeness and reconciled driver, vehicle and period rollups.",
+      "domain_objects": [
+        "shift",
+        "driver",
+        "vehicle",
+        "revenue_event",
+        "cost_component",
+        "allocation"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "shift-unit-economics",
+      "industry": [
+        "logistics"
+      ],
+      "job_category": "build",
+      "path": "recipes/shift-unit-economics/recipe.md",
+      "pitch": "Explain shift economics with traceable revenue, complete cost status and allocations that conserve source amounts.",
+      "readiness": "supported",
+      "sha256": "8debaef4cfdb2d2abf143eb2a86dcfad2695ab62ee42750a07ca8cfcf5cce5e6",
+      "title": "Build shift revenue, cost and margin with reconciled rollups",
+      "trigger": [
+        "A fleet dashboard reports revenue per shift but cannot establish whether a shift covers its applicable costs.",
+        "Driver performance or vehicle economics need supported trip assignments and shared costs allocated at shift grain.",
+        "Shift margins disagree with driver, vehicle or period totals, or low-exposure shifts dominate a ranking."
       ],
       "works_with": {
         "platforms": [

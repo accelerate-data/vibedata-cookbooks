@@ -24,6 +24,7 @@ EXPECTED = {
     "logistics-fleet-utilization": {"readiness": "supported", "platforms": ALL_PLATFORMS},
     "metric-population-and-rollups": {"readiness": "supported", "platforms": ALL_PLATFORMS},
     "operational-state-duration": {"readiness": "supported", "platforms": ALL_PLATFORMS},
+    "shift-unit-economics": {"readiness": "supported", "platforms": ALL_PLATFORMS},
 }
 
 
