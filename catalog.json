@@ -40,6 +40,7 @@
         "dbt-full-refresh-to-incremental",
         "event-resource-attribution",
         "fabric-data-pipeline-as-code",
+        "logistics-fleet-utilization",
         "metric-population-and-rollups",
         "operational-state-duration"
       ],
@@ -73,7 +74,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 7,
+      "supported_or_proven_count": 8,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -329,6 +330,55 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build fleet utilisation with authoritative asset availability, maintenance-adjusted time, separate observation coverage and traceable numerator and denominator components that reconcile across daily and monthly reporting.",
+      "domain_objects": [
+        "asset",
+        "availability_interval",
+        "maintenance_interval",
+        "operational_observation",
+        "reporting_period"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "logistics-fleet-utilization",
+      "industry": [
+        "logistics"
+      ],
+      "job_category": "build",
+      "path": "recipes/logistics-fleet-utilization/recipe.md",
+      "pitch": "Measure fleet use against defensible available asset time while keeping missing observations and maintenance evidence visible.",
+      "readiness": "supported",
+      "sha256": "4afab5882fbb3c186aff5e52a4ed2e820f1abc6e83edac3a1e4b861af35cc5e0",
+      "title": "Build fleet utilisation against explicit asset availability",
+      "trigger": [
+        "A fleet dashboard labels observed vehicle occupancy as utilisation without an authoritative available-time denominator.",
+        "Fleet capacity reports omit available vehicles that never come online or subtract overlapping maintenance twice.",
+        "Daily and monthly vehicle utilisation disagree because roster, observation and downtime windows differ."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
           "dbt"
         ]
       }
