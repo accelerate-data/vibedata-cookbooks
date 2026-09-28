@@ -1,4 +1,9 @@
-"""The converted Recipe keeps the published prompt, acceptance and guidance text exactly."""
+"""Check historical migration fidelity against frozen migrated output.
+
+The Markdown fixture is recipes/dbt-full-refresh-to-incremental/recipe.md from
+commit df876578aaf44ca21a33e38a2456649e414438a6, before B10 content evolution.
+Live Recipes remain covered by published-Recipe, schema and catalog tests.
+"""
 
 from __future__ import annotations
 
@@ -11,7 +16,7 @@ from recipe_format import check_markup, load_frontmatter, parse_body, split_fron
 from samples import REPO_ROOT, load_schema
 
 SCHEMA = load_schema("recipe")
-RECIPE = REPO_ROOT / "recipes/dbt-full-refresh-to-incremental/recipe.md"
+RECIPE = REPO_ROOT / "tests/fixtures/migrated-dbt-full-refresh-to-incremental.md"
 LEGACY = json.loads((REPO_ROOT / "tests/fixtures/legacy-dbt-full-refresh-to-incremental.json").read_text(encoding="utf-8"))
 BODY_KEYS = {"prompt", "verified_by", "agent_guidance"}
 
