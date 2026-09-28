@@ -36,6 +36,7 @@
       "kind": "platform",
       "resolved_members": [
         "api-to-bronze-incremental-contract",
+        "business-event-fact",
         "dbt-full-refresh-to-incremental",
         "fabric-data-pipeline-as-code"
       ],
@@ -69,7 +70,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 3,
+      "supported_or_proven_count": 4,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -115,6 +116,50 @@
         ],
         "tools": [
           "dlt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build an agreed event-grain fact with an evidence-backed identity rule, deterministic duplicate and correction handling, source lineage, explicit exceptions, and reconciled event counts and additive amounts.",
+      "domain_objects": [
+        "business_event",
+        "fact_table",
+        "source_record"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "business-event-fact",
+      "job_category": "build",
+      "path": "recipes/business-event-fact/recipe.md",
+      "pitch": "Count business events with a defensible identity rule and an audit trail for every source row.",
+      "readiness": "supported",
+      "sha256": "6acd7d37bb78219e6f4d7e3b5ebd51142d5b7952bc70e4d7216310a716c80ad5",
+      "title": "Build a business-event fact with auditable duplicate handling",
+      "trigger": [
+        "Transaction feeds overlap, and source deliveries may be counted as separate business events.",
+        "Replayed deliveries change a report's unique event count or additive totals.",
+        "A trip or consignment fact must preserve valid similar events and explain conflicting records."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
         ]
       }
     },
