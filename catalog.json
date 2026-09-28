@@ -38,6 +38,7 @@
         "api-to-bronze-incremental-contract",
         "business-event-fact",
         "dbt-full-refresh-to-incremental",
+        "event-resource-attribution",
         "fabric-data-pipeline-as-code",
         "metric-population-and-rollups"
       ],
@@ -71,7 +72,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 5,
+      "supported_or_proven_count": 6,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -197,6 +198,51 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build event-to-resource relationships with source provenance, approved cardinality and temporal rules, visible unresolved cases, and count and amount reconciliation for observed assignments or approved allocations.",
+      "domain_objects": [
+        "business_event",
+        "resource",
+        "assignment",
+        "allocation"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "event-resource-attribution",
+      "job_category": "build",
+      "path": "recipes/event-resource-attribution/recipe.md",
+      "pitch": "Explain who or what is responsible for each event, with evidence and totals that survive attribution joins.",
+      "readiness": "supported",
+      "sha256": "6d2d568d0174149b9ca30778d8e9c0085b7f0911db3a05b08c437e92dc6aa834",
+      "title": "Build auditable event-to-resource attribution",
+      "trigger": [
+        "Revenue or productivity must be reported by employee, asset or team, but responsibility for each event is unclear.",
+        "Joining events to resource assignments duplicates amounts or assigns events outside the relationship's valid time.",
+        "Trip or delivery reporting needs defensible driver, vehicle or garage attribution, including shared responsibility."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"

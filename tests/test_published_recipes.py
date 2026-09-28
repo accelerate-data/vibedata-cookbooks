@@ -12,6 +12,7 @@ ALL_PLATFORMS = ["duckdb_local", "motherduck", "fabric_lakehouse", "fabric_wareh
 
 EXPECTED = {
     "business-event-fact": {"readiness": "supported", "platforms": ALL_PLATFORMS},
+    "event-resource-attribution": {"readiness": "supported", "platforms": ALL_PLATFORMS},
     "dbt-full-refresh-to-incremental": {
         "readiness": "supported",
         "platforms": ["duckdb_local", "motherduck", "fabric_lakehouse", "fabric_warehouse"],
