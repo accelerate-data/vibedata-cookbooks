@@ -206,6 +206,50 @@
     },
     {
       "area": "transformation",
+      "description": "Record dimension changes with dbt snapshots and build a bounded historical consumer that selects the agreed version for each fact, with controlled changes, boundary tests and reconciliation.",
+      "domain_objects": [
+        "dimension",
+        "business_event",
+        "history"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "authoring-dbt-project-artifact",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "dbt-snapshot-history",
+      "job_category": "build",
+      "path": "recipes/dbt-snapshot-history/recipe.md",
+      "pitch": "Preserve recorded dimension changes and prove that historical events select the right version.",
+      "qualifiers": [
+        "Complete snapshot outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Records available changes; present-state snapshots cannot reconstruct unobserved history."
+      ],
+      "readiness": "supported",
+      "sha256": "7a53e55172c50eb51108ba02c62d6bd0783e9a501d321f3b004d9611773aa106",
+      "title": "Add dimension history with verified historical fact classification",
+      "trigger": [
+        "Customer, asset or vendor attributes change, but past events need a defensible historical classification.",
+        "Reports join facts to today's dimension row and silently restate earlier results after master data changes.",
+        "A vehicle, driver or delivery zone changes classification and logistics reporting must select the version valid for each event."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Build event-to-resource relationships with source provenance, approved cardinality and temporal rules, visible unresolved cases, and count and amount reconciliation for observed assignments or approved allocations.",
       "domain_objects": [
         "business_event",
