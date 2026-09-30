@@ -1,15 +1,15 @@
-# VibeData Cookbooks
+# Vibedata Cookbooks
 
-Public, canonical definitions for **materialized VibeData Recipes and Collections**.
+Public, canonical definitions for **materialized Vibedata Recipes and Collections**.
 
-A Recipe is one requirement-sized data-engineering outcome that a data engineer can adopt into an Intent. It contains the task specification, an observable acceptance contract, and guidance the VibeData agent reads when the Recipe is invoked.
+A Recipe is one requirement-sized data-engineering outcome that a data engineer can adopt into an Intent. It contains the task specification, an observable acceptance contract, and guidance the Vibedata agent reads when the Recipe is invoked.
 
 ## Source ownership
 
 - **Linear Cookbook project**: canonical backlog and lifecycle for Recipe candidates: <https://linear.app/acceleratedata/project/cookbook-fb2483d9868a/overview>
 - **This repository**: canonical definition of Recipes and Collections once they are materialized.
 
-The VibeData website and Studio consume the materialized catalog from this repository. They do not own separate Recipe registries. The served identity of a Recipe is the Git commit a reader fetched; the catalog carries no revision of its own.
+The Vibedata website and Studio consume the materialized catalog from this repository. They do not own separate Recipe registries. The served identity of a Recipe is the Git commit a reader fetched; the catalog carries no revision of its own.
 
 ## Execution model
 

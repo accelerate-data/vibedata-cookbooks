@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/accelerate-data/vibedata-cookbooks/schema/recipe.schema.json",
   "version": 1,
-  "title": "VibeData Recipe frontmatter",
+  "title": "Vibedata Recipe frontmatter",
   "description": "The YAML frontmatter of recipes/<id>/recipe.md. x-body publishes the body and markup rules that scripts/build_catalog.py enforces.",
   "type": "object",
   "additionalProperties": false,
