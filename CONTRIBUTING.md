@@ -22,6 +22,17 @@ A candidate is a **Recipe** when it is one recognizable engineering requirement 
 2. Fill in the frontmatter and every body section.
 3. Run the checks below and commit `recipe.md` together with the regenerated `catalog.json`.
 
+## Accelerate Data contributors
+
+This section applies to every new Recipe that an Accelerate Data employee writes.
+
+1. Export the Domain you used to build the Recipe as a Domain Bundle: Domain Settings, General, **Export Domain**. Keep the Intents and their conversations selected. This step is compulsory.
+2. Upload the bundle ZIP to the [Cookbooks Drive folder](https://drive.google.com/drive/folders/1CSXifZ4fH5GeNce-mpEeTtpENBSHpdP_), in a subfolder whose name is the Recipe `id`: `Cookbooks/<id>/`.
+3. Optionally, add other artifacts you used to build the Recipe, such as notes, sample data or screenshots, to the same subfolder.
+4. Upload before you open the pull request. Studio deletes a Domain Bundle 48 hours after the export.
+
+The Drive folder is open to Accelerate Data accounts only.
+
 ## Frontmatter
 
 Required keys: `id`, `title`, `trigger`, `description`, `job_category`, `area`, `readiness`, `works_with.platforms`. Optional keys: `pitch`, `function`, `industry`, `domain_objects`, `works_with.tools`, `qualifiers`, `related`, `evidence.features`, `evidence.evals`. Every string is one line. `schema/recipe.schema.json` holds the exact rules and length caps.
