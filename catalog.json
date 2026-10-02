@@ -692,7 +692,8 @@
       "qualifiers": [
         "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
         "History starts at the first snapshot; earlier pipeline cannot be reconstructed from present state.",
-        "Daily capture cannot see changes that happen and revert between two snapshots."
+        "Daily capture cannot see changes that happen and revert between two snapshots.",
+        "Assessed with a labelled synthetic fixture standing in for the CRM; no live opportunity source was captured."
       ],
       "readiness": "supported",
       "related": [
@@ -701,7 +702,7 @@
         "operational-state-duration",
         "business-event-fact"
       ],
-      "sha256": "73cdf087e2f7205c9c0295c62a34d4bf8b1673c42358de026f1b7c4b18d6cb0f",
+      "sha256": "e8ba3b8f518fc6fad675e416b46b8ec3074b83850e2e3671f3de9a3929708c54",
       "title": "Build a daily opportunity pipeline snapshot with stage conversion and slippage",
       "trigger": [
         "The CRM overwrites opportunity stage, amount and close date, so past pipeline cannot be reproduced for a given day.",

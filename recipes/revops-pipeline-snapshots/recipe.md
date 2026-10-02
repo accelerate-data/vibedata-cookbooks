@@ -24,6 +24,7 @@ qualifiers:
   - Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
   - History starts at the first snapshot; earlier pipeline cannot be reconstructed from present state.
   - Daily capture cannot see changes that happen and revert between two snapshots.
+  - Assessed with a labelled synthetic fixture standing in for the CRM; no live opportunity source was captured.
 related:
   - dbt-snapshot-history
   - metric-population-and-rollups
