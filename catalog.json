@@ -681,6 +681,7 @@
           "generating-dbt-model",
           "dbt-unit-testing",
           "running-dbt-in-sandbox",
+          "evaluating-dbt-project",
           "verifying"
         ]
       },
@@ -700,7 +701,7 @@
         "operational-state-duration",
         "business-event-fact"
       ],
-      "sha256": "8e0471a0f06ccdf10290460b9af426ef3e83a0d14989ccf5ca2c050ccf9a9dbf",
+      "sha256": "73cdf087e2f7205c9c0295c62a34d4bf8b1673c42358de026f1b7c4b18d6cb0f",
       "title": "Build a daily opportunity pipeline snapshot with stage conversion and slippage",
       "trigger": [
         "The CRM overwrites opportunity stage, amount and close date, so past pipeline cannot be reproduced for a given day.",
