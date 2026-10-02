@@ -665,6 +665,59 @@
     },
     {
       "area": "transformation",
+      "description": "Capture one row per opportunity per day in an append-only snapshot, then derive stage transitions, conversion rates and close-date slippage with explicit handling of missed days, reopened and deleted opportunities.",
+      "domain_objects": [
+        "opportunity",
+        "pipeline_snapshot",
+        "stage_transition",
+        "close_date_slippage"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "authoring-dbt-project-artifact",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "revops-pipeline-snapshots",
+      "job_category": "build",
+      "path": "recipes/revops-pipeline-snapshots/recipe.md",
+      "pitch": "Reproduce the pipeline as it stood on any day and measure how deals move, convert and slip.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "History starts at the first snapshot; earlier pipeline cannot be reconstructed from present state.",
+        "Daily capture cannot see changes that happen and revert between two snapshots."
+      ],
+      "readiness": "supported",
+      "related": [
+        "dbt-snapshot-history",
+        "metric-population-and-rollups",
+        "operational-state-duration",
+        "business-event-fact"
+      ],
+      "sha256": "8e0471a0f06ccdf10290460b9af426ef3e83a0d14989ccf5ca2c050ccf9a9dbf",
+      "title": "Build a daily opportunity pipeline snapshot with stage conversion and slippage",
+      "trigger": [
+        "The CRM overwrites opportunity stage, amount and close date, so past pipeline cannot be reproduced for a given day.",
+        "RevOps needs stage-to-stage conversion rates by cohort, but only today's opportunity state is available.",
+        "Forecast reviews need to know which deals slipped their close date, shrank or grew, and when it happened."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Build shift-grain revenue, cost and margin components from defensible event assignments and approved cost allocations, with visible cost completeness and reconciled driver, vehicle and period rollups.",
       "domain_objects": [
         "shift",
