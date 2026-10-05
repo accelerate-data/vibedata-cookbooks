@@ -37,27 +37,22 @@ related:
   - dbt-snapshot-history
 evidence:
   features:
-    - capturing-requirements
-    - designing
     - domain-modeling
     - applying-medallion-data-modelling
-    - planning
-    - executing-the-plan
     - generating-dbt-model
     - verifying
-    - shipping
   evals: []
 ---
 
 ## Prompt
 
-Build <per_ticket_sla_model> from <ticket_source> with one row per eligible ticket and SLA clock, then derive <attainment_model> by reporting period, priority and team, <backlog_model> as the open backlog by age bucket per day, and <exceptions_model> for every ticket and clock that cannot be scored or carries a flag. Inherit the Intent's sources, platform and approved requirements, and resolve only the SLA semantics they leave open: what starts, pauses, stops and reopens each clock, targets and policy versions, business hours, time zones and holidays, priority and team changes, exclusions, the as-of instant, the met boundary, attainment periods, and backlog membership and age. Policy values can change without changing model logic. Every eligible clock ends in one outcome or one explicit exception, attainment reconciles to ticket-level results, and no result depends on the session time zone. Rebuild past backlog only where history supports it. If ticket-level vendor results exist and a comparison is wanted, add <vendor_comparison_model> that reconciles and explains each difference.
+Build <per_ticket_sla_model> from <ticket_source> with one row per eligible ticket and SLA clock, then derive <attainment_model> by reporting period, priority and team, <backlog_model> as the open backlog by age bucket per day, and <exceptions_model> for every ticket and clock that cannot be scored or carries a flag. Inherit the Intent's sources, platform and approved requirements, and resolve only the SLA semantics they leave open: what starts, pauses, stops and reopens each clock, targets and policy versions, business hours, time zones and holidays, priority and team changes, exclusions, the as-of instant, the met boundary, attainment periods, and backlog membership and age. Policy values can change without changing model logic. Every eligible clock is either scored or explicitly excluded, never both, attainment reconciles to ticket-level results, and no result depends on the session time zone. Rebuild past backlog only where history supports it. If ticket-level vendor results exist and a comparison is wanted, add <vendor_comparison_model> that reconciles and explains each difference.
 
 ## Verified by
 
 - Tickets that are answered, paused, solved, reopened inside and outside the approved window and solved again have each clock start, pause, stop and resume exactly as the approved rules say, counting only approved business time.
 - Tickets created just before and just after a policy change, and tickets whose priority or team changes while a clock runs, are scored against the target and calendar the approved rules select. A ticket with no applicable policy is an exception, not a default.
-- Every eligible ticket and clock appears exactly once, as a scored outcome or as an exception. Source tickets reconcile to outcomes plus exceptions, with no duplicates and no silent drops.
+- Every eligible ticket and clock is either scored or excluded with a reason, never both and never neither. Source tickets reconcile to scored plus excluded clocks with no duplicates or silent drops; flags on scored clocks are listed separately.
 - Merged, excluded, no-policy and missing-value tickets appear in the exceptions output with an approved reason, and none is counted as met or breached.
 - A clock that finishes exactly at its target is scored by the approved met boundary. A clock still open at the as-of instant is classed and placed in a period by the approved rule, not by the run time.
 - Daily backlog rows reflect each ticket's status, priority and team as they stood at the approved snapshot moment, with ages and buckets on the approved start, unit and edges. Where history is missing, the output says so instead of projecting today's state backward.
@@ -69,15 +64,13 @@ Build <per_ticket_sla_model> from <ticket_source> with one row per eligible tick
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and approved requirements. Ask only about SLA semantics they leave open; sample data, vendor settings and existing code are evidence, never policy. Profile the ticket source for status, priority, team and reply history, timestamps and time zones, and name any output the available history cannot support. Approved targets, policy versions, calendars, holidays, pause statuses, reopen windows and exclusions can change without changing model logic. Each clock's elapsed business time, stop and breach have one definition that attainment, backlog aging, exceptions and any vendor comparison all share. Every timestamp identifies one unambiguous instant, and a local zone applies only where an approved rule names one. The approved rules, not model behaviour, decide at-target clocks, reopens at and just past the window edge, policy-version switches, mid-clock priority and team changes, holidays and daylight-saving changes. Tickets reconcile to outcomes and exceptions, and attainment reconciles to ticket-level results. Add the vendor comparison only when ticket-level vendor results exist and the user wants it.
+Inherit the Intent's repository, platform, Domain, sources and approved requirements. Ask only about SLA semantics they leave open; sample data, vendor settings and existing code are evidence, never policy. Profile the ticket source for status, priority, team and reply history, timestamps and time zones, and name any output the available history cannot support. Approved targets, policy versions, calendars, holidays, pause statuses, reopen windows and exclusions can change without changing model logic. Each clock's elapsed business time, stop and breach have one definition that attainment, backlog aging, exceptions and any vendor comparison all share. Every timestamp identifies one unambiguous instant, and a local zone applies only where an approved rule names one. The approved rules, not model behaviour, decide at-target clocks, reopens at and just past the window edge, policy-version switches, mid-clock priority and team changes, holidays and daylight-saving changes. Tickets reconcile to scored plus excluded clocks, and attainment reconciles to ticket-level results. Add the vendor comparison only when ticket-level vendor results exist and the user wants it.
 
 ### Compose
 
-- profiling-source-data
 - domain-modeling
 - applying-medallion-data-modelling
 - generating-dbt-model
-- running-dbt-in-sandbox
 - verifying
 
 ### Ask first
