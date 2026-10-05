@@ -27,6 +27,7 @@ EXPECTED = {
     "operational-state-duration": {"readiness": "supported", "platforms": ALL_PLATFORMS},
     "prove-dbt-change-safe": {"readiness": "supported", "platforms": ALL_PLATFORMS},
     "shift-unit-economics": {"readiness": "supported", "platforms": ALL_PLATFORMS},
+    "revops-pipeline-snapshots": {"readiness": "supported", "platforms": ["duckdb_local"]},
 }
 
 
