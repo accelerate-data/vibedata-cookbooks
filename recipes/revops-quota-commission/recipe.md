@@ -64,7 +64,7 @@ Build <credited_bookings_model>, <credit_exceptions_model>, <commission_bookings
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and every semantic decision its approved requirements already record; do not ask the user to confirm them again. Profile booking keys, amounts, currencies, dates, credit assignments and their effective intervals, quota grain and plan-rule versions. Use Ask first only for semantics still open, and record each decision as the user's own answer; sample data, CRM fields and spreadsheets cannot approve compensation policy. Hold versioned plan rules as data keyed by version and effective date where practical, and list any rule expressed only in model logic. Model credited bookings at an explicit business grain, exceptions per booking or per rep-period as approved, commission-eligible bookings with credit types kept distinguishable, and attainment over every quota and every credited rep-period. Report any approved rule the inputs cannot prove and any open exception.
+Inherit the Intent's repository, platform, Domain, sources and every semantic decision its approved requirements already record; do not ask the user to confirm them again. Profile booking keys, amounts, currencies, dates, credit assignments and their effective intervals, quota grain and plan-rule versions. Use Ask first only for semantics still open, and record each decision as the user's own answer; sample data, CRM fields and spreadsheets cannot approve compensation policy. Keep plan rules explicit and versioned by effective date, and list any rule expressed only in model logic. Model credited bookings at an explicit business grain, exceptions per booking or per rep-period as approved, commission-eligible bookings with credit types kept distinguishable, and attainment over every quota and every credited rep-period. Report any approved rule the inputs cannot prove and any open exception.
 
 ### Compose
 
@@ -89,7 +89,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 ### Guardrails
 
-- Do not decide compensation policy for the user. Take no rule from data, CRM fields, spreadsheets or common practice, never offer a recommended rule, and record approvals only from the user's own words.
+- Do not decide compensation policy for the user. Take no rule from data, CRM fields, spreadsheets or common practice, never offer a recommended rule, and record approvals only from the user's own words or the Intent's approved requirements.
 - Credit for a booking may not exceed or fall short of the approved split, and credit types granted beyond the booking amount must never inflate booking totals.
 - Whatever the approved handling, unassigned bookings, missing quotas, quotas without assignments, unmatched rules and unconverted currencies stay visible; never default them to zero or drop them silently.
 - A cancellation, late edit or plan change alters only the periods the approved policy names. Never silently rewrite a closed period.
