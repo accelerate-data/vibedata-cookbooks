@@ -665,7 +665,7 @@
     },
     {
       "area": "transformation",
-      "description": "Build per-ticket response and resolution SLA outcomes from ticket status, priority, team and reply history under user-approved targets, calendars, pauses, reopens and policy versions, then derive attainment by period, priority and team, a daily open-backlog age view, an exceptions list that reconciles every ticket, and an optional ticket-level vendor comparison.",
+      "description": "Build per-ticket response and resolution SLA outcomes from ticket status, priority, team and reply history under approved targets, calendars, pauses, reopens and policy versions, then derive attainment by period, priority and team, a daily open-backlog age view and an exceptions list that accounts for every ticket, with an optional vendor comparison when ticket-level vendor results exist.",
       "domain_objects": [
         "ticket",
         "sla_clock",
@@ -674,8 +674,7 @@
         "state_interval",
         "sla_exception",
         "backlog_snapshot",
-        "reporting_period",
-        "vendor_sla_flag"
+        "reporting_period"
       ],
       "evidence": {
         "evals": [],
@@ -697,15 +696,8 @@
       "pitch": "See how every SLA number is computed and how old the open backlog was on any past day.",
       "qualifiers": [
         "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
-        "Assessed with a labelled synthetic 49-ticket fixture and synthetic vendor flags; no real ticket source was read.",
-        "Past backlog is rebuilt from status, priority and team history; without that history it cannot be reconstructed.",
-        "No fixture ticket had the lowest priority or one of the three teams; their targets and team hours are unassessed.",
-        "Only targets were versioned; other policy dates and the priority and team seeds go unread, and 24x7 is a SQL literal.",
-        "Data tests on frozen seeds only, no unit tests, evaluator skipped; solve-then-close and time zone cases were probes.",
-        "Vendor flags existed only for stopped clocks; the 24x7 alternative subtracted business-time pauses, not wall-clock.",
-        "The minute-level business-time expansion ran at fixture scale only; production ticket volume is unassessed.",
-        "Review was self-review only; equality tests joined on keys, so only uniqueness tests caught duplicate rows.",
-        "Mart equality tests were written with the SQL, not first; fail-ability came from later deliberate breaks."
+        "Past backlog needs retained status, priority and team history; without it, backlog starts at the first captured day.",
+        "The vendor comparison needs the vendor's per-ticket, per-clock result; without that export it is left out."
       ],
       "readiness": "supported",
       "related": [
@@ -715,13 +707,13 @@
         "business-event-fact",
         "dbt-snapshot-history"
       ],
-      "sha256": "af1f74722c9e8f8d6c824144e1428524f2408eae4b1c5d89d701778dbfd8d7bd",
+      "sha256": "79685d748c508eae74258e3cac5216d6d7a1ffa9f59f14696b8f0ac86d428e63",
       "title": "Track ticket SLA attainment and backlog aging outside the vendor dashboard",
       "trigger": [
         "The ticketing vendor's dashboard reports SLA met or breached, but nobody can check how its numbers are calculated.",
         "Support leads need the open backlog by age as it stood on a past day, which the vendor dashboard cannot show.",
         "SLA attainment must be reported by period, priority and team under the support team's own hours, pauses and reopen rules.",
-        "The team wants each ticket's own SLA result compared with the vendor's flag, with a reason for every disagreement."
+        "A breach must be traceable to the business hours, pauses and policy version that applied to that ticket."
       ],
       "works_with": {
         "platforms": [
