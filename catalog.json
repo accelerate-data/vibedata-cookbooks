@@ -665,6 +665,75 @@
     },
     {
       "area": "transformation",
+      "description": "Build per-ticket response and resolution SLA outcomes from ticket status, priority, team and reply history under user-approved targets, calendars, pauses, reopens and policy versions, then derive attainment by period, priority and team, a daily open-backlog age view, an exceptions list that reconciles every ticket, and an optional ticket-level vendor comparison.",
+      "domain_objects": [
+        "ticket",
+        "sla_clock",
+        "sla_policy_version",
+        "business_calendar",
+        "state_interval",
+        "sla_exception",
+        "backlog_snapshot",
+        "reporting_period",
+        "vendor_sla_flag"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "designing",
+          "domain-modeling",
+          "applying-medallion-data-modelling",
+          "planning",
+          "executing-the-plan",
+          "generating-dbt-model",
+          "verifying",
+          "shipping"
+        ]
+      },
+      "id": "service-ticket-sla",
+      "job_category": "build",
+      "path": "recipes/service-ticket-sla/recipe.md",
+      "pitch": "See how every SLA number is computed and how old the open backlog was on any past day.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Assessed with a labelled synthetic 49-ticket fixture and synthetic vendor flags; no real ticket source was read.",
+        "Past backlog is rebuilt from status, priority and team history; without that history it cannot be reconstructed.",
+        "No fixture ticket had the lowest priority or one of the three teams; their targets and team hours are unassessed.",
+        "Only targets were versioned; other policy dates and the priority and team seeds go unread, and 24x7 is a SQL literal.",
+        "Data tests on frozen seeds only, no unit tests, evaluator skipped; solve-then-close and time zone cases were probes.",
+        "Vendor flags existed only for stopped clocks; the 24x7 alternative subtracted business-time pauses, not wall-clock.",
+        "The minute-level business-time expansion ran at fixture scale only; production ticket volume is unassessed.",
+        "Review was self-review only; equality tests joined on keys, so only uniqueness tests caught duplicate rows.",
+        "Mart equality tests were written with the SQL, not first; fail-ability came from later deliberate breaks."
+      ],
+      "readiness": "supported",
+      "related": [
+        "operational-state-duration",
+        "effective-dated-business-rules",
+        "metric-population-and-rollups",
+        "business-event-fact",
+        "dbt-snapshot-history"
+      ],
+      "sha256": "af1f74722c9e8f8d6c824144e1428524f2408eae4b1c5d89d701778dbfd8d7bd",
+      "title": "Track ticket SLA attainment and backlog aging outside the vendor dashboard",
+      "trigger": [
+        "The ticketing vendor's dashboard reports SLA met or breached, but nobody can check how its numbers are calculated.",
+        "Support leads need the open backlog by age as it stood on a past day, which the vendor dashboard cannot show.",
+        "SLA attainment must be reported by period, priority and team under the support team's own hours, pauses and reopen rules.",
+        "The team wants each ticket's own SLA result compared with the vendor's flag, with a reason for every disagreement."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Build shift-grain revenue, cost and margin components from defensible event assignments and approved cost allocations, with visible cost completeness and reconciled driver, vehicle and period rollups.",
       "domain_objects": [
         "shift",
