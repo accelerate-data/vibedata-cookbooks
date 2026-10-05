@@ -757,7 +757,7 @@
         "metric-population-and-rollups",
         "business-event-fact"
       ],
-      "sha256": "4c10b674db2225776b74381b15f8b50fb00b18c6a999f00e568d5db0536d1693",
+      "sha256": "74d7f7bcd11d15f1b3d19567383a21ea32f1aca714c20b71fd5fa7461805ded9",
       "title": "Build commission-eligible bookings and quota attainment from explicit plan rules",
       "trigger": [
         "Reps, managers and finance disagree on attainment because each team credits bookings with its own spreadsheet logic.",

@@ -48,7 +48,7 @@ Build <credited_bookings_model>, <credit_exceptions_model>, <commission_bookings
 
 ## Verified by
 
-- Every in-scope source booking is either credited or excepted as the approved policy says, never both and never lost; booking counts and amounts reconcile to the source with no duplication or join fan-out.
+- Every in-scope source booking amount is accounted for exactly once, as credited or excepted shares as the approved policy says, so none is lost or counted twice; booking counts and amounts reconcile to the source with no duplication or join fan-out.
 - Per booking, credited amount equals the approved split. Credit types granted beyond the booking amount, such as overlay credit, stay distinguishable and never inflate booking totals.
 - Each booking lands in the period, plan version and eligibility the approved rules give for its placement date, including bookings on period and plan-version boundaries.
 - Commission eligibility and quota credit follow their own approved rules, so a booking counts toward quota without being commission-eligible exactly when the plan says so.
@@ -57,7 +57,7 @@ Build <credited_bookings_model>, <credit_exceptions_model>, <commission_bookings
 - Attainment for each quota holder and period equals approved credit divided by quota after approved proration. Credit without a quota and quota without an assignment follow the approved handling and never show zero or infinite attainment.
 - Every exception names its reason and the booking or rep-period it concerns. Unassigned bookings, missing quotas, unmatched rules and unconverted currencies are never defaulted to zero or dropped.
 - Each output is unique on its declared business grain, required fields are populated, and amounts and percentages stay within approved ranges.
-- Every credited row traces to the source booking, credit assignment, quota and plan-rule version that produced it.
+- Each credited row traces to its source booking, credit assignment and plan version, and each attainment row traces to the credit it sums and its quota, or shows the approved handling when no quota exists.
 - The outcome states which plan rules are explicit and versioned, which are expressed only in model logic, which exceptions remain open and what the inputs cannot prove.
 
 ## Agent guidance
@@ -85,7 +85,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - If unspecified, when an owner changes, does credit go to the rep assigned on the placement date or the current owner, and what happens to unassigned, departed-rep and partly unassigned split bookings?
 - If unresolved, are cancellations, downgrades and clawbacks in scope, do they post when they happen or restate, and does a plan change apply from its effective date or restate earlier bookings?
 - If unresolved, at what grain and period are quotas set, which credit counts toward each quota, are joiners and leavers prorated, and what happens to credit without a quota or a quota without an assignment?
-- If unspecified, does a booking with several problems get one exception per reason or one primary reason, and which exceptions are keyed per booking or per rep and month?
+- If unspecified, does a booking with several problems get one exception per reason or one primary reason, and which exceptions concern a booking and which concern a rep and period?
 
 ### Guardrails
 
