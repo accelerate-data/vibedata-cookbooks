@@ -58,7 +58,7 @@ Build <credited_bookings_model>, <credit_exceptions_model>, <commission_bookings
 - Every exception names its reason and the booking or rep-period it concerns. Unassigned bookings, missing quotas, unmatched rules and unconverted currencies are never defaulted to zero or dropped.
 - Each output is unique on its declared business grain, required fields are populated, and amounts and percentages stay within approved ranges.
 - Every credited row traces to the source booking, credit assignment, quota and plan-rule version that produced it.
-- The outcome states which plan rules are held as data, which are expressed only in model logic, which exceptions remain open and what the inputs cannot prove.
+- The outcome states which plan rules are explicit and versioned, which are expressed only in model logic, which exceptions remain open and what the inputs cannot prove.
 
 ## Agent guidance
 
