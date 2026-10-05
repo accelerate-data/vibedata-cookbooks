@@ -51,7 +51,7 @@ evidence:
 
 ## Prompt
 
-Build <per_ticket_sla_model> from <ticket_source> with one row per eligible ticket and SLA clock, then derive <attainment_model> by reporting period, priority and team, <backlog_model> as the open backlog by age bucket per day, and <exceptions_model> for every ticket and clock that cannot be scored or carries a flag. Inherit the Intent's sources, platform and approved requirements, and resolve only the SLA semantics they leave open: what starts, pauses, stops and reopens each clock, targets and policy versions, business hours, time zones and holidays, priority and team changes, exclusions, the as-of instant, the met boundary, attainment periods, and backlog membership and age. Keep policy values as data the user can change. Every eligible clock ends in one outcome or one explicit exception, attainment reconciles to ticket-level results, and no result depends on the session time zone. Rebuild past backlog only where history supports it. If ticket-level vendor results exist and a comparison is wanted, add <vendor_comparison_model> that reconciles and explains each difference.
+Build <per_ticket_sla_model> from <ticket_source> with one row per eligible ticket and SLA clock, then derive <attainment_model> by reporting period, priority and team, <backlog_model> as the open backlog by age bucket per day, and <exceptions_model> for every ticket and clock that cannot be scored or carries a flag. Inherit the Intent's sources, platform and approved requirements, and resolve only the SLA semantics they leave open: what starts, pauses, stops and reopens each clock, targets and policy versions, business hours, time zones and holidays, priority and team changes, exclusions, the as-of instant, the met boundary, attainment periods, and backlog membership and age. Policy values can change without changing model logic. Every eligible clock ends in one outcome or one explicit exception, attainment reconciles to ticket-level results, and no result depends on the session time zone. Rebuild past backlog only where history supports it. If ticket-level vendor results exist and a comparison is wanted, add <vendor_comparison_model> that reconciles and explains each difference.
 
 ## Verified by
 
@@ -63,26 +63,22 @@ Build <per_ticket_sla_model> from <ticket_source> with one row per eligible tick
 - Daily backlog rows reflect each ticket's status, priority and team as they stood at the approved snapshot moment, with ages and buckets on the approved start, unit and edges. Where history is missing, the output says so instead of projecting today's state backward.
 - Results are identical under any session time zone. Business hours, holidays and local-day windows follow each approved zone, including across daylight-saving changes, and fixed-length durations neither gain nor lose an hour.
 - For every period, priority and team, met plus breached equals the scored clocks in the per-ticket output, the rate follows the approved formula including a zero total, and group totals add up to the ticket-level totals.
-- Expected outcomes for the cases above are fixed from the approved rules, independently of the model logic, and every built output matches them.
 - If the vendor comparison is in scope, every vendor result matches a ticket clock or is listed as unmatched, and each disagreement carries an approved explanation or stays visibly unexplained. Our results are never changed to match the vendor.
 
 ## Agent guidance
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and approved requirements. Ask only about SLA semantics they leave open; sample data, vendor settings and existing code are evidence, never policy. Profile the ticket source for status, priority, team and reply history, timestamps and time zones, and name any output the available history cannot support. Hold approved targets, policy versions, calendars, holidays, pause statuses, reopen windows and exclusions as data the user can change. Build state intervals from the history first, then compute each clock's elapsed business time, stop instant and breach instant once, and derive attainment, backlog, exceptions and any vendor comparison from those per-ticket results. Keep every instant in UTC and convert to a local zone only where an approved rule names one. Cover at-target clocks, reopens at and just past the window edge, policy-version switches, mid-clock priority and team changes, holidays and daylight-saving changes, with expected outcomes fixed from the approved rules. Reconcile tickets to outcomes and exceptions, and attainment to ticket-level results. Add the vendor comparison only when ticket-level vendor results exist and the user wants it.
+Inherit the Intent's repository, platform, Domain, sources and approved requirements. Ask only about SLA semantics they leave open; sample data, vendor settings and existing code are evidence, never policy. Profile the ticket source for status, priority, team and reply history, timestamps and time zones, and name any output the available history cannot support. Approved targets, policy versions, calendars, holidays, pause statuses, reopen windows and exclusions can change without changing model logic. Each clock's elapsed business time, stop and breach have one definition that attainment, backlog aging, exceptions and any vendor comparison all share. Every timestamp identifies one unambiguous instant, and a local zone applies only where an approved rule names one. The approved rules, not model behaviour, decide at-target clocks, reopens at and just past the window edge, policy-version switches, mid-clock priority and team changes, holidays and daylight-saving changes. Tickets reconcile to outcomes and exceptions, and attainment reconciles to ticket-level results. Add the vendor comparison only when ticket-level vendor results exist and the user wants it.
 
 ### Compose
 
-- capturing-requirements
-- designing
+- profiling-source-data
 - domain-modeling
 - applying-medallion-data-modelling
-- planning
-- executing-the-plan
 - generating-dbt-model
+- running-dbt-in-sandbox
 - verifying
-- shipping
 
 ### Ask first
 
@@ -103,6 +99,6 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - Do not treat vendor results as ground truth. Never adjust our rules or results to agree with the vendor; report each disagreement with its approved explanation or as unexplained.
 - Do not drop or default unscorable tickets. No policy, unknown priority or team, merged and excluded tickets stay visible as exceptions with reasons and are never counted as met or breached.
 - Do not let the session time zone or local calendar arithmetic decide a result. Fixed-length durations are elapsed time between instants; local-day windows, hours and holidays use the approved zone, including across daylight-saving changes.
-- Do not compute a clock separately in each output. Attainment, backlog aging, exceptions and any vendor comparison all derive from one set of per-ticket results.
+- Do not let outputs disagree about a clock. Attainment, backlog aging, exceptions and any vendor comparison use the same per-ticket results.
 - Keep Domain sources read-only and use the Intent's actual platform; do not modify source data to manufacture evidence.
 - Stop at per-ticket outcomes, attainment, backlog aging, exceptions and the optional vendor comparison. Do not extend into agent productivity, CSAT or staffing models.

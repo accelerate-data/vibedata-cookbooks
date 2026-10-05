@@ -763,7 +763,7 @@
         "business-event-fact",
         "dbt-snapshot-history"
       ],
-      "sha256": "79685d748c508eae74258e3cac5216d6d7a1ffa9f59f14696b8f0ac86d428e63",
+      "sha256": "65e3ec5e7163229a45a628c3e62fcabc3d5d050788bb5327028ce77f8c361338",
       "title": "Track ticket SLA attainment and backlog aging outside the vendor dashboard",
       "trigger": [
         "The ticketing vendor's dashboard reports SLA met or breached, but nobody can check how its numbers are calculated.",
