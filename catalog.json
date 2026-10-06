@@ -27,6 +27,7 @@
         "effective-dated-business-rules",
         "event-resource-attribution",
         "identity-golden-record-crosswalk",
+        "identity-standardize-names-addresses",
         "logistics-fleet-utilization",
         "metric-population-and-rollups",
         "operational-state-duration",
@@ -41,7 +42,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 15,
+      "supported_or_proven_count": 16,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -549,6 +550,55 @@
         "Analysts need to trace a golden customer to every source record behind it, and any source record to its golden customer.",
         "Source systems disagree on a customer's name, address or contact details and nobody can say which value wins or why.",
         "Customer ids change from one run to the next when a later record turns out to belong to an existing customer."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Standardize every source record's name and postal address under approved, editable rules, keep the original values beside the standardized ones, mint deterministic match keys that agree exactly when the standardized values agree, and account for every record as standardized or excluded with a reason, without merging records.",
+      "domain_objects": [
+        "customer_record",
+        "party_name",
+        "postal_address",
+        "match_key",
+        "standardization_exception",
+        "rule_list"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "verifying"
+        ]
+      },
+      "id": "identity-standardize-names-addresses",
+      "job_category": "build",
+      "path": "recipes/identity-standardize-names-addresses/recipe.md",
+      "pitch": "Give every customer record a clean name, a clean address and a match key you can explain.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Addresses are standardized by rule, not verified against a postal service, so deliverability is not checked."
+      ],
+      "readiness": "supported",
+      "related": [
+        "business-event-fact"
+      ],
+      "sha256": "1ba0c75e4bcfd95568f98ca49af19af059b168bd6e83781d57da7878d4b353e7",
+      "title": "Standardize names and addresses and mint deterministic match keys",
+      "trigger": [
+        "The same customer is written differently across CRM, billing and support, so joins on name or address miss.",
+        "A deduplication or golden-record step needs stable, explainable match keys before any fuzzy matching.",
+        "Addresses arrive in mixed formats across countries, so reports group the same address several ways.",
+        "Match results must be reproducible from run to run, without depending on run order or an external service."
       ],
       "works_with": {
         "platforms": [
