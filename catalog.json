@@ -665,6 +665,172 @@
     },
     {
       "area": "transformation",
+      "description": "Capture one row per opportunity per user-confirmed snapshot period, such as hourly, daily, weekly or monthly, in an append-only snapshot, then derive stage transitions, conversion rates and close-date slippage with explicit handling of missed periods, reopened and deleted opportunities.",
+      "domain_objects": [
+        "opportunity",
+        "pipeline_snapshot",
+        "stage_transition",
+        "close_date_slippage"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "authoring-dbt-project-artifact",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "evaluating-dbt-project",
+          "verifying"
+        ]
+      },
+      "id": "revops-pipeline-snapshots",
+      "job_category": "build",
+      "path": "recipes/revops-pipeline-snapshots/recipe.md",
+      "pitch": "Reproduce the pipeline as it stood at each captured snapshot period and measure how deals move, convert and slip.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "History starts at the first snapshot; earlier pipeline cannot be reconstructed from present state.",
+        "Capture cannot see changes that happen and revert between two captures; longer periods hide more.",
+        "Assessed with a labelled synthetic fixture standing in for the CRM; no live opportunity source was captured.",
+        "Assessed at a daily period only; rules for other periods, capture moments, late runs and empty reads are unassessed."
+      ],
+      "readiness": "supported",
+      "related": [
+        "dbt-snapshot-history",
+        "metric-population-and-rollups",
+        "operational-state-duration",
+        "business-event-fact"
+      ],
+      "sha256": "413642cdfc9a681616e424d6e82b65d66472e3ac12fe058574a2fef8c431dfdd",
+      "title": "Build a periodic opportunity pipeline snapshot with stage conversion and slippage",
+      "trigger": [
+        "The CRM overwrites opportunity stage, amount and close date, so past pipeline cannot be reproduced as it stood at an earlier point.",
+        "RevOps needs stage-to-stage conversion rates by cohort, but only the current opportunity state is available.",
+        "Forecast reviews need to know which deals slipped their close date, shrank or grew, and between which snapshots it happened."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Credit each booking to the reps and periods the user's approved plan rules name, flag commission eligibility, roll credit against quota, and keep every booking or quota that cannot be credited visible as an exception.",
+      "domain_objects": [
+        "booking",
+        "compensation_plan_rule",
+        "credit_assignment",
+        "quota",
+        "quota_attainment"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "revops-quota-commission",
+      "job_category": "build",
+      "path": "recipes/revops-quota-commission/recipe.md",
+      "pitch": "Turn written compensation plan rules into tested, traceable commission-eligible bookings and quota attainment.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Stops at commission-eligible bookings and attainment; payout amounts are a separate outcome.",
+        "Assessed with a labelled synthetic fixture standing in for CRM bookings, rep assignments, quotas and plan rules.",
+        "Credit ignoring today's owner needs owner history in the source; the assessed fixture had none."
+      ],
+      "readiness": "supported",
+      "related": [
+        "effective-dated-business-rules",
+        "metric-population-and-rollups",
+        "business-event-fact"
+      ],
+      "sha256": "74d7f7bcd11d15f1b3d19567383a21ea32f1aca714c20b71fd5fa7461805ded9",
+      "title": "Build commission-eligible bookings and quota attainment from explicit plan rules",
+      "trigger": [
+        "Reps, managers and finance disagree on attainment because each team credits bookings with its own spreadsheet logic.",
+        "Compensation plan rules for eligibility, crediting splits and timing live in documents, not in tested models.",
+        "A rep moved territory, a deal was cancelled or a plan changed mid-year, and nobody can say which bookings counted in a closed period."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build per-ticket response and resolution SLA outcomes from ticket status, priority, team and reply history under approved targets, calendars, pauses, reopens and policy versions, then derive attainment by period, priority and team, a daily open-backlog age view and an exceptions list that accounts for every ticket, with an optional vendor comparison when ticket-level vendor results exist.",
+      "domain_objects": [
+        "ticket",
+        "sla_clock",
+        "sla_policy_version",
+        "business_calendar",
+        "state_interval",
+        "sla_exception",
+        "backlog_snapshot",
+        "reporting_period"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "domain-modeling",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "id": "service-ticket-sla",
+      "job_category": "build",
+      "path": "recipes/service-ticket-sla/recipe.md",
+      "pitch": "See how every SLA number is computed and how old the open backlog was on any past day.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Past backlog needs retained status, priority and team history; without it, backlog starts at the first captured day.",
+        "The vendor comparison needs the vendor's per-ticket, per-clock result; without that export it is left out."
+      ],
+      "readiness": "supported",
+      "related": [
+        "operational-state-duration",
+        "effective-dated-business-rules",
+        "metric-population-and-rollups",
+        "business-event-fact",
+        "dbt-snapshot-history"
+      ],
+      "sha256": "ab0ce1fbc6ba27e0e9e02c24d5de751d2f5a814413c4e7f3905aaf1ad931efb4",
+      "title": "Track ticket SLA attainment and backlog aging outside the vendor dashboard",
+      "trigger": [
+        "The ticketing vendor's dashboard reports SLA met or breached, but nobody can check how its numbers are calculated.",
+        "Support leads need the open backlog by age as it stood on a past day, which the vendor dashboard cannot show.",
+        "SLA attainment must be reported by period, priority and team under the support team's own hours, pauses and reopen rules.",
+        "A breach must be traceable to the business hours, pauses and policy version that applied to that ticket."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Build shift-grain revenue, cost and margin components from defensible event assignments and approved cost allocations, with visible cost completeness and reconciled driver, vehicle and period rollups.",
       "domain_objects": [
         "shift",

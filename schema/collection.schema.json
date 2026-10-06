@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/accelerate-data/vibedata-cookbooks/schema/collection.schema.json",
   "version": 1,
-  "title": "VibeData Cookbook Collection",
+  "title": "Vibedata Cookbook Collection",
   "description": "collections/<id>.json: a non-executable discovery view over Recipes.",
   "type": "object",
   "additionalProperties": false,
