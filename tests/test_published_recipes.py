@@ -26,6 +26,7 @@ EXPECTED = {
     "metric-population-and-rollups": {"readiness": "supported", "platforms": ALL_PLATFORMS},
     "operational-state-duration": {"readiness": "supported", "platforms": ALL_PLATFORMS},
     "prove-dbt-change-safe": {"readiness": "supported", "platforms": ALL_PLATFORMS},
+    "revops-quota-commission": {"readiness": "supported", "platforms": ["duckdb_local"]},
     "shift-unit-economics": {"readiness": "supported", "platforms": ALL_PLATFORMS},
     "revops-pipeline-snapshots": {"readiness": "supported", "platforms": ["duckdb_local"]},
     "service-ticket-sla": {"readiness": "supported", "platforms": ["duckdb_local"]},
