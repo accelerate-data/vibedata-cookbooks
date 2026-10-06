@@ -1,0 +1,11 @@
+{
+  "id": "duckdb",
+  "title": "DuckDB",
+  "kind": "platform",
+  "description": "Recipes that can execute against local DuckDB.",
+  "selector": {
+    "platforms_any": [
+      "duckdb_local"
+    ]
+  }
+}

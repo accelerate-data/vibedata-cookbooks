@@ -16,6 +16,36 @@
       "website_visible": true
     },
     {
+      "description": "Recipes that can execute against local DuckDB.",
+      "id": "duckdb",
+      "kind": "platform",
+      "resolved_members": [
+        "api-to-bronze-incremental-contract",
+        "business-event-fact",
+        "dbt-full-refresh-to-incremental",
+        "dbt-snapshot-history",
+        "effective-dated-business-rules",
+        "event-resource-attribution",
+        "logistics-fleet-utilization",
+        "metric-population-and-rollups",
+        "operational-state-duration",
+        "prove-dbt-change-safe",
+        "revops-pipeline-snapshots",
+        "revops-quota-commission",
+        "service-ticket-sla",
+        "shift-unit-economics"
+      ],
+      "selector": {
+        "platforms_any": [
+          "duckdb_local"
+        ]
+      },
+      "supported_or_proven_count": 14,
+      "title": "DuckDB",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
       "description": "Recipes for data engineers working with finance-domain data and controls.",
       "id": "finance-data-engineering",
       "kind": "function",
@@ -139,6 +169,33 @@
       ],
       "supported_or_proven_count": 9,
       "title": "Build models that answer the right questions",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
+      "description": "Recipes that can execute against MotherDuck.",
+      "id": "motherduck",
+      "kind": "platform",
+      "resolved_members": [
+        "api-to-bronze-incremental-contract",
+        "business-event-fact",
+        "dbt-full-refresh-to-incremental",
+        "effective-dated-business-rules",
+        "event-resource-attribution",
+        "logistics-fleet-utilization",
+        "metric-population-and-rollups",
+        "motherduck-flight-scheduling",
+        "operational-state-duration",
+        "prove-dbt-change-safe",
+        "shift-unit-economics"
+      ],
+      "selector": {
+        "platforms_any": [
+          "motherduck"
+        ]
+      },
+      "supported_or_proven_count": 11,
+      "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
     }
