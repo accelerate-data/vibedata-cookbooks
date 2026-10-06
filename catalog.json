@@ -29,6 +29,7 @@
         "identity-golden-record-crosswalk",
         "identity-standardize-names-addresses",
         "logistics-fleet-utilization",
+        "master-b2b-account-hierarchy",
         "metric-population-and-rollups",
         "operational-state-duration",
         "prove-dbt-change-safe",
@@ -42,7 +43,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 16,
+      "supported_or_proven_count": 17,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -652,6 +653,59 @@
           "fabric_lakehouse",
           "fabric_warehouse",
           "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Resolve every account to its parent and ultimate parent under approved, editable precedence, ownership and validity rules, roll measures up every level of each corporate family both as the families stood at the time and restated under the families on an approved as-of date, and list every unresolvable link with a reason, without counting anything twice.",
+      "domain_objects": [
+        "account",
+        "parent_link",
+        "account_hierarchy",
+        "ultimate_parent",
+        "family_rollup",
+        "hierarchy_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "verifying"
+        ]
+      },
+      "id": "master-b2b-account-hierarchy",
+      "job_category": "build",
+      "path": "recipes/master-b2b-account-hierarchy/recipe.md",
+      "pitch": "See every corporate family's total, as it stood then and as it stands now, with every broken parent link explained.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "The as-was view needs dated parent-link history in the source; without it, past families cannot be rebuilt.",
+        "Accounts must already be one record per company; this Recipe does not deduplicate accounts."
+      ],
+      "readiness": "supported",
+      "related": [
+        "metric-population-and-rollups",
+        "effective-dated-business-rules",
+        "dbt-snapshot-history",
+        "identity-golden-record-crosswalk"
+      ],
+      "sha256": "2473243da1fb993d4b0ede0437ea4b480a3b917217ff91b5768e5c871c956b15",
+      "title": "Resolve B2B account hierarchies and roll measures to the ultimate parent",
+      "trigger": [
+        "Sales and finance cannot see total revenue or pipeline for a whole corporate family because subsidiaries sit as separate accounts.",
+        "The CRM's parent-account field has gaps, loops and conflicts with a firmographic vendor, and nobody knows which link to trust.",
+        "After an acquisition or divestiture, reports disagree on which family a past month's revenue belongs to.",
+        "Named-account or territory rules apply at the ultimate-parent level and need a flat account to parent to ultimate parent table."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
         ],
         "tools": [
           "dbt"
