@@ -721,6 +721,60 @@
     },
     {
       "area": "transformation",
+      "description": "Credit each booking to the reps and periods the user's approved plan rules name, flag commission eligibility, roll credit against quota, and keep every booking or quota that cannot be credited visible as an exception.",
+      "domain_objects": [
+        "booking",
+        "compensation_plan_rule",
+        "credit_assignment",
+        "quota",
+        "quota_attainment"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "revops-quota-commission",
+      "job_category": "build",
+      "path": "recipes/revops-quota-commission/recipe.md",
+      "pitch": "Turn written compensation plan rules into tested, traceable commission-eligible bookings and quota attainment.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Stops at commission-eligible bookings and attainment; payout amounts are a separate outcome.",
+        "Assessed with a labelled synthetic fixture standing in for CRM bookings, rep assignments, quotas and plan rules.",
+        "Credit ignoring today's owner needs owner history in the source; the assessed fixture had none."
+      ],
+      "readiness": "supported",
+      "related": [
+        "effective-dated-business-rules",
+        "metric-population-and-rollups",
+        "business-event-fact"
+      ],
+      "sha256": "74d7f7bcd11d15f1b3d19567383a21ea32f1aca714c20b71fd5fa7461805ded9",
+      "title": "Build commission-eligible bookings and quota attainment from explicit plan rules",
+      "trigger": [
+        "Reps, managers and finance disagree on attainment because each team credits bookings with its own spreadsheet logic.",
+        "Compensation plan rules for eligibility, crediting splits and timing live in documents, not in tested models.",
+        "A rep moved territory, a deal was cancelled or a plan changed mid-year, and nobody can say which bookings counted in a closed period."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Build shift-grain revenue, cost and margin components from defensible event assignments and approved cost allocations, with visible cost completeness and reconciled driver, vehicle and period rollups.",
       "domain_objects": [
         "shift",
