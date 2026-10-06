@@ -775,6 +775,62 @@
     },
     {
       "area": "transformation",
+      "description": "Build per-ticket response and resolution SLA outcomes from ticket status, priority, team and reply history under approved targets, calendars, pauses, reopens and policy versions, then derive attainment by period, priority and team, a daily open-backlog age view and an exceptions list that accounts for every ticket, with an optional vendor comparison when ticket-level vendor results exist.",
+      "domain_objects": [
+        "ticket",
+        "sla_clock",
+        "sla_policy_version",
+        "business_calendar",
+        "state_interval",
+        "sla_exception",
+        "backlog_snapshot",
+        "reporting_period"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "domain-modeling",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "id": "service-ticket-sla",
+      "job_category": "build",
+      "path": "recipes/service-ticket-sla/recipe.md",
+      "pitch": "See how every SLA number is computed and how old the open backlog was on any past day.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Past backlog needs retained status, priority and team history; without it, backlog starts at the first captured day.",
+        "The vendor comparison needs the vendor's per-ticket, per-clock result; without that export it is left out."
+      ],
+      "readiness": "supported",
+      "related": [
+        "operational-state-duration",
+        "effective-dated-business-rules",
+        "metric-population-and-rollups",
+        "business-event-fact",
+        "dbt-snapshot-history"
+      ],
+      "sha256": "ab0ce1fbc6ba27e0e9e02c24d5de751d2f5a814413c4e7f3905aaf1ad931efb4",
+      "title": "Track ticket SLA attainment and backlog aging outside the vendor dashboard",
+      "trigger": [
+        "The ticketing vendor's dashboard reports SLA met or breached, but nobody can check how its numbers are calculated.",
+        "Support leads need the open backlog by age as it stood on a past day, which the vendor dashboard cannot show.",
+        "SLA attainment must be reported by period, priority and team under the support team's own hours, pauses and reopen rules.",
+        "A breach must be traceable to the business hours, pauses and policy version that applied to that ticket."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Build shift-grain revenue, cost and margin components from defensible event assignments and approved cost allocations, with visible cost completeness and reconciled driver, vehicle and period rollups.",
       "domain_objects": [
         "shift",

@@ -29,6 +29,7 @@ EXPECTED = {
     "revops-quota-commission": {"readiness": "supported", "platforms": ["duckdb_local"]},
     "shift-unit-economics": {"readiness": "supported", "platforms": ALL_PLATFORMS},
     "revops-pipeline-snapshots": {"readiness": "supported", "platforms": ["duckdb_local"]},
+    "service-ticket-sla": {"readiness": "supported", "platforms": ["duckdb_local"]},
 }
 
 
