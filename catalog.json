@@ -26,6 +26,7 @@
         "dbt-snapshot-history",
         "effective-dated-business-rules",
         "event-resource-attribution",
+        "identity-golden-record-crosswalk",
         "identity-standardize-names-addresses",
         "logistics-fleet-utilization",
         "metric-population-and-rollups",
@@ -41,7 +42,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 15,
+      "supported_or_proven_count": 16,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -498,6 +499,63 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Resolve customer records from several source systems into one golden record per customer, with a two-way crosswalk, approved match and survivorship rules held as data, golden ids that stay stable across runs, an unresolved list that accounts for every source record, and an optional comparison with a source system's own merge pointers.",
+      "domain_objects": [
+        "customer",
+        "golden_record",
+        "source_record",
+        "crosswalk",
+        "match_rule",
+        "survivorship_rule",
+        "golden_id_register",
+        "unresolved_record"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "identifying-data-slice",
+          "domain-modeling",
+          "applying-medallion-data-modelling",
+          "authoring-dbt-project-artifact",
+          "dbt-unit-testing",
+          "verifying"
+        ]
+      },
+      "id": "identity-golden-record-crosswalk",
+      "job_category": "build",
+      "path": "recipes/identity-golden-record-crosswalk/recipe.md",
+      "pitch": "One customer, one stable id, every source record traced to it and every unresolved one explained.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Expects names and addresses already standardized, with a match key, by an earlier standardization step.",
+        "Stable golden ids need the id register to persist between runs; a rebuild from scratch reissues them.",
+        "Without retained crosswalk history, the crosswalk as it stood on a past run cannot be reconstructed."
+      ],
+      "readiness": "supported",
+      "related": [
+        "business-event-fact",
+        "dbt-snapshot-history"
+      ],
+      "sha256": "7836b7b43641d5b32249e17110ad44b5627e9008fa15ecc68f769fd6d4e3593b",
+      "title": "Deduplicate customers into a golden record with a source crosswalk",
+      "trigger": [
+        "The same customer exists in several systems under different ids, so customer counts and per-customer revenue are inflated.",
+        "Analysts need to trace a golden customer to every source record behind it, and any source record to its golden customer.",
+        "Source systems disagree on a customer's name, address or contact details and nobody can say which value wins or why.",
+        "Customer ids change from one run to the next when a later record turns out to belong to an existing customer."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
           "dbt"
         ]
       }

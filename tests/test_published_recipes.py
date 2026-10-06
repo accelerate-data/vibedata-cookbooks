@@ -31,6 +31,7 @@ EXPECTED = {
     "revops-pipeline-snapshots": {"readiness": "supported", "platforms": ["duckdb_local"]},
     "service-ticket-sla": {"readiness": "supported", "platforms": ["duckdb_local"]},
     "identity-standardize-names-addresses": {"readiness": "supported", "platforms": ["duckdb_local"]},
+    "identity-golden-record-crosswalk": {"readiness": "supported", "platforms": ["duckdb_local"]},
 }
 
 
