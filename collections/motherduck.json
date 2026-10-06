@@ -1,0 +1,11 @@
+{
+  "id": "motherduck",
+  "title": "MotherDuck",
+  "kind": "platform",
+  "description": "Recipes that can execute against MotherDuck.",
+  "selector": {
+    "platforms_any": [
+      "motherduck"
+    ]
+  }
+}
