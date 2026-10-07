@@ -695,7 +695,7 @@
         "dbt-snapshot-history",
         "identity-golden-record-crosswalk"
       ],
-      "sha256": "5f00cfdaaf0b1d4624e2d7d93eb0bc5bd49b50fb83f5f6fe3a8db11d5c8be334",
+      "sha256": "9cb690c2b1f549f0b997c65bed700c012741924dccd9ee905a65e0b8ecb1879d",
       "title": "Resolve B2B account hierarchies and roll measures to the ultimate parent",
       "trigger": [
         "Sales and finance cannot see total revenue or pipeline for a whole corporate family because subsidiaries sit as separate accounts.",
