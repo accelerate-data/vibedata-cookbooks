@@ -23,6 +23,7 @@
         "api-to-bronze-incremental-contract",
         "business-event-fact",
         "dbt-full-refresh-to-incremental",
+        "dbt-refactor-output-identical",
         "dbt-snapshot-history",
         "effective-dated-business-rules",
         "event-resource-attribution",
@@ -42,7 +43,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 16,
+      "supported_or_proven_count": 17,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -324,6 +325,55 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Restructure existing dbt models so that, within an approved scope, repeated logic has one owner and long models read as named steps, with evidence that every relation a consumer reads keeps its approved contract against a baseline of the unchanged code.",
+      "domain_objects": [
+        "dbt_model",
+        "consumer_contract",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "refactoring-dbt-models",
+          "evaluating-dbt-project",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "dbt-refactor-output-identical",
+      "job_category": "re-engineer",
+      "path": "recipes/dbt-refactor-output-identical/recipe.md",
+      "pitch": "Clean up tangled dbt models and prove that nothing your consumers read has changed.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed."
+      ],
+      "readiness": "supported",
+      "related": [
+        "dbt-full-refresh-to-incremental",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "4d8304d384ad8bfd2d18fb7dc6908f25d69c133051d7c5f17ed27b63671cc1a2",
+      "title": "Refactor dbt models without changing consumer output",
+      "trigger": [
+        "A model has grown into one long query with logic packed inline, and nobody dares change it because dashboards and reports depend on its output.",
+        "The same join, lookup or derived key is written again and again across models, and the copies are starting to drift apart.",
+        "A mart reads a raw or source table directly instead of going through a staging model.",
+        "Reviewers need evidence that what consumers see is identical before and after a structural change."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
         ],
         "tools": [
           "dbt"
