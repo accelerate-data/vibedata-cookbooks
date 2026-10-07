@@ -612,7 +612,7 @@
     },
     {
       "area": "transformation",
-      "description": "Bring a legacy SQL script or view into dbt as layered models that publish the same contract, proven against the legacy logic's own output on the same inputs, with every legacy defect reproduced and listed rather than silently fixed.",
+      "description": "Bring a legacy SQL script or view into dbt as models that publish the same contract, proven against the legacy logic's own output on the same inputs, with legacy defects reproduced and reported as follow-up work.",
       "domain_objects": [
         "legacy_sql",
         "dbt_model",
@@ -639,19 +639,19 @@
       "pitch": "Retire a hand-run SQL script by rebuilding it in dbt and proving the new models return exactly what the old one did.",
       "qualifiers": [
         "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
-        "An exact baseline needs the legacy SQL to run on the target engine against the same inputs."
+        "Needs the legacy output on the same inputs, from the legacy SQL or its current table."
       ],
       "readiness": "supported",
       "related": [
         "prove-dbt-change-safe",
         "dbt-full-refresh-to-incremental"
       ],
-      "sha256": "1b405a0532a4f1e9b96b6759bbaddee8313132a1afba6d695a5770b705918ad4",
+      "sha256": "34960c23af507a72fb1b63ede3729708f7edfb35a4b438b26ee9a91f898effc2",
       "title": "Convert a legacy SQL script or view into a dbt model and prove parity",
       "trigger": [
         "A report or table is still produced by a hand-run SQL script or a database view outside dbt, with no tests, lineage or review.",
         "The team wants to retire a legacy script, but its consumers need proof that the dbt version returns exactly the same rows.",
-        "Transformation logic written as step-by-step SQL (temp tables, updates, deletes) has to move into the dbt project's layers."
+        "Transformation logic written as step-by-step SQL (temp tables, updates, deletes) has to move into the dbt project."
       ],
       "works_with": {
         "platforms": [
