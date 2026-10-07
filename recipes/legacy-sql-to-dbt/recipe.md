@@ -76,13 +76,14 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - If unresolved, what counts as unchanged output: rows and values only, or also the relation name, column names, column order, types and materialization?
 - If unresolved, does the published model take over the legacy relation's name, or do consumers move to it later as separate work?
 - If unresolved, which project structure and layering conventions must the models follow, or should they mirror the legacy SQL as one model?
-- If unresolved, which inputs and period form the comparison, are values compared exactly or within an approved precision, and in which execution environments and time zones must the result match?
+- If unresolved, which parameters does the legacy SQL take, which values and inputs form the comparison, are values compared exactly or within an approved precision, and in which execution environments and time zones must the result match?
 - If unresolved, after parity is proven, is the legacy artifact kept and marked retired, or removed?
 - If unresolved, when the legacy SQL cannot run on the target engine, where does the baseline output come from, for example the legacy relation's current table, and who approves it?
 
 ### Guardrails
 
 - Do not edit the legacy logic or its captured output to make the comparison pass.
+- Do not remove or disable the legacy artifact before the parity result has been accepted.
 - Do not correct a legacy defect, such as turning an inner join into an outer join; reproduce it, report it as follow-up work, and route any wanted output change to a separate change.
 - Do not treat a green build or a passing test suite as proof of parity; the proof is the comparison against the legacy output.
 - Do not claim exact parity when the legacy output itself varies from run to run; report what cannot be proven.

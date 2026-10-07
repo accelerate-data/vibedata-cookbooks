@@ -646,7 +646,7 @@
         "prove-dbt-change-safe",
         "dbt-full-refresh-to-incremental"
       ],
-      "sha256": "34960c23af507a72fb1b63ede3729708f7edfb35a4b438b26ee9a91f898effc2",
+      "sha256": "cc3e7441462d7b3fea1c4b4c64cdb19b023acfccd6c07a2951b910835cb7b6f9",
       "title": "Convert a legacy SQL script or view into a dbt model and prove parity",
       "trigger": [
         "A report or table is still produced by a hand-run SQL script or a database view outside dbt, with no tests, lineage or review.",
