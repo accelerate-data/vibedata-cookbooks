@@ -661,7 +661,7 @@
     },
     {
       "area": "transformation",
-      "description": "Resolve accounts to their parent and ultimate parent under approved precedence and parent rules, keep accounts the rules cannot place explicitly unresolved, roll measures up every level of each corporate family for the approved periods, and list every hierarchy anomaly with its reason, never double counting an account or inventing hierarchy.",
+      "description": "Resolve accounts to their parent and ultimate parent under approved precedence and parent rules, keep accounts the rules cannot place explicitly unresolved unless an approved fallback places them, roll measures up every level of each corporate family for the approved periods, and list every hierarchy anomaly with its reason, never double counting an account or inventing hierarchy.",
       "domain_objects": [
         "account",
         "parent_link",
@@ -695,7 +695,7 @@
         "dbt-snapshot-history",
         "identity-golden-record-crosswalk"
       ],
-      "sha256": "e3513a9cdf33911aee24b7a9cd6aff659464992b10da7a22a8a23907c76535f4",
+      "sha256": "5f00cfdaaf0b1d4624e2d7d93eb0bc5bd49b50fb83f5f6fe3a8db11d5c8be334",
       "title": "Resolve B2B account hierarchies and roll measures to the ultimate parent",
       "trigger": [
         "Sales and finance cannot see total revenue or pipeline for a whole corporate family because subsidiaries sit as separate accounts.",

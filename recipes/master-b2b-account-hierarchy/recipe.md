@@ -6,7 +6,7 @@ trigger:
   - The CRM's parent-account field has gaps, loops and conflicts with a firmographic vendor, and nobody knows which link to trust.
   - After an acquisition or divestiture, reports disagree on which family a past month's revenue belongs to.
   - Named-account or territory rules apply at the ultimate-parent level and need each account mapped to its parent and ultimate parent.
-description: Resolve accounts to their parent and ultimate parent under approved precedence and parent rules, keep accounts the rules cannot place explicitly unresolved, roll measures up every level of each corporate family for the approved periods, and list every hierarchy anomaly with its reason, never double counting an account or inventing hierarchy.
+description: Resolve accounts to their parent and ultimate parent under approved precedence and parent rules, keep accounts the rules cannot place explicitly unresolved unless an approved fallback places them, roll measures up every level of each corporate family for the approved periods, and list every hierarchy anomaly with its reason, never double counting an account or inventing hierarchy.
 pitch: See every corporate family's total, with every account placed or explicitly unresolved and every broken parent link explained.
 job_category: build
 area: transformation
@@ -43,7 +43,7 @@ evidence:
 
 ## Prompt
 
-Build <account_hierarchy_model> that resolves each account in <account_source> to its parent and ultimate parent from <parent_link_sources> under the approved precedence and parent rules, <family_rollup_model> that rolls <measures> up every level of each corporate family per period, and <hierarchy_exceptions_model> for every hierarchy anomaly, unresolved account and unplaced measure. Inherit the Intent's sources, platform and approved requirements, and resolve only the hierarchy semantics they leave open: parent sources and precedence, parent rules, link dating, periods and as-of restatement, measure meaning, anomalies and fallbacks. Every account is accounted for: a resolved account has exactly one ultimate parent, and an unresolved one stays explicit unless an approved fallback places it. Each source measure lands once, in a family total, with an unresolved account or among unplaced measures, and these reconcile to the source total; no result depends on the session time zone. Rebuild past families only where dated link history supports it. If an external hierarchy exists and a comparison is wanted, add <comparison_model> explaining each difference without changing ours.
+Build <account_hierarchy_model> that resolves each account in <account_source> to its parent and ultimate parent from <parent_link_sources> under the approved precedence and parent rules, <family_rollup_model> that rolls <measures> up every level of each corporate family per approved period, and <hierarchy_exceptions_model> for every hierarchy anomaly, unresolved account and unplaced measure. Inherit the Intent's sources, platform and approved requirements, and resolve any hierarchy semantics they leave open. Every account is accounted for: a resolved account has exactly one ultimate parent, and an unresolved one stays explicit unless an approved fallback places it. If an external hierarchy exists and a comparison is wanted, add <comparison_model> explaining each difference without changing ours.
 
 ## Verified by
 
@@ -53,8 +53,8 @@ Build <account_hierarchy_model> that resolves each account in <account_source> t
 - Links that start or end on either side of a period boundary place an account in the family the approved rule selects for that period, and where a restated view is approved, its families use only the links in force on the as-of date.
 - Past families are rebuilt only from dated link history; where history is missing the output says so instead of projecting current links backward. Restatement changes grouping, never a measure value.
 - Each account's own measure counts exactly once in every ancestor's total, never twice through two paths, and measures below an unresolved account roll up only as the approved rule says.
-- Per period, each ancestor's total equals its own measure plus its descendants', and each source measure lands exactly once: in a family total, with an unresolved account outside any family, or among unplaced measures. Together they equal the source total.
-- Measures for accounts outside the account list and missing measures follow the approved rules: none is silently dropped, and none is defaulted to zero unless the approved semantics define absence as zero.
+- Per period, each ancestor's total equals its own measure plus its descendants', and each source measure lands exactly once: in a family total, with an unresolved account outside any family, or among unplaced measures. Together they equal the source total at the approved rounding.
+- Measures for accounts outside the account list follow the approved rule and are never silently dropped, and the outputs never default a missing measure to zero unless the approved measure semantics explicitly define it as zero.
 - Results are identical on every run and under any session time zone.
 - If a comparison is in scope, every account shows agreement, a missing external value, an unresolved account on our side, or a difference with an approved explanation or marked unexplained. Our hierarchy is never changed to match the external one.
 
@@ -62,7 +62,7 @@ Build <account_hierarchy_model> that resolves each account in <account_source> t
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and approved requirements. Ask only about hierarchy semantics they leave open; sample data, vendor settings and existing code are evidence, never policy. Profile each parent source: which field names the parent, in which id space, whether links carry ownership shares and validity dates, and whether the source keeps link history or overwrites it, and name any output the available history cannot support. Approved precedence, parent rules, depth caps, overrides, as-of dates and fallbacks can change without changing model logic. The roll-up, the exceptions and any comparison share one resolved hierarchy, so they never disagree about a family. The approved rules, not model behaviour, decide a source with no usable parent, a link exactly at a threshold, a link starting or ending at a period boundary, cycles, conflicting or overlapping links, chains past a depth cap, and where an unresolved account and the accounts below it belong. Ancestor totals equal their own plus descendants' measures, and each source measure lands once in a family, with an unresolved account or among unplaced measures. Add the comparison only when an external hierarchy exists and the user wants it.
+Inherit the Intent's repository, platform, Domain, sources and approved requirements. Ask only about hierarchy semantics they leave open; sample data, vendor settings and existing code are evidence, never policy. Profile each parent source: which field names the parent, in which id space, whether links carry ownership shares and validity dates, and whether the source keeps link history or overwrites it, and name any output the available history cannot support. The roll-up, the exceptions and any comparison share one resolved hierarchy, so they never disagree about a family. The approved rules, not model behaviour, decide a source with no usable parent, a link exactly at a threshold, a link starting or ending at a period boundary, cycles, conflicting or overlapping links, chains past a depth cap, and where an unresolved account and the accounts below it belong.
 
 ### Compose
 
@@ -77,7 +77,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - If unresolved, what makes a link a parent, such as an ownership share over a threshold, does a value exactly at the threshold qualify, and do manual overrides follow the same rule?
 - If unresolved, are parent links dated and are their start and end dates inclusive, which reporting periods apply, and should a period show the families of its own time, families restated to an as-of date, or both, and which as-of date?
 - If unresolved, which measures roll up, is each a balance at period end or a flow within the period, in which currency and rounding, and how are a missing measure and a measure for an account outside the account list handled?
-- If unresolved, is there a depth cap, and how are cycles, self-links, missing parents, conflicting or overlapping links and over-deep chains handled: flag only, drop the link, treat the account as a root, or leave it unresolved?
+- If unresolved, is there a depth cap, and how are cycles, self-links, missing parents, conflicting or overlapping links and over-deep chains handled: flag and keep the parent, drop the link, or leave the account unresolved?
 - If unresolved, does an approved fallback place an account the rules leave without a defensible ultimate parent, where do the accounts below it roll up, and is an exception listed per reason or per account?
 - If unresolved and a comparison with an external hierarchy is wanted, at which level and date are the two compared, and which explanations may account for a difference?
 
@@ -87,7 +87,6 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - Do not invent hierarchy data. An account the approved rules cannot place stays explicitly unresolved with its reason; never give it a parent, a root or a family unless an approved fallback does.
 - Do not fabricate history. Without dated link history past families cannot be rebuilt; say so and never project current links backward.
 - Do not treat an external hierarchy as ground truth. Use its links only where the approved precedence includes them, and never change our results to match it.
-- Do not double count or default measures. An account's measure counts once in each ancestor's total, and a missing measure is zero only when the approved semantics define absence as zero.
+- Do not double count or default measures. An account's measure counts once in each ancestor's total; never default a missing measure to zero unless the approved measure semantics explicitly define it as zero.
 - Do not let outputs disagree about a family. The roll-up, the exceptions and any comparison use the same resolved hierarchy.
-- Keep Domain sources read-only and use the Intent's actual platform; do not write parents back to source systems.
-- Stop at the hierarchy, the roll-up, the exceptions and the optional comparison. Do not deduplicate accounts, assign territories or apply partial-ownership consolidation.
+- Stop at the hierarchy, the roll-up, the exceptions and the optional comparison. Do not deduplicate accounts, assign territories, apply partial-ownership consolidation or write parents back to source systems.
