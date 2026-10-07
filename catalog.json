@@ -21,12 +21,18 @@
       "kind": "platform",
       "resolved_members": [
         "api-to-bronze-incremental-contract",
+        "bounded-partition-backfill",
         "business-event-fact",
         "dbt-full-refresh-to-incremental",
+        "dbt-refactor-output-identical",
         "dbt-snapshot-history",
         "effective-dated-business-rules",
         "event-resource-attribution",
+        "identity-golden-record-crosswalk",
+        "identity-standardize-names-addresses",
+        "legacy-sql-to-dbt",
         "logistics-fleet-utilization",
+        "master-b2b-account-hierarchy",
         "metric-population-and-rollups",
         "operational-state-duration",
         "prove-dbt-change-safe",
@@ -40,7 +46,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 14,
+      "supported_or_proven_count": 20,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -96,7 +102,6 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "business-event-fact",
-        "dbt-full-refresh-to-incremental",
         "effective-dated-business-rules",
         "event-resource-attribution",
         "fabric-data-pipeline-as-code",
@@ -136,7 +141,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 11,
+      "supported_or_proven_count": 10,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -179,7 +184,6 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "business-event-fact",
-        "dbt-full-refresh-to-incremental",
         "effective-dated-business-rules",
         "event-resource-attribution",
         "logistics-fleet-utilization",
@@ -194,7 +198,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 11,
+      "supported_or_proven_count": 10,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -246,6 +250,56 @@
     },
     {
       "area": "transformation",
+      "description": "Apply a corrected rule to one approved date range of an incrementally loaded model and carry its effect through everything built from it, prove the range matches the new rule and nothing moved except by that effect, and keep normal loads working afterwards.",
+      "domain_objects": [
+        "dbt_model",
+        "restatement_window",
+        "consumer_contract",
+        "approved_baseline",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "evaluating-dbt-project",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "bounded-partition-backfill",
+      "job_category": "re-engineer",
+      "path": "recipes/bounded-partition-backfill/recipe.md",
+      "pitch": "Restate one date range after a logic change, and prove nothing else moved because of it.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Converting a model to incremental for routine runs belongs to the dbt-full-refresh-to-incremental Recipe."
+      ],
+      "readiness": "supported",
+      "related": [
+        "dbt-full-refresh-to-incremental",
+        "dbt-refactor-output-identical",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "1178860437ed3dd7710eb276726ca6956c1272dbfab63293c7dcaedb28a435bf",
+      "title": "Backfill a bounded date range after a logic change without a full refresh",
+      "trigger": [
+        "A business rule in an incremental model was corrected, and only a known date range of published history should be restated.",
+        "A full refresh would take too long, or would restate history that must stay as first published.",
+        "A normal incremental run only loads new data, so it cannot reprocess a date range already loaded."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Build an agreed event-grain fact with an evidence-backed identity rule, deterministic duplicate and correction handling, source lineage, explicit exceptions, and reconciled event counts and additive amounts.",
       "domain_objects": [
         "business_event",
@@ -290,38 +344,97 @@
     },
     {
       "area": "transformation",
-      "description": "Convert an existing full-refresh dbt model to an incremental implementation while preserving its required semantics, handling agreed late-arriving data correctly, and recording the before-and-after runtime.",
+      "description": "Convert an existing full-refresh dbt model to incremental with a strategy chosen from source behaviour and the approved requirements, prove that consumers still see what a full refresh would show under the approved contract, and record the run time before and after.",
       "domain_objects": [
-        "dbt_model"
+        "dbt_model",
+        "consumer_contract",
+        "incremental_strategy",
+        "approved_baseline",
+        "runtime_measurement",
+        "follow_up"
       ],
       "evidence": {
         "evals": [],
         "features": [
           "profiling-source-data",
           "generating-dbt-model",
+          "dbt-unit-testing",
           "running-dbt-in-sandbox",
-          "verifying",
-          "dbt-unit-testing"
+          "verifying"
         ]
       },
       "id": "dbt-full-refresh-to-incremental",
       "job_category": "re-engineer",
       "path": "recipes/dbt-full-refresh-to-incremental/recipe.md",
-      "pitch": "Make a slow full-refresh dbt model incremental and prove both the output parity and the runtime saving.",
+      "pitch": "Make a slow full-refresh dbt model incremental, prove its output still matches, and measure the runtime change.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Downstream incremental models may still miss late, changed or deleted rows; fixing them is separate work.",
+        "Structural refactors with no materialization change belong to the dbt-refactor-output-identical Recipe."
+      ],
       "readiness": "supported",
-      "sha256": "5037ec07a2936455834f6e578c06c8d3248b36ca208381f1f24abf7fe7afa717",
+      "related": [
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "dfdd58a846ccf60f7e9f86167ea56e3a01b6aa67a7b8d37d3773e1bb6abb76ea",
       "title": "Convert a full-refresh dbt model to incremental and show the runtime delta",
       "trigger": [
-        "A dbt model is correct but a full refresh is too slow or too expensive to run routinely.",
-        "A full-refresh model needs to become incremental without changing its required consumer-visible output.",
-        "A logistics event model must run incrementally, but loader rows may repeat the same shipment event."
+        "A dbt model is correct but a full refresh is too slow or too expensive to run routinely, and gets slower as history grows.",
+        "The nightly build is past its window, and one full-refresh model accounts for most of it.",
+        "A full-refresh model needs to become incremental without changing what its consumers see."
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local",
-          "motherduck",
-          "fabric_lakehouse",
-          "fabric_warehouse"
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Restructure existing dbt models so that, within an approved scope, repeated logic has one owner and long models read as named steps, with evidence that every relation a consumer reads keeps its approved contract against a baseline of the unchanged code.",
+      "domain_objects": [
+        "dbt_model",
+        "consumer_contract",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "refactoring-dbt-models",
+          "evaluating-dbt-project",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "dbt-refactor-output-identical",
+      "job_category": "re-engineer",
+      "path": "recipes/dbt-refactor-output-identical/recipe.md",
+      "pitch": "Clean up tangled dbt models and prove that nothing your consumers read has changed.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed."
+      ],
+      "readiness": "supported",
+      "related": [
+        "dbt-full-refresh-to-incremental",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "4d8304d384ad8bfd2d18fb7dc6908f25d69c133051d7c5f17ed27b63671cc1a2",
+      "title": "Refactor dbt models without changing consumer output",
+      "trigger": [
+        "A model has grown into one long query with logic packed inline, and nobody dares change it because dashboards and reports depend on its output.",
+        "The same join, lookup or derived key is written again and again across models, and the copies are starting to drift apart.",
+        "A mart reads a raw or source table directly instead of going through a staging model.",
+        "Reviewers need evidence that what consumers see is identical before and after a structural change."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
         ],
         "tools": [
           "dbt"
@@ -503,6 +616,164 @@
     },
     {
       "area": "transformation",
+      "description": "Resolve customer records from several source systems into one golden record per customer, with a two-way crosswalk, approved match and survivorship rules held as data, golden ids that stay stable across runs, an unresolved list that accounts for every source record, and an optional comparison with a source system's own merge pointers.",
+      "domain_objects": [
+        "customer",
+        "golden_record",
+        "source_record",
+        "crosswalk",
+        "match_rule",
+        "survivorship_rule",
+        "golden_id_register",
+        "unresolved_record"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "identifying-data-slice",
+          "domain-modeling",
+          "applying-medallion-data-modelling",
+          "authoring-dbt-project-artifact",
+          "dbt-unit-testing",
+          "verifying"
+        ]
+      },
+      "id": "identity-golden-record-crosswalk",
+      "job_category": "build",
+      "path": "recipes/identity-golden-record-crosswalk/recipe.md",
+      "pitch": "One customer, one stable id, every source record traced to it and every unresolved one explained.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Expects names and addresses already standardized, with a match key, by an earlier standardization step.",
+        "Stable golden ids need the id register to persist between runs; a rebuild from scratch reissues them.",
+        "Without retained crosswalk history, the crosswalk as it stood on a past run cannot be reconstructed."
+      ],
+      "readiness": "supported",
+      "related": [
+        "business-event-fact",
+        "dbt-snapshot-history"
+      ],
+      "sha256": "7836b7b43641d5b32249e17110ad44b5627e9008fa15ecc68f769fd6d4e3593b",
+      "title": "Deduplicate customers into a golden record with a source crosswalk",
+      "trigger": [
+        "The same customer exists in several systems under different ids, so customer counts and per-customer revenue are inflated.",
+        "Analysts need to trace a golden customer to every source record behind it, and any source record to its golden customer.",
+        "Source systems disagree on a customer's name, address or contact details and nobody can say which value wins or why.",
+        "Customer ids change from one run to the next when a later record turns out to belong to an existing customer."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Standardize every source record's name and postal address under approved, editable rules, keep the original values beside the standardized ones, mint deterministic match keys that agree exactly when the standardized values agree, and account for every record as standardized or excluded with a reason, without merging records.",
+      "domain_objects": [
+        "customer_record",
+        "party_name",
+        "postal_address",
+        "match_key",
+        "standardization_exception",
+        "rule_list"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "verifying"
+        ]
+      },
+      "id": "identity-standardize-names-addresses",
+      "job_category": "build",
+      "path": "recipes/identity-standardize-names-addresses/recipe.md",
+      "pitch": "Give every customer record a clean name, a clean address and a match key you can explain.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Addresses are standardized by rule, not verified against a postal service, so deliverability is not checked."
+      ],
+      "readiness": "supported",
+      "related": [
+        "business-event-fact"
+      ],
+      "sha256": "1ba0c75e4bcfd95568f98ca49af19af059b168bd6e83781d57da7878d4b353e7",
+      "title": "Standardize names and addresses and mint deterministic match keys",
+      "trigger": [
+        "The same customer is written differently across CRM, billing and support, so joins on name or address miss.",
+        "A deduplication or golden-record step needs stable, explainable match keys before any fuzzy matching.",
+        "Addresses arrive in mixed formats across countries, so reports group the same address several ways.",
+        "Match results must be reproducible from run to run, without depending on run order or an external service."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Bring a legacy SQL script or view into dbt as models that publish the same contract, proven against the legacy logic's own output on the same inputs, with legacy defects reproduced and reported as follow-up work.",
+      "domain_objects": [
+        "legacy_sql",
+        "dbt_model",
+        "consumer_contract",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "documenting-dbt-models",
+          "verifying"
+        ]
+      },
+      "id": "legacy-sql-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/legacy-sql-to-dbt/recipe.md",
+      "pitch": "Retire a hand-run SQL script by rebuilding it in dbt and proving the new models return exactly what the old one did.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Needs the legacy output on the same inputs, from the legacy SQL or its current table."
+      ],
+      "readiness": "supported",
+      "related": [
+        "prove-dbt-change-safe",
+        "dbt-full-refresh-to-incremental"
+      ],
+      "sha256": "aa37980dc1ed255b39b74bd4dc6b6286a8a801677aa13d955470264cd700fb6b",
+      "title": "Convert a legacy SQL script or view into a dbt model and prove parity",
+      "trigger": [
+        "A report or table is still produced by a hand-run SQL script or a database view outside dbt, with no tests, lineage or review.",
+        "The team wants to retire a legacy script, but its consumers need proof that the dbt version returns exactly the same rows.",
+        "Transformation logic written as step-by-step SQL (temp tables, updates, deletes) has to move into the dbt project."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Build fleet utilisation with authoritative asset availability, maintenance-adjusted time, separate observation coverage and traceable numerator and denominator components that reconcile across daily and monthly reporting.",
       "domain_objects": [
         "asset",
@@ -544,6 +815,59 @@
           "fabric_lakehouse",
           "fabric_warehouse",
           "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Resolve accounts to their parent and ultimate parent under approved precedence and parent rules, keep accounts the rules cannot place explicitly unresolved unless an approved fallback places them, roll measures up every level of each corporate family for the approved periods, and list every hierarchy anomaly with its reason, never double counting an account or inventing hierarchy.",
+      "domain_objects": [
+        "account",
+        "parent_link",
+        "account_hierarchy",
+        "ultimate_parent",
+        "family_rollup",
+        "hierarchy_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "verifying"
+        ]
+      },
+      "id": "master-b2b-account-hierarchy",
+      "job_category": "build",
+      "path": "recipes/master-b2b-account-hierarchy/recipe.md",
+      "pitch": "See every corporate family's total, with every account placed or explicitly unresolved and every broken parent link explained.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Families as they stood in past periods need dated parent-link history; without it they cannot be rebuilt.",
+        "Accounts must already be one record per company; this Recipe does not deduplicate accounts."
+      ],
+      "readiness": "supported",
+      "related": [
+        "metric-population-and-rollups",
+        "effective-dated-business-rules",
+        "dbt-snapshot-history",
+        "identity-golden-record-crosswalk"
+      ],
+      "sha256": "9cb690c2b1f549f0b997c65bed700c012741924dccd9ee905a65e0b8ecb1879d",
+      "title": "Resolve B2B account hierarchies and roll measures to the ultimate parent",
+      "trigger": [
+        "Sales and finance cannot see total revenue or pipeline for a whole corporate family because subsidiaries sit as separate accounts.",
+        "The CRM's parent-account field has gaps, loops and conflicts with a firmographic vendor, and nobody knows which link to trust.",
+        "After an acquisition or divestiture, reports disagree on which family a past month's revenue belongs to.",
+        "Named-account or territory rules apply at the ultimate-parent level and need each account mapped to its parent and ultimate parent."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
         ],
         "tools": [
           "dbt"
