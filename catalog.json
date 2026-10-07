@@ -290,11 +290,11 @@
     },
     {
       "area": "transformation",
-      "description": "Convert an existing full-refresh dbt model to incremental so each run processes only newly landed data, keeping consumer-visible output identical to a full refresh, handling late and repeated arrivals under the approved rules, and reporting the observed runtime change and any defects or gaps found.",
+      "description": "Convert an existing full-refresh dbt model to incremental using a strategy chosen from source behaviour and approved requirements, keeping consumer-visible output identical to a full refresh, handling late, repeated and changed records under the approved rules, and reporting the observed runtime change and any defects or gaps found.",
       "domain_objects": [
         "dbt_model",
         "consumer_contract",
-        "landing_watermark",
+        "incremental_strategy",
         "approved_baseline",
         "runtime_measurement",
         "follow_up"
@@ -315,7 +315,7 @@
       "pitch": "Make a slow full-refresh dbt model incremental and prove both the output parity and the runtime saving.",
       "qualifiers": [
         "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
-        "Needs a per-row arrival marker in the source, such as a load timestamp, that increases with each landing.",
+        "Needs source evidence of how new, changed and late records can be identified, or an approved lateness bound.",
         "Downstream models with their own incremental filters may still miss late rows; converting them is separate work.",
         "Structural refactors with no materialization change belong to the dbt-refactor-output-identical Recipe."
       ],
@@ -323,12 +323,12 @@
       "related": [
         "prove-dbt-change-safe"
       ],
-      "sha256": "4c87bfb345e41b60651009f696c165d2eb318858c1e5dc846fa0dc8be1654b36",
+      "sha256": "1ac165f94cbf1123f801f2c4c2736c0e320d35d26c2637c268bda81fa0711086",
       "title": "Convert a full-refresh dbt model to incremental and show the runtime delta",
       "trigger": [
         "A dbt model is correct but a full refresh is too slow or too expensive to run routinely, and gets slower as history grows.",
         "A full-refresh model needs to become incremental without changing what its consumers see.",
-        "Raw files are not deduplicated, and a newly landed file can carry records for periods that are already loaded."
+        "Source records can arrive late, arrive more than once, or change after they were first loaded."
       ],
       "works_with": {
         "platforms": [
