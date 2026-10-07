@@ -30,6 +30,7 @@ EXPECTED = {
     "identity-standardize-names-addresses": {"readiness": "supported", "platforms": ["duckdb_local"]},
     "identity-golden-record-crosswalk": {"readiness": "supported", "platforms": ["duckdb_local"]},
     "dbt-refactor-output-identical": {"readiness": "supported", "platforms": ["duckdb_local"]},
+    "bounded-partition-backfill": {"readiness": "supported", "platforms": ["duckdb_local"]},
 }
 
 

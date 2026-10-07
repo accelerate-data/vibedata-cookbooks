@@ -21,6 +21,7 @@
       "kind": "platform",
       "resolved_members": [
         "api-to-bronze-incremental-contract",
+        "bounded-partition-backfill",
         "business-event-fact",
         "dbt-full-refresh-to-incremental",
         "dbt-refactor-output-identical",
@@ -43,7 +44,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 17,
+      "supported_or_proven_count": 18,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -242,6 +243,56 @@
         ],
         "tools": [
           "dlt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Apply a corrected rule to one approved date range of an incrementally loaded model and everything built from it, prove the range now matches the new rule and everything outside it is unchanged, and keep normal loads working afterwards.",
+      "domain_objects": [
+        "dbt_model",
+        "restatement_window",
+        "consumer_contract",
+        "approved_baseline",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "evaluating-dbt-project",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "bounded-partition-backfill",
+      "job_category": "re-engineer",
+      "path": "recipes/bounded-partition-backfill/recipe.md",
+      "pitch": "Restate one date range after a logic change, and prove nothing outside it moved.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Converting a model to incremental for routine runs belongs to the dbt-full-refresh-to-incremental Recipe."
+      ],
+      "readiness": "supported",
+      "related": [
+        "dbt-full-refresh-to-incremental",
+        "dbt-refactor-output-identical",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "2ee2bbf4ed675d3b6ca64a716054cbb660ca22413db0dbe4679c6be671ed70b3",
+      "title": "Backfill a bounded date range after a logic change without a full refresh",
+      "trigger": [
+        "A business rule in an incremental model was corrected, and only a known date range of published history should be restated.",
+        "A full refresh would take too long, or would restate history that must stay as first published.",
+        "A normal incremental run only loads new data, so it cannot reprocess a date range already loaded."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
         ]
       }
     },
