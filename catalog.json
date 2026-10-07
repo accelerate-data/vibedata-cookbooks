@@ -248,7 +248,7 @@
     },
     {
       "area": "transformation",
-      "description": "Apply a corrected rule to one approved date range of an incrementally loaded model and everything built from it, prove the range now matches the new rule and everything outside it is unchanged, and keep normal loads working afterwards.",
+      "description": "Apply a corrected rule to one approved date range of an incrementally loaded model and carry its effect through everything built from it, prove the range matches the new rule and nothing moved except by that effect, and keep normal loads working afterwards.",
       "domain_objects": [
         "dbt_model",
         "restatement_window",
@@ -269,7 +269,7 @@
       "id": "bounded-partition-backfill",
       "job_category": "re-engineer",
       "path": "recipes/bounded-partition-backfill/recipe.md",
-      "pitch": "Restate one date range after a logic change, and prove nothing outside it moved.",
+      "pitch": "Restate one date range after a logic change, and prove nothing else moved because of it.",
       "qualifiers": [
         "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
         "Converting a model to incremental for routine runs belongs to the dbt-full-refresh-to-incremental Recipe."
@@ -280,7 +280,7 @@
         "dbt-refactor-output-identical",
         "prove-dbt-change-safe"
       ],
-      "sha256": "d233edf3f5369beceaedddfce24a616a3474682fe64ccecf45a01eea379af29f",
+      "sha256": "1178860437ed3dd7710eb276726ca6956c1272dbfab63293c7dcaedb28a435bf",
       "title": "Backfill a bounded date range after a logic change without a full refresh",
       "trigger": [
         "A business rule in an incremental model was corrected, and only a known date range of published history should be restated.",
