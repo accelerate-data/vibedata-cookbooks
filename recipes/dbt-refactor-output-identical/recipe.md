@@ -6,7 +6,7 @@ trigger:
   - The same join, lookup or derived key is written again and again across models, and the copies are starting to drift apart.
   - A mart reads a raw or source table directly instead of going through a staging model.
   - Reviewers need evidence that what consumers see is identical before and after a structural change.
-description: Restructure existing dbt models so shared logic has one owner and each model reads as named steps, while every consumer-visible model keeps its approved contract and exact rows, proven by a two-way comparison against a baseline built from the same inputs, with defects found along the way listed rather than silently fixed.
+description: Restructure existing dbt models so that, within an approved scope, repeated logic has one owner and long models read as named steps, with evidence that every relation a consumer reads keeps its approved contract against a baseline of the unchanged code.
 pitch: Clean up tangled dbt models and prove that nothing your consumers read has changed.
 job_category: re-engineer
 area: transformation
@@ -24,7 +24,6 @@ works_with:
     - dbt
 qualifiers:
   - Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
-  - Parity is proven only on the compared inputs; a rule those inputs never exercise needs its own boundary case.
 related:
   - dbt-full-refresh-to-incremental
   - prove-dbt-change-safe
@@ -40,26 +39,23 @@ evidence:
 
 ## Prompt
 
-Restructure <target_models> in the current Intent so that each repeated rule, join or derived key has one owner and each model reads as named steps, without changing anything <consumers> rely on. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only what they leave open: which models and repeated logic are in scope, what counts as unchanged consumer output, the comparison inputs and precision, how incremental models are checked, and what to do with a defect that would change output. Build the baseline from the unchanged code on the same inputs and engine, apply the restructuring, and compare every consumer-visible model in both directions under the approved contract. Report every difference row by row with its explanation, handle each defect found under the approved rule, and state what the comparison cannot prove. Change consumer output only under an approved resolution, and add no new marts or outputs as part of the refactor.
+Refactor <target_models> so that, as the approved scope requires, repeated logic has one owner and long models read as named steps, without changing anything a consumer reads. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Propose the restructure before editing. Deliver the restructured models and evidence that every consumer-visible relation, and any internal model that is part of an approved interface, keeps its approved contract and matches a baseline of the unchanged code in each approved execution environment. A defect found along the way, or an output change someone wants, is reported as separate work; it is not part of this refactor.
 
 ## Verified by
 
-- Every consumer-visible model keeps the approved contract after the change, covering whichever of model name, columns, column order, types, materialization and rows the user counts as unchanged output.
-- Consumer-visible rows match the baseline as multisets in both directions with equal row counts; any difference is listed row by row with its explanation, never absorbed by a tolerance the user did not approve.
-- The baseline is the unchanged code built from the same inputs on the same engine; a gap between a fresh rebuild and the currently deployed tables is reported as a separate finding.
-- Each incremental model gives the same output before and after the change under the approved check, whether a full rebuild, an incremental load from an earlier state, or both.
-- Each consolidated rule has one owner, every former copy now uses it, and rules that look alike but behave differently, such as as-of versus current-version lookups, keep their distinct results.
-- Each consolidated rule behaves the same at its boundaries, such as a record on an effective-date changeover, including boundaries the compared inputs never reach.
-- Internal models may be removed, renamed, combined or reshaped; only an internal model the user names as part of an approved interface keeps its contract. Differences the comparison cannot rule out are stated.
-- Every semantic defect found is listed with the output it affects, and is either preserved unchanged as a follow-up or changed under an approved resolution that names the contract and baseline change.
-- The refactored models match the baseline in each approved execution environment and session time zone; independence from the time zone is required only where the consumer contract already includes it.
-- Repeated logic deliberately left in place is listed with its reason.
+- Every relation a consumer reads keeps its approved contract after the refactor, and its name, schema and rows match the baseline of the unchanged code at the approved precision.
+- The match holds in each approved execution environment and time zone; independence from the time zone is required only where the consumer contract already includes it.
+- Internal models that are not part of an approved interface may be removed, renamed, combined or reshaped; an internal model that is part of an approved interface keeps its contract.
+- Repeated logic in scope has one owner, and rules that look alike but return different results keep their distinct behaviour.
+- Each restructured rule gives the same result as the logic it replaced, including at boundaries the compared data never reaches.
+- Defects found and output changes requested during the refactor are reported as follow-up work, with the output they affect, and are not applied.
+- Anything the comparison cannot prove is stated.
 
 ## Agent guidance
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and approved requirements. Read the target models, their dependencies and every consumer before changing anything: marts, exposures, documented analysis surfaces and anything downstream that reads them. Find logic that is repeated or packed inline, and check whether copies that look alike really behave alike; two lookups against the same versioned dimension can differ, one as of the record's date and one at the current version. Agree the target set, the consumer contract and the comparison approach before restructuring. Build the baseline from the unchanged code on the same inputs and engine, and check that two unchanged builds agree, so that later differences belong to the change. Restructure one move at a time, giving each shared rule one owner and keeping the approved layering. Rebuild and compare every consumer-visible model in both directions; check incremental models the approved way. Where the compared inputs never reach a rule's boundary, add a case that does. Record each defect found with the output it affects and its approved handling, list repeated logic deliberately left in place, and state what the comparison cannot prove.
+Inherit the Intent's repository, platform, Domain, sources and approved requirements. Read the target models, their dependencies and every consumer before changing anything: marts, exposures, semantic models, documented analysis surfaces and anything downstream that reads them. Identify which relations are consumer-visible and which internal models, if any, are approved interfaces. Find logic that is repeated or packed inline, and check whether copies that look alike really behave alike; two lookups against the same versioned dimension can differ, one as of the record's date and one at its current version. Propose the restructure, then build a baseline from the unchanged code. Restructure within the approved scope, following the project's approved structure and layering. Compare every consumer-visible relation and approved interface with the baseline in each approved environment; for an incremental model, compare after an incremental run as well as a full rebuild. Where the compared data never exercises a restructured rule's boundary, cover that boundary another way. Report defects and wanted output changes as follow-up work, and state what the comparison cannot prove.
 
 ### Compose
 
@@ -71,21 +67,17 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 
 ### Ask first
 
-- If unresolved, which models and which repeated logic are in scope, and does the shared logic extend to every dimension or rule that uses the same pattern, or only the ones named?
-- If unresolved, what counts as unchanged consumer output: rows and values only, or also model names, column names, column order, types and materialization?
-- If unresolved, which inputs and period form the comparison, and are values compared exactly or within an approved precision for floating-point columns?
-- If unresolved, when a defect is found that would change output, is the output preserved and the defect listed as a follow-up, or fixed under an approved contract and baseline change?
-- If unresolved, are incremental models checked by a full rebuild, by an incremental load from an earlier state, or both?
-- If unresolved, which layering rules must the restructured project keep, for example whether an intermediate model may read from a mart?
-- If unresolved, is any internal model part of an approved interface that must keep its contract, and in which execution environments and session time zones must the refactored output match the baseline?
+- If unresolved, which models and which repeated logic are in scope?
+- If unresolved, what is the consumer contract: which relations count as consumer-visible, which internal models are approved interfaces, and must rows match exactly or within an approved precision?
+- If unresolved, in which execution environments and time zones must the output match the baseline, and does the consumer contract already promise the same result in every time zone?
+- If unresolved, is any output change actually wanted? If so, it belongs in a separate change, not in this refactor.
+- If unresolved, which project structure and layering conventions must the restructured models follow?
 
 ### Guardrails
 
-- Do not change what a consumer sees beyond the approved contract to make the code tidier; a refactor fixes no numbers unless the user approves the change.
-- Do not silently fix a defect found during the refactor; preserve the output and list it, or obtain an approved resolution.
-- Do not merge rules that look alike but return different results, such as as-of and current-version lookups; give each its own owner or keep both behaviours.
-- Do not treat a green build or a passing test suite as proof of unchanged output; the proof is the two-way comparison against the baseline.
-- Do not compare against a baseline built from different code, inputs or engine, and do not use deployed tables as the baseline when a rebuild of unchanged code already differs from them.
-- Do not widen a tolerance, narrow the compared set or drop a column from the comparison to make it pass.
-- Do not reduce required verification coverage; a redundant test may be replaced by one that covers the same behaviour. Do not reverse layer dependencies without approval.
-- Do not extend the refactor into incremental conversion, performance tuning, new marts or other model groups outside the agreed target set.
+- Do not change anything a consumer reads, even to fix a wrong number; route any output change to a separate change.
+- Do not merge rules that look alike but return different results; keep each behaviour.
+- Do not treat a green build or a passing test suite as proof of unchanged output; the proof is the comparison with the baseline.
+- Do not claim exact preservation when the baseline itself varies from run to run; report what cannot be proven.
+- Do not reduce required verification coverage; a refactor may replace or remove redundant tests.
+- Do not extend the refactor into incremental conversion, performance tuning, new marts or model groups outside the agreed scope.

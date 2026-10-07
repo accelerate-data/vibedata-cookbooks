@@ -333,7 +333,7 @@
     },
     {
       "area": "transformation",
-      "description": "Restructure existing dbt models so shared logic has one owner and each model reads as named steps, while every consumer-visible model keeps its approved contract and exact rows, proven by a two-way comparison against a baseline built from the same inputs, with defects found along the way listed rather than silently fixed.",
+      "description": "Restructure existing dbt models so that, within an approved scope, repeated logic has one owner and long models read as named steps, with evidence that every relation a consumer reads keeps its approved contract against a baseline of the unchanged code.",
       "domain_objects": [
         "dbt_model",
         "consumer_contract",
@@ -356,15 +356,14 @@
       "path": "recipes/dbt-refactor-output-identical/recipe.md",
       "pitch": "Clean up tangled dbt models and prove that nothing your consumers read has changed.",
       "qualifiers": [
-        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
-        "Parity is proven only on the compared inputs; a rule those inputs never exercise needs its own boundary case."
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed."
       ],
       "readiness": "supported",
       "related": [
         "dbt-full-refresh-to-incremental",
         "prove-dbt-change-safe"
       ],
-      "sha256": "759c4ba542e846db71cfe920c3ce2d306daae740e35c6f4d0fc3093f217d39f3",
+      "sha256": "f2e793c9530ae096451df04bf94042f689b0fe0e59309257b42d4bae370fd9fb",
       "title": "Refactor dbt models without changing consumer output",
       "trigger": [
         "A model has grown into one long query with logic packed inline, and nobody dares change it because dashboards and reports depend on its output.",
