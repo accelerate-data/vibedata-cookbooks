@@ -15,10 +15,7 @@ EXPECTED = {
     "business-event-fact": {"readiness": "supported", "platforms": ALL_PLATFORMS},
     "event-resource-attribution": {"readiness": "supported", "platforms": ALL_PLATFORMS},
     "effective-dated-business-rules": {"readiness": "supported", "platforms": ALL_PLATFORMS},
-    "dbt-full-refresh-to-incremental": {
-        "readiness": "supported",
-        "platforms": ["duckdb_local", "motherduck", "fabric_lakehouse", "fabric_warehouse"],
-    },
+    "dbt-full-refresh-to-incremental": {"readiness": "supported", "platforms": ["duckdb_local"]},
     "api-to-bronze-incremental-contract": {"readiness": "supported", "platforms": ALL_PLATFORMS},
     "fabric-data-pipeline-as-code": {"readiness": "supported", "platforms": ["fabric_lakehouse", "fabric_warehouse"]},
     "motherduck-flight-scheduling": {"readiness": "supported", "platforms": ["motherduck"]},
@@ -33,6 +30,7 @@ EXPECTED = {
     "identity-standardize-names-addresses": {"readiness": "supported", "platforms": ["duckdb_local"]},
     "identity-golden-record-crosswalk": {"readiness": "supported", "platforms": ["duckdb_local"]},
     "legacy-sql-to-dbt": {"readiness": "supported", "platforms": ["duckdb_local"]},
+    "dbt-refactor-output-identical": {"readiness": "supported", "platforms": ["duckdb_local"]},
 }
 
 

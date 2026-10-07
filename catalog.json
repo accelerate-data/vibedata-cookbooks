@@ -23,6 +23,7 @@
         "api-to-bronze-incremental-contract",
         "business-event-fact",
         "dbt-full-refresh-to-incremental",
+        "dbt-refactor-output-identical",
         "dbt-snapshot-history",
         "effective-dated-business-rules",
         "event-resource-attribution",
@@ -43,7 +44,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 17,
+      "supported_or_proven_count": 18,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -99,7 +100,6 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "business-event-fact",
-        "dbt-full-refresh-to-incremental",
         "effective-dated-business-rules",
         "event-resource-attribution",
         "fabric-data-pipeline-as-code",
@@ -139,7 +139,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 11,
+      "supported_or_proven_count": 10,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -182,7 +182,6 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "business-event-fact",
-        "dbt-full-refresh-to-incremental",
         "effective-dated-business-rules",
         "event-resource-attribution",
         "logistics-fleet-utilization",
@@ -197,7 +196,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 11,
+      "supported_or_proven_count": 10,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -293,38 +292,97 @@
     },
     {
       "area": "transformation",
-      "description": "Convert an existing full-refresh dbt model to an incremental implementation while preserving its required semantics, handling agreed late-arriving data correctly, and recording the before-and-after runtime.",
+      "description": "Convert an existing full-refresh dbt model to incremental with a strategy chosen from source behaviour and the approved requirements, prove that consumers still see what a full refresh would show under the approved contract, and record the run time before and after.",
       "domain_objects": [
-        "dbt_model"
+        "dbt_model",
+        "consumer_contract",
+        "incremental_strategy",
+        "approved_baseline",
+        "runtime_measurement",
+        "follow_up"
       ],
       "evidence": {
         "evals": [],
         "features": [
           "profiling-source-data",
           "generating-dbt-model",
+          "dbt-unit-testing",
           "running-dbt-in-sandbox",
-          "verifying",
-          "dbt-unit-testing"
+          "verifying"
         ]
       },
       "id": "dbt-full-refresh-to-incremental",
       "job_category": "re-engineer",
       "path": "recipes/dbt-full-refresh-to-incremental/recipe.md",
-      "pitch": "Make a slow full-refresh dbt model incremental and prove both the output parity and the runtime saving.",
+      "pitch": "Make a slow full-refresh dbt model incremental, prove its output still matches, and measure the runtime change.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Downstream incremental models may still miss late, changed or deleted rows; fixing them is separate work.",
+        "Structural refactors with no materialization change belong to the dbt-refactor-output-identical Recipe."
+      ],
       "readiness": "supported",
-      "sha256": "5037ec07a2936455834f6e578c06c8d3248b36ca208381f1f24abf7fe7afa717",
+      "related": [
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "dfdd58a846ccf60f7e9f86167ea56e3a01b6aa67a7b8d37d3773e1bb6abb76ea",
       "title": "Convert a full-refresh dbt model to incremental and show the runtime delta",
       "trigger": [
-        "A dbt model is correct but a full refresh is too slow or too expensive to run routinely.",
-        "A full-refresh model needs to become incremental without changing its required consumer-visible output.",
-        "A logistics event model must run incrementally, but loader rows may repeat the same shipment event."
+        "A dbt model is correct but a full refresh is too slow or too expensive to run routinely, and gets slower as history grows.",
+        "The nightly build is past its window, and one full-refresh model accounts for most of it.",
+        "A full-refresh model needs to become incremental without changing what its consumers see."
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local",
-          "motherduck",
-          "fabric_lakehouse",
-          "fabric_warehouse"
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Restructure existing dbt models so that, within an approved scope, repeated logic has one owner and long models read as named steps, with evidence that every relation a consumer reads keeps its approved contract against a baseline of the unchanged code.",
+      "domain_objects": [
+        "dbt_model",
+        "consumer_contract",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "refactoring-dbt-models",
+          "evaluating-dbt-project",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "dbt-refactor-output-identical",
+      "job_category": "re-engineer",
+      "path": "recipes/dbt-refactor-output-identical/recipe.md",
+      "pitch": "Clean up tangled dbt models and prove that nothing your consumers read has changed.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed."
+      ],
+      "readiness": "supported",
+      "related": [
+        "dbt-full-refresh-to-incremental",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "4d8304d384ad8bfd2d18fb7dc6908f25d69c133051d7c5f17ed27b63671cc1a2",
+      "title": "Refactor dbt models without changing consumer output",
+      "trigger": [
+        "A model has grown into one long query with logic packed inline, and nobody dares change it because dashboards and reports depend on its output.",
+        "The same join, lookup or derived key is written again and again across models, and the copies are starting to drift apart.",
+        "A mart reads a raw or source table directly instead of going through a staging model.",
+        "Reviewers need evidence that what consumers see is identical before and after a structural change."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
         ],
         "tools": [
           "dbt"

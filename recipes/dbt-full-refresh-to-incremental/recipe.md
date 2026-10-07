@@ -2,76 +2,84 @@
 id: dbt-full-refresh-to-incremental
 title: Convert a full-refresh dbt model to incremental and show the runtime delta
 trigger:
-  - A dbt model is correct but a full refresh is too slow or too expensive to run routinely.
-  - A full-refresh model needs to become incremental without changing its required consumer-visible output.
-  - A logistics event model must run incrementally, but loader rows may repeat the same shipment event.
-description: Convert an existing full-refresh dbt model to an incremental implementation while preserving its required semantics, handling agreed late-arriving data correctly, and recording the before-and-after runtime.
-pitch: Make a slow full-refresh dbt model incremental and prove both the output parity and the runtime saving.
+  - A dbt model is correct but a full refresh is too slow or too expensive to run routinely, and gets slower as history grows.
+  - The nightly build is past its window, and one full-refresh model accounts for most of it.
+  - A full-refresh model needs to become incremental without changing what its consumers see.
+description: Convert an existing full-refresh dbt model to incremental with a strategy chosen from source behaviour and the approved requirements, prove that consumers still see what a full refresh would show under the approved contract, and record the run time before and after.
+pitch: Make a slow full-refresh dbt model incremental, prove its output still matches, and measure the runtime change.
 job_category: re-engineer
 area: transformation
 readiness: supported
 domain_objects:
   - dbt_model
+  - consumer_contract
+  - incremental_strategy
+  - approved_baseline
+  - runtime_measurement
+  - follow_up
 works_with:
   platforms:
     - duckdb_local
-    - motherduck
-    - fabric_lakehouse
-    - fabric_warehouse
   tools:
     - dbt
+qualifiers:
+  - Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
+  - Downstream incremental models may still miss late, changed or deleted rows; fixing them is separate work.
+  - Structural refactors with no materialization change belong to the dbt-refactor-output-identical Recipe.
+related:
+  - prove-dbt-change-safe
 evidence:
   features:
     - profiling-source-data
     - generating-dbt-model
+    - dbt-unit-testing
     - running-dbt-in-sandbox
     - verifying
-    - dbt-unit-testing
   evals: []
 ---
 
 ## Prompt
 
-Convert the existing full-refresh dbt model to an incremental model in the current Intent. Preserve the required consumer-visible output and downstream contract. Check whether its declared business grain agrees with source identifiers and loader-row identity before selecting the incremental key and strategy. Expose any existing semantic defect that conflicts with output parity and obtain an approved resolution or separate follow-up; do not silently redesign the grain. Verify output parity, idempotency and the agreed late-arriving-data behaviour, and record the runtime change against the current full-refresh baseline.
+Convert <target_model> from a full refresh to an incremental model, so routine runs no longer rebuild it from scratch while <consumers> still see what a full refresh would show under the approved contract. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Choose the incremental strategy from how the source adds, changes, deletes and delivers late records and from the approved requirements, and state what the strategy relies on and what it would miss. Deliver the converted model, evidence that its output matches a baseline of the unchanged code after incremental runs and after a rerun with nothing new, and its run time before and after. A defect found along the way, or an output change someone wants, is reported as separate work; it is not part of this conversion.
 
 ## Verified by
 
-- Incremental output matches the approved full-refresh baseline on the agreed comparison slice.
-- A repeated incremental run produces no duplicate unique keys or unintended row changes.
-- The agreed late-arriving-data case updates exactly the expected records.
-- The before-and-after runtime is recorded from observed executions.
-- Declared business grain, source identifiers and loader-row identity are compared with evidence; conflicts and missing evidence are recorded, with an approved resolution or separate follow-up for each semantic defect.
-- Repeated loader rows for one event and distinct events with equal measures have independently specified expected outputs under the approved grain and duplicate policy; both cases pass without losing distinct events.
-- Source-to-output traceability and count/amount reconciliation expose excluded, unmapped, ambiguous and unknown cases on the comparison slice.
-- A semantic defect that conflicts with parity is disclosed. An approved correction names the contract and baseline changes; a separate follow-up retains the approved contract and records the unresolved limitation.
+- Every column a consumer reads keeps its approved contract, and any column added to the relation is internal: no consumer reads it and the approved contract allows it.
+- After incremental runs, the rows consumers read match a full-refresh baseline of the unchanged code on the agreed comparison slice, over the same source data and under the approved contract, at the approved precision and in each approved execution environment and time zone.
+- The agreed late, repeated, changed and deleted cases end up as the full refresh would show them under the approved contract, within one run and across runs.
+- Every difference from the full refresh that the approved contract accepts, such as a record later than an approved lateness bound, is listed.
+- A rerun with nothing new adds, removes or changes no row a consumer reads.
+- The chosen strategy is justified from source evidence and the approved requirements, and what it relies on, such as an append-only source, a reliable change marker or a lateness bound, is stated with what it would miss if that does not hold.
+- Run time before and after is recorded from observed runs, with the conditions and the data each side processed.
+- Defects found and output changes requested during the conversion are reported as follow-up work, with the output they affect, and are not applied; anything the comparison cannot prove is stated.
 
 ## Agent guidance
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain and sources. Inspect approved requirements, model dependencies, source behaviour and the current full-refresh result. Establish the required analytical questions and breakdowns; expose missing attributes, history or relationship evidence. Compare the declared business grain with source and loader keys; distinguish observed relationships, approved allocations and synthetic examples. A unique loader key or stable rerun alone does not establish business-event identity. Resolve parity conflicts before implementation: obtain approval for a documented contract/baseline change or a separate follow-up that preserves current semantics and states the defect. Choose a supported incremental strategy and key from the approved contract. Define independent expected results for duplicate, distinct-event and late-arrival cases before implementing the smallest conversion. Run old and new paths on the same agreed slice in the assigned isolated sandbox, then repeat the incremental run and exercise the agreed late-arrival case. Use approved writable fixtures when source changes are needed; keep Domain data read-only. Compare outputs, trace source populations and reconcile counts/amounts, including exceptions. Record actual timings with slice, run conditions and commands. Use verifying to review independent comparisons and test evidence at the exact revision; disclose inherited baseline evidence and unresolved limitations.
+Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Read the target model and every consumer, noting which columns each reads. Profile the source to learn how it behaves: whether records are only appended or also updated and deleted, whether it carries a change marker such as updated_at, CDC operations or version identifiers, how loads, batches or partitions are marked and whether a new record can arrive behind a mark already processed, and how late records arrive. Choose the strategy the evidence and the approved requirements support, for example append-only inserts, a change-marker or batch watermark, partition replacement, or a bounded lookback or microbatch when an approved lateness bound makes it complete; if none is safe, report that instead of converting. Keep the full refresh's handling of repeated, changed and deleted records, including when an earlier version is already stored. Compare consumer-visible output with a baseline of the unchanged code, and time both paths on the same source data. Report defects and wanted output changes as follow-up work, the strategy's assumptions, downstream models that would miss a late or changed record, and any full refresh the strategy still needs, once at cutover or periodically.
 
 ### Compose
 
 - profiling-source-data
 - generating-dbt-model
+- dbt-unit-testing
 - running-dbt-in-sandbox
 - verifying
-- dbt-unit-testing
 
 ### Ask first
 
-- Ask for the intended late-arriving-data policy only if approved requirements do not settle it; existing behaviour is evidence, not permission to change the policy.
-- Ask for the intended business grain, key and duplicate policy only if approved requirements and source evidence leave them unresolved.
-- Ask which analytical questions and breakdowns are required only if the Intent does not settle them; surface missing evidence that prevents an answer.
-- Ask for an approved resolution or separate follow-up when a discovered semantic defect conflicts with output parity, including the scope of any contract or baseline change.
+- If unresolved, which models are converted, what are their grain and key, and what is the consumer contract: which columns consumers read, whether internal columns may be added, which slice is compared, and must rows match exactly or within an approved precision?
+- If unresolved, how does the source add, change and delete records, can those signals be trusted, and how late can a record arrive?
+- If unresolved, which differences from a full refresh may persist until the next one, such as a record past an approved lateness bound or a source delete, and which late, repeated, changed or deleted cases must the evidence cover?
+- If unresolved, in which execution environments and time zones must the output match the baseline, and under which conditions is run time compared?
+- If unresolved, is any output change actually wanted? If so, it belongs in a separate change, not in this conversion.
 
 ### Guardrails
 
-- Do not invent a unique key merely to make the incremental materialization compile.
-- Do not change consumer-visible model semantics merely to make incremental processing easier.
-- Do not treat predicted performance as evidence; record observed runtime from actual executions.
-- Do not call loader counts unique business events or treat idempotency as proof of business identity.
-- Do not discard distinct events or infer business intent from equal sample values or convenient existing code.
-- Do not silently replace the baseline to hide a semantic change; parity and the approved contract remain acceptance gates.
-- Use the assigned platform sandbox and its supported strategy; Fabric Warehouse microbatch is unavailable. Do not substitute another engine.
+- Do not pick a strategy the source cannot support: append-only needs stored rows that later source data never changes, a watermark needs a marker no new record can fall behind unless an approved overlap covers it, and an event-time filter or lookback needs an approved lateness bound.
+- Do not let the incremental path treat repeated, changed or deleted records differently from the full refresh, within a run or across runs, unless the approved contract says so.
+- Do not invent a key to make the incremental strategy work; if a key the strategy needs is not unique at the approved grain, stop and report the duplicates.
+- Do not change anything a consumer reads, even to fix a wrong number; route any output change to a separate change.
+- Do not report predicted performance, or a wall-clock difference dominated by fixed start-up time, as the runtime change.
+- Do not extend the conversion to downstream or sibling models, warehouse tuning or new marts outside the agreed scope.
