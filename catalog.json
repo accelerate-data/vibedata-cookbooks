@@ -661,7 +661,7 @@
     },
     {
       "area": "transformation",
-      "description": "Resolve accounts to their parent and ultimate parent under approved precedence, ownership and validity rules, keep accounts the rules cannot place explicitly unresolved, roll measures up every level of each corporate family in each approved view, as it stood at the time where history allows or restated on an approved as-of date, and list every exception with its reason, never double counting.",
+      "description": "Resolve accounts to their parent and ultimate parent under approved precedence and parent rules, keep accounts the rules cannot place explicitly unresolved, roll measures up every level of each corporate family for the approved periods, and list every hierarchy anomaly with its reason, never double counting an account or inventing hierarchy.",
       "domain_objects": [
         "account",
         "parent_link",
@@ -682,10 +682,10 @@
       "id": "master-b2b-account-hierarchy",
       "job_category": "build",
       "path": "recipes/master-b2b-account-hierarchy/recipe.md",
-      "pitch": "See every corporate family's total, as it stood then or as restated, with every broken parent link explained.",
+      "pitch": "See every corporate family's total, with every account placed or explicitly unresolved and every broken parent link explained.",
       "qualifiers": [
         "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
-        "The as-was view needs dated parent-link history in the source; without it, past families cannot be rebuilt.",
+        "Families as they stood in past periods need dated parent-link history; without it they cannot be rebuilt.",
         "Accounts must already be one record per company; this Recipe does not deduplicate accounts."
       ],
       "readiness": "supported",
@@ -695,7 +695,7 @@
         "dbt-snapshot-history",
         "identity-golden-record-crosswalk"
       ],
-      "sha256": "b304b3b6f5b06e72ea043c64bccd8fb08eb930e6b2675f1d44cccc9f437984d3",
+      "sha256": "e3513a9cdf33911aee24b7a9cd6aff659464992b10da7a22a8a23907c76535f4",
       "title": "Resolve B2B account hierarchies and roll measures to the ultimate parent",
       "trigger": [
         "Sales and finance cannot see total revenue or pipeline for a whole corporate family because subsidiaries sit as separate accounts.",
