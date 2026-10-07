@@ -98,7 +98,6 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "business-event-fact",
-        "dbt-full-refresh-to-incremental",
         "effective-dated-business-rules",
         "event-resource-attribution",
         "fabric-data-pipeline-as-code",
@@ -138,7 +137,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 11,
+      "supported_or_proven_count": 10,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -181,7 +180,6 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "business-event-fact",
-        "dbt-full-refresh-to-incremental",
         "effective-dated-business-rules",
         "event-resource-attribution",
         "logistics-fleet-utilization",
@@ -196,7 +194,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 11,
+      "supported_or_proven_count": 10,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -292,38 +290,49 @@
     },
     {
       "area": "transformation",
-      "description": "Convert an existing full-refresh dbt model to an incremental implementation while preserving its required semantics, handling agreed late-arriving data correctly, and recording the before-and-after runtime.",
+      "description": "Convert an existing full-refresh dbt model to incremental so each run processes only newly landed data, keeping consumer-visible output identical to a full refresh, handling late and repeated arrivals under the approved rules, and reporting the observed runtime change and any defects or gaps found.",
       "domain_objects": [
-        "dbt_model"
+        "dbt_model",
+        "consumer_contract",
+        "landing_watermark",
+        "approved_baseline",
+        "runtime_measurement",
+        "follow_up"
       ],
       "evidence": {
         "evals": [],
         "features": [
           "profiling-source-data",
           "generating-dbt-model",
+          "dbt-unit-testing",
           "running-dbt-in-sandbox",
-          "verifying",
-          "dbt-unit-testing"
+          "verifying"
         ]
       },
       "id": "dbt-full-refresh-to-incremental",
       "job_category": "re-engineer",
       "path": "recipes/dbt-full-refresh-to-incremental/recipe.md",
       "pitch": "Make a slow full-refresh dbt model incremental and prove both the output parity and the runtime saving.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Needs a per-row arrival marker in the source, such as a load timestamp, that increases with each landing.",
+        "Downstream models with their own incremental filters may still miss late rows; converting them is separate work.",
+        "Structural refactors with no materialization change belong to the dbt-refactor-output-identical Recipe."
+      ],
       "readiness": "supported",
-      "sha256": "5037ec07a2936455834f6e578c06c8d3248b36ca208381f1f24abf7fe7afa717",
+      "related": [
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "4c87bfb345e41b60651009f696c165d2eb318858c1e5dc846fa0dc8be1654b36",
       "title": "Convert a full-refresh dbt model to incremental and show the runtime delta",
       "trigger": [
-        "A dbt model is correct but a full refresh is too slow or too expensive to run routinely.",
-        "A full-refresh model needs to become incremental without changing its required consumer-visible output.",
-        "A logistics event model must run incrementally, but loader rows may repeat the same shipment event."
+        "A dbt model is correct but a full refresh is too slow or too expensive to run routinely, and gets slower as history grows.",
+        "A full-refresh model needs to become incremental without changing what its consumers see.",
+        "Raw files are not deduplicated, and a newly landed file can carry records for periods that are already loaded."
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local",
-          "motherduck",
-          "fabric_lakehouse",
-          "fabric_warehouse"
+          "duckdb_local"
         ],
         "tools": [
           "dbt"
