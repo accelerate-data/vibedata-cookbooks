@@ -280,7 +280,7 @@
         "dbt-refactor-output-identical",
         "prove-dbt-change-safe"
       ],
-      "sha256": "2ee2bbf4ed675d3b6ca64a716054cbb660ca22413db0dbe4679c6be671ed70b3",
+      "sha256": "5bd032668bd7f3307417fc7f0e7ef54d9bc9cbbe492d8f17ebb4e76681547102",
       "title": "Backfill a bounded date range after a logic change without a full refresh",
       "trigger": [
         "A business rule in an incremental model was corrected, and only a known date range of published history should be restated.",
