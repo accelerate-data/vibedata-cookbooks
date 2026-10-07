@@ -32,6 +32,7 @@ EXPECTED = {
     "legacy-sql-to-dbt": {"readiness": "supported", "platforms": ["duckdb_local"]},
     "master-b2b-account-hierarchy": {"readiness": "supported", "platforms": ["duckdb_local"]},
     "dbt-refactor-output-identical": {"readiness": "supported", "platforms": ["duckdb_local"]},
+    "bounded-partition-backfill": {"readiness": "supported", "platforms": ["duckdb_local"]},
 }
 
 
