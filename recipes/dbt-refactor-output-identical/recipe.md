@@ -50,9 +50,10 @@ Restructure <target_models> in the current Intent so that each repeated rule, jo
 - Each incremental model gives the same output before and after the change under the approved check, whether a full rebuild, an incremental load from an earlier state, or both.
 - Each consolidated rule has one owner, every former copy now uses it, and rules that look alike but behave differently, such as as-of versus current-version lookups, keep their distinct results.
 - Each consolidated rule behaves the same at its boundaries, such as a record on an effective-date changeover, including boundaries the compared inputs never reach.
-- Internal models change only additively unless the user approved otherwise, and differences the comparison cannot rule out are stated.
+- Internal models may be removed, renamed, combined or reshaped; only an internal model the user names as part of an approved interface keeps its contract. Differences the comparison cannot rule out are stated.
 - Every semantic defect found is listed with the output it affects, and is either preserved unchanged as a follow-up or changed under an approved resolution that names the contract and baseline change.
-- The result does not change with the session time zone, and repeated logic deliberately left in place is listed with its reason.
+- The refactored models match the baseline in each approved execution environment and session time zone; independence from the time zone is required only where the consumer contract already includes it.
+- Repeated logic deliberately left in place is listed with its reason.
 
 ## Agent guidance
 
@@ -76,6 +77,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - If unresolved, when a defect is found that would change output, is the output preserved and the defect listed as a follow-up, or fixed under an approved contract and baseline change?
 - If unresolved, are incremental models checked by a full rebuild, by an incremental load from an earlier state, or both?
 - If unresolved, which layering rules must the restructured project keep, for example whether an intermediate model may read from a mart?
+- If unresolved, is any internal model part of an approved interface that must keep its contract, and in which execution environments and session time zones must the refactored output match the baseline?
 
 ### Guardrails
 
@@ -85,5 +87,5 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - Do not treat a green build or a passing test suite as proof of unchanged output; the proof is the two-way comparison against the baseline.
 - Do not compare against a baseline built from different code, inputs or engine, and do not use deployed tables as the baseline when a rebuild of unchanged code already differs from them.
 - Do not widen a tolerance, narrow the compared set or drop a column from the comparison to make it pass.
-- Do not remove or weaken an existing test, and do not reverse layer dependencies without approval.
+- Do not reduce required verification coverage; a redundant test may be replaced by one that covers the same behaviour. Do not reverse layer dependencies without approval.
 - Do not extend the refactor into incremental conversion, performance tuning, new marts or other model groups outside the agreed target set.
