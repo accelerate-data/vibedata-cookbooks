@@ -57,7 +57,7 @@ Convert <target_model> from a full refresh to an incremental model, so routine r
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and approved requirements. Read the target model and every consumer, noting which columns each reads. Profile the source to learn how it behaves: whether records are only appended or also updated and deleted, whether it carries a change marker such as updated_at, CDC operations or version identifiers, how loads, batches or partitions are marked and whether a new record can arrive behind a mark already processed, and how late records arrive. Choose the strategy the evidence and the approved requirements support, for example append-only inserts, a change-marker or batch watermark, partition replacement, or a bounded lookback or microbatch when an approved lateness bound makes it complete; if none is safe, report that instead of converting. Keep the full refresh's handling of repeated, changed and deleted records, including when an earlier version is already stored. Build a baseline from the unchanged code, then compare consumer-visible output after an incremental run from an earlier state, after the agreed cases, and after a rerun with nothing new. Time both paths on the same source data, apart from fixed start-up time. Report defects and wanted output changes as follow-up work, the strategy's assumptions, downstream models that would miss a late or changed record, and any full refresh the strategy still needs, once at cutover or periodically.
+Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Read the target model and every consumer, noting which columns each reads. Profile the source to learn how it behaves: whether records are only appended or also updated and deleted, whether it carries a change marker such as updated_at, CDC operations or version identifiers, how loads, batches or partitions are marked and whether a new record can arrive behind a mark already processed, and how late records arrive. Choose the strategy the evidence and the approved requirements support, for example append-only inserts, a change-marker or batch watermark, partition replacement, or a bounded lookback or microbatch when an approved lateness bound makes it complete; if none is safe, report that instead of converting. Keep the full refresh's handling of repeated, changed and deleted records, including when an earlier version is already stored. Compare consumer-visible output with a baseline of the unchanged code, and time both paths on the same source data. Report defects and wanted output changes as follow-up work, the strategy's assumptions, downstream models that would miss a late or changed record, and any full refresh the strategy still needs, once at cutover or periodically.
 
 ### Compose
 
@@ -69,9 +69,9 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 
 ### Ask first
 
-- If unresolved, which models are converted, and what is the consumer contract: which columns consumers read, whether internal columns may be added, which slice is compared, and must rows match exactly or within an approved precision?
+- If unresolved, which models are converted, what are their grain and key, and what is the consumer contract: which columns consumers read, whether internal columns may be added, which slice is compared, and must rows match exactly or within an approved precision?
 - If unresolved, how does the source add, change and delete records, can those signals be trusted, and how late can a record arrive?
-- If unresolved, may a record later than the approved lateness bound differ from a full refresh until the next one, and which late, repeated, changed or deleted cases must the evidence cover?
+- If unresolved, which differences from a full refresh may persist until the next one, such as a record past an approved lateness bound or a source delete, and which late, repeated, changed or deleted cases must the evidence cover?
 - If unresolved, in which execution environments and time zones must the output match the baseline, and under which conditions is run time compared?
 - If unresolved, is any output change actually wanted? If so, it belongs in a separate change, not in this conversion.
 
@@ -79,7 +79,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 
 - Do not pick a strategy the source cannot support: append-only needs stored rows that later source data never changes, a watermark needs a marker no new record can fall behind unless an approved overlap covers it, and an event-time filter or lookback needs an approved lateness bound.
 - Do not let the incremental path treat repeated, changed or deleted records differently from the full refresh, within a run or across runs, unless the approved contract says so.
-- Do not deduplicate rows or invent a key to make the incremental strategy work; if a key the strategy needs is not unique at the approved grain, stop and report the duplicates.
+- Do not invent a key to make the incremental strategy work; if a key the strategy needs is not unique at the approved grain, stop and report the duplicates.
 - Do not change anything a consumer reads, even to fix a wrong number; route any output change to a separate change.
 - Do not report predicted performance, or a wall-clock difference dominated by fixed start-up time, as the runtime change.
 - Do not extend the conversion to downstream or sibling models, warehouse tuning or new marts outside the agreed scope.

@@ -322,7 +322,7 @@
       "related": [
         "prove-dbt-change-safe"
       ],
-      "sha256": "0c1742c5e43b965c92e1cee43c433bc290510b451d1d74fde8f0f0fbf65576c0",
+      "sha256": "dfdd58a846ccf60f7e9f86167ea56e3a01b6aa67a7b8d37d3773e1bb6abb76ea",
       "title": "Convert a full-refresh dbt model to incremental and show the runtime delta",
       "trigger": [
         "A dbt model is correct but a full refresh is too slow or too expensive to run routinely, and gets slower as history grows.",
