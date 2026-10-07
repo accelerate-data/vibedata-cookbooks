@@ -28,6 +28,7 @@
         "event-resource-attribution",
         "identity-golden-record-crosswalk",
         "identity-standardize-names-addresses",
+        "legacy-sql-to-dbt",
         "logistics-fleet-utilization",
         "metric-population-and-rollups",
         "operational-state-duration",
@@ -42,7 +43,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 16,
+      "supported_or_proven_count": 17,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -599,6 +600,59 @@
         "A deduplication or golden-record step needs stable, explainable match keys before any fuzzy matching.",
         "Addresses arrive in mixed formats across countries, so reports group the same address several ways.",
         "Match results must be reproducible from run to run, without depending on run order or an external service."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Bring a legacy SQL script or view into dbt as layered models that publish the same contract, proven by a two-way row comparison against the legacy logic's own output on the same inputs, with every legacy defect reproduced and listed rather than silently fixed.",
+      "domain_objects": [
+        "legacy_sql",
+        "dbt_model",
+        "consumer_contract",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "documenting-dbt-models",
+          "verifying"
+        ]
+      },
+      "id": "legacy-sql-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/legacy-sql-to-dbt/recipe.md",
+      "pitch": "Retire a hand-run SQL script by rebuilding it in dbt and proving the new models return exactly what the old one did.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "An exact baseline needs the legacy SQL to run on the target engine against the same inputs.",
+        "Parity is proven only on the compared inputs; a rule those inputs never exercise needs its own case."
+      ],
+      "readiness": "supported",
+      "related": [
+        "prove-dbt-change-safe",
+        "dbt-full-refresh-to-incremental"
+      ],
+      "sha256": "50ff5431d4e350cd6f40ef41ef3b0087155adcb26c1af76d9e6e1d7941f29ba3",
+      "title": "Convert a legacy SQL script or view into a dbt model and prove parity",
+      "trigger": [
+        "A report or table is still produced by a hand-run SQL script or a database view outside dbt, with no tests, lineage or review.",
+        "The team wants to retire a legacy script, but its consumers need proof that the dbt version returns exactly the same rows.",
+        "Transformation logic written as step-by-step SQL (temp tables, updates, deletes) has to move into the dbt project's layers."
       ],
       "works_with": {
         "platforms": [
