@@ -44,8 +44,8 @@ Refactor <target_models> so that, as the approved scope requires, repeated logic
 ## Verified by
 
 - Every relation a consumer reads keeps its approved contract after the refactor, and its name, schema and rows match the baseline of the unchanged code at the approved precision.
-- The match holds in each approved execution environment and time zone; independence from the time zone is required only where the consumer contract already includes it.
-- Internal models that are not part of an approved interface may be removed, renamed, combined or reshaped; an internal model that is part of an approved interface keeps its contract.
+- The match holds in each approved execution environment, time zone and run mode; independence from the time zone is required only where the consumer contract already includes it.
+- Each internal model that is part of an approved interface keeps its approved contract; no other internal model is held to its old shape.
 - Repeated logic in scope has one owner, and rules that look alike but return different results keep their distinct behaviour.
 - Each restructured rule gives the same result as the logic it replaced, including at boundaries the compared data never reaches.
 - Defects found and output changes requested during the refactor are reported as follow-up work, with the output they affect, and are not applied.
@@ -55,7 +55,7 @@ Refactor <target_models> so that, as the approved scope requires, repeated logic
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and approved requirements. Read the target models, their dependencies and every consumer before changing anything: marts, exposures, semantic models, documented analysis surfaces and anything downstream that reads them. Identify which relations are consumer-visible and which internal models, if any, are approved interfaces. Find logic that is repeated or packed inline, and check whether copies that look alike really behave alike; two lookups against the same versioned dimension can differ, one as of the record's date and one at its current version. Propose the restructure, then build a baseline from the unchanged code. Restructure within the approved scope, following the project's approved structure and layering. Compare every consumer-visible relation and approved interface with the baseline in each approved environment; for an incremental model, compare after an incremental run as well as a full rebuild. Where the compared data never exercises a restructured rule's boundary, cover that boundary another way. Report defects and wanted output changes as follow-up work, and state what the comparison cannot prove.
+Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Read the target models, their dependencies and every consumer before changing anything: marts, exposures, semantic models, documented analysis surfaces and anything downstream that reads them. Identify which relations are consumer-visible and which internal models, if any, are approved interfaces. Find logic that is repeated or packed inline, and check whether copies that look alike really behave alike; two lookups against the same versioned dimension can differ, one as of the record's date and one at its current version. Propose the restructure, then build a baseline from the unchanged code. Restructure within the approved scope, following the project's approved structure and layering. Compare every consumer-visible relation and approved interface with the baseline in each approved environment, time zone and run mode. Where the compared data never exercises a restructured rule's boundary, cover that boundary another way. Report defects and wanted output changes as follow-up work, and state what the comparison cannot prove.
 
 ### Compose
 
@@ -69,7 +69,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 
 - If unresolved, which models and which repeated logic are in scope?
 - If unresolved, what is the consumer contract: which relations count as consumer-visible, which internal models are approved interfaces, and must rows match exactly or within an approved precision?
-- If unresolved, in which execution environments and time zones must the output match the baseline, and does the consumer contract already promise the same result in every time zone?
+- If unresolved, in which execution environments, time zones and, for an incremental model, run modes (full rebuild, incremental run or both) must the output match the baseline, and does the consumer contract already promise the same result in every time zone?
 - If unresolved, is any output change actually wanted? If so, it belongs in a separate change, not in this refactor.
 - If unresolved, which project structure and layering conventions must the restructured models follow?
 
@@ -78,6 +78,6 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - Do not change anything a consumer reads, even to fix a wrong number; route any output change to a separate change.
 - Do not merge rules that look alike but return different results; keep each behaviour.
 - Do not treat a green build or a passing test suite as proof of unchanged output; the proof is the comparison with the baseline.
-- Do not claim exact preservation when the baseline itself varies from run to run; report what cannot be proven.
+- Do not claim exact preservation when the baseline itself varies from run to run.
 - Do not reduce required verification coverage; a refactor may replace or remove redundant tests.
 - Do not extend the refactor into incremental conversion, performance tuning, new marts or model groups outside the agreed scope.

@@ -363,7 +363,7 @@
         "dbt-full-refresh-to-incremental",
         "prove-dbt-change-safe"
       ],
-      "sha256": "f2e793c9530ae096451df04bf94042f689b0fe0e59309257b42d4bae370fd9fb",
+      "sha256": "4d8304d384ad8bfd2d18fb7dc6908f25d69c133051d7c5f17ed27b63671cc1a2",
       "title": "Refactor dbt models without changing consumer output",
       "trigger": [
         "A model has grown into one long query with logic packed inline, and nobody dares change it because dashboards and reports depend on its output.",
