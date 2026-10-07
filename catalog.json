@@ -612,7 +612,7 @@
     },
     {
       "area": "transformation",
-      "description": "Bring a legacy SQL script or view into dbt as layered models that publish the same contract, proven by a two-way row comparison against the legacy logic's own output on the same inputs, with every legacy defect reproduced and listed rather than silently fixed.",
+      "description": "Bring a legacy SQL script or view into dbt as layered models that publish the same contract, proven against the legacy logic's own output on the same inputs, with every legacy defect reproduced and listed rather than silently fixed.",
       "domain_objects": [
         "legacy_sql",
         "dbt_model",
@@ -639,15 +639,14 @@
       "pitch": "Retire a hand-run SQL script by rebuilding it in dbt and proving the new models return exactly what the old one did.",
       "qualifiers": [
         "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
-        "An exact baseline needs the legacy SQL to run on the target engine against the same inputs.",
-        "Parity is proven only on the compared inputs; a rule those inputs never exercise needs its own case."
+        "An exact baseline needs the legacy SQL to run on the target engine against the same inputs."
       ],
       "readiness": "supported",
       "related": [
         "prove-dbt-change-safe",
         "dbt-full-refresh-to-incremental"
       ],
-      "sha256": "50ff5431d4e350cd6f40ef41ef3b0087155adcb26c1af76d9e6e1d7941f29ba3",
+      "sha256": "1b405a0532a4f1e9b96b6759bbaddee8313132a1afba6d695a5770b705918ad4",
       "title": "Convert a legacy SQL script or view into a dbt model and prove parity",
       "trigger": [
         "A report or table is still produced by a hand-run SQL script or a database view outside dbt, with no tests, lineage or review.",
