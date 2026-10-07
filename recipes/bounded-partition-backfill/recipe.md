@@ -40,16 +40,16 @@ evidence:
 
 ## Prompt
 
-Apply <corrected_rule> to <affected_models> for <restatement_window> only, without a full refresh, and leave every published value outside the window as it is. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Find every relation that applies the rule or is built from it, including those that read it through a shared definition and rebuild in full, and restate them consistently for the window. Deliver the corrected models, a repeatable way to restate an approved window, and evidence that the window matches what a full rebuild under the corrected rule gives, that nothing outside it changed, that consumers still agree with the restated data, and that normal loads still work afterwards. A defect found along the way is reported as separate work.
+Restate <restatement_window> of <affected_models> under <corrected_rule>, without a full refresh, and leave every published value outside the window as it is. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Find every relation that applies the rule or is built from it, including those that read it through a shared definition and rebuild in full, and restate them consistently for the window. Deliver the corrected models, a repeatable way to restate an approved window, and evidence that the window matches what a full rebuild under the corrected rule gives, that nothing outside it changed, that consumers still agree with the restated data, and that normal loads still work afterwards. A defect found along the way is reported as separate work.
 
 ## Verified by
 
 - Inside the approved window, every affected row follows the corrected rule and equals what a full rebuild under that rule gives, at the approved precision.
-- Outside the window, every affected relation keeps its published values at the approved precision, after the restatement and after later normal loads; any outside difference the corrected rule did not cause is reported with its cause, and relations not compared are named.
+- Outside the window, every relation consumers read, and any internal model in an approved interface, keeps its published values at the approved precision after the restatement and later loads; differences the rule did not cause are reported with their cause, and uncompared relations are named.
 - A row whose grain spans the window edge, such as a shift, day or month holding records on both sides, changes only as the approved window rule says.
 - Every relation that applies or is built from the changed rule shows the same window scope, and every consumer reconciles to the restated detail.
 - Repeating the same restatement changes nothing, and a restatement that reaches only some of the affected relations does not complete as if it had succeeded.
-- A later normal load adds new data under the approved rule, reprocesses no published history, and handles late arrivals as the approved policy says.
+- A later normal load adds new data under the approved rule, changes published history only as its approved load strategy allows, and handles late arrivals as the approved policy says.
 - Which rule built which rows can be read as approved, from documentation by date or from a marker on the row.
 - What a later full refresh would do to history outside the window is stated and follows the approved policy, and defects found during the work are reported as follow-up with the output they affect.
 
@@ -57,7 +57,7 @@ Apply <corrected_rule> to <affected_models> for <restatement_window> only, witho
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Find where the rule is defined and every relation that applies it or is built from it: incremental models, tables that rebuild in full from a shared definition, and every consumer. For each, establish how its rows map to the window, including grains that can span the window edge. Record the published state before changing anything. Choose a way to restate the window that the source, the platform and the approved requirements support, and change the normal load path only as the approved rule requires. Where a published relation needs a new column or materialization to take part, plan how it switches over without its first normal run reprocessing published history. Restate, then compare the window with a full rebuild under the corrected rule and everything outside it with the published state, and report any outside difference the corrected rule did not cause. Reconcile consumers, run a normal load afterwards, document which rule applies to which rows, and report follow-up work.
+Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Find where the rule is defined and every relation that applies it or is built from it: incremental models, tables that rebuild in full from a shared definition, and every consumer. For each, establish how its rows map to the window, including grains that can span the window edge. Record the published state before changing anything. Choose a way to restate the window that the source, the platform and the approved requirements support, and change the normal load path only as the approved rule requires. Where a published relation needs a new column or materialization to take part, plan how it switches over without its first normal run changing published history beyond what the approved load strategy allows. Restate, then compare the window with a full rebuild under the corrected rule and everything outside it with the published state, and report any outside difference the corrected rule did not cause. Reconcile consumers, run a normal load afterwards, document which rule applies to which rows, and report follow-up work.
 
 ### Compose
 
@@ -79,7 +79,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 ### Guardrails
 
 - Do not choose or apply the corrected rule, the window, or its edges without approval.
-- Do not use a full refresh as the backfill, and do not let a relation that rebuilds in full from a shared definition restate history outside the window.
+- Do not use a full refresh as the backfill, and do not let a relation that rebuilds in full from a shared definition change what consumers read outside the window.
 - Do not leave affected relations disagreeing with each other: a model restated while an input it reads still holds the old rule is not done.
 - Do not let a later normal load or rebuild silently undo, extend or repeat the restatement outside the window.
 - Do not claim exact preservation when the published state itself cannot be reproduced; state what moved, why, and the precision that holds.
