@@ -1302,7 +1302,7 @@
         "dbt-full-refresh-to-incremental",
         "prove-dbt-change-safe"
       ],
-      "sha256": "75b4d5db782b120d6b02c92b4506247aa6d34ba6b7088ce8eed53e320a032fdd",
+      "sha256": "6b06503d44def6624d17714f8b7540040f61164dd4014dd436a55ce6ed7ae65d",
       "title": "Convert a stored procedure into a dbt model and prove parity",
       "trigger": [
         "A nightly load is a stored procedure nobody fully understands, and it inserts, updates, deletes or merges rows in a table people depend on.",

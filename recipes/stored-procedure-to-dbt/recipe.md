@@ -56,7 +56,7 @@ Convert <stored_procedure>, which maintains <target_table> for <consumers> by in
 - After every run in the agreed sequence, not only the last, the table matches what the unchanged procedure leaves after the same run on the same inputs at the approved precision, including runs that update, delete or merge rows.
 - The match holds in each approved execution environment and time zone.
 - Repeating a run that has already been applied leaves the table as the approved rerun behaviour says.
-- Where the table can also be rebuilt from scratch, a rebuild as of a run gives the same rows as maintaining it run by run; any input for which the two would differ is reported.
+- Where the table can also be rebuilt from scratch, a rebuild as of a compared run gives the same rows as maintaining it run by run, and any input for which the two would differ is reported.
 - Every procedure behaviour that affects the table is reproduced, and each defect is listed with the rows it affects, the rule it appears to break and what correcting it would change, as follow-up work.
 - For procedure behaviours the compared runs never exercise, such as a row removed on one run and changed on a later one, parity is checked with the unchanged procedure or another approved oracle where available; otherwise the gap is stated.
 - Output parity is kept separate from cutover and retirement: the procedure stops maintaining the table only after parity is accepted, and is kept or removed as approved.
