@@ -20,7 +20,8 @@ A candidate is a **Recipe** when it is one recognizable engineering requirement 
 
 1. Copy `templates/recipe.md` to `recipes/<id>/recipe.md`, where `<id>` is the Recipe's kebab-case id. The directory holds that one file.
 2. Fill in the frontmatter and every body section.
-3. Run the checks below and commit `recipe.md` together with the regenerated `catalog.json`.
+3. Add `tests/expected/<id>.json` with the Recipe's agreed `readiness` and `platforms`.
+4. Run the checks below and commit `recipe.md` and `tests/expected/<id>.json`. Do not commit `catalog.json`: a workflow regenerates it after the pull request merges to `pre-prod` ([ADR 0003](docs/adr/0003-catalog-generated-after-merge.md)).
 
 ## Accelerate Data contributors
 
@@ -75,11 +76,11 @@ A Collection in `collections/<id>.json` is a discovery view over Recipes: a `mem
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 .venv/bin/python -m pytest -q
-.venv/bin/python scripts/build_catalog.py
+.venv/bin/python scripts/build_catalog.py --validate
 .venv/bin/python scripts/check_schema_versions.py --base "$(git merge-base origin/pre-prod HEAD)"
 ```
 
-`build_catalog.py` validates everything and rewrites `catalog.json`; CI runs it with `--check` and fails when the committed catalog is stale.
+`build_catalog.py --validate` checks every Recipe and Collection without touching `catalog.json`; pull requests to `pre-prod` run it. Without a flag it rewrites `catalog.json`, which the `Catalog` workflow does after each merge to `pre-prod`. CI runs `--check` only on pull requests and pushes to `main`, so `main` always receives a fresh catalog.
 
 ## Changing a schema
 

@@ -41,15 +41,14 @@
         "revops-pipeline-snapshots",
         "revops-quota-commission",
         "service-ticket-sla",
-        "shift-unit-economics",
-        "spark-ingestion-notebook-to-dlt"
+        "shift-unit-economics"
       ],
       "selector": {
         "platforms_any": [
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 23,
+      "supported_or_proven_count": 22,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1368,63 +1367,6 @@
         ],
         "tools": [
           "dbt"
-        ]
-      }
-    },
-    {
-      "area": "ingestion",
-      "description": "Convert a Spark ingestion notebook into an owned dlt pipeline that lands beside the notebook's tables, accounts for every source record and every notebook step, and is reconciled table by table with a cause for every difference.",
-      "domain_objects": [
-        "spark_notebook",
-        "dlt_pipeline",
-        "bronze_table",
-        "rejected_record",
-        "consumer_contract",
-        "reconciliation_report"
-      ],
-      "evidence": {
-        "evals": [],
-        "features": [
-          "capturing-requirements",
-          "add-or-update-source",
-          "discovering-source-schema",
-          "generating-dlt-pipeline",
-          "dlt-unit-testing",
-          "running-dlt-in-sandbox",
-          "ingestion-data-testing",
-          "verifying"
-        ]
-      },
-      "id": "spark-ingestion-notebook-to-dlt",
-      "job_category": "re-engineer",
-      "path": "recipes/spark-ingestion-notebook-to-dlt/recipe.md",
-      "pitch": "Turn a Spark ingestion notebook into a dlt pipeline you own, and prove table by table what it lands and why any row differs.",
-      "qualifiers": [
-        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
-        "Needs the notebook's code, the tables it landed, and read access to the files it reads.",
-        "Source files must be reachable from the workspace; Studio's cloud-bucket route (ADLS, S3) is not supported today."
-      ],
-      "readiness": "supported",
-      "related": [
-        "managed-connector-to-dlt",
-        "notebook-transformation-to-dbt",
-        "api-to-bronze-incremental-contract",
-        "legacy-sql-to-dbt",
-        "prove-dbt-change-safe"
-      ],
-      "sha256": "6a097cea36fe6e214e29abcf6086b42d56a532104a65f9ee34f9dcee94fb132d",
-      "title": "Convert a Spark ingestion notebook into a dlt pipeline and prove landed parity",
-      "trigger": [
-        "A Spark notebook lands raw files into bronze, and the team wants that load as tested pipeline code without keeping a cluster for it.",
-        "An ingestion notebook nobody can change safely mixes parsing, renames and deduplication in cells with no tests, and reruns surprise people.",
-        "Models read the tables a Spark notebook lands, so a replacement has to land the same data and prove it before anyone switches."
-      ],
-      "works_with": {
-        "platforms": [
-          "duckdb_local"
-        ],
-        "tools": [
-          "dlt"
         ]
       }
     }
