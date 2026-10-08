@@ -6,7 +6,7 @@ trigger:
   - Consumers depend on what each refresh of the view produces, so the dbt model must keep what every refresh computes, not only its final rows.
   - The view's refresh is opaque, and the team wants its refresh rule stated and owned in code before the view is retired.
 description: Bring a materialized view into dbt as a model that publishes the same contract and computes each refresh under the same approved rule, proven against the view's own output after each compared refresh, with view defects reproduced and reported as follow-up work.
-pitch: Retire a materialized view by rebuilding it in dbt and proving every refresh computes what the view's refresh did.
+pitch: Retire a materialized view by rebuilding it in dbt and proving each compared refresh matches the view's.
 job_category: re-engineer
 area: transformation
 readiness: supported
@@ -45,14 +45,14 @@ evidence:
 
 ## Prompt
 
-Convert <materialized_view> into a dbt model in the current Intent so that it can replace the view for <consumers>, computing each refresh as the view's approved refresh rule does. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Deliver the dbt model, and its run definition where that is in scope, with evidence that after each compared refresh the published result keeps the approved contract and matches the view's output on the same inputs at the approved precision, and that a full rebuild matches the view's full refresh. Reproduce every view behaviour that affects the published output, including ones that look like mistakes, and report each defect as follow-up work. Claim operational refresh guarantees, such as cadence, a staleness limit or what readers see during a refresh, only where the delivered run definition or execution mechanism enforces them. Handle the view as approved, and state what the comparison cannot prove.
+Convert <materialized_view> into a dbt model in the current Intent so that it can replace the view for <consumers>, computing each refresh as the view's approved refresh rule does. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Deliver the dbt model, and its run definition where that is in scope, with evidence that after each compared refresh the published result keeps the approved contract and matches the view's output on the same inputs at the approved precision, and, where the view's full refresh is available, that a full rebuild matches it. Reproduce every view behaviour that affects the published output, including ones that look like mistakes, and report each defect as follow-up work. Claim operational refresh guarantees, such as cadence, a staleness limit or what readers see during a refresh, only where the delivered run definition or execution mechanism enforces them. Handle the view as approved, and state what the comparison cannot prove.
 
 ## Verified by
 
 - The published model keeps the approved contract, covering whichever of relation name, columns, column order, types and materialization the approved contract counts as unchanged output.
 - After each compared refresh, published rows match the view's output on the same inputs at the approved precision; any difference left is reported and parity is not claimed for it.
 - Each refresh changes only what the approved refresh rule lets it change, such as the window it recomputes, and rows outside that reach keep their earlier values, as they do in the view.
-- A full rebuild matches the view's full refresh on the same inputs at the approved precision, and records the view's refresh rule leaves out of the refreshed result are identified and reported.
+- Where the view's full refresh on the same inputs is available from the view or another approved oracle, a full rebuild matches it at the approved precision; otherwise the gap is stated. Records the view's refresh rule leaves out of the refreshed result are identified and reported.
 - Each approved operational guarantee (cadence, staleness, what readers see mid-refresh) is verified where the delivered run definition or execution mechanism enforces it; otherwise it is recorded as a cutover requirement or an unverified operational requirement, not claimed.
 - Where the run definition is in scope, it states what each scheduled refresh runs and on what cadence, and how a first run, a full rebuild and a missed refresh behave.
 - The match holds in each approved execution environment and time zone.
@@ -65,7 +65,7 @@ Convert <materialized_view> into a dbt model in the current Intent so that it ca
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and approved requirements. Read the view end to end first: its definition, sources, filters, joins, null handling and aggregation, and its refresh rule, meaning what each refresh recomputes and by which key or window, its trigger and cadence, what a full refresh does and what readers see while it runs; then find every consumer. Confirm that its sources exist in the Domain and settle how the view's output at each compared refresh point is obtained. Choose the materialization and refresh mechanism from the approved refresh rule and the source evidence, for example a full rebuild per run, an incremental model that replaces a recomputed window, or partition replacement, and state what it relies on, such as a landing or update marker, and what it would miss. Separate what each refresh computes, which the model owns, from operational guarantees such as cadence, staleness and reader visibility, which only a delivered run definition or execution mechanism that enforces them can guarantee; verify those it enforces, and record the rest as cutover or unverified operational requirements. Compare the published result with the view after each compared refresh, including refreshes that bring new and late records, compare a full rebuild with the view's full refresh, reproduce each view behaviour that shapes the output, list each defect as follow-up work, handle the view as approved, and state what the comparison cannot prove.
+Inherit the Intent's repository, platform, Domain, sources and approved requirements. Read the view end to end first: its definition, sources, filters, joins, null handling and aggregation, and its refresh rule, meaning what each refresh recomputes and by which key or window, its trigger and cadence, what a full refresh does and what readers see while it runs; then find every consumer. Confirm that its sources exist in the Domain and settle how the view's output at each compared refresh point is obtained. Choose the materialization and refresh mechanism from the approved refresh rule and the source evidence, for example a full rebuild per run, an incremental model that replaces a recomputed window, or partition replacement, and state what it relies on, such as a landing or update marker, and what it would miss. Separate what each refresh computes, which the model owns, from operational guarantees such as cadence, staleness and reader visibility, which only a delivered run definition or execution mechanism that enforces them can guarantee; verify those it enforces, and record the rest as cutover or unverified operational requirements. Compare the published result with the view after each compared refresh, including refreshes that bring new and late records, and compare a full rebuild with the view's full refresh where one is available.
 
 ### Compose
 
@@ -80,21 +80,19 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 ### Ask first
 
 - If unresolved, what counts as unchanged output: rows and values only, or also the relation name, column names, column order, types and materialization; and does the model take over the view's name, or do consumers move later?
-- If unresolved, what does each refresh of the view compute (full recompute or incremental, and the window or key it recomputes), and which operational guarantees apply: trigger and cadence, a staleness limit, and whether readers may see a partly refreshed result?
+- If unresolved, what does each refresh of the view compute: full recompute or incremental, and the window or key it recomputes?
 - If unresolved, what does the view's refresh rule do with records that arrive after a refresh can reach them, and what does its full refresh produce?
 - If unresolved, which refresh points, inputs and precision form the comparison, and in which execution environments and time zones must the result match?
 - If unresolved, where does the view's output at each compared refresh point come from when it cannot be re-run on the same inputs, and who approves it?
-- If unresolved, does the work deliver the model only, or also a run definition or execution mechanism (selection, command, cadence, scheduling), and which operational guarantees must it enforce?
+- If unresolved, does the work deliver the model only, or also a run definition or execution mechanism (selection, command, cadence, scheduling), and which operational guarantees (cadence, staleness, whether readers may see a partly refreshed result) must it enforce?
 - If unresolved, once parity is accepted and consumers read the dbt model, is the view kept and marked retired, or dropped?
 
 ### Guardrails
 
 - Do not edit the view, its refresh logic or its captured output to make the comparison pass.
-- Do not drop or disable the view before the parity result has been accepted, or while consumers still read it.
-- Do not change what the view's refresh computes, such as recovering late records or widening the recomputed window; report a wanted change as follow-up work.
-- Do not correct a view defect; reproduce it, report it as follow-up work, and route any wanted output change to a separate change.
+- Do not drop or disable the view before the parity result has been accepted or, where consumers move later, before they have moved.
+- Do not change what the view's refresh computes, such as recovering late records or widening the recomputed window, or correct a view defect; reproduce the view's behaviour and report any wanted change as follow-up work for a separate change.
 - Do not treat a green build or a matching final state as proof of parity; the proof is the comparison after each compared refresh.
-- Do not claim a cadence, staleness or reader-visibility guarantee that the delivered run definition or execution mechanism does not enforce.
 - Do not claim exact parity when the view's own output varies from run to run; report what cannot be proven.
 - Do not widen a tolerance, or narrow the contract, the compared refreshes or the approved precision, to make the comparison pass.
 - Do not change the output of models outside the conversion.
