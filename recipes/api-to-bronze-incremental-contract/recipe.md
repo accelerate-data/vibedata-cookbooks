@@ -4,9 +4,9 @@ title: Land a SaaS or REST API into bronze with an incremental cursor and a sche
 trigger:
   - An API source has to load into bronze incrementally instead of reloading everything on every run.
   - A pipeline breaks whenever the source API adds a field or changes a field's type.
-  - Every record an API sends has to be accounted for in bronze as landed, refused with a reason, or reported as missed.
-description: Build a dlt pipeline that lands a SaaS or REST API into bronze incrementally under an approved cursor, enforces an approved schema contract for new fields and changed types, keeps refused records visible, and reconciles each load by business key to what the API holds.
-pitch: Land an API into bronze incrementally, with a schema contract for changed fields and a reconciliation that accounts for every record.
+  - The team has to know which of an API's records landed in bronze, which were refused and why, and which it can show were missed.
+description: Build a dlt pipeline that lands a SaaS or REST API into bronze incrementally under an approved cursor, enforces an approved schema contract for new fields and changed types, keeps refused records visible, and accounts for each load's records by outcome and by extraction, completely where the API offers an independent view of what it holds.
+pitch: Land an API into bronze incrementally, with a schema contract for changed fields and an account of every record it can see.
 job_category: build
 area: ingestion
 readiness: supported
@@ -46,25 +46,26 @@ evidence:
 
 ## Prompt
 
-Build a dlt pipeline in the current Intent that lands <resource_list> from the <source_name> API into bronze. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Load each resource incrementally under the approved cursor, key and write disposition, enforce the approved schema contract for new fields and changed types, keep every refused record visible with its reason, and reconcile each load's landed, refused and missed records by business key to what the API holds. Report what the load cannot see, such as records deleted outright or changes that do not move the cursor.
+Build a dlt pipeline in the current Intent that lands <resource_list> from the <source_name> API into bronze. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Load each resource incrementally under the approved cursor, key and write disposition, enforce the approved schema contract for new fields and changed types, keep every refused record visible with its reason, and account for each load's records by outcome (landed, refused or missed) and by extraction (newly read or re-read), completely where the API offers an independent, enumerable view of the records it holds; otherwise account for the records visible through the API and state that unseen misses cannot be proven absent. Report what the load cannot capture.
 
 ## Verified by
 
 - Every approved resource lands in bronze under its approved write disposition and, where it has one, business key, and each landed row carries the approved source identifiers and provenance.
 - After the first load, each load lands only the records the approved cursor rule selects, including any approved lookback, and a rerun over an unchanged source lands no new record and changes no record's content; re-reads follow the approved re-send rule.
 - No record is lost, or re-read beyond the approved lookback, because it shares a cursor value with the stored mark or another record, or writes its cursor with a different offset or format.
-- Late, re-sent and corrected records are handled as the approved rules say, and a record the cursor rule cannot reach is reported as missed rather than left silently absent.
+- Late, re-sent and corrected records are handled as the approved rules say, and a record the cursor rule cannot reach is reported as missed wherever an independent view of the source shows it.
 - Deletes reach bronze as the approved policy says, whether flagged, removed or recorded separately, and the result states which deletes the load cannot see.
 - A new field and a changed field type, including on a field the API added after the first load, are handled as the approved contract says, whether the field is added or dropped, the record is refused, the value is kept apart or the load fails.
-- Every refused record stays visible where the approved rule puts it, with its reason and the approved identifying detail, a re-read of it is not counted as a second refusal, and whether the cursor moves past it follows the approved rule.
-- For each load and resource, landed, refused, missed and re-read records reconcile by business key and content to what the API holds, with no key in two classes and none unaccounted for.
+- Every refused record stays visible where the approved rule puts it, with its reason and the approved identifying detail, a re-read of it keeps its refused outcome, is marked re-read and adds no second refusal, and whether the cursor moves past it follows the approved rule.
+- For each load and resource, every relevant source record has one outcome, landed, refused or missed, and every record read is marked newly read or re-read; read records reconcile to what the load requested, outcomes to the relevant source records, by business key and content.
+- Where the API offers an independent, enumerable view of its records, such as a full listing, an audit endpoint or a snapshot, every record it holds is accounted for; otherwise the records visible through the API reconcile and the result states that unseen misses cannot be proven absent.
 - The result states what the load cannot capture, such as records deleted outright, records later than any approved lookback, or corrections that leave the cursor unchanged.
 
 ## Agent guidance
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and approved requirements. Confirm what the API exposes first: its resources and pagination, each resource's identity, which field marks a change and whether every change moves it, how deletes appear, and whether the API can filter on the cursor. Choose the write disposition, key, cursor and starting point from that evidence and the approved requirements, and state what the choice relies on and what it would miss, such as deletes, corrections that keep their cursor, or records that arrive late. Land each resource with the approved schema contract, keep refused records visible, and carry the approved provenance on every row. Run the approved loads, and reconcile every load by business key and content against an independent view of what the API holds, such as its full listing, whether the check runs with each load or periodically over several. Report what the load and the reconciliation cannot see.
+Inherit the Intent's repository, platform, Domain, sources and approved requirements. Confirm what the API exposes first: its resources and pagination, each resource's identity, which field marks a change and whether every change moves it, how deletes appear, and whether the API can filter on the cursor. Choose the write disposition, key, cursor and starting point from that evidence and the approved requirements, and state what the choice relies on and what it would miss, such as deletes, corrections that keep their cursor, or records that arrive late. Land each resource with the approved schema contract, keep refused records visible, and carry the approved provenance on every row. Find out whether the API offers an independent, enumerable view of its records, such as a full listing, an audit endpoint or a snapshot. Run the approved loads and give each relevant record one outcome and each record read an extraction status; where such a view exists, reconcile every load against it by business key and content, with each load or periodically over several, and where it does not, reconcile what the API exposes and say that unseen misses cannot be proven absent.
 
 ### Compose
 
@@ -96,3 +97,4 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - Do not claim deletes, late records or corrections are captured when the chosen cursor cannot see them.
 - Do not force business deduplication or transformation into bronze beyond the approved key.
 - Do not treat a count match as reconciliation; compare business keys and content.
+- Do not claim that no record was missed unless an independent view of the source's records shows it.
