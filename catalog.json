@@ -853,7 +853,7 @@
       "qualifiers": [
         "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
         "Needs read access to the connector's landed tables and to the source the connector reads.",
-        "A database source needs a dlt route the runtime supports; Studio's sql_database route was not available."
+        "Database sources need a dlt route Studio supports; its sql_database route is not supported today."
       ],
       "readiness": "supported",
       "related": [
@@ -861,7 +861,7 @@
         "legacy-sql-to-dbt",
         "prove-dbt-change-safe"
       ],
-      "sha256": "f186dfde198021f8e915dfacca8a1339da977fd666b638f2ee330d9c20c19e8b",
+      "sha256": "ec397d7466bd6ab9dd35525120cce956772698ddd561969f7ed4a3ec36974f97",
       "title": "Replace a Fivetran or Airbyte connector with a dlt pipeline and reconcile the result",
       "trigger": [
         "A managed connector's bill changed shape, or it broke and the vendor fix has been pending for weeks, and the team wants the load in code it owns.",
