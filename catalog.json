@@ -1288,11 +1288,11 @@
       "id": "spark-ingestion-notebook-to-dlt",
       "job_category": "re-engineer",
       "path": "recipes/spark-ingestion-notebook-to-dlt/recipe.md",
-      "pitch": "Turn a Spark ingestion notebook into a dlt pipeline you own, and prove table by table that it lands what the notebook did before anyone switches.",
+      "pitch": "Turn a Spark ingestion notebook into a dlt pipeline you own, and prove table by table what it lands and why any row differs.",
       "qualifiers": [
         "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
         "Needs the notebook's code, the tables it landed, and read access to the files it reads.",
-        "Files in cloud buckets (ADLS, S3) are unassessed; the assessed route reads files in the workspace."
+        "Source files must be reachable from the workspace; Studio's cloud-bucket route (ADLS, S3) is not supported today."
       ],
       "readiness": "supported",
       "related": [
@@ -1300,7 +1300,7 @@
         "legacy-sql-to-dbt",
         "prove-dbt-change-safe"
       ],
-      "sha256": "c5180fcb92c979759035a7cc7418739f22b3830a733359ae647fd5f0e75ae3c7",
+      "sha256": "2c81322f05ef7b72afc55fff56715c77571e544ac976dba1fd73349b5c71501b",
       "title": "Convert a Spark ingestion notebook into a dlt pipeline and prove landed parity",
       "trigger": [
         "A Spark notebook lands raw files into bronze, and the team wants that load as tested pipeline code without keeping a cluster for it.",
