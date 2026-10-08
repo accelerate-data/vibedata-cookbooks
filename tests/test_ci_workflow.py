@@ -58,9 +58,13 @@ def test_catalog_is_regenerated_after_each_merge_to_pre_prod():
     workflow = yaml.safe_load((REPO_ROOT / ".github/workflows/catalog.yml").read_text(encoding="utf-8"))
     triggers = workflow.get("on", workflow.get(True))
     assert triggers == {"push": {"branches": ["pre-prod"]}}
-    assert workflow["permissions"] == {"contents": "write"}
+    assert workflow["permissions"] == {"contents": "read"}
     assert workflow["concurrency"]["cancel-in-progress"] is False
     steps = workflow["jobs"]["regenerate"]["steps"]
+    app_token = next(step for step in steps if step.get("uses", "").startswith("actions/create-github-app-token@"))
+    assert app_token["with"]["permission-contents"] == "write"
+    checkout = next(step for step in steps if step.get("uses", "").startswith("actions/checkout@"))
+    assert checkout["with"]["token"] == "${{ steps.app-token.outputs.token }}"
     runs = "\n".join(step.get("run", "") for step in steps)
     assert "python scripts/build_catalog.py" in runs
     assert "git diff --quiet -- catalog.json" in runs

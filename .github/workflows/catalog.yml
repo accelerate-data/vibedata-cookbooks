@@ -9,8 +9,10 @@ on:
   push:
     branches: [pre-prod]
 
+# The push uses a token from the vibedata-cookbooks-catalog GitHub App, which
+# the pre-prod ruleset lets bypass its pull request and status check rules.
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: catalog-pre-prod
@@ -21,9 +23,16 @@ jobs:
     name: Regenerate catalog.json
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/create-github-app-token@v3
+        id: app-token
+        with:
+          client-id: ${{ vars.CATALOG_APP_CLIENT_ID }}
+          private-key: ${{ secrets.CATALOG_APP_PRIVATE_KEY }}
+          permission-contents: write
       - uses: actions/checkout@v4
         with:
           ref: pre-prod
+          token: ${{ steps.app-token.outputs.token }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -39,8 +48,8 @@ jobs:
             exit 0
           fi
           base="$(git rev-parse HEAD)"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "vibedata-cookbooks-catalog[bot]"
+          git config user.email "339712813+vibedata-cookbooks-catalog[bot]@users.noreply.github.com"
           git add catalog.json
           git commit -m "chore(catalog): regenerate catalog.json after ${base::7}"
           if ! git push origin HEAD:pre-prod; then
