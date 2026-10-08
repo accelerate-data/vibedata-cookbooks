@@ -33,6 +33,7 @@ EXPECTED = {
     "master-b2b-account-hierarchy": {"readiness": "supported", "platforms": ["duckdb_local"]},
     "dbt-refactor-output-identical": {"readiness": "supported", "platforms": ["duckdb_local"]},
     "bounded-partition-backfill": {"readiness": "supported", "platforms": ["duckdb_local"]},
+    "managed-connector-to-dlt": {"readiness": "supported", "platforms": ["duckdb_local"]},
 }
 
 

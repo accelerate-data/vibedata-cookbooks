@@ -32,6 +32,7 @@
         "identity-standardize-names-addresses",
         "legacy-sql-to-dbt",
         "logistics-fleet-utilization",
+        "managed-connector-to-dlt",
         "master-b2b-account-hierarchy",
         "metric-population-and-rollups",
         "operational-state-duration",
@@ -46,7 +47,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 20,
+      "supported_or_proven_count": 21,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -817,6 +818,62 @@
           "redshift"
         ],
         "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "ingestion",
+      "description": "Replace a managed connector with an owned dlt pipeline landed side by side with the connector's tables, reconciled table by table over parallel runs with a cause for every difference, and stopped short of cutover.",
+      "domain_objects": [
+        "managed_connector",
+        "dlt_pipeline",
+        "bronze_table",
+        "consumer_contract",
+        "reconciliation_report",
+        "cutover_readiness"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "add-or-update-source",
+          "discovering-source-schema",
+          "generating-dlt-pipeline",
+          "dlt-unit-testing",
+          "running-dlt-in-sandbox",
+          "ingestion-data-testing",
+          "verifying"
+        ]
+      },
+      "id": "managed-connector-to-dlt",
+      "job_category": "re-engineer",
+      "path": "recipes/managed-connector-to-dlt/recipe.md",
+      "pitch": "Swap a Fivetran or Airbyte connector for a dlt pipeline you own, and prove table by table that it lands what the connector did before you cut over.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Needs read access to the connector's landed tables and to the source the connector reads.",
+        "A database source needs a dlt route the runtime supports; Studio's sql_database route was not available."
+      ],
+      "readiness": "supported",
+      "related": [
+        "api-to-bronze-incremental-contract",
+        "legacy-sql-to-dbt",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "f186dfde198021f8e915dfacca8a1339da977fd666b638f2ee330d9c20c19e8b",
+      "title": "Replace a Fivetran or Airbyte connector with a dlt pipeline and reconcile the result",
+      "trigger": [
+        "A managed connector's bill changed shape, or it broke and the vendor fix has been pending for weeks, and the team wants the load in code it owns.",
+        "dbt models read a Fivetran or Airbyte connector's tables, so a replacement has to keep landing data those models can use.",
+        "Before switching off a managed connector, the team needs proof that its replacement lands the same records, with a reason for every difference."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dlt",
           "dbt"
         ]
       }
