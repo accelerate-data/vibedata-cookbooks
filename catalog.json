@@ -992,7 +992,7 @@
         "legacy-sql-to-dbt",
         "prove-dbt-change-safe"
       ],
-      "sha256": "400649eeadfc9eaee963976fa4e668dd4cb1ffd0f71d969bce04621761d2868a",
+      "sha256": "086db909e24e3912542fe5d3c8afed75de1f887541bba6bf3510d81b63972bfb",
       "title": "Convert a notebook transformation into a dbt model and prove parity",
       "trigger": [
         "A table or report is still produced by running a notebook by hand, pulling warehouse data into dataframes, with no tests, lineage or review.",
