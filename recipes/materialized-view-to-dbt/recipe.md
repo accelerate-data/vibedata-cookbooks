@@ -6,7 +6,7 @@ trigger:
   - Consumers depend on what each refresh of the view produces, so the dbt model must keep what every refresh computes, not only its final rows.
   - The view's refresh is opaque, and the team wants its refresh rule stated and owned in code before the view is retired.
 description: Bring a materialized view into dbt as a model that publishes the same contract and computes each refresh under the same approved rule, proven against the view's own output after each compared refresh, with view defects reproduced and reported as follow-up work.
-pitch: Retire a materialized view by rebuilding it in dbt with the same refresh behaviour and proving every refresh returns what the view did.
+pitch: Retire a materialized view by rebuilding it in dbt and proving every refresh computes what the view's refresh did.
 job_category: re-engineer
 area: transformation
 readiness: supported
@@ -54,7 +54,7 @@ Convert <materialized_view> into a dbt model in the current Intent so that it ca
 - After each compared refresh, published rows match the view's output on the same inputs at the approved precision; any difference left is reported and parity is not claimed for it.
 - Each refresh changes only what the approved refresh rule lets it change, such as the window it recomputes, and rows outside that reach keep their earlier values, as they do in the view.
 - Records that arrive after the refresh can reach them are treated as the approved refresh rule says, and any difference between a full rebuild and the refreshed result, at the approved precision, is exactly the records that rule leaves out, no more and no fewer, and is reported.
-- Where the run definition or execution mechanism is in scope, each approved operational guarantee (cadence, staleness limit, what readers see during a refresh) is verified; otherwise each is recorded as a cutover or unverified requirement, not claimed as delivered.
+- Where the run definition or execution mechanism is in scope, each approved operational guarantee (cadence, staleness, what readers see mid-refresh) is verified; otherwise it is recorded as a cutover requirement or an unverified operational requirement, not claimed as delivered.
 - Where the run definition is in scope, it states what each scheduled refresh runs and on what cadence, and how a first run, a full rebuild and a missed refresh behave.
 - The match holds in each approved execution environment and time zone.
 - Every view behaviour that affects the published output is reproduced, and each defect found is listed with the output it affects, the rule it appears to break and what correcting it would change, as follow-up work.
@@ -81,7 +81,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 ### Ask first
 
 - If unresolved, what counts as unchanged output: rows and values only, or also the relation name, column names, column order, types and materialization; and does the model take over the view's name, or do consumers move later?
-- If unresolved, which refresh behaviours must the model keep: full recompute or incremental, the window or key each refresh recomputes, its trigger and cadence, a staleness limit, and whether readers may see a partly refreshed result?
+- If unresolved, what must each refresh compute (full recompute or incremental, and the window or key it recomputes), and which operational guarantees apply: trigger and cadence, a staleness limit, and whether readers may see a partly refreshed result?
 - If unresolved, how are records that arrive after the refresh can reach them treated: left out as the view leaves them, or recovered by a later refresh or rebuild?
 - If unresolved, must a full rebuild equal the refreshed result, or may it include the records the refreshes missed?
 - If unresolved, which refresh points, inputs and precision form the comparison, and in which execution environments and time zones must the result match?
