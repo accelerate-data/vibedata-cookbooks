@@ -35,6 +35,7 @@ EXPECTED = {
     "bounded-partition-backfill": {"readiness": "supported", "platforms": ["duckdb_local"]},
     "managed-connector-to-dlt": {"readiness": "supported", "platforms": ["duckdb_local"]},
     "notebook-transformation-to-dbt": {"readiness": "supported", "platforms": ["duckdb_local"]},
+    "scalar-sql-function-to-dbt-macro": {"readiness": "supported", "platforms": ["duckdb_local"]},
 }
 
 

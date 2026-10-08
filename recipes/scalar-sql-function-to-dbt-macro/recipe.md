@@ -1,0 +1,94 @@
+---
+id: scalar-sql-function-to-dbt-macro
+title: Convert a scalar SQL function into a dbt macro and prove equivalence
+trigger:
+  - Models or views call a scalar function created directly in the warehouse, so dbt cannot see the dependency and changes to it are not reviewed or tested.
+  - A freshly built environment breaks because the warehouse function its models call does not exist there.
+  - The team wants to retire a warehouse function, but its callers need proof that the dbt version returns exactly the same values.
+description: Bring a scalar warehouse function into the dbt project as a macro, switch the agreed callers to it, and prove the macro and the callers' outputs match the unchanged function, with its quirks reproduced and reported as follow-up work.
+pitch: Move a hidden warehouse function into dbt as a macro and prove it returns exactly what the function did.
+job_category: re-engineer
+area: transformation
+readiness: supported
+domain_objects:
+  - scalar_function
+  - dbt_macro
+  - dbt_model
+  - consumer_contract
+  - approved_baseline
+  - parity_report
+  - follow_up
+works_with:
+  platforms:
+    - duckdb_local
+  tools:
+    - dbt
+qualifiers:
+  - Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
+  - Needs the unchanged function runnable on the same inputs, or its outputs captured on them.
+  - Scalar functions only; a caller's own legacy SQL is converted with legacy-sql-to-dbt.
+related:
+  - legacy-sql-to-dbt
+  - prove-dbt-change-safe
+evidence:
+  features:
+    - capturing-requirements
+    - profiling-source-data
+    - generating-dbt-model
+    - dbt-unit-testing
+    - running-dbt-in-sandbox
+    - documenting-dbt-models
+    - verifying
+  evals: []
+---
+
+## Prompt
+
+Convert <scalar_function> into a dbt macro in the current Intent and switch <callers> to it. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Deliver the macro and the switched callers with evidence that the macro returns the same value and type as the unchanged function on the agreed inputs at the approved precision, and that each switched caller keeps its approved output. Reproduce every function behaviour, including ones that look like mistakes, and report each defect as follow-up work; an output change someone wants belongs in a separate change. Handle the function as approved, and state what the comparison cannot prove.
+
+## Verified by
+
+- On every agreed input, including nulls and the boundary values the function treats specially, the macro returns the same value and the same type as the unchanged function at the approved precision; any difference left is reported and equivalence is not claimed for it.
+- Each switched caller keeps its approved output contract, covering whichever of rows, columns, column order and types the approved contract counts as unchanged.
+- The match holds in each approved execution environment and time zone.
+- Switched callers take the logic from the dbt project and no longer depend on the warehouse function.
+- Every function behaviour that affects a result is reproduced, including null handling, which side of a boundary a value falls on, and the return type.
+- Each defect found in the function is listed with the inputs it affects, the rule it appears to break and what correcting it would change, as follow-up work.
+- Inputs the function treats specially that the data never contains are checked against the unchanged function or another approved oracle where one is available; otherwise the gap is stated.
+- Equivalence is kept separate from cutover: callers left on the function keep it available, and the function is retired as approved only after equivalence is accepted and no caller still uses it.
+- Anything the comparison cannot prove is stated.
+
+## Agent guidance
+
+### Instructions
+
+Inherit the Intent's repository, platform, Domain, sources and approved requirements. Read the function's definition first: its argument and return types, implicit casts, null handling, each branch and boundary, and anything it reads besides its arguments. Find every caller, inside and outside the dbt project. Settle how the unchanged function's output is obtained on the agreed inputs before writing the macro, and keep that baseline unchanged. Write the macro to reproduce every behaviour, including the ones that look like mistakes, and list each defect as follow-up work. Compare the macro with the function on the values the data holds and on the edge inputs the function treats specially, then switch the agreed callers and compare each caller's output with its output before the switch in each approved environment. Handle the function as approved and state what the comparison cannot prove.
+
+### Compose
+
+- capturing-requirements
+- profiling-source-data
+- generating-dbt-model
+- dbt-unit-testing
+- running-dbt-in-sandbox
+- documenting-dbt-models
+- verifying
+
+### Ask first
+
+- If unresolved, which callers move to the macro in this work, and which, inside or outside dbt, keep calling the function?
+- If unresolved, what counts as equivalent: the same value only or also the same return type, compared exactly or within an approved precision, and what counts as an unchanged caller output?
+- If unresolved, which inputs form the comparison: the values the data holds, plus which edge inputs such as nulls, boundaries and out-of-range values, and in which environments and time zones?
+- If unresolved, which argument types must the macro accept: only those the current callers pass, or every type the function accepts?
+- If unresolved, must the macro work only on this platform, or also on other warehouses the project targets?
+- If unresolved, once equivalence is accepted and every caller has moved, is the function kept and marked retired, or dropped?
+
+### Guardrails
+
+- Do not edit the function or its captured outputs to make the comparison pass.
+- Do not drop or disable the function before equivalence has been accepted, or while any caller still uses it; proven equivalence alone does not authorize removal.
+- Do not correct a function defect, such as a null placeholder or an inclusive boundary; reproduce it, report it as follow-up work, and route any wanted output change to a separate change.
+- Do not treat matching caller outputs as proof that the macro equals the function; aggregates can hide a difference on individual inputs.
+- Do not widen a precision, or narrow the compared inputs or the approved contract, to make the comparison pass.
+- Do not change the output of models outside the conversion.
+- Do not extend the conversion into rewriting the callers' own logic, table-valued functions, stored procedures or porting to platforms the user has not approved.

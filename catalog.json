@@ -40,6 +40,7 @@
         "prove-dbt-change-safe",
         "revops-pipeline-snapshots",
         "revops-quota-commission",
+        "scalar-sql-function-to-dbt-macro",
         "service-ticket-sla",
         "shift-unit-economics"
       ],
@@ -48,7 +49,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 22,
+      "supported_or_proven_count": 23,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1254,6 +1255,60 @@
         "Reps, managers and finance disagree on attainment because each team credits bookings with its own spreadsheet logic.",
         "Compensation plan rules for eligibility, crediting splits and timing live in documents, not in tested models.",
         "A rep moved territory, a deal was cancelled or a plan changed mid-year, and nobody can say which bookings counted in a closed period."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Bring a scalar warehouse function into the dbt project as a macro, switch the agreed callers to it, and prove the macro and the callers' outputs match the unchanged function, with its quirks reproduced and reported as follow-up work.",
+      "domain_objects": [
+        "scalar_function",
+        "dbt_macro",
+        "dbt_model",
+        "consumer_contract",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "documenting-dbt-models",
+          "verifying"
+        ]
+      },
+      "id": "scalar-sql-function-to-dbt-macro",
+      "job_category": "re-engineer",
+      "path": "recipes/scalar-sql-function-to-dbt-macro/recipe.md",
+      "pitch": "Move a hidden warehouse function into dbt as a macro and prove it returns exactly what the function did.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Needs the unchanged function runnable on the same inputs, or its outputs captured on them.",
+        "Scalar functions only; a caller's own legacy SQL is converted with legacy-sql-to-dbt."
+      ],
+      "readiness": "supported",
+      "related": [
+        "legacy-sql-to-dbt",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "93f999d5827d0890be533b1f92de13bfe91e2ddef1c9924718a4213230214acb",
+      "title": "Convert a scalar SQL function into a dbt macro and prove equivalence",
+      "trigger": [
+        "Models or views call a scalar function created directly in the warehouse, so dbt cannot see the dependency and changes to it are not reviewed or tested.",
+        "A freshly built environment breaks because the warehouse function its models call does not exist there.",
+        "The team wants to retire a warehouse function, but its callers need proof that the dbt version returns exactly the same values."
       ],
       "works_with": {
         "platforms": [
