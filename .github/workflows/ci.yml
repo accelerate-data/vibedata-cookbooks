@@ -24,7 +24,12 @@ jobs:
         run: python -m pip install -r requirements.txt
       - name: Unit tests
         run: python -m pytest -q
-      - name: Catalog is valid and fresh
+      - name: Recipes and Collections are valid
+        run: python scripts/build_catalog.py --validate
+      # catalog.json is regenerated after each merge to pre-prod by catalog.yml,
+      # so feature pull requests never edit it. main must receive a fresh one.
+      - name: Catalog is fresh on main
+        if: (github.event_name == 'pull_request' && github.base_ref == 'main') || github.ref == 'refs/heads/main'
         run: python scripts/build_catalog.py --check
       - name: Schema changes carry a version bump
         env:

@@ -24,6 +24,7 @@ def test_ci_runs_every_gate():
     for command in (
         "python -m pip install -r requirements.txt",
         "python -m pytest",
+        "python scripts/build_catalog.py --validate",
         "python scripts/build_catalog.py --check",
         "python scripts/check_schema_versions.py --base",
     ):
@@ -42,3 +43,25 @@ def test_main_takes_only_pre_prod():
     assert '"$HEAD_REF" != "pre-prod"' in step["run"]
     assert '"$HEAD_REPO" != "$BASE_REPO"' in step["run"]
     assert "exit 1" in step["run"]
+
+
+def test_freshness_is_checked_only_on_the_way_to_main():
+    steps = load_workflow()["jobs"]["contract"]["steps"]
+    check = next(step for step in steps if step.get("run") == "python scripts/build_catalog.py --check")
+    assert "github.base_ref == 'main'" in check["if"]
+    assert "github.ref == 'refs/heads/main'" in check["if"]
+    validate = next(step for step in steps if step.get("run") == "python scripts/build_catalog.py --validate")
+    assert "if" not in validate
+
+
+def test_catalog_is_regenerated_after_each_merge_to_pre_prod():
+    workflow = yaml.safe_load((REPO_ROOT / ".github/workflows/catalog.yml").read_text(encoding="utf-8"))
+    triggers = workflow.get("on", workflow.get(True))
+    assert triggers == {"push": {"branches": ["pre-prod"]}}
+    assert workflow["permissions"] == {"contents": "write"}
+    assert workflow["concurrency"]["cancel-in-progress"] is False
+    steps = workflow["jobs"]["regenerate"]["steps"]
+    runs = "\n".join(step.get("run", "") for step in steps)
+    assert "python scripts/build_catalog.py" in runs
+    assert "git diff --quiet -- catalog.json" in runs
+    assert "git push origin HEAD:pre-prod" in runs
