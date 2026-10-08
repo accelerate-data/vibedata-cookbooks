@@ -1,11 +1,11 @@
 ---
 id: spark-ingestion-notebook-to-dlt
-title: Convert a Spark ingestion notebook into a dlt pipeline and prove landed parity
+title: Convert a Spark ingestion notebook into a dlt pipeline and reconcile what it lands
 trigger:
   - A Spark notebook lands raw files into bronze, and the team wants that load as tested pipeline code without keeping a cluster for it.
   - An ingestion notebook nobody can change safely mixes parsing, renames and deduplication in cells with no tests, and reruns surprise people.
   - Models read the tables a Spark notebook lands, so a replacement has to land the same data and prove it before anyone switches.
-description: Convert a Spark ingestion notebook into an owned dlt pipeline that lands beside the notebook's tables, reruns any file safely, accounts for every source record and every notebook step, and is reconciled table by table with a cause for every difference.
+description: Convert a Spark ingestion notebook into an owned dlt pipeline that lands beside the notebook's tables, reloads an already-loaded file without duplicating, losing or altering a record, accounts for every source record and every notebook step, and is reconciled table by table with a cause for every difference.
 pitch: Turn a Spark ingestion notebook into a dlt pipeline you own, and prove table by table what it lands and why any row differs.
 job_category: re-engineer
 area: ingestion
@@ -20,10 +20,14 @@ domain_objects:
 works_with:
   platforms:
     - duckdb_local
+    - motherduck
+    - fabric_lakehouse
+    - fabric_warehouse
+    - redshift
   tools:
     - dlt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
   - Needs the notebook's code, the tables it landed, and read access to the files it reads.
   - Source files must be reachable from the workspace; Studio's cloud-bucket route (ADLS, S3) is not supported today.
 related:
@@ -47,20 +51,20 @@ evidence:
 
 ## Prompt
 
-Convert the <notebook_name> Spark notebook that lands <source_files> into <notebook_tables> into a dlt pipeline in the current Intent, so that <consumers> can later move to it. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Read what each notebook step does, carry each into the dlt load, list it as follow-up work or drop it as approved, land the approved tables beside the notebook's tables without changing them so that reloading an already-loaded file never duplicates or loses a record, prepare them in the approved consumer shape without taking over the relations consumers read today, and reconcile both loads table by table over the approved runs, accounting for every source record and giving every difference a cause, from the approved list where that list is closed. Report switch-over readiness and what the reconciliation cannot prove; leave the notebook running and consumers unchanged.
+Convert the <notebook_name> Spark notebook that lands <source_files> into <notebook_tables> into a dlt pipeline in the current Intent, so that <consumers> can later move to it. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Read what each notebook step does, carry each into the dlt load, list it as follow-up work or drop it as approved, land the approved tables beside the notebook's tables without changing them, prepare them in the approved consumer shape without taking over the relations consumers read today, and reconcile both loads table by table over the approved runs, accounting for every source record and giving every difference a cause, from the approved list where that list is closed. Reloading an already-loaded file, even after newer ones, must never duplicate, lose or alter a record. Report switch-over readiness and what the reconciliation cannot prove; leave the notebook running and consumers unchanged.
 
 ## Verified by
 
 - Every approved table is landed by the dlt pipeline next to the notebook's tables, and neither load overwrites the other.
 - Every step the notebook performs is accounted for: carried into the dlt load, listed as follow-up work for a downstream model, or dropped, as approved, and none is lost without being stated.
 - The relations prepared for consumers keep the approved shape, covering whichever of names, columns, column order, types and the notebook's own metadata columns the approved contract includes, and none of them replaces a relation consumers read today.
-- Every source record in each run is accounted for on both sides, landed, kept, set aside or dropped as the approved malformed-record policy says, and every record either side drops is counted and reported.
+- Every source record in each run is accounted for on both sides; the dlt load lands, keeps, sets aside or drops it as the approved malformed-record policy says, and every record either side drops is counted and reported.
 - For each table in each run, the two loads are compared under the approved agreement rule, and every disagreement, a record on one side only or a differing value, is reported for the table and for the record.
 - Every difference carries a cause, from the approved list where that list is closed, and the reconciliation fails on any difference without one; a difference the notebook itself introduced is reported as such.
 - Records re-sent in a later file and corrected records land as the approved rule says.
-- Reloading an already-loaded file neither duplicates nor loses a record, whatever the approved re-send rule, and any rerun behaviour of the notebook that differs is reported as a difference.
+- Reloading an already-loaded, unchanged file, even after newer ones, duplicates, loses or alters no record beyond its load-time and pipeline bookkeeping columns, whatever the approved re-send rule; a notebook rerun that does otherwise is reported as a difference the notebook introduced.
 - A source field the notebook's schema ignored, a new field and a changed type are handled as the approved schema policy says, and each is reported.
-- Malformed-record, re-sent, corrected and schema-change behaviour the compared runs do not exercise is verified where an executable check of it exists; otherwise the gap is stated and agreement is not claimed for it.
+- Malformed-record, re-sent, corrected, schema-change and notebook-rerun behaviour the compared runs do not exercise is verified where an executable check of it exists; otherwise the gap is stated and agreement is not claimed for it.
 - Switch-over readiness is stated with the reconciliation's open differences, the consumers each one would reach, and its limits, and the notebook, its tables and the consumers are left as they were.
 
 ## Agent guidance
@@ -96,8 +100,8 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - Do not modify, disable or reschedule the notebook, its job or its landed tables; proven agreement alone does not authorize switching over.
 - Do not repoint consumers, change downstream models, or retire the notebook as part of this work.
 - Do not treat the notebook's output as ground truth; a difference the notebook itself introduced is reported with its cause.
-- Do not decide on your own whether to keep or correct a notebook behaviour that departs from the approved rules; report it and follow the approved choice.
+- Do not decide on your own whether to keep or correct a notebook behaviour that departs from the approved rules; report it and follow the approved choice. Safe reloading of an already-loaded file is not such a choice.
 - Do not drop a malformed record without counting and reporting it.
 - Do not edit either side's data, widen a normalisation, extend a closed cause list or narrow the compared tables to make the reconciliation agree.
 - Do not treat the same instant landed with different time-zone handling as a difference, or present consumers a different timestamp type, except as the approved contract and agreement rule say.
-- Do not add business transformation to the landed tables beyond the notebook steps the approved step map keeps in the load.
+- Do not add business transformation to the landed tables beyond the notebook steps approved to stay in the load.
