@@ -35,6 +35,7 @@
         "managed-connector-to-dlt",
         "master-b2b-account-hierarchy",
         "metric-population-and-rollups",
+        "notebook-transformation-to-dbt",
         "operational-state-duration",
         "prove-dbt-change-safe",
         "revops-pipeline-snapshots",
@@ -47,7 +48,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 21,
+      "supported_or_proven_count": 22,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1008,6 +1009,58 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Bring a hand-run notebook transformation into dbt as models that publish the same contract, proven against what the unchanged notebook writes on the same inputs, with its implicit dataframe behaviour and defects reproduced and reported as follow-up work.",
+      "domain_objects": [
+        "notebook",
+        "dbt_model",
+        "consumer_contract",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "documenting-dbt-models",
+          "verifying"
+        ]
+      },
+      "id": "notebook-transformation-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/notebook-transformation-to-dbt/recipe.md",
+      "pitch": "Retire a hand-run notebook by rebuilding its dataframe logic in dbt and proving the new models publish what the notebook did.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Needs the notebook's output on the same inputs, from a run of the unchanged notebook or its current table."
+      ],
+      "readiness": "supported",
+      "related": [
+        "legacy-sql-to-dbt",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "086db909e24e3912542fe5d3c8afed75de1f887541bba6bf3510d81b63972bfb",
+      "title": "Convert a notebook transformation into a dbt model and prove parity",
+      "trigger": [
+        "A table or report is still produced by running a notebook by hand, pulling warehouse data into dataframes, with no tests, lineage or review.",
+        "The team wants the notebook's logic in the dbt project, but its consumers need proof that the dbt version returns the same results.",
+        "Dataframe code (merges, group-bys, fills, de-duplication, pivots) has to move into dbt models without changing what the notebook published."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
           "dbt"
         ]
       }

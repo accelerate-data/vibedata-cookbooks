@@ -34,6 +34,7 @@ EXPECTED = {
     "dbt-refactor-output-identical": {"readiness": "supported", "platforms": ["duckdb_local"]},
     "bounded-partition-backfill": {"readiness": "supported", "platforms": ["duckdb_local"]},
     "managed-connector-to-dlt": {"readiness": "supported", "platforms": ["duckdb_local"]},
+    "notebook-transformation-to-dbt": {"readiness": "supported", "platforms": ["duckdb_local"]},
 }
 
 
