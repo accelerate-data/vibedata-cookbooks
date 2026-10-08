@@ -60,8 +60,32 @@ def test_dotfiles_are_ignored(cookbook):
     assert build_catalog(cookbook)[0]["recipes"]
 
 
-def test_repository_catalog_is_fresh():
-    assert main(["--check"], root=REPO_ROOT) == 0
+def test_validate_mode_neither_writes_nor_compares(cookbook):
+    path = cookbook / "catalog.json"
+    assert not path.exists()
+    assert main(["--validate"], root=cookbook) == 0
+    assert not path.exists()
+    path.write_text("stale", encoding="utf-8")
+    assert main(["--validate"], root=cookbook) == 0
+    assert path.read_text(encoding="utf-8") == "stale"
+
+
+def test_validate_mode_rejects_an_invalid_recipe(cookbook, capsys):
+    path = cookbook / RECIPE_REL
+    path.write_bytes(path.read_bytes().replace(b"## Prompt", b"## Prompts"))
+    assert main(["--validate"], root=cookbook) == 1
+    assert "cookbook validation error" in capsys.readouterr().err
+
+
+def test_check_and_validate_are_exclusive(cookbook):
+    with pytest.raises(SystemExit):
+        main(["--check", "--validate"], root=cookbook)
+
+
+def test_repository_recipes_are_valid():
+    # catalog.json itself is regenerated after merge, so a pull request is
+    # checked for validity, not for a fresh committed catalog.
+    assert main(["--validate"], root=REPO_ROOT) == 0
 
 
 def replace_in_recipe(old: str, new: str):

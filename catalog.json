@@ -209,46 +209,33 @@
   "recipes": [
     {
       "area": "ingestion",
-      "description": "Build a dlt pipeline that lands a SaaS or REST API into bronze incrementally under an approved cursor, enforces an approved schema contract for new fields and changed types, keeps refused records visible, and reconciles each load by business key to what the API holds.",
+      "description": "Build a dlt pipeline that lands a SaaS or REST API into bronze with cursor-based incremental loading and a schema contract that decides how new or changed columns are handled, with pytest coverage of both and a sandbox load that proves the landed row counts.",
       "domain_objects": [
         "dlt_pipeline",
         "dlt_resource",
-        "bronze_table",
-        "rejected_records",
-        "reconciliation_report"
+        "bronze_table"
       ],
       "evidence": {
         "evals": [],
         "features": [
-          "capturing-requirements",
-          "add-or-update-source",
           "discovering-source-schema",
           "generating-dlt-pipeline",
-          "dlt-unit-testing",
           "running-dlt-in-sandbox",
-          "ingestion-data-testing",
-          "verifying"
+          "dlt-unit-testing",
+          "ingestion-data-testing"
         ]
       },
       "id": "api-to-bronze-incremental-contract",
       "job_category": "build",
       "path": "recipes/api-to-bronze-incremental-contract/recipe.md",
-      "pitch": "Land an API into bronze incrementally, with a schema contract for changed fields and a reconciliation that accounts for every record.",
-      "qualifiers": [
-        "Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.",
-        "Needs an API that exposes a per-record change cursor; an API without one is outside this Recipe.",
-        "Studio's rest_api connector is a stub today; read the API with dlt's REST client or a custom resource."
-      ],
+      "pitch": "Land an API into bronze incrementally, with a schema contract that decides what happens when a field changes.",
       "readiness": "supported",
-      "related": [
-        "managed-connector-to-dlt"
-      ],
-      "sha256": "c88963a3727e65514d02de15690ef5e12e4362b920cb786b675abaf481a8d863",
+      "sha256": "0e7eee461064b142e0390ad1019530703a43f1b496aa78b0b8c3b9112d9abd86",
       "title": "Land a SaaS or REST API into bronze with an incremental cursor and a schema contract",
       "trigger": [
         "An API source has to load into bronze incrementally instead of reloading everything on every run.",
-        "A pipeline breaks whenever the source API adds a field or changes a field's type.",
-        "Every record an API sends has to be accounted for in bronze as landed, refused with a reason, or reported as missed."
+        "A pipeline breaks whenever the source API adds or changes a field.",
+        "A logistics API repeats shipment events across source rows that must remain traceable for downstream modelling."
       ],
       "works_with": {
         "platforms": [
