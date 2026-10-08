@@ -32,9 +32,11 @@
         "identity-standardize-names-addresses",
         "legacy-sql-to-dbt",
         "logistics-fleet-utilization",
+        "managed-connector-to-dlt",
         "master-b2b-account-hierarchy",
         "materialized-view-to-dbt",
         "metric-population-and-rollups",
+        "notebook-transformation-to-dbt",
         "operational-state-duration",
         "prove-dbt-change-safe",
         "revops-pipeline-snapshots",
@@ -47,7 +49,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 21,
+      "supported_or_proven_count": 23,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -823,6 +825,62 @@
       }
     },
     {
+      "area": "ingestion",
+      "description": "Replace a managed connector with an owned dlt pipeline landed side by side with the connector's tables, reconciled table by table over parallel runs with a cause for every difference, and stopped short of cutover.",
+      "domain_objects": [
+        "managed_connector",
+        "dlt_pipeline",
+        "bronze_table",
+        "consumer_contract",
+        "reconciliation_report",
+        "cutover_readiness"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "add-or-update-source",
+          "discovering-source-schema",
+          "generating-dlt-pipeline",
+          "dlt-unit-testing",
+          "running-dlt-in-sandbox",
+          "ingestion-data-testing",
+          "verifying"
+        ]
+      },
+      "id": "managed-connector-to-dlt",
+      "job_category": "re-engineer",
+      "path": "recipes/managed-connector-to-dlt/recipe.md",
+      "pitch": "Swap a Fivetran or Airbyte connector for a dlt pipeline you own, and prove table by table that it lands what the connector did before you cut over.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Needs read access to the connector's landed tables and to the source the connector reads.",
+        "Database sources need a dlt route Studio supports; its sql_database route is not supported today."
+      ],
+      "readiness": "supported",
+      "related": [
+        "api-to-bronze-incremental-contract",
+        "legacy-sql-to-dbt",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "ec397d7466bd6ab9dd35525120cce956772698ddd561969f7ed4a3ec36974f97",
+      "title": "Replace a Fivetran or Airbyte connector with a dlt pipeline and reconcile the result",
+      "trigger": [
+        "A managed connector's bill changed shape, or it broke and the vendor fix has been pending for weeks, and the team wants the load in code it owns.",
+        "dbt models read a Fivetran or Airbyte connector's tables, so a replacement has to keep landing data those models can use.",
+        "Before switching off a managed connector, the team needs proof that its replacement lands the same records, with a reason for every difference."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
       "area": "transformation",
       "description": "Resolve accounts to their parent and ultimate parent under approved precedence and parent rules, keep accounts the rules cannot place explicitly unresolved unless an approved fallback places them, roll measures up every level of each corporate family for the approved periods, and list every hierarchy anomaly with its reason, never double counting an account or inventing hierarchy.",
       "domain_objects": [
@@ -1007,6 +1065,58 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Bring a hand-run notebook transformation into dbt as models that publish the same contract, proven against what the unchanged notebook writes on the same inputs, with its implicit dataframe behaviour and defects reproduced and reported as follow-up work.",
+      "domain_objects": [
+        "notebook",
+        "dbt_model",
+        "consumer_contract",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "documenting-dbt-models",
+          "verifying"
+        ]
+      },
+      "id": "notebook-transformation-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/notebook-transformation-to-dbt/recipe.md",
+      "pitch": "Retire a hand-run notebook by rebuilding its dataframe logic in dbt and proving the new models publish what the notebook did.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Needs the notebook's output on the same inputs, from a run of the unchanged notebook or its current table."
+      ],
+      "readiness": "supported",
+      "related": [
+        "legacy-sql-to-dbt",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "086db909e24e3912542fe5d3c8afed75de1f887541bba6bf3510d81b63972bfb",
+      "title": "Convert a notebook transformation into a dbt model and prove parity",
+      "trigger": [
+        "A table or report is still produced by running a notebook by hand, pulling warehouse data into dataframes, with no tests, lineage or review.",
+        "The team wants the notebook's logic in the dbt project, but its consumers need proof that the dbt version returns the same results.",
+        "Dataframe code (merges, group-bys, fills, de-duplication, pivots) has to move into dbt models without changing what the notebook published."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
           "dbt"
         ]
       }
