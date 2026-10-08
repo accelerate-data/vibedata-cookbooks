@@ -3,9 +3,9 @@ id: materialized-view-to-dbt
 title: Convert a materialized view into a dbt model and preserve its required refresh semantics
 trigger:
   - Warehouse logic lives in a materialized view that nobody can test, review or trace, and the team wants it in the dbt project.
-  - Consumers depend on how the view refreshes, so the dbt model must keep its refresh behaviour as well as its rows.
+  - Consumers depend on what each refresh of the view produces, so the dbt model must keep what every refresh computes, not only its final rows.
   - The view's refresh is opaque, and the team wants its refresh rule stated and owned in code before the view is retired.
-description: Bring a materialized view into dbt as a model that publishes the same contract and refreshes under the same approved rule, proven against the view's own output after each compared refresh, with view defects reproduced and reported as follow-up work.
+description: Bring a materialized view into dbt as a model that publishes the same contract and computes each refresh under the same approved rule, proven against the view's own output after each compared refresh, with view defects reproduced and reported as follow-up work.
 pitch: Retire a materialized view by rebuilding it in dbt with the same refresh behaviour and proving every refresh returns what the view did.
 job_category: re-engineer
 area: transformation
@@ -20,12 +20,13 @@ domain_objects:
   - follow_up
 works_with:
   platforms:
-    - duckdb_local
+    - fabric_lakehouse
+    - redshift
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
-  - duckdb_local has no materialized views; there the view is a table that its refresh script maintains.
+  - Assessed end to end only against a DuckDB stand-in for the view; fabric_lakehouse and redshift are unassessed.
+  - On these targets Studio cannot yet read a view's definition, so the user supplies it.
   - Needs the view's definition, its refresh rule and its output at known refresh points on the same inputs.
 related:
   - legacy-sql-to-dbt
@@ -45,7 +46,7 @@ evidence:
 
 ## Prompt
 
-Convert <materialized_view> into a dbt model in the current Intent so that it can replace the view for <consumers> under the view's approved refresh behaviour. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Deliver the dbt model, and its run definition where that is in scope, with evidence that after each compared refresh the published result keeps the approved contract and matches the view's output on the same inputs at the approved precision, and that a full rebuild relates to the refreshed result as the approved refresh rule says. Reproduce every view behaviour that affects the published output, including ones that look like mistakes, and report each defect as follow-up work. Handle the view as approved, and state what the comparison cannot prove.
+Convert <materialized_view> into a dbt model in the current Intent so that it can replace the view for <consumers>, computing each refresh as the view's approved refresh rule does. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Deliver the dbt model, and its run definition where that is in scope, with evidence that after each compared refresh the published result keeps the approved contract and matches the view's output on the same inputs at the approved precision, and that a full rebuild relates to the refreshed result as the approved refresh rule says. Reproduce every view behaviour that affects the published output, including ones that look like mistakes, and report each defect as follow-up work. Claim operational refresh guarantees, such as cadence, a staleness limit or what readers see during a refresh, only where the delivered run definition or execution mechanism enforces them. Handle the view as approved, and state what the comparison cannot prove.
 
 ## Verified by
 
@@ -53,7 +54,7 @@ Convert <materialized_view> into a dbt model in the current Intent so that it ca
 - After each compared refresh, published rows match the view's output on the same inputs at the approved precision; any difference left is reported and parity is not claimed for it.
 - Each refresh changes only what the approved refresh rule lets it change, such as the window it recomputes, and rows outside that reach keep their earlier values, as they do in the view.
 - Records that arrive after the refresh can reach them are treated as the approved refresh rule says, and any difference between a full rebuild and the refreshed result, at the approved precision, is exactly the records that rule leaves out, no more and no fewer, and is reported.
-- The published result keeps each other approved refresh behaviour, such as its cadence, a staleness limit or what readers see while a refresh runs.
+- Where the run definition or execution mechanism is in scope, each approved operational guarantee (cadence, staleness limit, what readers see during a refresh) is verified; otherwise each is recorded as a cutover or unverified requirement, not claimed as delivered.
 - Where the run definition is in scope, it states what each scheduled refresh runs and on what cadence, and how a first run, a full rebuild and a missed refresh behave.
 - The match holds in each approved execution environment and time zone.
 - Every view behaviour that affects the published output is reproduced, and each defect found is listed with the output it affects, the rule it appears to break and what correcting it would change, as follow-up work.
@@ -65,7 +66,7 @@ Convert <materialized_view> into a dbt model in the current Intent so that it ca
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and approved requirements. Read the view end to end first: its definition, sources, filters, joins, null handling and aggregation, and its refresh rule, meaning what each refresh recomputes and by which key or window, its trigger and cadence, what a full refresh does and what readers see while it runs; then find every consumer of its output. Confirm that its sources exist in the Domain and settle how the view's output at each compared refresh point is obtained. Choose the materialization and refresh mechanism from the approved refresh rule and the source evidence, for example a full rebuild per run, an incremental model that replaces a recomputed window, or partition replacement, and state what it relies on, such as a landing or update marker, and what it would miss. Compare the published result with the view after each compared refresh, including refreshes that bring new and late records, compare a full rebuild with the refreshed result, reproduce each view behaviour that shapes the output, list each defect as follow-up work, handle the view as approved, and state what the comparison cannot prove.
+Inherit the Intent's repository, platform, Domain, sources and approved requirements. Read the view end to end first: its definition, sources, filters, joins, null handling and aggregation, and its refresh rule, meaning what each refresh recomputes and by which key or window, its trigger and cadence, what a full refresh does and what readers see while it runs; then find every consumer of its output. Confirm that its sources exist in the Domain and settle how the view's output at each compared refresh point is obtained. Choose the materialization and refresh mechanism from the approved refresh rule and the source evidence, for example a full rebuild per run, an incremental model that replaces a recomputed window, or partition replacement, and state what it relies on, such as a landing or update marker, and what it would miss. Separate what each refresh computes, which the model owns, from operational guarantees such as cadence, staleness and reader visibility, which only an in-scope run definition or execution mechanism can enforce; verify those where they are in scope, and otherwise record them as cutover or unverified operational requirements. Compare the published result with the view after each compared refresh, including refreshes that bring new and late records, compare a full rebuild with the refreshed result, reproduce each view behaviour that shapes the output, list each defect as follow-up work, handle the view as approved, and state what the comparison cannot prove.
 
 ### Compose
 
@@ -85,7 +86,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - If unresolved, must a full rebuild equal the refreshed result, or may it include the records the refreshes missed?
 - If unresolved, which refresh points, inputs and precision form the comparison, and in which execution environments and time zones must the result match?
 - If unresolved, where does the view's output at each compared refresh point come from when it cannot be re-run on the same inputs, and who approves it?
-- If unresolved, does the work deliver the model only, or also its run definition (selection, command and cadence), and is scheduling it on an orchestrator in scope?
+- If unresolved, does the work deliver the model only, or also its run definition or execution mechanism (selection, command, cadence, scheduling), and so own the operational refresh guarantees?
 - If unresolved, once parity is accepted and consumers read the dbt model, is the view kept and marked retired, or dropped?
 
 ### Guardrails
@@ -95,6 +96,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - Do not change the refresh behaviour, such as recovering late records or widening the recomputed window, without approval; report a wanted change as follow-up work.
 - Do not correct a view defect; reproduce it, report it as follow-up work, and route any wanted output change to a separate change.
 - Do not treat a green build or a matching final state as proof of parity; the proof is the comparison after each refresh.
+- Do not claim a cadence, staleness or reader-visibility guarantee that the delivered run definition or execution mechanism does not enforce.
 - Do not claim exact parity when the view's own output varies from run to run; report what cannot be proven.
 - Do not widen a tolerance, or narrow the contract, the compared refreshes or the approved precision, to make the comparison pass.
 - Do not change the output of models outside the conversion.

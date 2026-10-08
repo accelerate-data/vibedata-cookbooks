@@ -1,6 +1,7 @@
 {
   "readiness": "supported",
   "platforms": [
-    "duckdb_local"
+    "fabric_lakehouse",
+    "redshift"
   ]
 }
