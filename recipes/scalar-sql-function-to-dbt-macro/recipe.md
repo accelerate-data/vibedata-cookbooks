@@ -56,14 +56,14 @@ Convert <scalar_function> into a dbt macro in the current Intent and switch <cal
 - Every function behaviour that affects a result is reproduced, including null handling and which side of a boundary a value falls on.
 - Each defect found in the function is listed with the inputs it affects, the rule it appears to break and what correcting it would change, as follow-up work.
 - Inputs the function treats specially that the data never contains are checked against the unchanged function or another approved oracle where one is available; otherwise the gap is stated.
-- Equivalence is kept separate from cutover: callers left on the function keep it available, and the function is retired as approved only after equivalence is accepted and no caller still uses it.
+- Equivalence is kept separate from cutover: the function may be marked as superseded while callers remain, callers left on it keep it available, and it is dropped or disabled as approved only after equivalence is accepted and no caller still uses it.
 - Anything the comparison cannot prove is stated.
 
 ## Agent guidance
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and approved requirements. Read the function's definition first: its argument and return types, overloads, implicit casts at the call, how it treats null inputs, the error it raises on invalid input, each branch and boundary, and anything it depends on besides its arguments, such as session settings, tables or other warehouse state, privileges or side effects. If it is nondeterministic, or its required semantics depend on side effects, privilege boundaries or state the macro cannot reproduce, stop and report it as out of scope. Find the function's callers inside and outside the dbt project, and state any that cannot be found. Settle how the unchanged function's output is obtained on the agreed inputs, and keep that baseline unchanged. Write the macro to reproduce every behaviour, including the ones that look like mistakes, and list each defect as follow-up work. Evaluate the SQL the macro generates against that baseline, in the same execution context, on the values the data holds and on the edge inputs the function treats specially, then switch the agreed callers and compare each caller's output with its output before the switch in each approved environment. Handle the function as approved and state what the comparison cannot prove.
+Inherit the Intent's repository, platform, Domain, sources and approved requirements. Read the function's definition first: its argument and return types, overloads, implicit casts at the call, each branch and boundary, and anything it depends on besides its arguments, such as session settings, tables or other warehouse state, privileges or side effects. If it is nondeterministic (its result varies for the same arguments with context and state held equal), or its required semantics depend on side effects, privilege boundaries or state the macro cannot reproduce, stop and report it as out of scope. Find the function's callers inside and outside the dbt project, and state any that cannot be found. Settle how the unchanged function's output is obtained on the agreed inputs, and keep that baseline unchanged. Write the macro to reproduce every behaviour, including the ones that look like mistakes, and list each defect as follow-up work. Evaluate the SQL the macro generates against that baseline, in the same execution context, on the values the data holds and on the edge inputs the function treats specially, then switch the agreed callers and compare each caller's output with its output before the switch in each approved environment. Handle the function as approved and state what the comparison cannot prove.
 
 ### Compose
 
@@ -81,16 +81,16 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - If unresolved, are values compared exactly or within an approved precision, and what counts as an unchanged caller output?
 - If unresolved, which inputs form the comparison: the values the data holds, plus which edge inputs such as nulls, boundaries and out-of-range values, in which environments and time zones, and, if the function can no longer run, which captured outputs serve as the baseline?
 - If unresolved, for a function that reads session settings or warehouse state, which execution context and state are held equal for the comparison?
-- If unresolved, which argument types must the macro accept: only those the current callers pass, or every type the function accepts?
+- If unresolved, which argument types must the generated SQL accept: only those the current callers pass, or every type the function accepts?
 - If unresolved, must the macro work only on this platform, or also on other warehouses the project targets?
-- If unresolved, once equivalence is accepted and every caller has moved, is the function kept and marked retired, or dropped?
+- If unresolved, is the function marked as superseded, and once equivalence is accepted and no caller still uses it, is it kept, disabled or dropped?
 
 ### Guardrails
 
 - Do not edit the function or its captured outputs to make the comparison pass.
-- Do not drop or disable the function before equivalence has been accepted, or while any caller still uses it; proven equivalence alone does not authorize removal.
+- Do not drop or disable the function before equivalence has been accepted, or while any caller still uses it or remains unaccounted for; proven equivalence alone does not authorize removal.
 - Do not correct a function defect, such as a null placeholder or an inclusive boundary; reproduce it, report it as follow-up work, and route any wanted output change to a separate change.
-- Do not treat a function whose required semantics depend on side effects, privilege boundaries or state the macro cannot reproduce as an ordinary scalar function; report it as out of scope.
+- Do not treat a nondeterministic function, or one whose required semantics depend on side effects, privilege boundaries or state the macro cannot reproduce, as an ordinary scalar function; report it as out of scope.
 - Do not treat matching caller outputs as proof that the generated SQL matches the function on every input; aggregates can hide a difference on individual inputs.
 - Do not widen a precision, or narrow the compared inputs or the approved contract, to make the comparison pass.
 - Do not change the output of models outside the conversion.
