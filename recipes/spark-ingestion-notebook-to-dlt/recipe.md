@@ -27,6 +27,8 @@ qualifiers:
   - Needs the notebook's code, the tables it landed, and read access to the files it reads.
   - Source files must be reachable from the workspace; Studio's cloud-bucket route (ADLS, S3) is not supported today.
 related:
+  - managed-connector-to-dlt
+  - notebook-transformation-to-dbt
   - api-to-bronze-incremental-contract
   - legacy-sql-to-dbt
   - prove-dbt-change-safe
