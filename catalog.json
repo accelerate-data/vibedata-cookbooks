@@ -914,7 +914,7 @@
         "dbt-full-refresh-to-incremental",
         "prove-dbt-change-safe"
       ],
-      "sha256": "f86afa64cb5d78db9df1036f7637a39b3d3a248455c8135c4f6535692fa569c6",
+      "sha256": "00a96538a07ab6cebbae548601d52cbec6544cf0092de274358f9b0a9aa86d28",
       "title": "Convert a materialized view into a dbt model and preserve its required refresh semantics",
       "trigger": [
         "Warehouse logic lives in a materialized view that nobody can test, review or trace, and the team wants it in the dbt project.",
