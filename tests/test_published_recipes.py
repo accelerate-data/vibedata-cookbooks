@@ -1,4 +1,10 @@
-"""The published catalog holds exactly the expected Recipes with their agreed platforms and readiness."""
+"""The catalog holds exactly the expected Recipes with their agreed platforms and readiness.
+
+Each Recipe's agreed values live in their own file, tests/expected/<id>.json, so
+pull requests that add different Recipes never edit the same lines. The catalog
+is built in memory, because catalog.json is regenerated after each merge to
+pre-prod and a pull request does not update it.
+"""
 
 from __future__ import annotations
 
@@ -6,41 +12,18 @@ import json
 
 import pytest
 
+from build_catalog import build_catalog
 from samples import REPO_ROOT
 
-ALL_PLATFORMS = ["duckdb_local", "motherduck", "fabric_lakehouse", "fabric_warehouse", "redshift"]
-
+EXPECTED_DIR = REPO_ROOT / "tests/expected"
 EXPECTED = {
-    "dbt-snapshot-history": {"readiness": "supported", "platforms": ["duckdb_local"]},
-    "business-event-fact": {"readiness": "supported", "platforms": ALL_PLATFORMS},
-    "event-resource-attribution": {"readiness": "supported", "platforms": ALL_PLATFORMS},
-    "effective-dated-business-rules": {"readiness": "supported", "platforms": ALL_PLATFORMS},
-    "dbt-full-refresh-to-incremental": {"readiness": "supported", "platforms": ["duckdb_local"]},
-    "api-to-bronze-incremental-contract": {"readiness": "supported", "platforms": ALL_PLATFORMS},
-    "fabric-data-pipeline-as-code": {"readiness": "supported", "platforms": ["fabric_lakehouse", "fabric_warehouse"]},
-    "motherduck-flight-scheduling": {"readiness": "supported", "platforms": ["motherduck"]},
-    "logistics-fleet-utilization": {"readiness": "supported", "platforms": ALL_PLATFORMS},
-    "metric-population-and-rollups": {"readiness": "supported", "platforms": ALL_PLATFORMS},
-    "operational-state-duration": {"readiness": "supported", "platforms": ALL_PLATFORMS},
-    "prove-dbt-change-safe": {"readiness": "supported", "platforms": ALL_PLATFORMS},
-    "revops-quota-commission": {"readiness": "supported", "platforms": ["duckdb_local"]},
-    "shift-unit-economics": {"readiness": "supported", "platforms": ALL_PLATFORMS},
-    "revops-pipeline-snapshots": {"readiness": "supported", "platforms": ["duckdb_local"]},
-    "service-ticket-sla": {"readiness": "supported", "platforms": ["duckdb_local"]},
-    "identity-standardize-names-addresses": {"readiness": "supported", "platforms": ["duckdb_local"]},
-    "identity-golden-record-crosswalk": {"readiness": "supported", "platforms": ["duckdb_local"]},
-    "legacy-sql-to-dbt": {"readiness": "supported", "platforms": ["duckdb_local"]},
-    "master-b2b-account-hierarchy": {"readiness": "supported", "platforms": ["duckdb_local"]},
-    "dbt-refactor-output-identical": {"readiness": "supported", "platforms": ["duckdb_local"]},
-    "bounded-partition-backfill": {"readiness": "supported", "platforms": ["duckdb_local"]},
-    "managed-connector-to-dlt": {"readiness": "supported", "platforms": ["duckdb_local"]},
-    "notebook-transformation-to-dbt": {"readiness": "supported", "platforms": ["duckdb_local"]},
-    "scalar-sql-function-to-dbt-macro": {"readiness": "supported", "platforms": ["duckdb_local"]},
+    path.stem: json.loads(path.read_text(encoding="utf-8"))
+    for path in sorted(EXPECTED_DIR.glob("*.json"))
 }
 
 
 def catalog_entries() -> dict[str, dict]:
-    catalog = json.loads((REPO_ROOT / "catalog.json").read_text(encoding="utf-8"))
+    catalog, _ = build_catalog(REPO_ROOT)
     return {entry["id"]: entry for entry in catalog["recipes"]}
 
 
