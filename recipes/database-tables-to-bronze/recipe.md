@@ -45,7 +45,7 @@ evidence:
 
 ## Prompt
 
-Build a dlt pipeline in the current Intent that lands <table_list> from the <source_database> database into bronze, loading each table in the way that table changes, incrementally wherever a full reload is not the approved strategy. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Select each run's records under the approved change and late-arrival rules, handle deletes, schema changes and timestamp and decimal types as approved, and make a run that fails part-way resume without losing or duplicating records. After every run, prove table by table that bronze matches the source under the approved comparison rule, and report what each table's load mechanism cannot see.
+Build a dlt pipeline in the current Intent that lands <table_list> from the <source_database> database into bronze, loading each table in the way that table changes, incrementally wherever a full reload is not the approved strategy. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Select each run's records under the approved change and late-arrival rules, handle deletes, schema changes and timestamp and decimal types as approved, and make every run safe to repeat: a rerun with no source change leaves every record's content as it was, and a run that fails part-way resumes without losing or duplicating records. After every run, prove table by table that bronze matches the source under the approved comparison rule, and report what each table's load mechanism cannot see.
 
 ## Verified by
 
@@ -56,7 +56,7 @@ Build a dlt pipeline in the current Intent that lands <table_list> from the <sou
 - A table without a change marker of its own picks up the changes its approved selection can see, and the result states the changes that selection would miss.
 - A new source column and a changed column type are each handled as the approved schema policy says.
 - Timestamps and decimals land as the approved type and time-zone rule says, and no value shifts or loses scale except as that rule allows.
-- After every run, each table's proof reports row counts, key sets compared both ways where the table has a key, values compared under the approved proof rule, and where the next run resumes; any difference without a stated cause fails the run.
+- After every run, each table's proof compares bronze with the source over the approved scope: row counts, key sets both ways where the table has a key, values under the approved rule, and the next resume point. An unexplained difference fails the run; what a partial scope cannot prove is stated.
 - A run that fails part-way leaves no table's resume point past records that never landed, and the next run lands every outstanding record exactly once.
 - Delete, late-arrival, schema-change and failure behaviour the runs do not exercise is verified where an executable check exists; otherwise the gap is stated and correctness is not claimed for it.
 
@@ -84,7 +84,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - If unresolved, how does a delete reach the source, how should bronze show it (kept and marked, or removed), and what happens when a deleted key returns?
 - If unresolved, what should the pipeline do when the source adds a column or changes a column's type?
 - If unresolved, how should timestamps (which time zone, with or without one) and decimals (which scale) land in bronze?
-- If unresolved, beyond row counts and key sets, must every value agree, and compared exactly or after which stated normalisations?
+- If unresolved, does each run's proof compare the full source tables or an approved scope, and beyond row counts and key sets, must every value agree, compared exactly or after which stated normalisations?
 - If unresolved, what must the next run do after a run that failed part-way, and may a failed run's unloaded work be discarded and re-read?
 
 ### Guardrails
