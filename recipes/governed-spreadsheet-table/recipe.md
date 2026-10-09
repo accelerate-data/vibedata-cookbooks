@@ -62,7 +62,7 @@ Promote <file_name>, a spreadsheet that <owner_team> keeps by hand and re-export
 - Published values follow the approved normalisation and typing, and no value the contract refuses is coerced into a published column.
 - The governed table shows the latest accepted version as the approved policy says, with one row per key, and every earlier accepted version stays queryable with when it was accepted.
 - Re-presenting identical, older accepted or previously refused content follows the approved version rule, and leaves the governed table with no duplicated or stale row for any key.
-- A record that was bad in an export, or absent from it, is shown in the governed table as the approved policy says.
+- A record that failed validation in an export, or is absent from it, is shown in the governed table as the approved policy says, and any row kept from an earlier version is marked as such.
 - A change to a value list the user owns reaches later exports, and earlier accepted versions or not, as the approved rule says.
 - Every governed column carries an approved description and owner.
 - The result states what the checks cannot prove, such as a well-formed but wrong value or a record dropped from the sheet by mistake.
@@ -93,7 +93,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - If unresolved, which row problems are set aside, with which reasons: a missing required value, a value outside a list, the wrong kind of value, an impossible date order, a malformed key, a blank row or surplus cells; and whether a row with several problems records one reason or all.
 - If unresolved, what a duplicated key means: whether identical copies collapse, whether differing copies are all set aside, and whether blank keys count as duplicates.
 - If unresolved, how values are normalised before the checks (trimming, key case, list spelling), which date and number forms are accepted, and what a value that fits none does.
-- If unresolved, what the governed table shows for a record that was bad in, or absent from, the latest accepted export: left out, or kept from the last accepted version.
+- If unresolved, what the governed table shows for a record that fails validation in the latest accepted export, and for one absent from it: left out, or kept from the last accepted version, and how a kept row is marked.
 - If unresolved, what makes a new version and what happens when an export repeats identical, older accepted or refused content, and whether a list edit reaches earlier accepted versions.
 - If unresolved, which acceptance history to keep, whether a refused export is retained for inspection, and for how long.
 
