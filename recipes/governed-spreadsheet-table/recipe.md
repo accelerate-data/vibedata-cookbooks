@@ -29,7 +29,8 @@ works_with:
 qualifiers:
   - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
   - Covers one hand-maintained file; a feed of system-generated files with completeness controls is file-drop-to-bronze.
-  - Sized for spreadsheet-scale files; the CSV is read in full for each presentation.
+  - Each export must be a full copy of the sheet; a partial extract or change feed is out of scope.
+  - Sized for spreadsheet-scale files, not large extracts.
   - Needs a Studio route for dlt to read the file; cloud buckets (ADLS, S3) have none today.
 related:
   - api-to-bronze-incremental-contract
