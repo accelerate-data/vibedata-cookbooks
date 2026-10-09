@@ -56,11 +56,11 @@ Promote <file_name>, a spreadsheet that <owner_team> keeps by hand and re-export
 
 - Every export presented is recorded with its outcome under the approved version rules, and a refused export is recorded with its reason and retained as the approved acceptance-history rule says.
 - An export that breaks the approved structure contract fails loudly, and what consumers read does not change.
-- A change the approved contract tolerates is accepted without altering published values; any other change follows the approved structure-break rule.
-- Every data row of every accepted export is accounted for exactly once, as published, set aside with its reasons as the approved rule says, or handled under the approved duplicate rule; a kept row is not a source row, and a refused export publishes nothing.
+- A change the approved contract tolerates is accepted without altering published values.
+- Every data row of every accepted export is accounted for exactly once, as published, set aside with its reasons as approved, or handled under the approved duplicate rule; a row kept from an earlier version is not counted as a row of the latest export, and a refused export publishes nothing.
 - Published values follow the approved normalisation and typing, and no value the contract refuses is coerced into a published column.
-- The governed table shows the latest accepted version as the approved policy says, with one row per key, and earlier accepted versions are retained as the approved acceptance-history rule says, with when each was accepted.
-- Re-presenting identical, older accepted or previously refused content follows the approved version rule, and leaves no duplicated row for any key.
+- The governed table shows the latest accepted version as the approved policy says, with one row per key, and earlier accepted versions are retained as the approved acceptance-history rule says.
+- Re-presenting identical, older accepted or previously refused content follows the approved version rule, and leaves one row per key in the governed table without duplicating any version's rows.
 - A record that failed validation in an export is shown in the governed table as the approved policy says, any row kept from an earlier version is marked as such, and a record absent from a full export is not shown.
 - A change to a value list the user owns applies to later exports, and to earlier accepted versions, as the approved rule says.
 - Every governed column carries an approved description and owner.
@@ -91,7 +91,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - If unresolved, what breaks the structure contract: a renamed, removed or retyped column, a reorder, an extra column, header case or spacing, repeated headers, an export with no data rows; and how a refusal is reported.
 - If unresolved, which row problems are set aside, with which reasons: a missing required value, a value outside a list, the wrong kind of value, an impossible date order, a malformed key, a blank row or surplus cells; and whether a row with several problems records one reason or all.
 - If unresolved, what a duplicated key means: whether identical copies collapse, whether differing copies are all set aside, and whether blank keys count as duplicates.
-- If unresolved, how values are normalised before the checks (trimming, key case, list spelling), which date and number forms are accepted, and what a value that fits none does.
+- If unresolved, how values are normalised before the checks (trimming, key case, list spelling), which date and number forms and which file encoding are accepted, and what a value or file that fits none does.
 - If unresolved, what the governed table shows for a record that fails validation in the latest accepted export: left out, or kept from the last accepted version, and how a kept row is marked.
 - If unresolved, what makes a new version and what happens when an export repeats identical, older accepted or refused content, and whether a list edit reaches earlier accepted versions.
 - If unresolved, which acceptance history to keep, whether a refused export is retained for inspection, and for how long.
@@ -102,5 +102,4 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - Do not coerce a value the contract refuses into a published column, and do not drop a row silently.
 - Do not edit or overwrite the owner's file.
 - Do not infer a column's meaning, owner or key that neither the file nor an approved requirement states.
-- Do not claim every row is accounted for from a row count alone.
 - Do not extend the Recipe into scheduling, a feed of delivered files with completeness checks, or downstream marts.
