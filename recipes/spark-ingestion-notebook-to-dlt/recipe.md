@@ -4,8 +4,8 @@ title: Convert a Spark ingestion notebook into a dlt pipeline and reconcile what
 trigger:
   - A Spark notebook lands raw files into bronze, and the team wants that load as tested pipeline code without keeping a cluster for it.
   - An ingestion notebook nobody can change safely mixes parsing, renames and deduplication in cells with no tests, and reruns surprise people.
-  - Models read the tables a Spark notebook lands, so a replacement has to land the same data and prove it before anyone switches.
-description: Convert a Spark ingestion notebook into an owned dlt pipeline that lands beside the notebook's tables, reloads an already-loaded file without duplicating, losing or altering a record, accounts for every source record and every notebook step, and is reconciled table by table with a cause for every difference.
+  - Models read the tables a Spark notebook lands, so a replacement has to land data they can keep using and account for every difference before anyone switches.
+description: Convert a Spark ingestion notebook into an owned dlt pipeline that lands beside the notebook's tables, reloads an already-loaded, unchanged file without duplicating, losing or changing a record beyond its load-time and bookkeeping columns, accounts for every source record and every notebook step, and is reconciled table by table with a cause for every difference.
 pitch: Turn a Spark ingestion notebook into a dlt pipeline you own, and prove table by table what it lands and why any row differs.
 job_category: re-engineer
 area: ingestion
@@ -19,17 +19,13 @@ domain_objects:
   - reconciliation_report
 works_with:
   platforms:
-    - duckdb_local
-    - motherduck
     - fabric_lakehouse
-    - fabric_warehouse
-    - redshift
   tools:
     - dlt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
+  - Not yet assessed end to end on fabric_lakehouse.
   - Needs the notebook's code, the tables it landed, and read access to the files it reads.
-  - Source files must be reachable from the workspace; Studio's cloud-bucket route (ADLS, S3) is not supported today.
+  - Studio can't yet read the source files on fabric_lakehouse, from a workspace folder or a cloud bucket (ADLS, S3).
 related:
   - managed-connector-to-dlt
   - notebook-transformation-to-dbt
@@ -51,7 +47,7 @@ evidence:
 
 ## Prompt
 
-Convert the <notebook_name> Spark notebook that lands <source_files> into <notebook_tables> into a dlt pipeline in the current Intent, so that <consumers> can later move to it. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Read what each notebook step does, carry each into the dlt load, list it as follow-up work or drop it as approved, land the approved tables beside the notebook's tables without changing them, prepare them in the approved consumer shape without taking over the relations consumers read today, and reconcile both loads table by table over the approved runs, accounting for every source record and giving every difference a cause, from the approved list where that list is closed. Reloading an already-loaded file, even after newer ones, must never duplicate, lose or alter a record. Report switch-over readiness and what the reconciliation cannot prove; leave the notebook running and consumers unchanged.
+Convert the <notebook_name> Spark notebook that lands <source_files> into <notebook_tables> into a dlt pipeline in the current Intent, so that <consumers> can later move to it. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Carry each notebook step into the dlt load, list it as follow-up work or drop it as approved, land the approved tables beside the notebook's tables without changing them, prepare them in the approved consumer shape without taking over the relations consumers read today, and reconcile both loads table by table over the approved runs, accounting for every source record and giving every difference a cause, from the approved list where that list is closed. Reloading an already-loaded, unchanged file, even after newer ones, must never duplicate or lose a record or change it beyond its load-time and pipeline bookkeeping columns. Report switch-over readiness and what the reconciliation cannot prove; leave the notebook running and consumers unchanged.
 
 ## Verified by
 
@@ -100,8 +96,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - Do not modify, disable or reschedule the notebook, its job or its landed tables; proven agreement alone does not authorize switching over.
 - Do not repoint consumers, change downstream models, or retire the notebook as part of this work.
 - Do not treat the notebook's output as ground truth; a difference the notebook itself introduced is reported with its cause.
-- Do not decide on your own whether to keep or correct a notebook behaviour that departs from the approved rules; report it and follow the approved choice. Safe reloading of an already-loaded file is not such a choice.
-- Do not drop a malformed record without counting and reporting it.
+- Do not decide on your own whether to keep or correct a notebook behaviour that departs from the approved rules; report it and follow the approved choice. Safe reloading of an already-loaded, unchanged file is not such a choice.
 - Do not edit either side's data, widen a normalisation, extend a closed cause list or narrow the compared tables to make the reconciliation agree.
 - Do not treat the same instant landed with different time-zone handling as a difference, or present consumers a different timestamp type, except as the approved contract and agreement rule say.
 - Do not add business transformation to the landed tables beyond the notebook steps approved to stay in the load.
