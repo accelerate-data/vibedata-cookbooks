@@ -5,8 +5,8 @@ trigger:
   - A nightly load is a stored procedure nobody fully understands, and it inserts, updates, deletes or merges rows in a table people depend on.
   - The team wants the procedure's logic in dbt with tests and lineage, but consumers need proof the table ends up the same after every run.
   - A procedure that maintains a table in place has to move into the dbt project before it can be retired.
-description: Move a stored procedure that maintains a table run after run into dbt, with each procedural step mapped to a dbt equivalent and parity with the unchanged procedure shown after every compared run, procedure defects reproduced and reported, and retirement only as approved.
-pitch: Retire a stored procedure by rebuilding it in dbt and proving the table matches after every run, not only at the end.
+description: Move a stored procedure that maintains a table run after run into dbt, with each procedural step that shapes the table mapped to a dbt equivalent and parity with the unchanged procedure shown after every compared run, procedure defects reproduced and reported, and retirement only as approved.
+pitch: Retire a stored procedure by rebuilding it in dbt and proving the table matches after every compared run, not only at the end.
 job_category: re-engineer
 area: transformation
 readiness: supported
@@ -21,15 +21,16 @@ domain_objects:
   - follow_up
 works_with:
   platforms:
-    - duckdb_local
+    - fabric_warehouse
+    - redshift
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
+  - Not yet assessed end to end on fabric_warehouse or redshift.
   - Needs the procedure's table after each compared run, from the unchanged procedure or approved snapshots.
   - Views and one-shot scripts that rebuild their whole output each run belong to the legacy-sql-to-dbt Recipe.
   - Procedures that keep row history, such as hand-rolled slowly changing dimensions, are out of scope.
-  - Applies when the maintained table is the required outcome and all relevant procedure behaviour shows in its state.
+  - Applies when the maintained table is the required outcome and all relevant behaviour is represented through its state.
 related:
   - legacy-sql-to-dbt
   - dbt-full-refresh-to-incremental
@@ -48,16 +49,16 @@ evidence:
 
 ## Prompt
 
-Convert <stored_procedure>, which maintains <target_table> for <consumers> by inserting, updating, deleting or merging rows on each run, into dbt in the current Intent. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Deliver a map from each procedure step to its dbt equivalent, the dbt models that maintain the table, and evidence that after every run in the agreed sequence the table matches what the unchanged procedure leaves after the same run, at the approved precision. Reproduce every procedure behaviour that affects the table, including ones that look like mistakes, and report each defect as follow-up work; an output change someone wants belongs in a separate change. Handle cutover and the procedure as approved, and state what the comparison cannot prove.
+Convert <stored_procedure>, which maintains <target_table> for <consumers> by inserting, updating, deleting or merging rows on each run, into dbt in the current Intent. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Deliver a map from each procedure step that shapes the table to its dbt equivalent, the dbt models that maintain the table, and evidence that after every run in the agreed sequence the table matches what the unchanged procedure leaves after the same run, at the approved precision. Reproduce every procedure behaviour that affects the table, including ones that look like mistakes, and report each defect as follow-up work; an output change someone wants belongs in a separate change. Handle cutover and the procedure as approved, and state what the comparison cannot prove.
 
 ## Verified by
 
 - Each procedure step that shapes the table, including the conditions that make an insert, update, delete or merge fire, maps to a dbt equivalent or to a stated reason none is needed.
 - Any procedure behaviour that cannot be represented through the maintained table's state, such as writes to other tables, transaction or rollback semantics, output parameters, external side effects or error paths, is reported as out of scope.
 - The maintained table keeps the approved contract, covering whichever of relation name, columns, column order, types and materialization the approved contract counts as unchanged output.
-- After every run in the agreed sequence, not only the last, the table matches what the unchanged procedure leaves after the same run on the same inputs at the approved precision, including runs that exercise each kind of change the procedure makes.
+- After every run in the agreed sequence, not only the last, the table matches what the unchanged procedure leaves after the same run on the same inputs at the approved precision, including, where the procedure can be run or its snapshots allow, runs that exercise each kind of change it makes.
 - The match holds in each approved execution environment and time zone.
-- A repeated run in the agreed sequence leaves the table exactly as the unchanged procedure leaves it after the same repeat; any change a repeat makes is stated, and is follow-up work only where it violates an approved operational requirement.
+- A repeated run in the agreed sequence leaves the table exactly as the unchanged procedure leaves it after the same repeat, at the approved precision; any change a repeat makes is stated, and is follow-up work only where it violates an approved operational requirement.
 - Where the model can also rebuild the table from scratch, any input for which a rebuild as of a run would differ from the procedure's table after that run is reported.
 - Every procedure behaviour that affects the table is reproduced, and each defect is listed with the rows it affects, the rule it appears to break and what correcting it would change, as follow-up work; a repeat's behaviour follows the repeated-run rule.
 - For procedure behaviours the compared runs never exercise, such as a row removed on one run and changed on a later one, parity is checked with the unchanged procedure or another approved oracle where available; otherwise the gap is stated.
@@ -86,7 +87,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - If unresolved, which run sequence and inputs form the comparison, are values compared exactly or within an approved precision, and in which execution environments and time zones must the table match?
 - If unresolved, when the procedure cannot run beside the model, for example on another engine, where does its table after each run come from, and who approves that baseline?
 - If unresolved, which repeated runs, such as a retried run, does the agreed sequence include, and does an approved operational requirement limit what a repeat may change?
-- If unresolved, which project structure and layering conventions must the models follow, and may they reuse existing staging models whose output is identical?
+- If unresolved, which project structure and layering conventions must the models follow?
 - If unresolved, once parity is accepted and any cutover is complete, is the procedure kept and marked retired, or removed?
 
 ### Guardrails
@@ -98,4 +99,5 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - Do not let the procedure and the dbt model both maintain the consumer-facing table at the same time.
 - Do not remove or disable the procedure before parity is accepted, or while consumers still depend on it; proven parity alone does not authorize removal.
 - Do not widen a tolerance, or narrow the contract, the compared runs or the approved precision, to make the comparison pass.
+- Do not change the output of models outside the conversion.
 - Do not extend the conversion into keeping row history the procedure did not keep, scheduling, performance tuning or moving to another platform.
