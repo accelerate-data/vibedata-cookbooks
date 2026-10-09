@@ -112,7 +112,8 @@
         "metric-population-and-rollups",
         "operational-state-duration",
         "prove-dbt-change-safe",
-        "shift-unit-economics"
+        "shift-unit-economics",
+        "stored-procedure-to-dbt"
       ],
       "selector": {
         "platforms_any": [
@@ -144,7 +145,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 10,
+      "supported_or_proven_count": 11,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1418,6 +1419,65 @@
           "duckdb_local",
           "motherduck",
           "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Move a stored procedure that maintains a table run after run into dbt, with each procedural step that shapes the table mapped to a dbt equivalent and parity with the unchanged procedure shown after every compared run, procedure defects reproduced and reported, and retirement only as approved.",
+      "domain_objects": [
+        "stored_procedure",
+        "maintained_table",
+        "dbt_model",
+        "consumer_contract",
+        "step_map",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "documenting-dbt-models",
+          "verifying"
+        ]
+      },
+      "id": "stored-procedure-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/stored-procedure-to-dbt/recipe.md",
+      "pitch": "Retire a stored procedure by rebuilding it in dbt and proving the table matches after every compared run, not only at the end.",
+      "qualifiers": [
+        "Not yet assessed end to end on fabric_warehouse or redshift.",
+        "Needs the procedure's table after each compared run, from the unchanged procedure or approved snapshots.",
+        "Views and one-shot scripts that rebuild their whole output each run belong to the legacy-sql-to-dbt Recipe.",
+        "Procedures that keep row history, such as hand-rolled slowly changing dimensions, are out of scope.",
+        "Applies when the maintained table is the required outcome and all relevant behaviour is represented through its state."
+      ],
+      "readiness": "supported",
+      "related": [
+        "legacy-sql-to-dbt",
+        "dbt-full-refresh-to-incremental",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "bb5fd458e50c7d0a33c912f23018a600360cfbeb42da19534417983532c87895",
+      "title": "Convert a stored procedure into a dbt model and prove parity",
+      "trigger": [
+        "A nightly load is a stored procedure nobody fully understands, and it inserts, updates, deletes or merges rows in a table people depend on.",
+        "The team wants the procedure's logic in dbt with tests and lineage, but consumers need proof the table ends up the same after every run.",
+        "A procedure that maintains a table in place has to move into the dbt project before it can be retired."
+      ],
+      "works_with": {
+        "platforms": [
           "fabric_warehouse",
           "redshift"
         ],
