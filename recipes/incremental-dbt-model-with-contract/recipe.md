@@ -27,7 +27,7 @@ works_with:
     - dbt
 qualifiers:
   - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
-  - Needs a source that carries a key and a version or update timestamp for each record.
+  - Needs a source that carries a key and a version or update timestamp for each record, and can be read in full.
   - Converting an existing full-refresh model belongs to the dbt-full-refresh-to-incremental Recipe.
 evidence:
   features:
@@ -53,7 +53,7 @@ Author <model_name> as an incremental dbt model over <delivered_source>, so each
 - A record that would change the model and arrives within the approved lateness bound is applied; one beyond it is handled as the approved policy says and stays visible.
 - A record the approved rules cannot place, such as a contract break or a tie that cannot be resolved, is handled as the approved policy says, and one set aside stays visible with a reason.
 - Every delivered record whose batch has arrived and can be identified is accounted for as applied, set aside with a reason, or superseded by another copy of its key.
-- Where the approved policy allows a full refresh, it gives the table the incremental runs gave for the same landed data under unchanged rule values, as the approved policy says, with any difference listed.
+- Where the approved policy allows a full refresh, the table it gives matches what the incremental runs gave for the same landed data under unchanged rule values, and any difference is listed.
 - What the proof cannot show is stated.
 
 ## Agent guidance
