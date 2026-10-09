@@ -3,10 +3,10 @@ id: api-to-bronze-incremental-contract
 title: Land a SaaS or REST API into bronze with an incremental cursor and a schema contract
 trigger:
   - An API source has to load into bronze incrementally instead of reloading everything on every run.
-  - A pipeline breaks whenever the source API adds or changes a field.
-  - A logistics API repeats shipment events across source rows that must remain traceable for downstream modelling.
-description: Build a dlt pipeline that lands a SaaS or REST API into bronze with cursor-based incremental loading and a schema contract that decides how new or changed columns are handled, with pytest coverage of both and a sandbox load that proves the landed row counts.
-pitch: Land an API into bronze incrementally, with a schema contract that decides what happens when a field changes.
+  - A pipeline breaks whenever the source API adds a field or changes a field's type.
+  - The team has to know which of an API's records landed in bronze, which were refused and why, and which it can show were missed.
+description: Build a dlt pipeline that lands a SaaS or REST API into bronze incrementally under an approved cursor, enforces an approved schema contract for new fields and changed types, keeps refused records visible, and accounts for each load's records by outcome and by extraction, completely where the API offers an independent, enumerable view of what it holds.
+pitch: Land an API into bronze incrementally, with a schema contract for changed fields and an account of every record it can see.
 job_category: build
 area: ingestion
 readiness: supported
@@ -14,6 +14,8 @@ domain_objects:
   - dlt_pipeline
   - dlt_resource
   - bronze_table
+  - rejected_records
+  - reconciliation_report
 works_with:
   platforms:
     - duckdb_local
@@ -23,62 +25,77 @@ works_with:
     - redshift
   tools:
     - dlt
+qualifiers:
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
+  - Needs a per-record cursor on each resource, such as an update or creation time; a resource without one is out of scope.
+  - Studio's rest_api connector is a stub; the API needs another dlt route.
+related:
+  - managed-connector-to-dlt
 evidence:
   features:
+    - capturing-requirements
+    - add-or-update-source
     - discovering-source-schema
     - generating-dlt-pipeline
-    - running-dlt-in-sandbox
     - dlt-unit-testing
+    - running-dlt-in-sandbox
     - ingestion-data-testing
+    - verifying
   evals: []
 ---
 
 ## Prompt
 
-Build a dlt pipeline that lands <source_name> into bronze in the current Intent. Load <resource_list> incrementally on the <cursor_field> cursor, starting from <initial_value>, using the agreed write disposition and keys. Handle new columns with the <new_column_policy> schema contract (evolve, freeze or discard_row), and freeze type changes. Preserve the agreed source identifiers and provenance needed for downstream conformance. Add pytest coverage for the cursor and the contract, run the pipeline in the sandbox twice, and report landed source-row counts for each resource separately from any evidenced business-event counts. Retain approved source, cursor and late-arrival semantics; do not impose business deduplication in bronze.
+Build a dlt pipeline in the current Intent that lands <resource_list> from the <source_name> API into bronze. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Load each resource incrementally under the approved cursor, any approved key and the approved write disposition, enforce the approved schema contract for new fields and changed types, keep every refused record visible with its reason, and account for each load's records by outcome (landed, refused or missed) and by extraction (newly read or re-read), completely where the API offers an independent, enumerable view of the records it holds; otherwise account for the records visible through the API and state that unseen misses cannot be proven absent. Report what the load cannot capture.
 
 ## Verified by
 
-- A sandbox load lands every requested resource in bronze, and the landed row count of each resource is reported.
-- A second run loads only rows newer than the persisted cursor value.
-- A fixture that adds a column is handled exactly as the agreed new-column policy states.
-- A fixture that changes a column's type fails the schema contract test.
-- The pytest suite covers the cursor and both contract cases, and it passes.
-- The connector and dlt versions are pinned in the pipeline's requirements.
-- Each resource records its approved write disposition, keys, cursor and late-arrival policy; loaded rows, destination counts and contract exclusions reconcile to source/audit evidence with explicit count definitions.
-- Agreed source identifiers and provenance survive landing and trace output rows to the source. Missing or ambiguous identifiers, unknown values and unmapped cases are exposed for downstream conformance.
-- An append fixture with three distinct source rows, two referencing one event and one a distinct event with equal measures, lands three rows with all agreed identifiers. Expectations are fixed independently; loader identity is not reported as event identity.
-- The assigned destination and mandatory shipped bronze gate pass. Any unavailable custom remote bronze pytest is recorded as deferred, not passed; local mocked cursor and contract tests still pass.
+- Every approved resource lands in bronze under its approved write disposition and, where it has one, business key, and each landed row carries the approved source identifiers and provenance.
+- From the approved start, each load lands only the records the approved cursor rule selects, including any approved lookback and handling of records with no cursor, and a rerun over an unchanged source lands or changes nothing beyond what the approved re-send and refusal rules do with re-reads.
+- A record that shares a cursor value with the stored mark or another record, or writes its cursor with a different offset or format, is selected, skipped or re-read exactly as the approved cursor rule and lookback say.
+- Late, re-sent and corrected records are handled as the approved rules say, and a record the cursor rule cannot reach is reported as missed wherever an independent view of the source shows it.
+- Deletes reach bronze as the approved policy says, whether flagged, removed or recorded separately, and the result states which deletes the load cannot see.
+- A new field and a changed field type, including on a field the API added after the first load, are handled as the approved contract says, whether the field is added or dropped, the record is refused, the value is kept apart or the load fails.
+- Every refused record stays visible where the approved rule puts it, with its reason and approved identifying detail; an unchanged re-read keeps its refused outcome, is marked re-read and is not counted as a second refused record; whether the cursor moves past it follows the approved rule.
+- For each completed load and resource, every relevant record the source shows has exactly one outcome, landed, refused or missed, and the outcomes reconcile to the records shown, by content and any business key.
+- Each record a load reads is marked newly read or re-read under the approved re-read rule, and the records read reconcile to what the approved rules selected, by content and any business key.
+- Where the API offers an independent, enumerable view of its records, such as a full listing, an audit endpoint or a snapshot, every relevant record it holds is accounted for; otherwise the records visible through the API reconcile and the result states that unseen misses cannot be proven absent.
+- The result states what the load cannot capture, such as deletes the approved policy does not detect, records later than any approved lookback, or corrections that leave the cursor unchanged.
 
 ## Agent guidance
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain and sources. Inspect approved requirements, confirm the source connection and discover resources. Establish required questions and breakdowns; expose missing identifiers, history or relationship evidence needed downstream. Record each resource's approved cursor, initial value, late-arrival policy, write disposition and primary key; source evidence informs choices but does not authorize semantic changes. Agree which source identifiers and provenance must survive landing, distinguishing observed relationships from approved allocations or synthetic fixtures. Build on the vendored connector without bronze business transformations. Use independent mocked responses to test cursor wiring, repeated-event rows and distinct events with equal measures. Enforce new-column and changed-type cases against an established schema in isolated local pytest. The append fixture tests source-row preservation; also test the actual approved disposition and its expected counts. Run two real sandbox loads, assert the assigned destination, run the mandatory shipped bronze gate and collect load packages, source/audit counts and second-run evidence. Reconcile extracted/loaded rows, destination changes and exclusions under the contract, keeping source rows separate from business events. Retain source-to-bronze traceability. Record custom remote bronze tests as deferred when credentials are unavailable; do not waive local pytest or the shipped gate.
+Inherit the Intent's repository, platform, Domain, sources and approved requirements. Confirm what the API exposes first: its resources and pagination, each resource's identity, which field marks a change and whether every change moves it, how deletes appear, and whether the API can filter on the cursor. Where the approved requirements leave them open, propose for approval the write disposition, key, cursor and starting point from that evidence, and state what each choice relies on and what it would miss, such as deletes, corrections that keep their cursor, or records that arrive late. Land each resource with the approved schema contract, keep refused records visible, and carry the approved provenance on every row. Find out whether the API offers an independent, enumerable view of its records, such as a full listing, an audit endpoint or a snapshot. Run the loads and give each relevant record the source shows one outcome and each record read an extraction status under the approved re-read rule; where such a view exists, reconcile each load against it by content and any business key, and where it does not, reconcile what the API exposes and say that unseen misses cannot be proven absent.
 
 ### Compose
 
+- capturing-requirements
+- add-or-update-source
 - discovering-source-schema
 - generating-dlt-pipeline
-- running-dlt-in-sandbox
 - dlt-unit-testing
+- running-dlt-in-sandbox
 - ingestion-data-testing
+- verifying
 
 ### Ask first
 
-- Ask for the write disposition of a resource (append, replace or merge) only if neither the request nor the source's evidence settles it.
-- Ask for the primary key of a merge resource only if the source exposes no defensible one.
-- Ask whether child resources are needed only if the source exposes them and the request does not say.
-- Ask which analytical questions and breakdowns, source identifiers and provenance must be supported downstream only if approved requirements leave them unresolved.
-- Ask for the cursor, initial value, late-arrival or schema policy only if approved requirements do not settle it; expose conflicts without changing existing policy.
+- If unresolved, which API resources are in scope, and are child resources needed?
+- If unresolved by the API's evidence, which write disposition, business key, cursor field and starting point each resource uses?
+- If unresolved, how a record that arrives with a cursor at or behind what was already loaded is handled: picked up within a bounded lookback (how wide) or missed and reported?
+- If unresolved, how the API shows a deleted record, how bronze should show it, and whether records deleted outright must be detected?
+- If unresolved, what bronze keeps when a record is re-read, re-sent or corrected: one row per key with the latest copy, every copy, or the copies flagged, and how records are matched where a resource has no key?
+- If unresolved, what the contract does when the API adds a field (add it, drop it, refuse the record or fail the load), and when an existing field, including one added later, changes type (refuse the record, keep the value apart or fail the load)?
+- If unresolved, where refused records go and with what reason and payload, whether the cursor moves past them, and how a record with no cursor or no key is treated?
+- If unresolved, which source identifiers and provenance every landed row must carry, whether the reconciliation must list individual keys as well as counts per load, and whether a re-read means the same key or the same record version?
 
 ### Guardrails
 
-- Pin the connector and dlt versions in the pipeline's requirements.
-- Do not fall back silently from MotherDuck to local DuckDB.
-- Do not report the contract as tested until a fixture with a changed type has turned its test red.
-- Do not reload rows the persisted cursor has already passed.
-- Do not call landed rows or unique _dlt_id values unique business events without independent evidence of business grain.
-- Do not force business deduplication into bronze, discard distinct source rows to pass a test, or change approved source, cursor, write-disposition or late-arrival semantics.
-- Preserve agreed source identifiers alongside loader identity; report missing evidence instead of inventing keys or operational relationships.
-- Synthetic fixtures prove the stated cases, not observed source relationships; report contract exclusions explicitly.
+- Do not choose or apply a cursor, lookback, delete, identity or schema-contract rule without approval.
+- Do not coerce a value the contract refuses into a landed column, or overwrite a landed row with it.
+- Do not fall back to a full reload to hide a cursor problem, or re-read records the stored cursor has passed beyond the approved lookback, unless that reload is approved.
+- Do not claim deletes, late records or corrections are captured when neither the chosen cursor nor an approved detection can see them.
+- Do not force business deduplication or transformation into bronze beyond the approved key.
+- Do not treat a count match as reconciliation; compare content and any business key.
+- Do not claim that no record was missed unless an independent, enumerable view of the source's records shows it.
