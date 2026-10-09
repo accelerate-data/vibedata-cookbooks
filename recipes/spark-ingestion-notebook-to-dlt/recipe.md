@@ -19,13 +19,17 @@ domain_objects:
   - reconciliation_report
 works_with:
   platforms:
+    - duckdb_local
+    - motherduck
     - fabric_lakehouse
+    - fabric_warehouse
+    - redshift
   tools:
     - dlt
 qualifiers:
-  - Not yet assessed end to end on fabric_lakehouse.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
   - Needs the notebook's code, the tables it landed, and read access to the files it reads.
-  - Studio can't yet read the source files on fabric_lakehouse, from a workspace folder or a cloud bucket (ADLS, S3).
+  - Needs a Studio route for dlt to read the notebook's source files; cloud buckets (ADLS, S3) have none today.
 related:
   - managed-connector-to-dlt
   - notebook-transformation-to-dbt
