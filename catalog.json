@@ -212,33 +212,46 @@
   "recipes": [
     {
       "area": "ingestion",
-      "description": "Build a dlt pipeline that lands a SaaS or REST API into bronze with cursor-based incremental loading and a schema contract that decides how new or changed columns are handled, with pytest coverage of both and a sandbox load that proves the landed row counts.",
+      "description": "Build a dlt pipeline that lands a SaaS or REST API into bronze incrementally under an approved cursor, enforces an approved schema contract for new fields and changed types, keeps refused records visible, and accounts for each load's records by outcome and by extraction, completely where the API offers an independent, enumerable view of what it holds.",
       "domain_objects": [
         "dlt_pipeline",
         "dlt_resource",
-        "bronze_table"
+        "bronze_table",
+        "rejected_records",
+        "reconciliation_report"
       ],
       "evidence": {
         "evals": [],
         "features": [
+          "capturing-requirements",
+          "add-or-update-source",
           "discovering-source-schema",
           "generating-dlt-pipeline",
-          "running-dlt-in-sandbox",
           "dlt-unit-testing",
-          "ingestion-data-testing"
+          "running-dlt-in-sandbox",
+          "ingestion-data-testing",
+          "verifying"
         ]
       },
       "id": "api-to-bronze-incremental-contract",
       "job_category": "build",
       "path": "recipes/api-to-bronze-incremental-contract/recipe.md",
-      "pitch": "Land an API into bronze incrementally, with a schema contract that decides what happens when a field changes.",
+      "pitch": "Land an API into bronze incrementally, with a schema contract for changed fields and an account of every record it can see.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.",
+        "Needs a per-record cursor on each resource, such as an update or creation time; a resource without one is out of scope.",
+        "Studio's rest_api connector is a stub; the API needs another dlt route."
+      ],
       "readiness": "supported",
-      "sha256": "0e7eee461064b142e0390ad1019530703a43f1b496aa78b0b8c3b9112d9abd86",
+      "related": [
+        "managed-connector-to-dlt"
+      ],
+      "sha256": "77681d731f6020b67d35f2579f0220744f3ba2a5fa5bd62d9c6251a356d6db9b",
       "title": "Land a SaaS or REST API into bronze with an incremental cursor and a schema contract",
       "trigger": [
         "An API source has to load into bronze incrementally instead of reloading everything on every run.",
-        "A pipeline breaks whenever the source API adds or changes a field.",
-        "A logistics API repeats shipment events across source rows that must remain traceable for downstream modelling."
+        "A pipeline breaks whenever the source API adds a field or changes a field's type.",
+        "The team has to know which of an API's records landed in bronze, which were refused and why, and which it can show were missed."
       ],
       "works_with": {
         "platforms": [
