@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Validate the cookbook and generate catalog.json from Recipe frontmatter.
 
-Run `python3 scripts/build_catalog.py` to regenerate catalog.json, or pass
-`--check` to fail when catalog.json differs from a fresh build. The contract
-rules live in schema/*.json; this script applies them.
+Run `python3 scripts/build_catalog.py` to regenerate catalog.json, pass
+`--validate` to check every Recipe and Collection without touching catalog.json
+(what pull requests run), or pass `--check` to fail when catalog.json differs
+from a fresh build. The contract rules live in schema/*.json; this script
+applies them.
 """
 
 from __future__ import annotations
@@ -200,7 +202,13 @@ def build_catalog(root: Path = ROOT) -> tuple[dict[str, Any], str]:
 
 def main(argv: list[str] | None = None, root: Path = ROOT) -> int:
     parser = argparse.ArgumentParser(description="Validate the cookbook and generate catalog.json.")
-    parser.add_argument("--check", action="store_true", help="fail if catalog.json differs from a fresh build")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--check", action="store_true", help="fail if catalog.json differs from a fresh build")
+    mode.add_argument(
+        "--validate",
+        action="store_true",
+        help="validate and build in memory; neither write nor compare catalog.json",
+    )
     args = parser.parse_args(argv)
     try:
         catalog, text = build_catalog(root)
@@ -208,7 +216,9 @@ def main(argv: list[str] | None = None, root: Path = ROOT) -> int:
         print(f"cookbook validation error: {exc}", file=sys.stderr)
         return 1
     path = root / "catalog.json"
-    if args.check:
+    if args.validate:
+        pass
+    elif args.check:
         current = path.read_bytes().decode("utf-8") if path.exists() else None
         if current != text:
             print("cookbook validation error: catalog.json is stale; run python3 scripts/build_catalog.py", file=sys.stderr)

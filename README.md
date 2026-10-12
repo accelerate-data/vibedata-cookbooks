@@ -51,10 +51,10 @@ templates/recipe.md                starting point for a new Recipe
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 .venv/bin/python -m pytest -q
-.venv/bin/python scripts/build_catalog.py --check
+.venv/bin/python scripts/build_catalog.py --validate
 ```
 
-Run `scripts/build_catalog.py` without `--check` to regenerate `catalog.json`. CI (`.github/workflows/ci.yml`) runs the tests, the `--check` build and the schema version-bump check on every pull request and every push to `pre-prod` and `main`. Work lands on `pre-prod`, the default branch; `main` takes only promotions from `pre-prod`. See [CONTRIBUTING.md](CONTRIBUTING.md#branches).
+Pull requests do not edit `catalog.json`. The `Catalog` workflow (`.github/workflows/catalog.yml`) regenerates and commits it after each merge to `pre-prod`, so readers still find a committed, fresh catalog on `pre-prod` and, after promotion, on `main` ([ADR 0003](docs/adr/0003-catalog-generated-after-merge.md)). CI (`.github/workflows/ci.yml`) runs the tests, the `--validate` build and the schema version-bump check on every pull request and every push to `pre-prod` and `main`, and the `--check` freshness build on the way to `main`. Work lands on `pre-prod`, the default branch; `main` takes only promotions from `pre-prod`. See [CONTRIBUTING.md](CONTRIBUTING.md#branches).
 
 ## Platforms
 

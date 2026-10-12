@@ -23,30 +23,39 @@
         "api-to-bronze-incremental-contract",
         "bounded-partition-backfill",
         "business-event-fact",
+        "database-tables-to-bronze",
         "dbt-full-refresh-to-incremental",
         "dbt-refactor-output-identical",
         "dbt-snapshot-history",
         "effective-dated-business-rules",
         "event-resource-attribution",
+        "file-drop-to-bronze",
+        "governed-spreadsheet-table",
         "identity-golden-record-crosswalk",
         "identity-standardize-names-addresses",
+        "incremental-dbt-model-with-contract",
         "legacy-sql-to-dbt",
         "logistics-fleet-utilization",
+        "managed-connector-to-dlt",
         "master-b2b-account-hierarchy",
         "metric-population-and-rollups",
+        "notebook-transformation-to-dbt",
         "operational-state-duration",
         "prove-dbt-change-safe",
         "revops-pipeline-snapshots",
         "revops-quota-commission",
+        "scalar-sql-function-to-dbt-macro",
         "service-ticket-sla",
-        "shift-unit-economics"
+        "shift-unit-economics",
+        "source-freshness-sla",
+        "spark-ingestion-notebook-to-dlt"
       ],
       "selector": {
         "platforms_any": [
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 20,
+      "supported_or_proven_count": 29,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -102,14 +111,23 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "business-event-fact",
+        "database-tables-to-bronze",
         "effective-dated-business-rules",
         "event-resource-attribution",
         "fabric-data-pipeline-as-code",
+        "fabric-direct-lake-semantic-model",
+        "file-drop-to-bronze",
+        "governed-spreadsheet-table",
+        "incremental-dbt-model-with-contract",
         "logistics-fleet-utilization",
+        "materialized-view-to-dbt",
         "metric-population-and-rollups",
         "operational-state-duration",
         "prove-dbt-change-safe",
-        "shift-unit-economics"
+        "shift-unit-economics",
+        "source-freshness-sla",
+        "spark-ingestion-notebook-to-dlt",
+        "stored-procedure-to-dbt"
       ],
       "selector": {
         "platforms_any": [
@@ -141,7 +159,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 10,
+      "supported_or_proven_count": 19,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -184,21 +202,27 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "business-event-fact",
+        "database-tables-to-bronze",
         "effective-dated-business-rules",
         "event-resource-attribution",
+        "file-drop-to-bronze",
+        "governed-spreadsheet-table",
+        "incremental-dbt-model-with-contract",
         "logistics-fleet-utilization",
         "metric-population-and-rollups",
         "motherduck-flight-scheduling",
         "operational-state-duration",
         "prove-dbt-change-safe",
-        "shift-unit-economics"
+        "shift-unit-economics",
+        "source-freshness-sla",
+        "spark-ingestion-notebook-to-dlt"
       ],
       "selector": {
         "platforms_any": [
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 10,
+      "supported_or_proven_count": 16,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -207,33 +231,46 @@
   "recipes": [
     {
       "area": "ingestion",
-      "description": "Build a dlt pipeline that lands a SaaS or REST API into bronze with cursor-based incremental loading and a schema contract that decides how new or changed columns are handled, with pytest coverage of both and a sandbox load that proves the landed row counts.",
+      "description": "Build a dlt pipeline that lands a SaaS or REST API into bronze incrementally under an approved cursor, enforces an approved schema contract for new fields and changed types, keeps refused records visible, and accounts for each load's records by outcome and by extraction, completely where the API offers an independent, enumerable view of what it holds.",
       "domain_objects": [
         "dlt_pipeline",
         "dlt_resource",
-        "bronze_table"
+        "bronze_table",
+        "rejected_records",
+        "reconciliation_report"
       ],
       "evidence": {
         "evals": [],
         "features": [
+          "capturing-requirements",
+          "add-or-update-source",
           "discovering-source-schema",
           "generating-dlt-pipeline",
-          "running-dlt-in-sandbox",
           "dlt-unit-testing",
-          "ingestion-data-testing"
+          "running-dlt-in-sandbox",
+          "ingestion-data-testing",
+          "verifying"
         ]
       },
       "id": "api-to-bronze-incremental-contract",
       "job_category": "build",
       "path": "recipes/api-to-bronze-incremental-contract/recipe.md",
-      "pitch": "Land an API into bronze incrementally, with a schema contract that decides what happens when a field changes.",
+      "pitch": "Land an API into bronze incrementally, with a schema contract for changed fields and an account of every record it can see.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.",
+        "Needs a per-record cursor on each resource, such as an update or creation time; a resource without one is out of scope.",
+        "Studio's rest_api connector is a stub; the API needs another dlt route."
+      ],
       "readiness": "supported",
-      "sha256": "0e7eee461064b142e0390ad1019530703a43f1b496aa78b0b8c3b9112d9abd86",
+      "related": [
+        "managed-connector-to-dlt"
+      ],
+      "sha256": "77681d731f6020b67d35f2579f0220744f3ba2a5fa5bd62d9c6251a356d6db9b",
       "title": "Land a SaaS or REST API into bronze with an incremental cursor and a schema contract",
       "trigger": [
         "An API source has to load into bronze incrementally instead of reloading everything on every run.",
-        "A pipeline breaks whenever the source API adds or changes a field.",
-        "A logistics API repeats shipment events across source rows that must remain traceable for downstream modelling."
+        "A pipeline breaks whenever the source API adds a field or changes a field's type.",
+        "The team has to know which of an API's records landed in bronze, which were refused and why, and which it can show were missed."
       ],
       "works_with": {
         "platforms": [
@@ -339,6 +376,64 @@
         ],
         "tools": [
           "dbt"
+        ]
+      }
+    },
+    {
+      "area": "ingestion",
+      "description": "Build a dlt pipeline that lands a set of database tables into bronze, each loaded under its own approved strategy, with deletes and schema changes handled as approved, every run safe to repeat even after a part-way failure, and a table-by-table reconciliation of each approved run over the approved scope in which every difference found has an allowed cause.",
+      "domain_objects": [
+        "dlt_pipeline",
+        "dlt_resource",
+        "bronze_table",
+        "reconciliation_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "discovering-source-schema",
+          "generating-dlt-pipeline",
+          "dlt-unit-testing",
+          "running-dlt-in-sandbox",
+          "ingestion-data-testing",
+          "verifying"
+        ]
+      },
+      "id": "database-tables-to-bronze",
+      "job_category": "build",
+      "path": "recipes/database-tables-to-bronze/recipe.md",
+      "pitch": "Land a database's tables into bronze, each the way it changes, and reconcile each approved run against the source with a cause for every difference found.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.",
+        "Studio's source setup cannot register a sql_database connection; it is declared with approval.",
+        "Replacing an existing managed connector belongs to managed-connector-to-dlt.",
+        "Log-based CDC replication is out of scope; each run reads the source tables.",
+        "Without direct database access, loading exported files belongs to file-drop-to-bronze.",
+        "Needs read access to the source database, a key per merged table, and a change signal per incremental table."
+      ],
+      "readiness": "supported",
+      "related": [
+        "api-to-bronze-incremental-contract",
+        "managed-connector-to-dlt"
+      ],
+      "sha256": "4d1e5b07a8d9eb6bde231db215a0a89392bc2f57f345423d1d93fd722a24b77f",
+      "title": "Load a database table set into bronze with a bounded incremental strategy and landed-data proof",
+      "trigger": [
+        "An operational database's tables have to land in bronze, and reloading every table in full on each run is too slow or too heavy on the source.",
+        "The tables change in different ways (rows updated in place, append-only events, small reference tables, deleted rows), so one load strategy does not fit them all.",
+        "Downstream teams need a table-by-table reconciliation of what landed in bronze against the source database before they build on it."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dlt"
         ]
       }
     },
@@ -615,6 +710,181 @@
       }
     },
     {
+      "area": "semantic-layer",
+      "description": "Author a Fabric Direct Lake semantic model as code over the governed gold tables, make the gold layer fit for it, define each approved KPI once as a measure, and prove its tables and relationships on the data it reads and in the platform's model parser, with each measure's expected values computed independently over gold and checked against the deployed model where deploying it is approved.",
+      "domain_objects": [
+        "semantic_model",
+        "governed_measure",
+        "dimension",
+        "date_table",
+        "gold_table",
+        "serving_table",
+        "acceptance_query"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "fabric-direct-lake-semantic-model",
+      "job_category": "build",
+      "path": "recipes/fabric-direct-lake-semantic-model/recipe.md",
+      "pitch": "Author one Direct Lake model as code over governed gold, each approved KPI defined once with independently computed expected values.",
+      "qualifiers": [
+        "Not yet assessed end to end on fabric_lakehouse or fabric_warehouse.",
+        "Needs the gold layer in a Fabric lakehouse or warehouse that Direct Lake can read through OneLake.",
+        "Studio authors the model offline; deploying it and running its acceptance queries need a Fabric workspace.",
+        "Proving the model loads needs the platform's semantic-model parser; Studio's managed runtime does not include it today.",
+        "A MetricFlow semantic model of the same metrics belongs to metricflow-semantic-model.",
+        "Reports and security roles are outside this Recipe."
+      ],
+      "readiness": "supported",
+      "related": [
+        "metric-population-and-rollups"
+      ],
+      "sha256": "147950117db3ef9029dd44bcf3eff71531ab7a3bc8b5b86775367e2989ba667e",
+      "title": "Author a Direct Lake semantic model as code over governed gold tables",
+      "trigger": [
+        "The gold marts exist and the Power BI team is about to rebuild the star schema by hand in every report.",
+        "Report authors import copies of the gold tables into each report, so data lags and each report redefines the same KPI in its own DAX.",
+        "A Direct Lake model built straight on the gold tables shows blank members, missing dates or totals that disagree with the gold layer."
+      ],
+      "works_with": {
+        "platforms": [
+          "fabric_lakehouse",
+          "fabric_warehouse"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "ingestion",
+      "description": "Build a dlt pipeline that lands a recurring file drop into bronze so a rerun over an unchanged drop duplicates no delivery's records, reports a delivery complete only when it passes the approved completeness and layout checks, keeps what fails visible with its reason, recovers a part-way failure without loss or duplication, and reports the status of every expected delivery after each run.",
+      "domain_objects": [
+        "dlt_pipeline",
+        "dlt_resource",
+        "bronze_table",
+        "rejected_records",
+        "delivery_status_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "add-or-update-source",
+          "discovering-source-schema",
+          "generating-dlt-pipeline",
+          "dlt-unit-testing",
+          "running-dlt-in-sandbox",
+          "ingestion-data-testing",
+          "verifying"
+        ]
+      },
+      "id": "file-drop-to-bronze",
+      "job_category": "build",
+      "path": "recipes/file-drop-to-bronze/recipe.md",
+      "pitch": "Land a recurring file drop into bronze so a rerun duplicates nothing, with completeness checks, a schema contract and a status for each expected delivery.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.",
+        "Needs a Studio route for dlt to read the drop; cloud buckets (ADLS, S3) have none today.",
+        "Needs each delivery to state its own completeness, such as a control file.",
+        "Covers delimited text files such as CSV; JSON, Parquet and Excel are out of scope.",
+        "Reading an API or a database belongs to api-to-bronze-incremental-contract or database-tables-to-bronze.",
+        "A hand-maintained sheet re-exported whole belongs to governed-spreadsheet-table."
+      ],
+      "readiness": "supported",
+      "related": [
+        "api-to-bronze-incremental-contract",
+        "managed-connector-to-dlt"
+      ],
+      "sha256": "00a45f2e9fb8dcd98e3d798bfb25c45b8e52f69bd3bc0412bceb12619c298432",
+      "title": "Load a recurring file drop into bronze with file-completeness and schema controls",
+      "trigger": [
+        "A partner or vendor drops files into a folder on a schedule, and bronze has to pick up each delivery without a rerun loading it twice.",
+        "Files arrive late, twice, empty, cut short or with a changed layout, and nobody finds out until a report is wrong.",
+        "Downstream teams need to know, for every delivery the team expected, whether it arrived complete before they build on it."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dlt"
+        ]
+      }
+    },
+    {
+      "area": "ingestion",
+      "description": "Build a dlt pipeline and a governed table that load each new export of a hand-maintained spreadsheet under an approved structure contract, keep the last accepted version live when an export breaks it, set aside bad rows with reasons, retain accepted versions as approved, and document every column with its owner.",
+      "domain_objects": [
+        "dlt_pipeline",
+        "bronze_table",
+        "dbt_model",
+        "rejected_records",
+        "reconciliation_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "add-or-update-source",
+          "generating-dlt-pipeline",
+          "dlt-unit-testing",
+          "running-dlt-in-sandbox",
+          "ingestion-data-testing",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "documenting-dbt-models",
+          "verifying"
+        ]
+      },
+      "id": "governed-spreadsheet-table",
+      "job_category": "build",
+      "path": "recipes/governed-spreadsheet-table/recipe.md",
+      "pitch": "Turn the spreadsheet everyone depends on into a governed table that fails loudly when its structure breaks.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.",
+        "A recurring feed of delivered files that state their own completeness is file-drop-to-bronze.",
+        "Each export must be a full copy of the sheet; a partial extract or change feed is out of scope.",
+        "Covers a delimited text export such as CSV; reading a workbook directly is out of scope.",
+        "Sized for spreadsheet-scale files, not large extracts.",
+        "Needs a Studio route for dlt to read the file; cloud buckets (ADLS, S3) have none today."
+      ],
+      "readiness": "supported",
+      "sha256": "8ec7fb57da8714e4201beae71f33bb1725a9e37900fdc9245d8aa87650c20f2f",
+      "title": "Promote a spreadsheet or CSV to a governed, tested table",
+      "trigger": [
+        "A spreadsheet that reports and models depend on is edited by hand, and a moved, renamed or retyped column keeps breaking them quietly.",
+        "Nobody can say what each column of a hand-maintained file means, who owns it or which row is the key.",
+        "A team keeps editing a sheet and re-exporting it, and wants a warehouse table of it that is checked on every new export."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
       "area": "transformation",
       "description": "Resolve customer records from several source systems into one golden record per customer, with a two-way crosswalk, approved match and survivorship rules held as data, golden ids that stay stable across runs, an unresolved list that accounts for every source record, and an optional comparison with a source system's own merge pointers.",
       "domain_objects": [
@@ -714,6 +984,56 @@
       "works_with": {
         "platforms": [
           "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Author a new incremental dbt model with an enforced output contract, then prove that a rerun and a re-delivery of records already applied leave it unchanged under the approved definition, with records the approved rules set aside kept visible.",
+      "domain_objects": [
+        "incremental_model",
+        "output_contract",
+        "delivered_record",
+        "set_aside_record",
+        "rerun_proof"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "incremental-dbt-model-with-contract",
+      "job_category": "build",
+      "path": "recipes/incremental-dbt-model-with-contract/recipe.md",
+      "pitch": "Build an incremental dbt model with an enforced contract and show that a rerun or a re-delivery of records already applied leaves it unchanged.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Needs a source that carries a key and a version or update timestamp for each record, and can be read in full.",
+        "Converting an existing full-refresh model belongs to the dbt-full-refresh-to-incremental Recipe."
+      ],
+      "readiness": "supported",
+      "sha256": "2e541c5c75dd4528ee9bab9b88e5d9fff2e98150c4ed3e8835bd0b9c30138884",
+      "title": "Author an incremental dbt model with its contract and prove idempotency",
+      "trigger": [
+        "A new dbt model must be brought up to date incrementally on each run, and nobody can show that a rerun or a re-delivery of records already applied leaves it unchanged.",
+        "Downstream consumers need a guaranteed set of columns, types and keys, and a build should fail when the output drifts from them.",
+        "A loader resends or corrects records, and the table must stay correct when the same batch is delivered twice."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
@@ -822,6 +1142,62 @@
       }
     },
     {
+      "area": "ingestion",
+      "description": "Replace a managed connector with an owned dlt pipeline landed side by side with the connector's tables, reconciled table by table over parallel runs with a cause for every difference, and stopped short of cutover.",
+      "domain_objects": [
+        "managed_connector",
+        "dlt_pipeline",
+        "bronze_table",
+        "consumer_contract",
+        "reconciliation_report",
+        "cutover_readiness"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "add-or-update-source",
+          "discovering-source-schema",
+          "generating-dlt-pipeline",
+          "dlt-unit-testing",
+          "running-dlt-in-sandbox",
+          "ingestion-data-testing",
+          "verifying"
+        ]
+      },
+      "id": "managed-connector-to-dlt",
+      "job_category": "re-engineer",
+      "path": "recipes/managed-connector-to-dlt/recipe.md",
+      "pitch": "Swap a Fivetran or Airbyte connector for a dlt pipeline you own, and prove table by table that it lands what the connector did before you cut over.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Needs read access to the connector's landed tables and to the source the connector reads.",
+        "Database sources need a dlt route Studio supports; its sql_database route is not supported today."
+      ],
+      "readiness": "supported",
+      "related": [
+        "api-to-bronze-incremental-contract",
+        "legacy-sql-to-dbt",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "ec397d7466bd6ab9dd35525120cce956772698ddd561969f7ed4a3ec36974f97",
+      "title": "Replace a Fivetran or Airbyte connector with a dlt pipeline and reconcile the result",
+      "trigger": [
+        "A managed connector's bill changed shape, or it broke and the vendor fix has been pending for weeks, and the team wants the load in code it owns.",
+        "dbt models read a Fivetran or Airbyte connector's tables, so a replacement has to keep landing data those models can use.",
+        "Before switching off a managed connector, the team needs proof that its replacement lands the same records, with a reason for every difference."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
       "area": "transformation",
       "description": "Resolve accounts to their parent and ultimate parent under approved precedence and parent rules, keep accounts the rules cannot place explicitly unresolved unless an approved fallback places them, roll measures up every level of each corporate family for the approved periods, and list every hierarchy anomaly with its reason, never double counting an account or inventing hierarchy.",
       "domain_objects": [
@@ -868,6 +1244,61 @@
       "works_with": {
         "platforms": [
           "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Bring a materialized view into dbt as a model that publishes the same contract and computes each refresh under the same approved rule, proven against the view's own output after each compared refresh, with view defects reproduced and reported as follow-up work.",
+      "domain_objects": [
+        "materialized_view",
+        "refresh_policy",
+        "dbt_model",
+        "consumer_contract",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "documenting-dbt-models",
+          "verifying"
+        ]
+      },
+      "id": "materialized-view-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/materialized-view-to-dbt/recipe.md",
+      "pitch": "Retire a materialized view by rebuilding it in dbt and proving each compared refresh matches the view's.",
+      "qualifiers": [
+        "Not yet assessed end to end on fabric_lakehouse or redshift.",
+        "Needs the view's definition (Studio can't yet read it on these targets), refresh rule and output at refresh points."
+      ],
+      "readiness": "supported",
+      "related": [
+        "legacy-sql-to-dbt",
+        "dbt-full-refresh-to-incremental",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "f16bcec124c7a561f62233429b688a2cf7bd87e8e34b7df5246f680b5fafc5a1",
+      "title": "Convert a materialized view into a dbt model and preserve its required refresh semantics",
+      "trigger": [
+        "Warehouse logic lives in a materialized view that nobody can test, review or trace, and the team wants it in the dbt project.",
+        "Consumers depend on what each refresh of the view produces, so the dbt model must keep what every refresh computes, not only its final rows.",
+        "The view's refresh is opaque, and the team wants its refresh rule stated and owned in code before the view is retired."
+      ],
+      "works_with": {
+        "platforms": [
+          "fabric_lakehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
@@ -951,6 +1382,58 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Bring a hand-run notebook transformation into dbt as models that publish the same contract, proven against what the unchanged notebook writes on the same inputs, with its implicit dataframe behaviour and defects reproduced and reported as follow-up work.",
+      "domain_objects": [
+        "notebook",
+        "dbt_model",
+        "consumer_contract",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "documenting-dbt-models",
+          "verifying"
+        ]
+      },
+      "id": "notebook-transformation-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/notebook-transformation-to-dbt/recipe.md",
+      "pitch": "Retire a hand-run notebook by rebuilding its dataframe logic in dbt and proving the new models publish what the notebook did.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Needs the notebook's output on the same inputs, from a run of the unchanged notebook or its current table."
+      ],
+      "readiness": "supported",
+      "related": [
+        "legacy-sql-to-dbt",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "086db909e24e3912542fe5d3c8afed75de1f887541bba6bf3510d81b63972bfb",
+      "title": "Convert a notebook transformation into a dbt model and prove parity",
+      "trigger": [
+        "A table or report is still produced by running a notebook by hand, pulling warehouse data into dataframes, with no tests, lineage or review.",
+        "The team wants the notebook's logic in the dbt project, but its consumers need proof that the dbt version returns the same results.",
+        "Dataframe code (merges, group-bys, fills, de-duplication, pivots) has to move into dbt models without changing what the notebook published."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
           "dbt"
         ]
       }
@@ -1156,6 +1639,61 @@
     },
     {
       "area": "transformation",
+      "description": "Bring a scalar warehouse function into the dbt project as a macro, switch the agreed callers to it, and prove that the SQL the macro generates matches the unchanged function and that each switched caller keeps its approved output, with its quirks reproduced and reported as follow-up work.",
+      "domain_objects": [
+        "scalar_function",
+        "dbt_macro",
+        "dbt_model",
+        "consumer_contract",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "documenting-dbt-models",
+          "verifying"
+        ]
+      },
+      "id": "scalar-sql-function-to-dbt-macro",
+      "job_category": "re-engineer",
+      "path": "recipes/scalar-sql-function-to-dbt-macro/recipe.md",
+      "pitch": "Move a hidden warehouse function into dbt as a macro and prove the SQL it generates gives what the function did.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Needs the unchanged function runnable on the same inputs, or its outputs captured on them.",
+        "Scalar functions only; rewriting a caller's own logic belongs to legacy-sql-to-dbt.",
+        "Excludes nondeterministic functions and those whose semantics need side effects, privileges or unreproducible state."
+      ],
+      "readiness": "supported",
+      "related": [
+        "legacy-sql-to-dbt",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "9fc503b4d4251e8e99340a1a6376a9c839918c0135fdb91fe93c154424ca0ea9",
+      "title": "Convert a scalar SQL function into a dbt macro and prove equivalence",
+      "trigger": [
+        "Models or views call a scalar function created directly in the warehouse, so dbt cannot see the dependency and changes to it are not reviewed or tested.",
+        "A freshly built environment breaks because the warehouse function its models call does not exist there.",
+        "The team wants to retire a warehouse function, but its callers need proof that the SQL the dbt version generates gives the same values."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Build per-ticket response and resolution SLA outcomes from ticket status, priority, team and reply history under approved targets, calendars, pauses, reopens and policy versions, then derive attainment by period, priority and team, a daily open-backlog age view and an exceptions list that accounts for every ticket, with an optional vendor comparison when ticket-level vendor results exist.",
       "domain_objects": [
         "ticket",
@@ -1252,6 +1790,179 @@
           "duckdb_local",
           "motherduck",
           "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "data-quality",
+      "description": "Give every source table a dbt project declares a freshness limit, or a recorded exemption, and gate the builds that run the check so a source past its fail limit holds back the work the approved failure policy names before it rebuilds, with a report of each table's age, its limit and the work held back.",
+      "domain_objects": [
+        "source_freshness_sla",
+        "freshness_exemption",
+        "freshness_gate",
+        "freshness_override",
+        "freshness_coverage_report",
+        "freshness_run_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "registering-dbt-sources",
+          "authoring-dbt-project-artifact",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "source-freshness-sla",
+      "job_category": "build",
+      "path": "recipes/source-freshness-sla/recipe.md",
+      "pitch": "Give every source a freshness limit and stop stale data before downstream models rebuild on it.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Protects only work whose source is judged in the same build; how often builds run is outside this Recipe.",
+        "Each checked table needs a measurable load time, such as a landing column, a load log, table metadata or a proxy.",
+        "Gating consumer pipelines on upstream readiness belongs to the readiness-gated-orchestration Recipe."
+      ],
+      "readiness": "supported",
+      "sha256": "d2770178fb7fbd337d8f026fa873b7c6e171e3f4cffc8f054081df71daabaaa1",
+      "title": "Declare source freshness SLAs and make stale data fail before downstream work",
+      "trigger": [
+        "A load stopped and nothing failed; downstream models rebuilt on old data and the reports still looked current.",
+        "Only some sources have a freshness check, often one blanket threshold, and nobody can say which tables are checked or against what.",
+        "A stale source must stop the work that depends on it before it rebuilds, and say which source is late, by how much and against what limit."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "ingestion",
+      "description": "Convert a Spark ingestion notebook into an owned dlt pipeline that lands beside the notebook's tables, reloads an already-loaded, unchanged file without duplicating, losing or changing a record beyond its load-time and bookkeeping columns, accounts for every source record and every notebook step, and is reconciled table by table with a cause for every difference.",
+      "domain_objects": [
+        "spark_notebook",
+        "dlt_pipeline",
+        "bronze_table",
+        "rejected_record",
+        "consumer_contract",
+        "reconciliation_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "add-or-update-source",
+          "discovering-source-schema",
+          "generating-dlt-pipeline",
+          "dlt-unit-testing",
+          "running-dlt-in-sandbox",
+          "ingestion-data-testing",
+          "verifying"
+        ]
+      },
+      "id": "spark-ingestion-notebook-to-dlt",
+      "job_category": "re-engineer",
+      "path": "recipes/spark-ingestion-notebook-to-dlt/recipe.md",
+      "pitch": "Turn a Spark ingestion notebook into a dlt pipeline you own, and prove table by table what it lands and why any row differs.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.",
+        "Needs the notebook's code, the tables it landed, and read access to the files it reads.",
+        "Needs a Studio route for dlt to read the notebook's source files; cloud buckets (ADLS, S3) have none today."
+      ],
+      "readiness": "supported",
+      "related": [
+        "managed-connector-to-dlt",
+        "notebook-transformation-to-dbt",
+        "api-to-bronze-incremental-contract",
+        "legacy-sql-to-dbt",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "8d9abd29201893f604be0b7fa6f8500e4493aff070faceedcb5c4494cba99546",
+      "title": "Convert a Spark ingestion notebook into a dlt pipeline and reconcile what it lands",
+      "trigger": [
+        "A Spark notebook lands raw files into bronze, and the team wants that load as tested pipeline code without keeping a cluster for it.",
+        "An ingestion notebook nobody can change safely mixes parsing, renames and deduplication in cells with no tests, and reruns surprise people.",
+        "Models read the tables a Spark notebook lands, so a replacement has to land data they can keep using and account for every difference before anyone switches."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dlt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Move a stored procedure that maintains a table run after run into dbt, with each procedural step that shapes the table mapped to a dbt equivalent and parity with the unchanged procedure shown after every compared run, procedure defects reproduced and reported, and retirement only as approved.",
+      "domain_objects": [
+        "stored_procedure",
+        "maintained_table",
+        "dbt_model",
+        "consumer_contract",
+        "step_map",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "documenting-dbt-models",
+          "verifying"
+        ]
+      },
+      "id": "stored-procedure-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/stored-procedure-to-dbt/recipe.md",
+      "pitch": "Retire a stored procedure by rebuilding it in dbt and proving the table matches after every compared run, not only at the end.",
+      "qualifiers": [
+        "Not yet assessed end to end on fabric_warehouse or redshift.",
+        "Needs the procedure's table after each compared run, from the unchanged procedure or approved snapshots.",
+        "Views and one-shot scripts that rebuild their whole output each run belong to the legacy-sql-to-dbt Recipe.",
+        "Procedures that keep row history, such as hand-rolled slowly changing dimensions, are out of scope.",
+        "Applies when the maintained table is the required outcome and all relevant behaviour is represented through its state."
+      ],
+      "readiness": "supported",
+      "related": [
+        "legacy-sql-to-dbt",
+        "dbt-full-refresh-to-incremental",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "bb5fd458e50c7d0a33c912f23018a600360cfbeb42da19534417983532c87895",
+      "title": "Convert a stored procedure into a dbt model and prove parity",
+      "trigger": [
+        "A nightly load is a stored procedure nobody fully understands, and it inserts, updates, deletes or merges rows in a table people depend on.",
+        "The team wants the procedure's logic in dbt with tests and lineage, but consumers need proof the table ends up the same after every run.",
+        "A procedure that maintains a table in place has to move into the dbt project before it can be retired."
+      ],
+      "works_with": {
+        "platforms": [
           "fabric_warehouse",
           "redshift"
         ],
