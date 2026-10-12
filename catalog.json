@@ -33,6 +33,7 @@
         "governed-spreadsheet-table",
         "identity-golden-record-crosswalk",
         "identity-standardize-names-addresses",
+        "incremental-dbt-model-with-contract",
         "legacy-sql-to-dbt",
         "logistics-fleet-utilization",
         "managed-connector-to-dlt",
@@ -54,7 +55,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 28,
+      "supported_or_proven_count": 29,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -116,6 +117,7 @@
         "fabric-data-pipeline-as-code",
         "file-drop-to-bronze",
         "governed-spreadsheet-table",
+        "incremental-dbt-model-with-contract",
         "logistics-fleet-utilization",
         "materialized-view-to-dbt",
         "metric-population-and-rollups",
@@ -156,7 +158,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 17,
+      "supported_or_proven_count": 18,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -204,6 +206,7 @@
         "event-resource-attribution",
         "file-drop-to-bronze",
         "governed-spreadsheet-table",
+        "incremental-dbt-model-with-contract",
         "logistics-fleet-utilization",
         "metric-population-and-rollups",
         "motherduck-flight-scheduling",
@@ -218,7 +221,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 15,
+      "supported_or_proven_count": 16,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -924,6 +927,56 @@
       "works_with": {
         "platforms": [
           "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Author a new incremental dbt model with an enforced output contract, then prove that a rerun and a re-delivery of records already applied leave it unchanged under the approved definition, with records the approved rules set aside kept visible.",
+      "domain_objects": [
+        "incremental_model",
+        "output_contract",
+        "delivered_record",
+        "set_aside_record",
+        "rerun_proof"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "incremental-dbt-model-with-contract",
+      "job_category": "build",
+      "path": "recipes/incremental-dbt-model-with-contract/recipe.md",
+      "pitch": "Build an incremental dbt model with an enforced contract and show that a rerun or a re-delivery of records already applied leaves it unchanged.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Needs a source that carries a key and a version or update timestamp for each record, and can be read in full.",
+        "Converting an existing full-refresh model belongs to the dbt-full-refresh-to-incremental Recipe."
+      ],
+      "readiness": "supported",
+      "sha256": "2e541c5c75dd4528ee9bab9b88e5d9fff2e98150c4ed3e8835bd0b9c30138884",
+      "title": "Author an incremental dbt model with its contract and prove idempotency",
+      "trigger": [
+        "A new dbt model must be brought up to date incrementally on each run, and nobody can show that a rerun or a re-delivery of records already applied leaves it unchanged.",
+        "Downstream consumers need a guaranteed set of columns, types and keys, and a build should fail when the output drifts from them.",
+        "A loader resends or corrects records, and the table must stay correct when the same batch is delivered twice."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
