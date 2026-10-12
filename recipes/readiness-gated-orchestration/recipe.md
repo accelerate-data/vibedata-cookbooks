@@ -25,6 +25,7 @@ qualifiers:
   - Needs each required upstream feed to expose an approved readiness signal per period.
   - Not yet assessed end to end on any listed target.
   - Needs an orchestrator that can wait for readiness, check it and fail a run.
+  - Studio's orchestration templates do not yet include a readiness gate for every listed target.
   - Checks readiness by polling within an approved window; event-triggered starts are out of scope.
 related:
   - source-freshness-sla
@@ -54,7 +55,7 @@ Author a pipeline named <pipeline_name> that builds <consumer_selection> for eac
 - A record of what was built, kept where the approved rule says, shows per period the signal versions the gate accepted, the outcome and any flags, and is not changed by rebuilding the consumer models.
 - Window, cut-off and deadline instants and the target period follow the approved business time zone and calendar, with ambiguous or skipped local times resolved as approved.
 - Everything this Recipe authors is committed; any other workload, signal or binding it needs exists and resolves, or is reported as a blocker to execution, and listing it as a deployment prerequisite does not count as verification.
-- Each deadline miss and build failure reaches the approved recipient through the approved alert, with no connection committed; delivery is reported unproven unless an approved platform run shows it.
+- Each deadline miss and build failure ends the run failed with a message naming its cause, routed to the approved alert with no connection committed; delivery is reported unproven unless deploying and running it is in scope and a platform run shows it.
 - The pipeline passes its orchestrator's validation; where deploying and running it is in scope the behaviours above are shown in platform runs, otherwise against the committed definition under the orchestrator's documented semantics, and reported unproven on the platform.
 
 ## Agent guidance
@@ -87,6 +88,6 @@ Confirm which upstream feeds the consumer build reads, what each exposes when it
 - Do not skip a period because no feed has exposed a signal for it, unless the approved calendar excludes it.
 - Do not report a run that proceeded without an optional feed as an unflagged success, or a run that missed a deadline as a success.
 - Do not change or re-run the upstream feeds' own loads; they are outside this pipeline.
-- Do not treat a feed that does not yet expose the approved signal, or a missing or unfinished workload or binding, as resolved; it blocks execution, and listing it as a deployment prerequisite is not verification.
+- Do not treat a feed for which the approved signal does not exist yet, or a missing or unfinished workload or binding, as resolved; it blocks execution, and listing it as a deployment prerequisite is not verification.
 - Do not commit workspace, item or connection identifiers, credentials or an activated schedule.
 - Do not claim runtime behaviour on the platform from static validation or a local stand-in.
