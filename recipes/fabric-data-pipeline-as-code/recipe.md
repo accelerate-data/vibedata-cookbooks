@@ -24,9 +24,9 @@ works_with:
     - dbt
 qualifiers:
   - Not yet assessed end to end on fabric_lakehouse or fabric_warehouse.
-  - Sequences loads and a dbt project already committed in the repository; it does not author them.
+  - Sequences existing loads and dbt models; it authors only the pipeline, its schedule and the items that invoke them.
   - Outside a Fabric Domain only the committed definition can be proven; running it needs a Fabric workspace.
-  - Studio has no dlt route to read source files on Fabric today; a file-based dlt load needs one before deployment.
+  - Needs a Studio route for dlt to read source files; cloud buckets (ADLS, S3) have none today.
   - Scheduling on MotherDuck belongs to motherduck-flight-scheduling.
 related:
   - motherduck-flight-scheduling
@@ -47,15 +47,15 @@ Author a Fabric Data Pipeline named <pipeline_name> that runs <loads>, then the 
 ## Verified by
 
 - The pipeline, every item it invokes and its schedule are committed as code, and no committed item holds an environment-specific workspace, item or connection id or a credential.
-- The pipeline passes the platform's static validation with no findings, and every activity that invokes an item resolves to one committed in the repository or to a target listed as a deployment prerequisite.
+- The pipeline passes static validation against the platform's pipeline schema with no findings, and every activity that invokes an item resolves to one committed in the repository or to a target listed as a deployment prerequisite.
 - Under the platform's documented dependency, retry, timeout and run-status rules, the committed definition runs steps in parallel only where approved and starts no step before those it depends on reach the state the approved routing requires.
-- Each workload step carries the approved retries, retry interval and timeout; the schedule carries the approved cadence, time and time zone; and the pipeline or its schedule carries the approved overlap behaviour.
+- Each workload step carries the approved retries, retry interval and timeout, any step not safe to retry or run alongside another is named, the schedule carries the approved cadence, time and time zone, and the pipeline or schedule carries the approved overlap behaviour.
 - Under those rules, each failure path, one or more steps failing or timing out after their retries, runs or skips exactly the approved later steps and ends with the approved run status and a message naming each failed step the approved rule says to report.
 - Under those rules, the refresh starts only after a dbt build the approved rule treats as succeeded; a build it treats as failed, such as a warn-severity test that finds rows where the rule says so, fails a step the refresh depends on, judged by the workload's own result.
-- Under those rules, the refresh step reports success only after the refresh it started completes, and a load that lands nothing is routed as approved; that the deployed items behave so is shown only by an approved Fabric run.
-- A selected model that needs a run-scoped value receives it as approved, or is left out and reported as needing its own run, with any output that reads it named; no value replays, skips or rewinds a model's state.
+- Under those rules, the refresh step succeeds only once the refresh it started completes, and an empty load is routed as approved; that deployed items behave so, and a failing workload fails its activity, is shown only where an on-demand run in an ephemeral Fabric workspace is approved.
+- A selected model that needs a run-scoped value receives it as approved, or is left out and reported as needing its own run, with any output that reads it named; any value that would replay, skip or rewind a model's state is reported and used only where approved.
 - Where an on-demand run in an ephemeral Fabric workspace is approved, each step's status, the routing and the run status there match the approved rules and each workload's own result agrees with its step; otherwise every run-time claim is reported unproven.
-- The approved notification route is committed or listed as a deployment prerequisite, with everything else deployment must supply, such as source routes, secrets and the dbt target; its delivery is reported unproven unless an approved Fabric run delivers it.
+- The approved notification route is committed or listed as a deployment prerequisite, with everything else deployment must supply, such as source routes, secrets and the dbt target; its delivery is reported unproven unless an approved on-demand run in an ephemeral Fabric workspace delivers it.
 - What the evidence cannot prove is reported, including platform behaviour shown only from documentation, and any invoked item whose code is deferred is listed as a deployment prerequisite.
 
 ## Agent guidance
@@ -76,7 +76,7 @@ Inherit the Intent's repository, platform, Domain, loads, dbt project and approv
 - If unresolved, which loads, which dbt selection and which downstream refresh does the pipeline sequence, and which steps may run in parallel?
 - If unresolved, which steps are required and which optional, what runs after each kind of failure, and what status and message does a run report when an optional step failed?
 - If unresolved, does a dbt test that only warns but finds rows fail the build and stop the downstream refresh, and does the build run when a load lands nothing?
-- If unresolved, how many retries, how far apart and what timeout apply to each step?
+- If unresolved, how many retries, how far apart and what timeout apply to each step, and is each step safe to retry or to run alongside another?
 - If unresolved, what cadence, time and time zone does the schedule use, and does a trigger that fires during a run queue, skip or start alongside it?
 - If unresolved, does a selected model need a run-scoped value such as a run date, and is it supplied by the run, derived from what has landed, or left out of this pipeline?
 - If unresolved, who is told of a failure and through what route, given that no connection or credential may be committed?
@@ -89,7 +89,7 @@ Inherit the Intent's repository, platform, Domain, loads, dbt project and approv
 - Do not commit an environment-specific workspace, item or connection id or a credential; bindings are supplied at deployment.
 - Do not deploy, activate the schedule or edit the pipeline in a workspace by hand outside an approved ephemeral run; the committed definition is the only source.
 - Do not treat static validation or a succeeded pipeline status as proof that the workloads succeeded.
-- Do not supply a run-scoped value that can replay, skip or rewind a model's state, such as a fixed default or a run-clock date that loses a missed run.
+- Do not choose or supply a run-scoped value without approval; report any value that would replay, skip or rewind a model's state.
 - Do not change the loads or dbt models the pipeline invokes; report a defect in them as follow-up work.
-- Do not let an invoked item that is not yet implemented report success; it fails until it is, and is listed as a deployment prerequisite.
+- Do not let an item the pipeline invokes report success without doing its work; an unfinished one fails and is listed as a deployment prerequisite.
 - Do not extend into deployment, environment setup, source freshness gating or another orchestrator.
