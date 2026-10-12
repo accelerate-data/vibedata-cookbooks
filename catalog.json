@@ -115,6 +115,7 @@
         "effective-dated-business-rules",
         "event-resource-attribution",
         "fabric-data-pipeline-as-code",
+        "fabric-direct-lake-semantic-model",
         "file-drop-to-bronze",
         "governed-spreadsheet-table",
         "incremental-dbt-model-with-contract",
@@ -158,7 +159,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 18,
+      "supported_or_proven_count": 19,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -704,6 +705,62 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "semantic-layer",
+      "description": "Author a Fabric Direct Lake semantic model as code over the governed gold tables, make the gold layer fit for it, define each approved KPI once as a measure, and prove its tables and relationships on the data it reads and in the platform's model parser, with each measure's expected values computed independently over gold and checked against the deployed model where deploying it is approved.",
+      "domain_objects": [
+        "semantic_model",
+        "governed_measure",
+        "dimension",
+        "date_table",
+        "gold_table",
+        "serving_table",
+        "acceptance_query"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "fabric-direct-lake-semantic-model",
+      "job_category": "build",
+      "path": "recipes/fabric-direct-lake-semantic-model/recipe.md",
+      "pitch": "Author one Direct Lake model as code over governed gold, each approved KPI defined once with independently computed expected values.",
+      "qualifiers": [
+        "Not yet assessed end to end on fabric_lakehouse or fabric_warehouse.",
+        "Needs the gold layer in a Fabric lakehouse or warehouse that Direct Lake can read through OneLake.",
+        "Studio authors the model offline; deploying it and running its acceptance queries need a Fabric workspace.",
+        "Proving the model loads needs the platform's semantic-model parser; Studio's managed runtime does not include it today.",
+        "A MetricFlow semantic model of the same metrics belongs to metricflow-semantic-model.",
+        "Reports and security roles are outside this Recipe."
+      ],
+      "readiness": "supported",
+      "related": [
+        "metric-population-and-rollups"
+      ],
+      "sha256": "147950117db3ef9029dd44bcf3eff71531ab7a3bc8b5b86775367e2989ba667e",
+      "title": "Author a Direct Lake semantic model as code over governed gold tables",
+      "trigger": [
+        "The gold marts exist and the Power BI team is about to rebuild the star schema by hand in every report.",
+        "Report authors import copies of the gold tables into each report, so data lags and each report redefines the same KPI in its own DAX.",
+        "A Direct Lake model built straight on the gold tables shows blank members, missing dates or totals that disagree with the gold layer."
+      ],
+      "works_with": {
+        "platforms": [
+          "fabric_lakehouse",
+          "fabric_warehouse"
+        ],
+        "tools": [
           "dbt"
         ]
       }
