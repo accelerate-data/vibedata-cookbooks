@@ -39,6 +39,7 @@
         "managed-connector-to-dlt",
         "master-b2b-account-hierarchy",
         "metric-population-and-rollups",
+        "metricflow-semantic-model",
         "notebook-transformation-to-dbt",
         "operational-state-duration",
         "prove-dbt-change-safe",
@@ -55,7 +56,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 29,
+      "supported_or_proven_count": 30,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -210,6 +211,7 @@
         "incremental-dbt-model-with-contract",
         "logistics-fleet-utilization",
         "metric-population-and-rollups",
+        "metricflow-semantic-model",
         "motherduck-flight-scheduling",
         "operational-state-duration",
         "prove-dbt-change-safe",
@@ -222,7 +224,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 16,
+      "supported_or_proven_count": 17,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1342,6 +1344,61 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "semantic-layer",
+      "description": "Define the approved metrics once as dbt MetricFlow semantic models over a gold fact mart, prove that the values the semantic layer returns equal an independent computation of each approved definition at the approved precision, and reconcile them to the agreed reference figures, every difference named and sized; code only, nothing published.",
+      "domain_objects": [
+        "semantic_model",
+        "governed_metric",
+        "metric_population",
+        "dimension",
+        "time_spine",
+        "metric_reconciliation"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-semantic-model",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "metricflow-semantic-model",
+      "job_category": "build",
+      "path": "recipes/metricflow-semantic-model/recipe.md",
+      "pitch": "Define each metric once, prove its numbers, and name and size every difference from the agreed reference figures.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; motherduck and redshift rely on MetricFlow support and are unassessed.",
+        "Needs MetricFlow installed where metrics are queried; Studio's managed runtime does not include it today.",
+        "Needs a gold fact mart with a declared grain; changing existing marts or building new fact marts is outside this Recipe.",
+        "Code only; publishing to a semantic-layer service or BI tool is outside this Recipe."
+      ],
+      "readiness": "supported",
+      "related": [
+        "metric-population-and-rollups"
+      ],
+      "sha256": "72476ebae26ac7200ff5e5980def2c89a6e3e85685aa4b12c97f57f726e5722b",
+      "title": "Define governed metrics as a MetricFlow semantic model over a gold mart",
+      "trigger": [
+        "Revenue or average order value means different things in different marts and dashboards, and nobody can say which number is right.",
+        "Each new report re-implements the same KPI in SQL with its own filters, and the copies drift apart.",
+        "A rate gives a different answer by day than by month because copies aggregate it differently.",
+        "Analysts need agreed metrics they can slice by agreed dimensions and periods without knowing the joins."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
           "redshift"
         ],
         "tools": [
