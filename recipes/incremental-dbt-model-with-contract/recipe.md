@@ -52,8 +52,9 @@ Author <model_name> as an incremental dbt model over <delivered_source>, so each
 - A partly overlapping batch and a re-delivered correction leave the model as if only the new and changed records had been applied.
 - A record that would change the model and arrives within the approved lateness bound is applied; one beyond it is handled as the approved policy says and stays visible.
 - A record the approved rules cannot place, such as a contract break or a tie that cannot be resolved, is handled as the approved policy says, and one set aside stays visible with a reason.
-- Every delivered record in the approved input scope is accounted for as applied, set aside with a reason, or superseded by another copy of its key; one whose key, batch, version or ordering cannot be resolved follows the approved unplaceable-record policy instead of falling outside the accounting.
-- Where the approved policy allows a full refresh, the table it gives matches what the incremental runs gave for the same landed data under unchanged rule values, and any difference is listed.
+- On a successful run, every delivered record in the approved input scope is accounted for as applied, explicitly set aside with a reason, or superseded by another copy of its key; one whose key, batch, version or ordering cannot be resolved follows the approved unplaceable-record policy.
+- Where the approved policy requires a run to fail, it fails explicitly and identifies the offending records and the reasons; the failed run need not materialize them.
+- Where the approved policy allows a full refresh, its table matches the incremental runs' table for the same landed data and unchanged rule values if the approved contract requires parity; otherwise the two are compared explicitly and each permitted difference is identified and explained.
 - What the proof cannot show is stated.
 
 ## Agent guidance
