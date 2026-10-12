@@ -23,11 +23,13 @@
         "api-to-bronze-incremental-contract",
         "bounded-partition-backfill",
         "business-event-fact",
+        "database-tables-to-bronze",
         "dbt-full-refresh-to-incremental",
         "dbt-refactor-output-identical",
         "dbt-snapshot-history",
         "effective-dated-business-rules",
         "event-resource-attribution",
+        "file-drop-to-bronze",
         "identity-golden-record-crosswalk",
         "identity-standardize-names-addresses",
         "legacy-sql-to-dbt",
@@ -42,14 +44,15 @@
         "revops-quota-commission",
         "scalar-sql-function-to-dbt-macro",
         "service-ticket-sla",
-        "shift-unit-economics"
+        "shift-unit-economics",
+        "source-freshness-sla"
       ],
       "selector": {
         "platforms_any": [
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 23,
+      "supported_or_proven_count": 26,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -105,15 +108,18 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "business-event-fact",
+        "database-tables-to-bronze",
         "effective-dated-business-rules",
         "event-resource-attribution",
         "fabric-data-pipeline-as-code",
+        "file-drop-to-bronze",
         "logistics-fleet-utilization",
         "materialized-view-to-dbt",
         "metric-population-and-rollups",
         "operational-state-duration",
         "prove-dbt-change-safe",
         "shift-unit-economics",
+        "source-freshness-sla",
         "stored-procedure-to-dbt"
       ],
       "selector": {
@@ -146,7 +152,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 12,
+      "supported_or_proven_count": 15,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -189,21 +195,24 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "business-event-fact",
+        "database-tables-to-bronze",
         "effective-dated-business-rules",
         "event-resource-attribution",
+        "file-drop-to-bronze",
         "logistics-fleet-utilization",
         "metric-population-and-rollups",
         "motherduck-flight-scheduling",
         "operational-state-duration",
         "prove-dbt-change-safe",
-        "shift-unit-economics"
+        "shift-unit-economics",
+        "source-freshness-sla"
       ],
       "selector": {
         "platforms_any": [
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 10,
+      "supported_or_proven_count": 13,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -357,6 +366,64 @@
         ],
         "tools": [
           "dbt"
+        ]
+      }
+    },
+    {
+      "area": "ingestion",
+      "description": "Build a dlt pipeline that lands a set of database tables into bronze, each loaded under its own approved strategy, with deletes and schema changes handled as approved, every run safe to repeat even after a part-way failure, and a table-by-table reconciliation of each approved run over the approved scope in which every difference found has an allowed cause.",
+      "domain_objects": [
+        "dlt_pipeline",
+        "dlt_resource",
+        "bronze_table",
+        "reconciliation_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "discovering-source-schema",
+          "generating-dlt-pipeline",
+          "dlt-unit-testing",
+          "running-dlt-in-sandbox",
+          "ingestion-data-testing",
+          "verifying"
+        ]
+      },
+      "id": "database-tables-to-bronze",
+      "job_category": "build",
+      "path": "recipes/database-tables-to-bronze/recipe.md",
+      "pitch": "Land a database's tables into bronze, each the way it changes, and reconcile each approved run against the source with a cause for every difference found.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.",
+        "Studio's source setup cannot register a sql_database connection; it is declared with approval.",
+        "Replacing an existing managed connector belongs to managed-connector-to-dlt.",
+        "Log-based CDC replication is out of scope; each run reads the source tables.",
+        "Without direct database access, loading exported files belongs to file-drop-to-bronze.",
+        "Needs read access to the source database, a key per merged table, and a change signal per incremental table."
+      ],
+      "readiness": "supported",
+      "related": [
+        "api-to-bronze-incremental-contract",
+        "managed-connector-to-dlt"
+      ],
+      "sha256": "4d1e5b07a8d9eb6bde231db215a0a89392bc2f57f345423d1d93fd722a24b77f",
+      "title": "Load a database table set into bronze with a bounded incremental strategy and landed-data proof",
+      "trigger": [
+        "An operational database's tables have to land in bronze, and reloading every table in full on each run is too slow or too heavy on the source.",
+        "The tables change in different ways (rows updated in place, append-only events, small reference tables, deleted rows), so one load strategy does not fit them all.",
+        "Downstream teams need a table-by-table reconciliation of what landed in bronze against the source database before they build on it."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dlt"
         ]
       }
     },
@@ -629,6 +696,66 @@
         "tools": [
           "dlt",
           "dbt"
+        ]
+      }
+    },
+    {
+      "area": "ingestion",
+      "description": "Build a dlt pipeline that lands a recurring file drop into bronze so a rerun over an unchanged drop duplicates no delivery's records, reports a delivery complete only when it passes the approved completeness and layout checks, keeps what fails visible with its reason, recovers a part-way failure without loss or duplication, and reports the status of every expected delivery after each run.",
+      "domain_objects": [
+        "dlt_pipeline",
+        "dlt_resource",
+        "bronze_table",
+        "rejected_records",
+        "delivery_status_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "add-or-update-source",
+          "discovering-source-schema",
+          "generating-dlt-pipeline",
+          "dlt-unit-testing",
+          "running-dlt-in-sandbox",
+          "ingestion-data-testing",
+          "verifying"
+        ]
+      },
+      "id": "file-drop-to-bronze",
+      "job_category": "build",
+      "path": "recipes/file-drop-to-bronze/recipe.md",
+      "pitch": "Land a recurring file drop into bronze so a rerun duplicates nothing, with completeness checks, a schema contract and a status for each expected delivery.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.",
+        "Needs a Studio route for dlt to read the drop; cloud buckets (ADLS, S3) have none today.",
+        "Needs each delivery to state its own completeness, such as a control file.",
+        "Covers delimited text files such as CSV; JSON, Parquet and Excel are out of scope.",
+        "Reading an API or a database belongs to api-to-bronze-incremental-contract or database-tables-to-bronze.",
+        "A hand-maintained sheet re-exported whole belongs to governed-spreadsheet-table."
+      ],
+      "readiness": "supported",
+      "related": [
+        "api-to-bronze-incremental-contract",
+        "managed-connector-to-dlt"
+      ],
+      "sha256": "00a45f2e9fb8dcd98e3d798bfb25c45b8e52f69bd3bc0412bceb12619c298432",
+      "title": "Load a recurring file drop into bronze with file-completeness and schema controls",
+      "trigger": [
+        "A partner or vendor drops files into a folder on a schedule, and bronze has to pick up each delivery without a rerun loading it twice.",
+        "Files arrive late, twice, empty, cut short or with a changed layout, and nobody finds out until a report is wrong.",
+        "Downstream teams need to know, for every delivery the team expected, whether it arrived complete before they build on it."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dlt"
         ]
       }
     },
@@ -1482,6 +1609,59 @@
         "A fleet dashboard reports revenue per shift but cannot establish whether a shift covers its applicable costs.",
         "Driver performance or vehicle economics need supported trip assignments and shared costs allocated at shift grain.",
         "Shift margins disagree with driver, vehicle or period totals, or low-exposure shifts dominate a ranking."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "data-quality",
+      "description": "Give every source table a dbt project declares a freshness limit, or a recorded exemption, and gate the builds that run the check so a source past its fail limit holds back the work the approved failure policy names before it rebuilds, with a report of each table's age, its limit and the work held back.",
+      "domain_objects": [
+        "source_freshness_sla",
+        "freshness_exemption",
+        "freshness_gate",
+        "freshness_override",
+        "freshness_coverage_report",
+        "freshness_run_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "registering-dbt-sources",
+          "authoring-dbt-project-artifact",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "source-freshness-sla",
+      "job_category": "build",
+      "path": "recipes/source-freshness-sla/recipe.md",
+      "pitch": "Give every source a freshness limit and stop stale data before downstream models rebuild on it.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Protects only work whose source is judged in the same build; how often builds run is outside this Recipe.",
+        "Each checked table needs a measurable load time, such as a landing column, a load log, table metadata or a proxy.",
+        "Gating consumer pipelines on upstream readiness belongs to the readiness-gated-orchestration Recipe."
+      ],
+      "readiness": "supported",
+      "sha256": "d2770178fb7fbd337d8f026fa873b7c6e171e3f4cffc8f054081df71daabaaa1",
+      "title": "Declare source freshness SLAs and make stale data fail before downstream work",
+      "trigger": [
+        "A load stopped and nothing failed; downstream models rebuilt on old data and the reports still looked current.",
+        "Only some sources have a freshness check, often one blanket threshold, and nobody can say which tables are checked or against what.",
+        "A stale source must stop the work that depends on it before it rebuilds, and say which source is late, by how much and against what limit."
       ],
       "works_with": {
         "platforms": [
