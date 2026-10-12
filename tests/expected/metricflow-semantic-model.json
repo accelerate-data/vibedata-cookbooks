@@ -3,8 +3,6 @@
   "platforms": [
     "duckdb_local",
     "motherduck",
-    "fabric_lakehouse",
-    "fabric_warehouse",
     "redshift"
   ]
 }

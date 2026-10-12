@@ -22,14 +22,12 @@ works_with:
   platforms:
     - duckdb_local
     - motherduck
-    - fabric_lakehouse
-    - fabric_warehouse
     - redshift
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; other listed targets rely on dbt and MetricFlow support and are unassessed.
-  - Querying metrics needs MetricFlow with a SQL engine for the target; Studio's managed runtime does not include it today.
+  - Assessed end to end on duckdb_local only; motherduck and redshift rely on MetricFlow support and are unassessed.
+  - Needs MetricFlow installed where metrics are queried; Studio's managed runtime does not include it today.
   - Needs a gold fact mart with a declared grain; changing existing marts or building new fact marts is outside this Recipe.
   - Code only; publishing to a semantic-layer service or BI tool is outside this Recipe.
 related:
@@ -47,7 +45,7 @@ evidence:
 
 ## Prompt
 
-Define <metrics> once as dbt MetricFlow semantic models over <gold_fact_mart>, so analysts can slice them by the agreed dimensions and periods without rewriting the logic. Inherit the Intent's repository, platform, Domain, marts and approved requirements, and resolve only the semantics they leave open. Deliver semantic models over the fact mart, at its own grain, that reach every dimension its metrics filter or slice by, with the time spine they need; the approved metrics, each defined once; proof that the values the semantic layer returns equal an independent computation of each approved definition, at the approved precision, at every approved grain, unsliced and by each approved slicing dimension; and a reconciliation of each metric to <reference_figures> that names and sizes every difference. Commit the definitions as code and publish nothing.
+Define <metrics> once as dbt MetricFlow semantic models over <gold_fact_mart>, so analysts can slice them by the agreed dimensions and periods without rewriting the logic. Inherit the Intent's repository, platform, Domain, marts and approved requirements, and resolve only the semantics they leave open. Deliver semantic models over the fact mart, at its own grain, that reach every dimension its metrics filter or slice by, with the time spine they need; the approved metrics, each defined once; proof that the values the semantic layer returns equal an independent computation of each approved definition, at the approved precision, at every approved grain, unsliced and by each approved slicing dimension; and a reconciliation of each metric to <reference_figures> that names and sizes every difference. Deliver the definitions as code and publish nothing.
 
 ## Verified by
 
@@ -57,13 +55,13 @@ Define <metrics> once as dbt MetricFlow semantic models over <gold_fact_mart>, s
 - Every record in the mart is accounted for in each metric as its approved population says; a record whose dimension member is missing or unresolved is shown, excluded and counted, or flagged as the approved policy says, never silently dropped by a filter or join.
 - Each record falls in the period its approved instant, time zone, day boundary, week start and calendar place it in, at every approved grain, and no record in a metric's approved population, including outliers at either end of the data, is lost because it falls outside the periods the metrics cover.
 - A cumulative or to-date metric resets and reports each period as the approved rules say, including periods with no activity and periods that cross a reset boundary.
-- Each difference from an agreed reference figure is sized, given a named cause such as population, column, window or stale data, and classed as the approved rule says, such as defect, accepted or follow-up; where the reference can be inspected the causes cover all of it, else the rest is named.
+- Each difference from an agreed reference figure is sized and classed as the approved rule says, such as defect, accepted or follow-up; where the reference can be inspected, named causes such as population, column, window or stale data cover all of it, else the rest is sized and named unexplained.
 
 ## Agent guidance
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, marts and approved requirements, and resolve only the semantics they leave open. Confirm the fact mart's declared grain, the columns and flags each population rule can draw on, the conformed dimensions with their versioning, and the dates the mart holds, including outliers. Profile how many records each candidate rule would move, such as unmapped members, refunds or records outside a window, and agree the definitions still open with the user. Then author semantic models over the fact mart that reach every dimension its metrics filter or slice by, the approved metrics, and a time spine covering every period the metrics report. Query the metrics through the semantic layer and compare them with an independent computation of each approved definition. Reconcile each metric to the agreed reference figures, and report any difference the existing marts should address as follow-up work.
+Inherit the Intent's repository, platform, Domain, marts and approved requirements, and resolve only the semantics they leave open. Confirm the fact mart's declared grain, the columns and flags each population rule can draw on, the conformed dimensions with their versioning, and the dates the mart holds, including outliers. Profile how many records each candidate rule would move, such as unmapped members, refunds or records outside a window, and agree the definitions still open with the user. Then author semantic models over the fact mart that reach every dimension its metrics filter or slice by, the approved metrics, and a time spine covering every period the metrics report. Query the metrics through the semantic layer and compare them with an independent computation of each approved definition. Reconcile each metric to the agreed reference figures, class each difference as the approved rule says, and report any change the existing marts would need as work outside this Recipe.
 
 ### Compose
 
@@ -90,6 +88,6 @@ Inherit the Intent's repository, platform, Domain, marts and approved requiremen
 - Do not choose or apply a metric definition, population, ratio rule, period rule or unresolved-member policy without approval; explain the alternatives if asked.
 - Do not let a filter or join on a dimension attribute drop records whose member is missing or unresolved unless the approved policy excludes and counts them.
 - Do not treat an existing published figure as ground truth, and do not change an existing mart to make the numbers agree; report the difference, sized, with its cause where it can be found.
-- Do not join a dimension unless each fact record matches at most one of its rows under the approved version rule; a fan-out multiplies every metric sliced by it.
-- Do not leave a second governed copy of a metric beside the semantic definitions, such as a new mart column or report formula, or redefine the mart's grain.
+- Do not join a dimension unless each fact record matches at most one of its rows under the approved version rule; a fan-out inflates or distorts every metric sliced or filtered by it.
+- Do not add a second governed copy of a metric beside the semantic definitions, such as a new mart column or report formula, or redefine the mart's grain.
 - Do not extend into changing existing marts or building new fact marts, publishing to a semantic-layer service or BI tool, or authoring a native BI semantic model.
