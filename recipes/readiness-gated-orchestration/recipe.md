@@ -5,7 +5,7 @@ trigger:
   - A consumer build runs at a fixed time and, on runs where an upstream load is late, builds on partial data without anyone noticing.
   - The schedule was pushed later to be safe, so in an ordinary period the consumers wait hours for no reason.
   - Several upstream teams land data at different times, and the build must start only when the feeds it needs are ready, and fail loudly when one misses its deadline.
-description: Author a consumer pipeline as committed code that starts each period's build only when the required upstream feeds meet the approved readiness signal, handles missed, late and republished periods as the approved rules say, and fails explicitly without building when a required feed misses its deadline.
+description: Author a consumer pipeline as committed code that starts each period's build only when the required upstream feeds meet the approved readiness signal, handles missed, late and restated periods as the approved rules say, and fails explicitly without building when a required feed misses its deadline.
 pitch: Start the build when the data is ready, not when the clock says so, and fail loudly instead of building on partial data.
 job_category: build
 area: orchestration
@@ -49,10 +49,10 @@ Author a pipeline named <pipeline_name> that builds <consumer_selection> for eac
 - A required feed not ready by the approved deadline produces an explicit failure whose message names each late feed, the period and the last status seen; no build runs for that period, and later periods are held or built as the approved rule says.
 - A required feed that exposes no signal for a period is treated as not ready, so the period reaches its deadline rather than being skipped, unless the approved calendar excludes it.
 - Pending periods are caught up, ordered and held back as the approved catch-up rule says; no period is skipped unless that rule allows it.
-- A newer readiness signal for a period already built is handled as the approved restatement rule says, and every rebuild records the versions it replaced; a republished identical signal changes nothing.
+- Where automatic restatement is required, a change to a built period is detected through the approved change identifier and rebuilt as the approved rule says, recording the identifiers replaced; without such an identifier, automatic restatement detection is reported unproven.
 - An optional feed not ready by its approved cut-off is handled as the approved policy says and reported with the flag it names, never as an unflagged success.
 - A failed consumer build is reported failed with its cause, is not counted as built, and is retried as the approved rule says; overlapping runs follow the approved rule and never build one period twice at once.
-- A record of what was built, kept where the approved rule says, shows per period the signal versions the gate accepted, the outcome and any flags, and is not changed by rebuilding the consumer models.
+- A record of what was built, kept where the approved rule says, shows per period the readiness evidence the gate accepted (with the approved change identifiers where they exist), the outcome and any flags, and is not changed by rebuilding the consumer models.
 - Window, cut-off and deadline instants and the target period follow the approved business time zone and calendar, with ambiguous or skipped local times resolved as approved.
 - Everything this Recipe authors is committed; any other workload, signal or binding it needs exists and resolves, or is reported as a blocker to execution, and listing it as a deployment prerequisite does not count as verification.
 - Each deadline miss and build failure ends the run failed with a message naming its cause, routed to the approved alert with no connection committed; delivery is reported unproven unless deploying and running it is in scope and a platform run shows it.
@@ -78,13 +78,14 @@ Confirm which upstream feeds the consumer build reads, what each exposes when it
 - If unresolved, ask when checking starts, how often readiness is checked, the deadline for required feeds and any cut-off for optional ones, whether a feed ready exactly at the deadline counts, the time zone, and how ambiguous or skipped local times resolve.
 - If unresolved, ask which period a run targets, which calendar defines periods, whether missed periods are caught up and in what order, where the first period comes from on a fresh deployment, and where the record of what was built is kept.
 - If unresolved, ask what happens to later periods when a period misses its deadline or its build fails, and when a failed build is retried.
-- If unresolved, ask what a newer signal for a period already built means (which statuses count as a restatement), and whether overlapping runs wait, are skipped or fail.
+- If unresolved, ask whether a change to a period already built must trigger a rebuild, which observable change identifier marks it (a publication revision, load ID, source snapshot or reliable fingerprint) and which statuses count, and whether overlapping runs wait, are skipped or fail.
 - If unresolved, ask who is alerted when a deadline passes or a build fails, through which platform alert, and whether deploying and running the pipeline is in scope or only authoring and validating it.
 
 ### Guardrails
 
 - Do not start a build on a schedule alone; a clock may only open the readiness window.
 - Do not choose readiness signals, deadlines, cut-offs, check intervals, catch-up order, retry or restatement rules without approval.
+- Do not invent version lineage; where no approved change identifier exists, report that automatic restatement detection cannot be proven.
 - Do not skip a period because no feed has exposed a signal for it, unless the approved calendar excludes it.
 - Do not report a run that proceeded without an optional feed as an unflagged success, or a run that missed a deadline as a success.
 - Do not change or re-run the upstream feeds' own loads; they are outside this pipeline.
