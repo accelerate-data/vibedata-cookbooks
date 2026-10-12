@@ -52,7 +52,7 @@ Author <model_name> as an incremental dbt model over <delivered_source>, so each
 - A partly overlapping batch and a re-delivered correction leave the model as if only the new and changed records had been applied.
 - A record that would change the model and arrives within the approved lateness bound is applied; one beyond it is handled as the approved policy says and stays visible.
 - A record the approved rules cannot place, such as a contract break or a tie that cannot be resolved, is handled as the approved policy says, and one set aside stays visible with a reason.
-- Every delivered record whose batch has arrived and can be identified is accounted for as applied, set aside with a reason, or superseded by another copy of its key.
+- Every delivered record in the approved input scope is accounted for as applied, set aside with a reason, or superseded by another copy of its key; one whose key, batch, version or ordering cannot be resolved follows the approved unplaceable-record policy instead of falling outside the accounting.
 - Where the approved policy allows a full refresh, the table it gives matches what the incremental runs gave for the same landed data under unchanged rule values, and any difference is listed.
 - What the proof cannot show is stated.
 
@@ -77,7 +77,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - If unresolved, how late can a record arrive and measured from what, and what happens to one beyond that bound: applied, set aside or flagged, even when it would not change the model anyway?
 - If unresolved, what does the first run load, when is a full refresh allowed, and must it reproduce exactly what the incremental runs produced?
 - If unresolved, which columns, types, nullability and unique key does the contract guarantee, what happens when the source adds, drops or retypes a column, and who owns that change?
-- If unresolved, what happens to a record that breaks the contract, repeats within one batch with differing content, or cannot be ordered: fail the run, set it aside or load it flagged?
+- If unresolved, what happens to a record that breaks the contract, repeats within one batch with differing content, or whose key, batch, version or ordering cannot be resolved: fail the run, set it aside or load it flagged?
 - If unresolved, what does unchanged mean after a rerun: rows, values, column names, order, types and any bookkeeping column, and to what precision are decimals compared?
 - If unresolved, which replays must be proven, can the source delete or cancel a record and how is that shown, and can a rule value such as the lateness bound change after rows are applied?
 
