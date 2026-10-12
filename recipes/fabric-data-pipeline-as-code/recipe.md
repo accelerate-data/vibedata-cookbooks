@@ -56,7 +56,7 @@ Author a Fabric Data Pipeline named <pipeline_name> that runs <loads>, then the 
 - Under those rules, the refresh step succeeds only once the refresh it started completes, and an empty load is routed as approved; that deployed items behave so, and a failing workload fails its activity, is shown only where an on-demand run in an ephemeral Fabric workspace is approved.
 - A selected model that needs a run-scoped value receives it as approved, or is left out and reported as needing its own run, with any output that reads it named; any value that would replay, skip or rewind a model's state is reported and used only where approved.
 - Where an on-demand run in an ephemeral Fabric workspace is approved, each step's status, the routing and the run status there match the approved rules and each workload's own result agrees with its step; otherwise every run-time claim is reported unproven.
-- The approved notification route is committed or listed as a deployment prerequisite, with everything else deployment must supply, such as source routes, secrets and the dbt target; its delivery is reported unproven unless an approved on-demand run in an ephemeral Fabric workspace delivers it.
+- The approved notification route is committed without its connection; that connection and the other bindings deployment supplies (source routes, secrets, the dbt target) are reported as unverified inputs, and delivery stays unproven unless an approved ephemeral Fabric run delivers it.
 - What the evidence cannot prove is reported, including platform behaviour shown only from documentation.
 
 ## Agent guidance
