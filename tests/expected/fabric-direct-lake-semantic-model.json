@@ -1,0 +1,7 @@
+{
+  "readiness": "supported",
+  "platforms": [
+    "fabric_lakehouse",
+    "fabric_warehouse"
+  ]
+}
