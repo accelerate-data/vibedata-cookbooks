@@ -674,11 +674,12 @@
     },
     {
       "area": "orchestration",
-      "description": "Author a Fabric Data Pipeline and its schedule as committed code that runs ingestion, the dbt job and a downstream step in order, validate its dependency graph statically, run it once on demand, and document its schedule and dependency order.",
+      "description": "Author a Fabric Data Pipeline and its schedule as committed code that runs the approved loads, the dbt build and a downstream refresh in order under approved failure, retry and overlap rules, prove its order and failure paths against the committed definition, and run it where an ephemeral Fabric run is approved.",
       "domain_objects": [
         "fabric_data_pipeline",
         "dbt_job",
-        "schedule"
+        "schedule",
+        "pipeline_activity"
       ],
       "evidence": {
         "evals": [],
@@ -692,13 +693,25 @@
       "id": "fabric-data-pipeline-as-code",
       "job_category": "build",
       "path": "recipes/fabric-data-pipeline-as-code/recipe.md",
-      "pitch": "Turn a clicked-together Fabric pipeline into committed code that runs ingestion, dbt and the downstream refresh in order.",
+      "pitch": "Turn a clicked-together Fabric pipeline into committed code whose order, failure rules and schedule are proven against its definition.",
+      "qualifiers": [
+        "Not yet assessed end to end on fabric_lakehouse or fabric_warehouse.",
+        "Sequences existing loads and dbt models; it authors only the pipeline, its schedule and the items that invoke them.",
+        "Outside a Fabric Domain only the committed definition can be proven; running it needs a Fabric workspace.",
+        "Needs a Studio route for dlt to read source files; cloud buckets (ADLS, S3) have none today.",
+        "Scheduling on MotherDuck belongs to motherduck-flight-scheduling."
+      ],
       "readiness": "supported",
-      "sha256": "29159f5e5339cf756b3c72510ab2f4b4c1f5953f6fce83186404af7042b522ef",
+      "related": [
+        "motherduck-flight-scheduling",
+        "source-freshness-sla"
+      ],
+      "sha256": "a6dd50de9703eeb51d41993e71aa733745867bd9d9f2828a9d4d3afb2812dbbc",
       "title": "Author a Fabric Data Pipeline that sequences ingestion, dbt, and downstream refresh as committed code",
       "trigger": [
-        "A Fabric Data Pipeline was built by clicking and lives only in the workspace.",
-        "Ingestion, the dbt build and a downstream refresh have to run in order on a schedule in Fabric."
+        "The nightly loads, the dbt build and the report refresh are run by hand or live only as a pipeline clicked together in the workspace.",
+        "Nobody can say what happens to the dbt build and the report refresh when one load fails, times out or is retried.",
+        "Production runs on Fabric, and the sequence, its retries and its schedule have to be reviewed and deployed from the repository."
       ],
       "works_with": {
         "platforms": [
