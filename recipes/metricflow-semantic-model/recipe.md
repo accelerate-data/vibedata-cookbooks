@@ -51,13 +51,13 @@ Define <metrics> once as dbt MetricFlow semantic models over <gold_fact_mart>, s
 
 ## Verified by
 
-- Each approved metric is defined once, in the semantic definitions, with the approved definition, and every metric that uses a population rule applies it identically; the mart's grain is not redefined and no existing mart is changed to make a metric work.
-- For every approved metric at every approved grain, unsliced and by each approved slicing dimension, the value the semantic layer returns equals an independent computation of the approved definition from the mart, at the approved precision.
-- Each ratio is formed as the approved rule says, its numerator and denominator cover the records that rule names, and a zero denominator shows as the approved rule says, never as zero unless that rule says so.
+- Each approved metric is defined once in the semantic definitions with its approved definition, name and description; a shared population rule applies identically, read from flags or master data where so approved; no existing mart is changed and the mart's grain is not redefined.
+- For every approved metric at every approved grain, unsliced and by each approved slicing dimension, the value the semantic layer returns equals an independent computation of the approved definition from the mart, at the approved precision, using the dimension version the approved rule names.
+- Each ratio is formed as the approved rule says, its numerator and denominator cover the records that rule names, a record missing a value a metric uses is handled as the approved rule says, and a zero denominator shows as approved, never as zero unless the rule says so.
 - Every record in the mart is accounted for in each metric as its approved population says; a record whose dimension member is missing or unresolved is shown, excluded and counted, or flagged as the approved policy says, never silently dropped by a filter or join.
 - Each record falls in the period its approved instant, time zone, day boundary, week start and calendar place it in, at every approved grain, and no record in a metric's approved population, including outliers at either end of the data, is lost because it falls outside the periods the metrics cover.
 - A cumulative or to-date metric resets and reports each period as the approved rules say, including periods with no activity and periods that cross a reset boundary.
-- Each difference from an agreed reference figure is sized and attributed to a named cause, such as population, column, averaging or window; where the reference's logic or detail can be inspected the causes account for all of it, else the remainder is stated; stale figures are named as such.
+- Each difference from an agreed reference figure is sized, given a named cause such as population, column, window or stale data, and classed as the approved rule says, such as defect, accepted or follow-up; where the reference can be inspected the causes cover all of it, else the rest is named.
 
 ## Agent guidance
 
@@ -83,12 +83,13 @@ Inherit the Intent's repository, platform, Domain, marts and approved requiremen
 - If unresolved, what resets each cumulative or to-date metric, does a coarser period report its last or first value, and does a period with no activity carry a value?
 - If unresolved, which dimensions may slice each metric, which version of a changing dimension applies, and is a record whose member is missing or unresolved shown under an explicit member, excluded and counted, or flagged?
 - If unresolved, which agreed reference figures, from existing marts or reports and over which window, must the metrics reconcile to, and is each difference a defect, an accepted definition difference or a follow-up?
-- If unresolved, which names, descriptions and synonyms are official, who owns each metric, and should repointing existing marts to the metrics be listed as follow-up?
+- If unresolved, which metric names and descriptions are official?
 
 ### Guardrails
 
 - Do not choose or apply a metric definition, population, ratio rule, period rule or unresolved-member policy without approval; explain the alternatives if asked.
 - Do not let a filter or join on a dimension attribute drop records whose member is missing or unresolved unless the approved policy excludes and counts them.
 - Do not treat an existing published figure as ground truth, and do not change an existing mart to make the numbers agree; report the difference, sized, with its cause where it can be found.
+- Do not join a dimension unless each fact record matches at most one of its rows under the approved version rule; a fan-out multiplies every metric sliced by it.
 - Do not leave a second governed copy of a metric beside the semantic definitions, such as a new mart column or report formula, or redefine the mart's grain.
 - Do not extend into changing existing marts or building new fact marts, publishing to a semantic-layer service or BI tool, or authoring a native BI semantic model.
