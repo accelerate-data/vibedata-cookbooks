@@ -125,6 +125,7 @@
         "metric-population-and-rollups",
         "operational-state-duration",
         "prove-dbt-change-safe",
+        "readiness-gated-orchestration",
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
@@ -160,7 +161,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 19,
+      "supported_or_proven_count": 20,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -215,6 +216,7 @@
         "motherduck-flight-scheduling",
         "operational-state-duration",
         "prove-dbt-change-safe",
+        "readiness-gated-orchestration",
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt"
@@ -224,7 +226,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 17,
+      "supported_or_proven_count": 18,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1591,6 +1593,57 @@
           "fabric_lakehouse",
           "fabric_warehouse",
           "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "orchestration",
+      "description": "Author a consumer pipeline as committed code that starts each period's build only when the required upstream feeds meet the approved readiness signal, handles missed, late and restated periods as the approved rules say, and fails explicitly without building when a required feed misses its deadline.",
+      "domain_objects": [
+        "orchestration_pipeline",
+        "readiness_signal",
+        "schedule"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "generating-orchestration",
+          "evaluating-orchestration",
+          "running-orchestration-in-sandbox",
+          "documenting-orchestration"
+        ]
+      },
+      "id": "readiness-gated-orchestration",
+      "job_category": "build",
+      "path": "recipes/readiness-gated-orchestration/recipe.md",
+      "pitch": "Start the build when the data is ready, not when the clock says so, and fail loudly instead of building on partial data.",
+      "qualifiers": [
+        "Needs each required upstream feed to expose an approved readiness signal per period.",
+        "Not yet assessed end to end on any listed target.",
+        "Needs an orchestrator that can wait for readiness, check it and fail a run.",
+        "Studio's orchestration templates do not yet include a readiness gate for every listed target.",
+        "Checks readiness by polling within an approved window; event-triggered starts are out of scope."
+      ],
+      "readiness": "supported",
+      "related": [
+        "source-freshness-sla",
+        "fabric-data-pipeline-as-code"
+      ],
+      "sha256": "2321f0d983a7055f30ef9878bca29d20965e09778b216a53c1fc2432d2afc504",
+      "title": "Gate a consumer pipeline on upstream data readiness instead of a clock",
+      "trigger": [
+        "A consumer build runs at a fixed time and, on runs where an upstream load is late, builds on partial data without anyone noticing.",
+        "The schedule was pushed later to be safe, so in an ordinary period the consumers wait hours for no reason.",
+        "Several upstream teams land data at different times, and the build must start only when the feeds it needs are ready, and fail loudly when one misses its deadline."
+      ],
+      "works_with": {
+        "platforms": [
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse"
         ],
         "tools": [
           "dbt"
