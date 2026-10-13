@@ -30,6 +30,8 @@
         "effective-dated-business-rules",
         "event-resource-attribution",
         "file-drop-to-bronze",
+        "finance-ar-aging-dso",
+        "finance-gl-subledger-tieout",
         "governed-spreadsheet-table",
         "identity-golden-record-crosswalk",
         "identity-standardize-names-addresses",
@@ -56,7 +58,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 30,
+      "supported_or_proven_count": 32,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -118,12 +120,15 @@
         "fabric-data-pipeline-as-code",
         "fabric-direct-lake-semantic-model",
         "file-drop-to-bronze",
+        "finance-ar-aging-dso",
+        "finance-gl-subledger-tieout",
         "governed-spreadsheet-table",
         "incremental-dbt-model-with-contract",
         "logistics-fleet-utilization",
         "materialized-view-to-dbt",
         "metric-population-and-rollups",
         "operational-state-duration",
+        "pii-classification-and-masking",
         "prove-dbt-change-safe",
         "readiness-gated-orchestration",
         "shift-unit-economics",
@@ -161,7 +166,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 20,
+      "supported_or_proven_count": 23,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -208,6 +213,8 @@
         "effective-dated-business-rules",
         "event-resource-attribution",
         "file-drop-to-bronze",
+        "finance-ar-aging-dso",
+        "finance-gl-subledger-tieout",
         "governed-spreadsheet-table",
         "incremental-dbt-model-with-contract",
         "logistics-fleet-utilization",
@@ -226,7 +233,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 18,
+      "supported_or_proven_count": 20,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -839,6 +846,123 @@
         ],
         "tools": [
           "dlt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For each approved as-of date, list every in-scope receivable open on that date with its open amount, days past due and aging bucket, total it at the approved grain, and compute DSO under the user's approved rules, while every record that cannot be processed stays visible, as an exception or in an explicit run failure, so no amount is lost, counted twice or settled early.",
+      "domain_objects": [
+        "accounts_receivable",
+        "invoice",
+        "credit_memo",
+        "payment",
+        "cash_application",
+        "aging_bucket",
+        "days_sales_outstanding",
+        "receivables_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "finance-ar-aging-dso",
+      "job_category": "build",
+      "path": "recipes/finance-ar-aging-dso/recipe.md",
+      "pitch": "Rebuild aged receivables and DSO for each approved as-of date from dated receivable documents, payments and, where recorded, cash applications.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Settling as of a past date needs dated cash applications, or an approved rule linking payments to documents.",
+        "Reproducing results as known on a past date needs entry timestamps or kept snapshots of the results.",
+        "Stops at aging and DSO; collections, disputes and bad-debt provisioning are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "dbt-snapshot-history"
+      ],
+      "sha256": "374fb410351e37aa8bd99270a3ef8f9aa4a79b7542c9b1a0c83201566a1083a7",
+      "title": "Age receivables and compute DSO from open invoices as of any chosen date",
+      "trigger": [
+        "Finance needs the aged receivables report and DSO for a past month or quarter end, but the receivables system only shows what is open today.",
+        "The aging report and DSO are rebuilt by hand in a spreadsheet each month, and their totals never quite agree with the open invoices.",
+        "An auditor asks what was open at a past date and how overdue it was, and someone has to rebuild the answer by hand."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "At the approved reconciliation grain, including legal entity and currency where relevant, set the general-ledger balance beside its subledger balance, explain the difference as breaks classed under approved rules, leave any residual visible as unexplained, and keep unprocessable records visible as exceptions, so no amount is lost, counted twice or absorbed.",
+      "domain_objects": [
+        "general_ledger",
+        "journal_line",
+        "subledger_document",
+        "control_account",
+        "reconciliation_break",
+        "reconciliation_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "finance-gl-subledger-tieout",
+      "job_category": "build",
+      "path": "recipes/finance-gl-subledger-tieout/recipe.md",
+      "pitch": "Reconcile every control account to its subledger with each break classified and nothing quietly absorbed.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Linking breaks to documents needs a document reference on ledger lines or an approved matching rule.",
+        "Reproducing a past tie-out after rule or source changes needs kept history of the tie-out.",
+        "Stops at the classified tie-out; correcting postings, sign-off and close packs are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "effective-dated-business-rules",
+        "dbt-snapshot-history"
+      ],
+      "sha256": "bf5b0d47cfed9049b65722ff88329d0acce795b94f661c491432b8e33dab69a1",
+      "title": "Tie the general ledger to its subledgers and classify every break",
+      "trigger": [
+        "Month-end close stalls because control accounts do not agree with their subledgers and the difference is worked out by hand in a spreadsheet.",
+        "The controller will not sign off until every control-account difference is explained, from late postings to manual journals, with nothing left unexplained.",
+        "An auditor asks why a control account differed from its subledger at a past period end, and someone has to rebuild the explanation by hand."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
         ]
       }
     },
@@ -1548,6 +1672,62 @@
           "duckdb_local",
           "motherduck",
           "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "governance-cost",
+      "description": "Classify every column of the governed relations as a kind of personal data or as not personal, serve a lower-privilege audience each kind masked as approved, limit that audience to the approved access, prove the masked outputs correct whether or not grants are applied, and, where applying the grants is approved, verify each role's effective access, including whether clear values can be recovered.",
+      "domain_objects": [
+        "personal_data_classification",
+        "masking_treatment",
+        "access_role",
+        "masked_column",
+        "discovery_candidate"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "pii-classification-and-masking",
+      "job_category": "build",
+      "path": "recipes/pii-classification-and-masking/recipe.md",
+      "pitch": "Classify personal data by column, mask it by kind for a lower-privilege audience, and verify that audience's access where grants are applied.",
+      "qualifiers": [
+        "Not yet assessed end to end on fabric_warehouse or redshift.",
+        "Needs database roles and per-object grants on the target; DuckDB and MotherDuck have neither.",
+        "Applying the roles and grants and running the role checks need a live warehouse and approval to change access.",
+        "Fabric Lakehouse is excluded because its SQL endpoint grants do not govern OneLake or Spark reads.",
+        "Assumes the lower-privilege audience has no storage-level read path that bypasses database grants.",
+        "Finds personal data inside free text only as far as the approved discovery rules reach.",
+        "Row-level security, sensitivity labels, encryption, erasure and access auditing are outside this Recipe."
+      ],
+      "readiness": "supported",
+      "related": [
+        "identity-standardize-names-addresses",
+        "identity-golden-record-crosswalk"
+      ],
+      "sha256": "f6bce8f88d2a8d8d645888ded954f3de84baf5951eea983263d70366bd6da19e",
+      "title": "Tag personal-data columns, mask them by kind for a lower-privilege audience and prove the masked outputs",
+      "trigger": [
+        "Analysts need tables that carry names, addresses, emails, phone numbers or ID numbers they must not see.",
+        "Nobody can say which published columns hold personal data, so a new column can leak it unnoticed.",
+        "An auditor asks to see exactly what a lower-privilege user can read, and whether the clear values can be reached another way."
+      ],
+      "works_with": {
+        "platforms": [
           "fabric_warehouse",
           "redshift"
         ],
