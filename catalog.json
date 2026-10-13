@@ -1547,10 +1547,11 @@
     },
     {
       "area": "orchestration",
-      "description": "Author a MotherDuck Flight as committed code that runs a dlt load and then a dbt build in order on a schedule, with every credential declared as a secret, and prove one on-demand run succeeded on the workload's own result as well as the Flight's status.",
+      "description": "Author a MotherDuck Flight as committed code that runs the approved load and then the dbt build of an approved selection on a schedule, under approved failure, recovery and overlap rules, prove its order, failure paths and carried project against the committed program, and run it in a MotherDuck sandbox where approved.",
       "domain_objects": [
         "motherduck_flight",
-        "schedule"
+        "schedule",
+        "flight_secret"
       ],
       "evidence": {
         "evals": [],
@@ -1564,13 +1565,27 @@
       "id": "motherduck-flight-scheduling",
       "job_category": "build",
       "path": "recipes/motherduck-flight-scheduling/recipe.md",
-      "pitch": "Replace the laptop cron with a committed MotherDuck Flight that loads and builds on a schedule.",
+      "pitch": "Replace the laptop cron with a committed MotherDuck Flight that loads, builds and fails loudly on a schedule.",
+      "qualifiers": [
+        "Not yet assessed end to end on motherduck.",
+        "Schedules the load and build on MotherDuck only; local DuckDB has no scheduler.",
+        "The dbt project the Flight carries must fit MotherDuck's Flight source-code size limit.",
+        "A schedule only runs on a MotherDuck plan that offers scheduled Flight runs.",
+        "The load must reach its source from the Flight runtime, with credentials held as Flight secrets.",
+        "Scheduling on Fabric belongs to fabric-data-pipeline-as-code."
+      ],
       "readiness": "supported",
-      "sha256": "eb9c19cf1ca5f56065b6bec12e3bd27f8dad141def591983d47ac4abe3cd3df7",
+      "related": [
+        "fabric-data-pipeline-as-code",
+        "readiness-gated-orchestration",
+        "source-freshness-sla"
+      ],
+      "sha256": "44c9988f3abc94bbc6ce8da63be2c243e268ff634928c505f5050d71c98d08d0",
       "title": "Schedule a dlt load and a dbt build on MotherDuck as a committed MotherDuck Flight",
       "trigger": [
-        "The MotherDuck load and build run from a cron job on someone's laptop.",
-        "A dlt load and a dbt build on MotherDuck have to run in order on a schedule without standing up an orchestrator."
+        "The MotherDuck load and the dbt build that follows it run from a cron job on someone's laptop.",
+        "A dlt load and a dbt build on MotherDuck have to run in order on a schedule without standing up an orchestrator.",
+        "A scheduled run reports success while the load or the build behind it actually failed."
       ],
       "works_with": {
         "platforms": [
