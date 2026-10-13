@@ -35,6 +35,8 @@ qualifiers:
   - Reproducing results as known on a past date needs entry timestamps or kept snapshots of the results.
   - Stops at aging and its roll-forward; duplicate detection, payment runs and ledger tie-out are separate.
 related:
+  - finance-ar-aging-dso
+  - finance-gl-subledger-tieout
   - dbt-snapshot-history
 evidence:
   features:
@@ -54,18 +56,18 @@ Build <aging_detail_model>, <supplier_aging_model>, <supplier_summary_model>, <r
 
 ## Verified by
 
-- On a run that completes, for each as-of date, every in-scope bill in payables by then under the approved rule, still owing and not excluded as an exception appears once, at its amount less approved settlements; nothing effective, or if computed as known entered, after it changes the result.
+- On a run that completes, for each as-of date, every in-scope bill in payables by then under the approved rule, still owing and not excluded as an exception appears once, at its amount less approved settlements; no record effective, or if computed as known entered, after it changes the result.
 - Days past due and the aging bucket follow the approved basis, terms, hold rule, bucket bounds and precision, including bills due exactly on the as-of date and those on each side of every bucket edge.
 - Partial settlements, discounts taken, write-offs, voided payments and over-applications are applied as the approved rules say; a voided or reversed payment never leaves credit available that the approved rules do not allow.
 - Holds are reported as the approved rules say, including holds starting or released on the as-of date, and never change a bill's amount or appear twice.
 - On a run that completes, per as-of date, every amount of each in-scope bill, credit, payment, application and hold effective by it (and, if computed as known, entered by it) or undated lands once: open, settled, unapplied credit or left out as approved, or excluded as an exception.
-- On a run that completes, at the approved grain (entity and currency where relevant), valid aged items less settlements equal the open detail, and its bucket totals plus any held amount kept out of buckets; unapplied credit ties to valid credits and payments net of reversals and applications.
-- On a run that completes, each as-of date's total equals the previous date's (for the first, the approved opening) plus the approved movement classes since, including amounts entering or leaving exceptions, on the same time basis and grain; each supplier with a non-zero balance or movement is shown.
+- On a run that completes, at the approved grain (entity and currency where relevant), valid aged items less settlements equal the open detail and its bucket totals plus any held amount outside buckets; any unapplied credit shown ties to valid credits and payments net of reversals and applications.
+- On a run that completes, each as-of date's total equals the previous date's (for the first, the approved opening) plus the approved movement classes since, including amounts entering or leaving exceptions, on the same time basis and grain; suppliers are shown as the approved row rule says.
 - Entities and currencies are never netted together unless an approved consolidation or translation rule is stated, and the totals reconcile under that rule.
 - On a run that completes, every unprocessable record is listed with its reasons under the approved exception grain, its effect follows the approved policy, and it is counted on its supplier at the approved grain, or as unattributed, appearing in summaries as the row rule says.
 - Where the approved policy fails the run on an unprocessable record, the run fails explicitly and names each offending record with its reason.
 - On a run that completes, balances, movements, exceptions and completeness roll up to the same approved grain, and each output is unique on its declared business grain with required fields populated.
-- The outcome states which exceptions remain open and what the inputs cannot prove, such as whether backdated entries restate past results or whether the records reach back far enough for the first date's opening.
+- The outcome states which exceptions remain open and what the inputs cannot prove, such as whether backdated entries or later rule changes restate past results, or whether the records reach back far enough for the first date's opening.
 
 ## Agent guidance
 
@@ -91,7 +93,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - If unresolved, is age measured from the due date or the bill date, how is the due date set, which aging buckets apply with which inclusive edges, and at what precision?
 - If unresolved, what does a hold do (stay aged and flagged, leave the buckets, or pause the age), when is a bill on hold on an as-of date, and which reason is shown when several holds apply?
 - If unresolved, what identifies a bill, what counts as an exact repeat of that identity, and which copy, if any, is aged?
-- If unresolved, which as-of dates are reported, are results computed from business dates or as known on each date using entry timestamps, and what does the roll-forward open from on the first date: zero, or an approved opening balance?
+- If unresolved, which as-of dates are reported, are results computed from business dates or as known on each date, which movement classes explain the roll-forward (including any translation difference), and what does it open from on the first date: zero, or approved opening open items?
 - If unresolved, which records cannot be processed, one row per reason or one primary reason, which supplier (and entity and currency where relevant) each is reported on, is it excluded with a visible count or does it fail the run, and which suppliers get a summary row?
 
 ### Guardrails
