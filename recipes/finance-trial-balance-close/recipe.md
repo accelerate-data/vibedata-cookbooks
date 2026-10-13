@@ -5,8 +5,8 @@ trigger:
   - The close pack is rebuilt by hand every period and last quarter's trial balance cannot be reproduced as it was when the period closed.
   - Auditors ask what a closed period showed at its hard close and whether anything was posted into it afterwards.
   - Controllers need the journals posted after the soft close listed, and a hard stop when a closed period changes.
-description: Build the trial balance by account and fiscal period with opening, debits, credits and closing, roll it up to statement lines, list late postings and invalid journals, and record each period at hard close so any later change to it is handled as the approved lock policy says.
-pitch: Rebuild the trial balance and close pack from the ledger every period, with closed periods locked and every journal accounted for.
+description: Build the trial balance by account and fiscal period, plus entity and currency where more than one is in scope, with opening, debits, credits and closing, roll it up to statement lines, list late postings and invalid journals, and record each period's state at or after its hard close so any later change to it is handled as the approved lock policy says.
+pitch: Rebuild the trial balance and close pack every period, with closed periods recorded, later changes caught and every journal accounted for.
 job_category: build
 area: transformation
 readiness: supported
@@ -32,7 +32,7 @@ works_with:
 qualifiers:
   - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Detecting a change to a closed period needs state that later builds and full refreshes do not rewrite.
-  - Naming a changed line needs stable line ids; lateness and recording state at hard close need posting instants.
+  - Naming a changed line needs stable line ids; lateness and an as-at-hard-close record need posting instants and history.
   - Stops at the close pack; subledger tie-out, consolidation, FX and posting corrections are separate outcomes.
 related:
   - dbt-snapshot-history
@@ -51,21 +51,21 @@ evidence:
 
 ## Prompt
 
-Build <trial_balance_model>, <statement_rollup_model>, <late_posting_model>, <invalid_journal_model> and <close_status_model> from <journal_source>, <chart_of_accounts>, <fiscal_calendar> and <close_calendar>. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only the semantics they leave open. At the approved grain (account and fiscal period, plus legal entity and currency wherever more than one is in scope), show opening, debits, credits and closing, roll the accounts up to the approved statement lines, apply the approved fiscal-year-end treatment, list journals posted after the soft close, and list every invalid journal with its reasons. Record each period's state when it passes its hard close, keep that record where later builds do not rewrite it, and handle any later change to a closed period as the approved lock policy says. Where the user asks for it, rebuild the trial balance as at a past instant. Keep sources read-only and report what the inputs cannot prove.
+Build <trial_balance_model>, <statement_rollup_model>, <late_posting_model>, <invalid_journal_model> and <close_status_model> from <journal_source>, <chart_of_accounts>, <fiscal_calendar> and <close_calendar>. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only the semantics they leave open. At the approved grain (account and fiscal period, plus legal entity and currency wherever more than one is in scope), show opening, debits, credits and closing, roll the accounts up to the approved statement lines, apply the approved fiscal-year-end treatment, where lines carry a posting instant list journals posted after the soft close, and list every invalid journal with its reasons. Record each period's state at or after its hard close, keep that record where later builds do not rewrite it, and handle any later change to a closed period as the approved lock policy says. Where the user asks for it, rebuild the trial balance as at a past instant. Keep sources read-only and report what the inputs cannot prove.
 
 ## Verified by
 
 - On a run that completes, at each in-scope grain, closing equals opening plus debits minus credits, and each account in the approved chart appears in every in-scope period unless the approved semantics omit it, shown as they say when it has no balance.
 - On a run that completes, within each period at each approved balancing grain, debits equal credits, closings net to zero and statement lines and the balance-sheet identity hold as approved, apart from any approved opening imbalance or flagged journal, each shown with its amount.
-- Each period's closing becomes the next period's opening, except at a fiscal-year boundary, where the opening follows the approved year-end treatment.
+- At each in-scope grain, each period's closing as shown becomes the next period's opening, except at a fiscal-year boundary, where the opening follows the approved year-end treatment, or where an approved flag policy carries a closed-period change forward.
 - Each journal lands in the period the approved placement rule gives it; under an approved as-at instant, only lines the approved as-at rule places by then count, and later lines are reported as outside that run.
-- Where lines carry a posting instant, journals posted after a period's soft close, up to its hard close, are listed as late with how late they were, honouring each boundary's approved inclusivity; otherwise lateness is reported as unproven.
-- On a run that completes, every in-scope journal line lands once: in the trial balance (flagged where the approved policy includes its invalid journal) or excluded with its journal, listed with every reason; each period and grain shows what was excluded or flagged.
-- Where the approved policy fails the run on an invalid journal, the run fails explicitly and names each offending journal and reason.
-- Each period's record is taken as at its hard close where lines carry posting instants, otherwise as first observed after it and labelled so; it survives later builds and full refreshes, and where an approved reopen replaces it the earlier record is kept.
+- Where lines carry a posting instant, journals posted after their entity's soft close, up to its hard close, are listed as late with how late each was at a stated precision, honouring each boundary's approved inclusivity; otherwise lateness is reported as unproven.
+- On a completed run, each in-scope line lands once: in the trial balance (flagged if policy includes its invalid journal), excluded with its journal and every reason, or in a recorded-figures flagged period's change detail with its reasons; each period and grain shows what is excluded or flagged.
+- Where the approved policy fails the run on an invalid journal or on an opening set that must balance, the run fails explicitly and names each offending journal or opening account and its reason.
+- Each period's record, per entity where closes differ, is taken as at hard close only where posting instants with kept history or a no-in-place-edit source show no change since; else as first observed after it, labelled so. It survives later builds and refreshes; a reopen keeps the old record.
 - A change to a closed period, as the approved definition counts one, is detected against its record; under a fail policy the run fails naming each period and grain, each line where line ids are stable, recorded and current figures, and publishes no close pack.
-- Under a flag policy a changed closed period is published visibly flagged with the same change detail; under either policy, no close-pack output is published from data the closed-period check has not checked, and each period shows its close status.
-- A requested past as-at rebuild counts only lines the approved as-at rule places by that instant, writes no closed-period record, and states which later in-place edits or deletions neither the source nor kept history lets it recover.
+- Under a flag policy a changed closed period is published visibly flagged with the same change detail; no close-pack output is published from data the closed-period check has not checked, any other route to it is reported unproven, and each published period shows its close status.
+- A requested past as-at rebuild counts only lines the approved as-at rule places by that instant, writes no closed-period record, and states that in-place edits or deletions since then cannot be recovered unless the source or kept history carries them.
 - Results do not change with the session time zone, each output is unique on its declared grain, and the outcome states what remains open and what the inputs cannot prove.
 
 ## Agent guidance
@@ -92,7 +92,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - If unresolved, what are the chart of accounts, each account's type, normal balance and statement line, where do opening balances come from, must they balance, and how is an account with no balance or a missing opening shown?
 - If unresolved, how are revenue and expense closed at fiscal-year end (a computed roll into a named retained-earnings account, or a closing journal already in the ledger), and how are reversals linked to their originals?
 - If unresolved, which journal types exist, which journals are invalid, one row per reason or per journal, and is an invalid journal excluded with a visible count, failing the run, or, if it can be placed by account, period and amount, included and flagged?
-- If unresolved, what is recorded at hard close, what counts as a change (a period's own postings, or also openings carried from earlier periods), does a change fail the run or flag the period (showing recorded or current figures), and can a period reopen, approved by whom, for how long?
+- If unresolved, what counts as a change to a closed period (own postings, or also carried openings), does it fail the run or flag the period (at recorded or current figures, carried into later openings or not), and can a period reopen, approved by whom, for how long?
 - If unresolved, can the source edit or delete posted lines in place, are line ids stable, and does each line carry a posting instant?
 
 ### Guardrails
