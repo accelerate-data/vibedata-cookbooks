@@ -53,7 +53,7 @@ Author a MotherDuck Flight named <flight_name> that runs <load> and then the dbt
 - An empty load is routed as approved, and the run reports the rows that run itself landed, not the totals already held.
 - The run builds exactly the approved selection and no excluded node, and the resolved node set changes only as the approved boundary allows; any other change fails packaging, naming the nodes.
 - The Flight carries a complete dbt project within the source-code size limit; packaging fails loudly when the carried project is incomplete or over the limit, and the size and its share of the limit are reported.
-- A first run into a new destination creates every database and schema the run writes, and a relation the selection reads but does not build or load is reported as a deployment prerequisite that fails the run when absent.
+- A first run into a new destination creates what it writes; a relation the selection reads but does not build or load is a reported prerequisite that fails the run when absent; a model needing a run-scoped value gets it as approved or is left out and reported.
 - Retries, reruns and recovery after a failed run follow the approved rule, and overlapping runs follow the approved overlap behaviour; any difference a rerun shows is named with its cause.
 - The committed schedule carries the approved cadence as UTC with the local-time conversion and any seasonal drift shown, and it is never activated by this Recipe.
 - Where an on-demand MotherDuck sandbox run is approved, its status, exit code and the workload's own result agree with the approved rules; otherwise the behaviour above is shown offline against the committed program, labelled offline, and platform behaviour is reported unproven.
