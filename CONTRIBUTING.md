@@ -92,15 +92,15 @@ Required keys: `id`, `title`, `trigger`, `description`, `job_category`, `area`, 
 
 The body holds exactly these headings, in this order, and nothing else that starts with `#`:
 
-| Heading | Content | Cap |
-| --- | --- | --- |
-| `## Prompt` | one paragraph on one line, no `\|` | 1200 characters |
-| `## Verified by` | one acceptance condition per `- ` bullet | 1 to 12 bullets, 300 characters each |
-| `## Agent guidance` | only the four subsections below | none |
-| `### Instructions` | one paragraph on one line | 1500 characters |
-| `### Compose` | one skill or Feature name per bullet; an advisory hint the cookbook does not check | 1 to 12 bullets, 80 characters each |
-| `### Ask first` | one genuinely open question per bullet | 1 to 8 bullets, 300 characters each |
-| `### Guardrails` | one Recipe-specific guardrail per bullet | 1 to 10 bullets, 300 characters each |
+- `## Prompt`: one paragraph on one line, no `|`.
+- `## Verified by`: one acceptance condition per `- ` bullet.
+- `## Agent guidance`: only the four subsections below.
+- `### Instructions`: one paragraph on one line.
+- `### Compose`: one skill or Feature name per bullet; an advisory hint the cookbook does not check.
+- `### Ask first`: one genuinely open question per bullet.
+- `### Guardrails`: one Recipe-specific guardrail per bullet.
+
+[`schema/recipe.schema.json`](schema/recipe.schema.json) holds the bullet counts and length caps.
 
 Bullets use `- ` only, never nested or indented, with no blank line inside a list. No line has leading or trailing whitespace. The whole file stays under 16384 bytes.
 
