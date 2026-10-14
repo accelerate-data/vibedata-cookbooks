@@ -36,6 +36,7 @@ qualifiers:
   - Results as known on a past date need entry timestamps or kept snapshots of the results.
   - Past hold lists are not kept; a rule or list change restates every result.
 related:
+  - finance-ap-aging
   - identity-golden-record-crosswalk
   - identity-standardize-names-addresses
 evidence:
@@ -57,14 +58,14 @@ Build <candidate_pairs_model>, <invoice_register_model> and <exceptions_model> f
 ## Verified by
 
 - On a run that completes, every input record at the approved record identity, including those the scope leaves out, appears once in the register as checked, left out with its reason, or excepted with its reasons; counts at the approved grain, with entity and currency, equal the input's.
-- Every candidate pair is linked as approved: matched directly by an enabled approved rule, listing every rule that matched and the primary rule by approved priority, or, only where approved, through named linking records; no record pairs with itself or its own repeated copy.
+- Each candidate pair appears once in either order and is linked as approved: by an enabled rule, with every rule that matched and the primary rule by priority, or, only where approved, through named linking records; no record pairs with itself or a copy the repeat rule treats as the same record.
 - Records are compared only within the approved grain; records of different legal entities or currencies never pair unless an approved consolidation or translation rule says so, and then under that rule.
 - Number and supplier normalisation, amount tolerance, date gap and lookback follow the approved rules, including records exactly on each edge and one step beyond it.
 - Records the approved rules leave out (by type, status or date) are never compared, and records that cannot be checked are compared only as far as the approved rules allow.
 - On a run that completes, every invoice the approved hold rule names is held once with every reason that applies, no other invoice is held, and paid or settled status and pairs with paid sides affect holds and reporting only as approved.
 - Reviewer decisions apply as approved; each decision the approved policy does not apply (stale, conflicting or unknown) is reported with its reason and changes no hold.
 - Repeated deliveries of one record are treated as approved; beyond what that rule keeps as separate records, no invoice is counted twice or held twice for one reason.
-- Changing an approved rule's values, its fields within the approved rule form, its priority or enablement, a list entry, a reviewer decision or the as-of date changes the result accordingly without a code change.
+- Changing an approved rule's values, its fields within the approved rule form, its priority or enablement, an in-scope list entry, a reviewer decision or the as-of date changes the result accordingly without a code change.
 - Where the approved policy fails the run on a record that cannot be checked, the run fails explicitly and names each offending record with its reason.
 - On a run that completes, the candidate list, the invoice register and the exceptions agree about every record, and each output is unique on its declared business grain with required fields populated.
 - The outcome states which candidates, holds and exceptions remain open and what the inputs cannot prove, including that no hold was applied in the payment system.
@@ -73,7 +74,7 @@ Build <candidate_pairs_model>, <invoice_register_model> and <exceptions_model> f
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and every semantic decision its approved requirements already record; do not ask the user to confirm them again. Profile the invoice register first: document types, statuses, entities, currencies, supplier ids, how invoice numbers are written, amounts, the dates present (invoice, entry, payment) and whether one record can arrive more than once. Use Ask first only for semantics still open, and record each decision as the user's own answer. Hold each matching rule as editable data (which fields it compares and how, its tolerance, date gap, lookback and priority) so the team can add or change a rule without code, and keep the in-scope lists and reviewer decisions editable too. Decide each record's placement once, before matching, so the candidate list, the register and the exceptions never disagree; derive pair results and holds only for the record that was actually compared. Test each rule's edges and each placement on records that fail several checks at once, and recompute the expected results independently of the models. Report every candidate, hold and exception left open and what the inputs cannot prove.
+Inherit the Intent's repository, platform, Domain, sources and every semantic decision its approved requirements already record; do not ask the user to confirm them again. Profile the invoice register first: document types, statuses, entities, currencies, supplier ids, how invoice numbers are written, amounts, the dates present (invoice, entry, payment) and whether one record can arrive more than once. Use Ask first only for semantics still open, and record each decision as the user's own answer. Hold each matching rule as editable data (which fields it compares and how, its tolerance, date gap, lookback and priority) so the team can add or change a rule without code, and keep the in-scope lists and reviewer decisions editable too. Where the register is too large to compare every pair, narrow comparisons only in ways that cannot drop a pair an enabled approved rule would match, and show the result equals the full comparison on a representative sample. Decide each record's placement once, before matching, so the candidate list, the register and the exceptions never disagree; derive pair results and holds only for the record that was actually compared. Test each rule's edges and each placement on records that fail several checks at once, and recompute the expected results independently of the models. Report every candidate, hold and exception left open and what the inputs cannot prove.
 
 ### Compose
 
