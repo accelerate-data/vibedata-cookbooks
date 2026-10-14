@@ -118,13 +118,15 @@ A Collection in `collections/<id>.json` is a discovery view over Recipes: a `mem
 - a fresh approval after a new push: a push dismisses earlier approvals, and the last push needs an approval from someone other than the pusher;
 - passing checks `Cookbook contract`, `PR policy` and `Secret scan`.
 
+On a first-time contributor's fork pull request, the required checks wait until a maintainer approves the workflow run.
+
 Repository admins can bypass these rules only through a pull request, and GitHub records each bypass. The catalog GitHub App keeps its bypass so that it can push the regenerated `catalog.json` after a merge. CI only reads the repository. The `Catalog` workflow is the only job that writes, and it writes `catalog.json` only.
 
 `main` is what readers follow. It takes changes only as a promotion: a pull request from `pre-prod` to `main`, merged with a merge commit, never a squash. Only `admiraldata`, `hbanerjee74` and `ukakkad` can merge it, and it must pass `Cookbook contract` and `Promotion source`. [ADR 0002](docs/adr/0002-branches-and-promotion.md) records the promotion rules.
 
 ## Secret scan false positives
 
-`Secret scan` scans the pull request commits and the PR description. If it reports a reviewed false positive, add its fingerprint to `.gitleaksignore` with a one-line `#` comment above it that gives the reason. Reviewers read that entry like any other change. Do not add a blanket path or rule allowlist.
+`Secret scan` scans the pull request commits and the PR description. If it reports a reviewed false positive, add its fingerprint to `.gitleaksignore` with a one-line `#` comment above it that gives the reason. Reviewers read that entry like any other change. Do not add a blanket path or rule allowlist. If a secret was pushed or pasted, rotate it: deleting the commit or editing the description does not remove it from GitHub history.
 
 ## Checks
 

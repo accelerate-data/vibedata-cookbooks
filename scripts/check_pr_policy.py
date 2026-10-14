@@ -3,15 +3,16 @@
 
 Usage: python3 scripts/check_pr_policy.py --event "$GITHUB_EVENT_PATH" [--changed-files PATH]
 
-Two rules apply to pull requests whose base is pre-prod (promotion pull
-requests from pre-prod are out of scope):
+Two rules apply to pull requests whose base is pre-prod (pull requests to any
+other base, such as the promotion into main, are out of scope):
 - catalog.json is regenerated after merge, so a pull request must not edit it.
 - A pull request that adds or edits recipes/*/recipe.md needs the six evidence
   sections in its description, each non-empty.
 
 The description is read only from the event file. Without --changed-files, the
-changed files come from git diff between the event's base and head SHAs;
-deleted files are excluded.
+changed files come from git diff between the event's base and head SHAs. A
+deleted catalog.json still counts as a catalog change; deleted recipes need no
+evidence.
 """
 
 from __future__ import annotations
@@ -34,17 +35,18 @@ EVIDENCE_HEADINGS: tuple[str, ...] = (
     "Limitations and material risks",
 )
 
-HEADING = re.compile(r"^## (.+?)\s*$")
-COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
+HEADING = re.compile(r"^ {0,3}## (.+?)(?:\s+#+)?\s*$")
+FENCE = re.compile(r"^ {0,3}(```|~~~)")
+COMMENT = re.compile(r"<!--.*?-->|<!--.*", re.DOTALL)  # an unclosed comment hides the rest
 
 
 def sections(body: str | None) -> dict[str, str]:
-    """Map each '## ' heading outside a code fence to its section text."""
+    """Map each '## ' heading outside HTML comments and code fences to its section text."""
     found: dict[str, list[str]] = {}
     current: list[str] | None = None
     fenced = False
-    for line in (body or "").replace("\r\n", "\n").split("\n"):
-        if line.startswith(("```", "~~~")):
+    for line in COMMENT.sub("", (body or "").replace("\r\n", "\n")).split("\n"):
+        if FENCE.match(line):
             fenced = not fenced
         match = None if fenced else HEADING.match(line)
         if match:
@@ -55,7 +57,7 @@ def sections(body: str | None) -> dict[str, str]:
 
 
 def in_scope(pr: dict[str, Any]) -> bool:
-    return pr.get("base", {}).get("ref") == "pre-prod" and pr.get("head", {}).get("ref") != "pre-prod"
+    return pr.get("base", {}).get("ref") == "pre-prod"
 
 
 def check(event: dict[str, Any], changed_files: list[str]) -> list[str]:
@@ -76,7 +78,7 @@ def check(event: dict[str, Any], changed_files: list[str]) -> list[str]:
                 errors.append(
                     f"PR description is missing the '## {heading}' section (see .github/pull_request_template.md)."
                 )
-            elif not COMMENT.sub("", found[heading]).strip():
+            elif not found[heading].strip():
                 errors.append(
                     f"PR description section '## {heading}' is empty; for a planned Recipe write 'Not applicable: planned'."
                 )
@@ -96,10 +98,14 @@ def main(argv: list[str] | None = None) -> int:
         changed = args.changed_files.read_text(encoding="utf-8").splitlines()
     else:
         diff = subprocess.run(
-            ["git", "diff", "--name-only", "--diff-filter=d", f"{pr['base']['sha']}...{pr['head']['sha']}"],
+            ["git", "diff", "--name-status", "--no-renames", f"{pr['base']['sha']}...{pr['head']['sha']}"],
             capture_output=True, text=True, check=True,
         )
-        changed = diff.stdout.splitlines()
+        changed = []
+        for line in diff.stdout.splitlines():
+            status, _, path = line.partition("\t")
+            if status != "D" or path == "catalog.json":
+                changed.append(path)
     errors = check(event, changed)
     for error in errors:
         print(f"::error::{error}")

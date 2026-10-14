@@ -83,7 +83,7 @@ def test_heading_whitespace_and_fences():
 
 
 def test_deleted_recipe_does_not_require_evidence():
-    # main() passes --diff-filter=d, so a deletion never reaches check()
+    # main() drops deleted recipe paths, so a deletion never reaches check()
     assert check(event(""), []) == []
 
 
@@ -102,18 +102,59 @@ def test_main_out_of_scope_needs_no_git(tmp_path):
     assert main(["--event", str(ev)]) == 0
 
 
-def test_main_excludes_deleted_files_from_git_diff(tmp_path, monkeypatch):
+def run_main_with_diff(tmp_path, monkeypatch, stdout):
     calls = []
 
     def fake_run(argv, **kwargs):
         calls.append(argv)
-        return subprocess.CompletedProcess(argv, 0, stdout="", stderr="")
+        return subprocess.CompletedProcess(argv, 0, stdout=stdout, stderr="")
 
     monkeypatch.setattr(check_pr_policy.subprocess, "run", fake_run)
     ev = tmp_path / "event.json"
     ev.write_text(json.dumps(event("")))
-    assert main(["--event", str(ev)]) == 0
-    assert calls == [["git", "diff", "--name-only", "--diff-filter=d", "b...h"]]
+    return main(["--event", str(ev)]), calls
+
+
+def test_main_deleted_recipe_and_catalog(tmp_path, monkeypatch, capsys):
+    code, calls = run_main_with_diff(tmp_path, monkeypatch, "D\trecipes/foo/recipe.md\nD\tcatalog.json\n")
+    assert calls == [["git", "diff", "--name-status", "--no-renames", "b...h"]]
+    assert code == 1
+    out = capsys.readouterr().out
+    assert out.count("::error::") == 1 and "catalog.json" in out
+
+
+def test_main_deleted_recipe_needs_no_evidence(tmp_path, monkeypatch):
+    code, _ = run_main_with_diff(tmp_path, monkeypatch, "D\trecipes/foo/recipe.md\n")
+    assert code == 0
+
+
+def test_main_added_recipe_needs_evidence(tmp_path, monkeypatch):
+    code, _ = run_main_with_diff(tmp_path, monkeypatch, "A\trecipes/foo/recipe.md\n")
+    assert code == 1
+
+
+def test_fork_pre_prod_head_is_checked():
+    assert check(event("", head="pre-prod"), RECIPE)
+
+
+def test_all_headings_inside_one_html_comment_are_missing():
+    body = "<!--\n" + FULL_BODY + "-->\n"
+    assert len(check(event(body), RECIPE)) == len(EVIDENCE_HEADINGS)
+
+
+def test_unclosed_html_comment_hides_the_rest():
+    body = FULL_BODY.replace("## Distinct", "<!-- never closed\n## Distinct")
+    assert len(check(event(body), RECIPE)) == len(EVIDENCE_HEADINGS) - 1
+
+
+def test_closing_hashes_and_one_space_indent_are_headings():
+    assert check(event(FULL_BODY.replace("## Summary\n", "## Summary ##\n")), RECIPE) == []
+    assert check(event(FULL_BODY.replace("## Summary\n", " ## Summary\n")), RECIPE) == []
+
+
+def test_indented_fence_hides_headings():
+    fenced = "  ```\n" + FULL_BODY + "  ```\n"
+    assert len(check(event(fenced), RECIPE)) == len(EVIDENCE_HEADINGS)
 
 
 def test_template_headings_match_policy():

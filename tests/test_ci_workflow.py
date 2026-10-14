@@ -77,6 +77,7 @@ def test_pr_policy_workflow_triggers():
     assert set(triggers["pull_request"]["types"]) == {"opened", "edited", "synchronize", "reopened"}
     assert "paths" not in triggers["pull_request"]
     assert {j["name"] for j in wf["jobs"].values()} == {"PR policy", "Secret scan"}
+    assert wf["concurrency"]["cancel-in-progress"] is True
 
 
 def test_gitleaks_is_pinned_and_verified():

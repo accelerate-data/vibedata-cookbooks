@@ -11,7 +11,7 @@
 <!-- For every declared platform, give the supported execution path/rationale, whether assessed, and any limitations. No per-platform example required. -->
 
 ## Implementation example and execution evidence
-<!-- One platform only, preferably DuckDB where appropriate. State the example's platform, core scenario, checks/results, and known untested cases. For planned: 'Not applicable: planned'. No Google Drive links required. -->
+<!-- One platform only, preferably DuckDB where appropriate. State the example's platform, core scenario, checks/results, and known untested cases. For planned: 'Not applicable: planned'. Do not link Google Drive content. -->
 
 ## Limitations and material risks
 <!-- Key assumptions, open semantic choices, safety boundaries, and unverified behavior. -->

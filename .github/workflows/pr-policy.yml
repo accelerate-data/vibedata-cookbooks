@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: pr-policy-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   policy:
     name: PR policy
@@ -46,9 +50,9 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: ./gitleaks git --redact --no-banner --log-opts="$BASE_SHA..$HEAD_SHA" .
-      - name: Scan the PR description
+      - name: Scan the PR title and description
         run: |
-          jq -r '.pull_request.body // ""' "$GITHUB_EVENT_PATH" > "$RUNNER_TEMP/pr-body.md"
+          jq -r '(.pull_request.title // "") + "\n\n" + (.pull_request.body // "")' "$GITHUB_EVENT_PATH" > "$RUNNER_TEMP/pr-body.md"
           ./gitleaks dir --redact --no-banner "$RUNNER_TEMP/pr-body.md"
       - name: Install pinned dependencies
         run: python -m pip install -r requirements.txt
