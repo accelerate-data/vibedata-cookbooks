@@ -60,7 +60,7 @@ Build <variance_detail_model>, <variance_rollup_model>, <variance_ytd_model>, <g
 ## Verified by
 
 - On a run that completes, for each compared period, every in-scope GL line not excluded as an exception lands on exactly one cell at the approved grain under the approved placement rules, and the actual per cell equals the sum of those lines in the approved sign convention.
-- Each plan line's periods sum to its stated total, where it has one, under its approved spread method and rounding, with any approved rounding residual reported; a plan line with no valid spread contributes nothing to any period.
+- Each plan line that is spread has periods summing to its stated total, where it has one, under its approved spread method and rounding, with any approved rounding residual reported; a plan line with no valid spread contributes nothing to any period.
 - The budget and forecast compared for each period are the versions the approved selection rules name, including the boundary on the approved selection date, where the rule uses one; draft or unapproved versions never enter a comparison unless the approved rules say so.
 - Where no plan applies to a cell or period, the plan is shown as the approved rules say, with its reason, and never as a silent zero; a cell affected by an excluded plan line shows that as the approved exception policy says, never as a clean plan.
 - Variance, variance percentage and direction follow the approved definitions, signs and precision, and a zero plan is reported as the approved rule says, never as zero percent or infinite unless the approved semantics define it so.
