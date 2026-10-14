@@ -37,18 +37,41 @@ EVIDENCE_HEADINGS: tuple[str, ...] = (
 
 HEADING = re.compile(r"^ {0,3}## (.+?)(?:\s+#+)?\s*$")
 FENCE = re.compile(r"^ {0,3}(```|~~~)")
-COMMENT = re.compile(r"<!--.*?-->|<!--.*", re.DOTALL)  # an unclosed comment hides the rest
+COMMENT_OPEN = re.compile(r"^ {0,3}<!--")
+INLINE_COMMENT = re.compile(r"<!--.*?-->")  # an unclosed mid-line "<!--" stays literal
 
 
 def sections(body: str | None) -> dict[str, str]:
-    """Map each '## ' heading outside HTML comments and code fences to its section text."""
+    """Map each '## ' heading to its section text, following GitHub's rendering of
+    code fences and HTML comments. Fences are literal. A comment block opens at a line
+    starting with '<!--' and runs through the first line holding '-->' (an unclosed
+    block hides the rest). Text after '-->' is section text, never a heading."""
     found: dict[str, list[str]] = {}
     current: list[str] | None = None
     fenced = False
-    for line in COMMENT.sub("", (body or "").replace("\r\n", "\n")).split("\n"):
-        if FENCE.match(line):
+    in_comment = False
+    for line in (body or "").replace("\r\n", "\n").split("\n"):
+        text = None  # section text to keep when the line is not a heading
+        if in_comment:
+            end = line.find("-->")
+            if end == -1:
+                continue
+            in_comment, line, text = False, "", line[end + 3 :]
+        elif FENCE.match(line):
             fenced = not fenced
-        match = None if fenced else HEADING.match(line)
+        elif not fenced and COMMENT_OPEN.match(line):
+            end = line.find("-->", line.index("<!--") + 4)
+            if end == -1:
+                in_comment = True
+                continue
+            text = line[end + 3 :]
+        elif not fenced:
+            line = INLINE_COMMENT.sub("", line)
+        if text is not None:
+            line = INLINE_COMMENT.sub("", text)
+            match = None
+        else:
+            match = None if fenced else HEADING.match(line)
         if match:
             current = found.setdefault(match.group(1), [])
         elif current is not None:

@@ -87,6 +87,11 @@ def test_gitleaks_is_pinned_and_verified():
     assert "sha256sum -c" in text
 
 
+def test_secret_scan_includes_merge_commit_content():
+    text = (REPO_ROOT / ".github/workflows/pr-policy.yml").read_text(encoding="utf-8")
+    assert '--log-opts="--diff-merges=first-parent $BASE_SHA..$HEAD_SHA"' in text
+
+
 def test_pull_request_workflows_are_read_only():
     for path in (REPO_ROOT / ".github/workflows").glob("*.yml"):
         wf = yaml.safe_load(path.read_text(encoding="utf-8"))
@@ -95,4 +100,10 @@ def test_pull_request_workflows_are_read_only():
         assert wf["permissions"] == {"contents": "read"}, path.name
         runs = "\n".join(s.get("run", "") for j in wf["jobs"].values() for s in j["steps"])
         assert "git push" not in runs and "git commit" not in runs, path.name
-        assert "github.event.pull_request.body" not in runs, path.name
+        for expression in (
+            "github.event.pull_request.body",
+            "github.event.pull_request.title",
+            "github.event.pull_request.head.ref",
+            "github.head_ref",
+        ):
+            assert expression not in runs, (path.name, expression)

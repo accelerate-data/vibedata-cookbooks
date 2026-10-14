@@ -49,7 +49,7 @@ jobs:
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: ./gitleaks git --redact --no-banner --log-opts="$BASE_SHA..$HEAD_SHA" .
+        run: ./gitleaks git --redact --no-banner --log-opts="--diff-merges=first-parent $BASE_SHA..$HEAD_SHA" .
       - name: Scan the PR title and description
         run: |
           jq -r '(.pull_request.title // "") + "\n\n" + (.pull_request.body // "")' "$GITHUB_EVENT_PATH" > "$RUNNER_TEMP/pr-body.md"
