@@ -64,7 +64,7 @@ Exact execution-target values, shared with Studio: `duckdb_local`, `motherduck`,
 
 - `proven`: a dedicated Recipe-level eval or journey proves the exact Recipe shape end to end, named in `evidence.evals`. The schema rejects `proven` without one.
 - `supported`: current capabilities can execute the Recipe end to end, without a dedicated Recipe-level eval.
-- `planned`: at least one required capability, integration or object type is unsupported today.
+- `planned`: at least one required capability, integration or object type is unsupported today. A `planned` Recipe is published and discoverable, but it is not invocable: consumers must show it as `planned` and must not offer **Use Recipe**.
 
 ## Collections
 

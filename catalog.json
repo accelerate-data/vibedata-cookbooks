@@ -30,8 +30,10 @@
         "effective-dated-business-rules",
         "event-resource-attribution",
         "file-drop-to-bronze",
+        "finance-ap-aging",
         "finance-ar-aging-dso",
         "finance-gl-subledger-tieout",
+        "finance-trial-balance-close",
         "governed-spreadsheet-table",
         "identity-golden-record-crosswalk",
         "identity-standardize-names-addresses",
@@ -58,7 +60,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 32,
+      "supported_or_proven_count": 34,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -67,13 +69,15 @@
       "description": "Recipes for data engineers working with finance-domain data and controls.",
       "id": "finance-data-engineering",
       "kind": "function",
-      "resolved_members": [],
+      "resolved_members": [
+        "finance-trial-balance-close"
+      ],
       "selector": {
         "function": [
           "finance"
         ]
       },
-      "supported_or_proven_count": 0,
+      "supported_or_proven_count": 1,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": false
@@ -120,8 +124,10 @@
         "fabric-data-pipeline-as-code",
         "fabric-direct-lake-semantic-model",
         "file-drop-to-bronze",
+        "finance-ap-aging",
         "finance-ar-aging-dso",
         "finance-gl-subledger-tieout",
+        "finance-trial-balance-close",
         "governed-spreadsheet-table",
         "incremental-dbt-model-with-contract",
         "logistics-fleet-utilization",
@@ -166,7 +172,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 23,
+      "supported_or_proven_count": 25,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -213,8 +219,10 @@
         "effective-dated-business-rules",
         "event-resource-attribution",
         "file-drop-to-bronze",
+        "finance-ap-aging",
         "finance-ar-aging-dso",
         "finance-gl-subledger-tieout",
+        "finance-trial-balance-close",
         "governed-spreadsheet-table",
         "incremental-dbt-model-with-contract",
         "logistics-fleet-utilization",
@@ -233,7 +241,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 20,
+      "supported_or_proven_count": 22,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -851,6 +859,68 @@
     },
     {
       "area": "transformation",
+      "description": "For each approved as-of date, list every in-scope supplier bill open then with its open amount, days past due, aging bucket and hold status, total it at the approved grain and reconcile the total to the previous date through its movements, keeping every unprocessable record visible so no amount is lost, counted twice or settled early.",
+      "domain_objects": [
+        "accounts_payable",
+        "vendor_bill",
+        "vendor_credit",
+        "vendor_payment",
+        "payment_application",
+        "payment_hold",
+        "aging_bucket",
+        "payables_roll_forward",
+        "payables_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "finance-ap-aging",
+      "job_category": "build",
+      "path": "recipes/finance-ap-aging/recipe.md",
+      "pitch": "Rebuild aged payables and a reconciling roll-forward for any approved as-of date from dated supplier bills, credits, payments and applications.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Settling as of a past date needs dated applications, or an approved rule linking payments and credits to bills.",
+        "Reproducing results as known on a past date needs entry timestamps or kept snapshots of the results.",
+        "Stops at aging and its roll-forward; duplicate detection, payment runs and ledger tie-out are separate."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-ar-aging-dso",
+        "finance-gl-subledger-tieout",
+        "dbt-snapshot-history"
+      ],
+      "sha256": "f4d151da49ff02b75160d540fbb7dd91f23cdf884dca3ae0ba2c4451adf48d8b",
+      "title": "Age payables from open items as of any chosen date and reconcile the total",
+      "trigger": [
+        "Finance needs the aged payables for a past month or quarter end, but the payables system only shows what is owed today.",
+        "The payables aging is rebuilt by hand in a spreadsheet each month, and its total never ties back to what was billed and paid since the last close.",
+        "Treasury or an auditor asks what was owed to which supplier at a past date, how overdue it was and how much was on hold."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "For each approved as-of date, list every in-scope receivable open on that date with its open amount, days past due and aging bucket, total it at the approved grain, and compute DSO under the user's approved rules, while every record that cannot be processed stays visible, as an exception or in an explicit run failure, so no amount is lost, counted twice or settled early.",
       "domain_objects": [
         "accounts_receivable",
@@ -952,6 +1022,68 @@
         "Month-end close stalls because control accounts do not agree with their subledgers and the difference is worked out by hand in a spreadsheet.",
         "The controller will not sign off until every control-account difference is explained, from late postings to manual journals, with nothing left unexplained.",
         "An auditor asks why a control account differed from its subledger at a past period end, and someone has to rebuild the explanation by hand."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build the trial balance by account and fiscal period, plus entity and currency where more than one is in scope, with opening, debits, credits and closing, roll it up to statement lines, list late postings and invalid journals, and record each period's state at or after its hard close so any later change to it is handled as the approved lock policy says.",
+      "domain_objects": [
+        "general_ledger",
+        "journal_entry",
+        "journal_line",
+        "chart_of_accounts",
+        "fiscal_period",
+        "trial_balance",
+        "period_close"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "finance-trial-balance-close",
+      "job_category": "build",
+      "path": "recipes/finance-trial-balance-close/recipe.md",
+      "pitch": "Rebuild the trial balance and close pack every period, with closed periods recorded, later changes caught and every journal accounted for.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Detecting a change to a closed period needs state that later builds and full refreshes do not rewrite.",
+        "Naming a changed line needs stable line ids; lateness and an as-at-hard-close record need posting instants and history.",
+        "Stops at the close pack; subledger tie-out, consolidation, FX and posting corrections are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "dbt-snapshot-history",
+        "effective-dated-business-rules"
+      ],
+      "sha256": "36745a863cd506d6cfb194ec586ba71b66ad8049e1bb9dd5aad271f785c3ebcc",
+      "title": "Produce the trial balance and close pack as code",
+      "trigger": [
+        "The close pack is rebuilt by hand every period and last quarter's trial balance cannot be reproduced as it was when the period closed.",
+        "Auditors ask what a closed period showed at its hard close and whether anything was posted into it afterwards.",
+        "Controllers need the journals posted after the soft close listed, and a hard stop when a closed period changes."
       ],
       "works_with": {
         "platforms": [
