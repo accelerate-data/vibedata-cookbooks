@@ -216,3 +216,8 @@ def test_short_comment_forms_are_complete_comments():
 
 def test_unclosed_block_comment_reports_all_six_missing():
     assert len(check(event("<!-- never closed\n" + FULL_BODY), RECIPE)) == len(EVIDENCE_HEADINGS)
+
+
+def test_unclosed_comment_after_a_block_is_never_closed_later():
+    hidden_after("<!-- a --><!-- b\n-->")
+    hidden_after("<!-- a\n--> <!-- b\nmore\n-->")

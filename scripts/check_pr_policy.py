@@ -53,8 +53,11 @@ def sections(body: str | None) -> dict[str, str]:
     current: list[str] | None = None
     fence: str | None = None  # the opener's run, such as "```" or "~~~~"
     in_comment = False
+    hidden = False  # an unclosed '<!--' after a block never closes
     for line in (body or "").replace("\r\n", "\n").split("\n"):
         tail = None  # text after a comment block's closing '-->'
+        if hidden:
+            break
         if in_comment:
             end = line.find("-->")
             if end == -1:
@@ -75,7 +78,7 @@ def sections(body: str | None) -> dict[str, str]:
         if tail is not None:
             line = INLINE_COMMENT.sub("", tail)
             if "<!--" in line:
-                in_comment = True  # an unclosed comment hides the rest, as on GitHub
+                hidden = True  # GitHub escapes later '-->' as text, so nothing closes it
                 line = line.split("<!--")[0]
             match = None
         elif fence is not None:
