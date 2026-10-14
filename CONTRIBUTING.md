@@ -16,6 +16,46 @@ A candidate is a **Recipe** when it is one recognizable engineering requirement 
 - **Prompt:** the paste-and-adapt task. Values the engineer adapts are `<lower_snake_case>` placeholders. Never ask for context Studio already knows, such as the platform, the repository or the Domain.
 - **Agent guidance:** instructions, composed skills, genuinely open questions and guardrails. The agent reads it; the invocation surface does not show it as the prompt.
 
+## Evidence for a Recipe
+
+The PR description carries the evidence, using the PR template in `.github/pull_request_template.md`. Do not add new evidence files to the repository.
+
+- **One example is enough.** Run the example on one platform. Use `duckdb_local` when the outcome can run there, and another platform only when DuckDB cannot support the outcome. Do not build an example for every declared platform.
+- **Other platforms need reasoning, not examples.** For each declared platform, the PR gives the execution path that makes it compatible, says whether you assessed it, and records any limitation.
+- **The example must show the defining behaviour.** An example that skips the core promised behaviour does not support the readiness claim. Fix the example, not the contract.
+- **The contract carries the correctness rules.** `Verified by` states properties of a correct outcome, not an instruction to run tools. Where the Recipe defines business logic, it describes independent expected results, so a check never repeats the implementation's own calculation. `Ask first` names the types of business decision the agent must settle with the user, such as eligibility, time boundaries or tolerances, and never invents the answers. The Recipe describes honest exceptional states: partial work is never reported as complete. `Guardrails` cover the risks that apply to this outcome, such as silent data loss, join fan-out, wrong grain, late records, deletes, reruns and unsafe mutations.
+- **Public content only.** Do not put secrets or sensitive customer data in a Recipe or in the PR. Do not link Drive content as evidence.
+
+## Self-review before you request review
+
+Run the checks below, then review your own change against the PR template's author checklist. In plain terms, confirm that:
+
+1. The Recipe is one bounded outcome with its own acceptance behaviour, not a Feature, a Skill (knowledge the agent applies about tools, platforms and techniques), a Guarantee (cross-cutting Vibedata behaviour that Recipes inherit), a Collection or a duplicate of an existing Recipe. The [Cookbook ontology](https://github.com/accelerate-data/vibedata-gtm/blob/main/docs/gtm/plan/04-demand-inbound/cookbook/README.md) defines these terms.
+2. Each `Verified by` bullet states an observable property of a correct result, and defining business logic has an independent expected result.
+3. `Ask first` lists the policy decisions the agent must not settle alone, and the Recipe inherits context that Studio already knows.
+4. `Guardrails` cover the real risks of this outcome and nothing generic.
+5. The `readiness` value and the platform list match what the PR evidence shows.
+
+Accelerate Data contributors can optionally run the `gtm-skills:reviewing-recipe` skill as an aid. The checklist above stands without it.
+
+## How review works
+
+A reviewer reads the public Recipe files and the PR description only. The reviewer does not inspect Drive, a Domain Bundle or any other private source. A new or changed Recipe gets a full review. A re-review after new commits focuses on what changed and on regressions.
+
+Each finding has one class:
+
+- **Blocker:** a defect in the reusable contract, unsafe behaviour, a misleading readiness or capability claim, a `supported` or `proven` example that does not show the core outcome, or missing material evidence in the PR.
+- **Warning:** a valid, disclosed limit, such as a compatible platform you did not test.
+- **Suggestion:** a non-material editorial improvement.
+
+The review ends with one verdict:
+
+- `PASS`: no blockers and no material warnings.
+- `PASS WITH WARNINGS`: no blockers. The PR discloses the remaining limits.
+- `CHANGES REQUIRED`: at least one blocker.
+
+`PASS` and `PASS WITH WARNINGS` lead to an approval, and `CHANGES REQUIRED` leads to a request for changes. The approval itself comes from a human reviewer.
+
 ## Adding a Recipe
 
 1. Copy `templates/recipe.md` to `recipes/<id>/recipe.md`, where `<id>` is the Recipe's kebab-case id. The directory holds that one file.
@@ -23,9 +63,11 @@ A candidate is a **Recipe** when it is one recognizable engineering requirement 
 3. Add `tests/expected/<id>.json` with the Recipe's agreed `readiness` and `platforms`.
 4. Run the checks below and commit `recipe.md` and `tests/expected/<id>.json`. Do not commit `catalog.json`: a workflow regenerates it after the pull request merges to `pre-prod` ([ADR 0003](docs/adr/0003-catalog-generated-after-merge.md)).
 
-## Accelerate Data contributors
+## Internal archive
 
-This section applies to every new Recipe that an Accelerate Data employee writes.
+The archive is an author-side step for Accelerate Data employees. It is not part of publication review: CI and reviewers never check it, and review never depends on it.
+
+Every new Recipe that an Accelerate Data employee writes has this archive step.
 
 1. Export the Domain you used to build the Recipe as a Domain Bundle: Domain Settings, General, **Export Domain**. Keep the Intents and their conversations selected. This step is compulsory.
 2. Upload the bundle ZIP to the [Cookbooks Drive folder](https://drive.google.com/drive/folders/1CSXifZ4fH5GeNce-mpEeTtpENBSHpdP_), in a subfolder whose name is the Recipe `id`: `Cookbooks/<id>/`.
@@ -36,11 +78,15 @@ The Drive folder is open to Accelerate Data accounts only.
 
 ## Frontmatter
 
-Required keys: `id`, `title`, `trigger`, `description`, `job_category`, `area`, `readiness`, `works_with.platforms`. Optional keys: `pitch`, `function`, `industry`, `domain_objects`, `works_with.tools`, `qualifiers`, `related`, `evidence.features`, `evidence.evals`. Every string is one line. `schema/recipe.schema.json` holds the exact rules and length caps.
+Required keys: `id`, `title`, `trigger`, `description`, `job_category`, `area`, `readiness`, `works_with.platforms`. Optional keys: `pitch`, `function`, `industry`, `domain_objects`, `works_with.tools`, `qualifiers`, `related`, `evidence.features`, `evidence.evals`. Every string is one line. [`schema/recipe.schema.json`](schema/recipe.schema.json) holds the exact rules and length caps, and [`templates/recipe.md`](templates/recipe.md) is the starting file.
 
 `works_with.platforms` uses Studio's own values: `duckdb_local`, `motherduck`, `fabric_lakehouse`, `fabric_warehouse`, `redshift`. There is no generic `fabric` value; a Recipe for both Fabric targets lists both.
 
-`readiness` is `proven` only when a dedicated Recipe-level eval or journey proves the exact Recipe shape; name it in `evidence.evals`. `supported` means current capabilities can execute it end to end without such an eval. `planned` means at least one capability is missing today.
+`readiness` has three values:
+
+- `planned`: at least one required capability is missing today. A `planned` Recipe can be published and is discoverable, but Studio does not offer it as executable. It needs a complete reusable contract, and it needs no execution evidence. The PR names the missing capability. Platforms listed for a `planned` Recipe are intended targets, not a claim that it runs today.
+- `supported`: current capabilities can execute it end to end. The PR shows one end-to-end execution of the defining outcome, with representative verification.
+- `proven`: `supported` evidence plus a dedicated, repeatable Recipe-level eval or journey, named in `evidence.evals`. The schema rejects `proven` without one.
 
 ## Body
 
@@ -66,9 +112,21 @@ A Collection in `collections/<id>.json` is a discovery view over Recipes: a `mem
 
 ## Branches
 
-`pre-prod` is the default branch, so a new pull request already targets it. Every pull request to `pre-prod` must pass the `Cookbook contract` CI job; anyone with write access can merge it.
+`pre-prod` is the default branch, so a new pull request already targets it. A pull request to `pre-prod` needs:
 
-`main` is what readers follow. It takes changes only as a promotion: a pull request from `pre-prod` to `main`, merged with a merge commit, never a squash. Only `admiraldata`, `hbanerjee74` and `ukakkad` can merge it, and it must pass `Cookbook contract` and `Promotion source`. [ADR 0002](docs/adr/0002-branches-and-promotion.md) records the rules.
+- one approval from someone other than the author;
+- a fresh approval after a new push: a push dismisses earlier approvals, and the last push needs an approval from someone other than the pusher;
+- passing checks `Cookbook contract`, `PR policy` and `Secret scan`.
+
+On a first-time contributor's fork pull request, the required checks wait until a maintainer approves the workflow run.
+
+Repository admins can bypass these rules only through a pull request, and GitHub records each bypass. The catalog GitHub App keeps its bypass so that it can push the regenerated `catalog.json` after a merge. CI only reads the repository. The `Catalog` workflow is the only job that writes, and it writes `catalog.json` only.
+
+`main` is what readers follow. It takes changes only as a promotion: a pull request from `pre-prod` to `main`, merged with a merge commit, never a squash. Only `admiraldata`, `hbanerjee74` and `ukakkad` can merge it, and it must pass `Cookbook contract` and `Promotion source`. [ADR 0002](docs/adr/0002-branches-and-promotion.md) records the promotion rules.
+
+## Secret scan false positives
+
+`Secret scan` scans the pull request commits and the PR description. If it reports a reviewed false positive, add its fingerprint to `.gitleaksignore` with a one-line `#` comment above it that gives the reason. Reviewers read that entry like any other change. Do not add a blanket path or rule allowlist. If a secret was pushed or pasted, rotate it: deleting the commit or editing the description does not remove it from GitHub history.
 
 ## Checks
 

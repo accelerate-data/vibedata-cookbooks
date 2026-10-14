@@ -69,3 +69,30 @@ def test_catalog_is_regenerated_after_each_merge_to_pre_prod():
     assert "python scripts/build_catalog.py" in runs
     assert "git diff --quiet -- catalog.json" in runs
     assert "git push origin HEAD:pre-prod" in runs
+
+
+def test_pr_policy_workflow_triggers():
+    wf = yaml.safe_load((REPO_ROOT / ".github/workflows/pr-policy.yml").read_text(encoding="utf-8"))
+    triggers = wf.get("on", wf.get(True))
+    assert set(triggers["pull_request"]["types"]) == {"opened", "edited", "synchronize", "reopened"}
+    assert "paths" not in triggers["pull_request"]
+    assert {j["name"] for j in wf["jobs"].values()} == {"PR policy", "Secret scan"}
+    assert wf["concurrency"]["cancel-in-progress"] is True
+
+
+def test_gitleaks_is_pinned_and_verified():
+    text = (REPO_ROOT / ".github/workflows/pr-policy.yml").read_text(encoding="utf-8")
+    assert "gitleaks_8.30.1_linux_x64.tar.gz" in text
+    assert "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb" in text
+    assert "sha256sum -c" in text
+
+
+def test_pull_request_workflows_are_read_only():
+    for path in (REPO_ROOT / ".github/workflows").glob("*.yml"):
+        wf = yaml.safe_load(path.read_text(encoding="utf-8"))
+        if "pull_request" not in wf.get("on", wf.get(True)):
+            continue
+        assert wf["permissions"] == {"contents": "read"}, path.name
+        runs = "\n".join(s.get("run", "") for j in wf["jobs"].values() for s in j["steps"])
+        assert "git push" not in runs and "git commit" not in runs, path.name
+        assert "github.event.pull_request.body" not in runs, path.name
