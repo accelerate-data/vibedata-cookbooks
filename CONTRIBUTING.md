@@ -30,7 +30,7 @@ The PR description carries the evidence, using the PR template in `.github/pull_
 
 Run the checks below, then review your own change against the PR template's author checklist. In plain terms, confirm that:
 
-1. The Recipe is one bounded outcome with its own acceptance behaviour, not a Feature, a Skill, a Guarantee, a Collection or a duplicate of an existing Recipe.
+1. The Recipe is one bounded outcome with its own acceptance behaviour, not a Feature, a Skill (knowledge the agent applies about tools, platforms and techniques), a Guarantee (cross-cutting Vibedata behaviour that Recipes inherit), a Collection or a duplicate of an existing Recipe. The [Cookbook ontology](https://github.com/accelerate-data/vibedata-gtm/blob/main/docs/gtm/plan/04-demand-inbound/cookbook/README.md) defines these terms.
 2. Each `Verified by` bullet states an observable property of a correct result, and defining business logic has an independent expected result.
 3. `Ask first` lists the policy decisions the agent must not settle alone, and the Recipe inherits context that Studio already knows.
 4. `Guardrails` cover the real risks of this outcome and nothing generic.

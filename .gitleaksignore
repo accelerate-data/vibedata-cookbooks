@@ -1,5 +1,5 @@
 # Each non-comment line is a gitleaks fingerprint of an accepted finding.
 # Format for a finding in git history: <commit>:<file>:<rule-id>:<line>
-# Format for a finding in a PR body (no commit): <file>:<rule-id>:<line>
+# Format for a finding in a PR body (no commit): <file>:<rule-id>:<line>, where <file> is the runner path $RUNNER_TEMP/pr-body.md
 # Put a comment line above each entry that states the reason it is accepted.
 # Keep this file to comment lines until a reviewed false positive needs an entry.
