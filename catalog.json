@@ -32,6 +32,7 @@
         "file-drop-to-bronze",
         "finance-ap-aging",
         "finance-ar-aging-dso",
+        "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
         "finance-gl-subledger-tieout",
         "finance-trial-balance-close",
@@ -61,7 +62,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 35,
+      "supported_or_proven_count": 36,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -127,6 +128,7 @@
         "file-drop-to-bronze",
         "finance-ap-aging",
         "finance-ar-aging-dso",
+        "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
         "finance-gl-subledger-tieout",
         "finance-trial-balance-close",
@@ -174,7 +176,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 26,
+      "supported_or_proven_count": 27,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -223,6 +225,7 @@
         "file-drop-to-bronze",
         "finance-ap-aging",
         "finance-ar-aging-dso",
+        "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
         "finance-gl-subledger-tieout",
         "finance-trial-balance-close",
@@ -244,7 +247,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 23,
+      "supported_or_proven_count": 24,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -967,6 +970,71 @@
         "Finance needs the aged receivables report and DSO for a past month or quarter end, but the receivables system only shows what is open today.",
         "The aging report and DSO are rebuilt by hand in a spreadsheet each month, and their totals never quite agree with the open invoices.",
         "An auditor asks what was open at a past date and how overdue it was, and someone has to rebuild the answer by hand."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For each period the approved rules compare, set GL actuals beside the approved budget and the selected forecast per cost center and budgeted account, with variance, percentage and large-variance flags, rolled up the approved hierarchy and year to date, while every GL and plan line that cannot be placed stays visible with its reason, so no amount is lost, double counted or read as a real zero.",
+      "domain_objects": [
+        "budget",
+        "forecast",
+        "plan_version",
+        "cost_center",
+        "cost_center_hierarchy",
+        "general_ledger_account",
+        "account_mapping",
+        "fiscal_period",
+        "variance",
+        "budget_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "finance-budget-forecast-actual",
+      "job_category": "build",
+      "path": "recipes/finance-budget-forecast-actual/recipe.md",
+      "pitch": "Compare GL actuals with the approved budget and selected forecast per cost center, account and period, with flagged variances and every line reconciled.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Budget and forecast arrive as landed tables; landing and governing the budget spreadsheet is a separate outcome.",
+        "A past report as issued needs kept snapshots; without them a later posting into a closed period restates it.",
+        "Stops at the comparison; allocations, driver-based planning and plan write-back are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "governed-spreadsheet-table",
+        "effective-dated-business-rules",
+        "finance-trial-balance-close",
+        "metric-population-and-rollups",
+        "dbt-snapshot-history"
+      ],
+      "sha256": "63a9413c72493d1aed0fc66e127b76257b33862827a9f6fb8a117f8fddd10130",
+      "title": "Compare budget and forecast to actuals at cost-center grain",
+      "trigger": [
+        "Budget-versus-actual is a monthly copy-paste from the general ledger into the budget spreadsheet, and the variances change depending on who built them.",
+        "Finance needs each cost center's variance against both the approved budget and the current forecast, with the large ones flagged, before the monthly review.",
+        "Department heads dispute their variances because the GL accounts and cost centers do not line up with the lines they budgeted."
       ],
       "works_with": {
         "platforms": [
