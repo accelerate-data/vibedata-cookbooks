@@ -37,4 +37,5 @@ def test_recipe_has_its_agreed_platforms_and_readiness(recipe_id):
     assert entry["readiness"] == EXPECTED[recipe_id]["readiness"]
     assert sorted(entry["works_with"]["platforms"]) == sorted(EXPECTED[recipe_id]["platforms"])
     assert entry["pitch"]
-    assert entry["evidence"]["evals"] == []
+    if entry["readiness"] == "proven":
+        assert entry["evidence"]["evals"], f"{recipe_id} is proven but names no eval"
