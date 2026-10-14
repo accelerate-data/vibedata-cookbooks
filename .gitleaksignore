@@ -1,0 +1,4 @@
+# Each non-comment line is a gitleaks fingerprint of an accepted finding.
+# Format: <commit>:<file>:<rule-id>:<line>
+# Put a comment line above each entry that states the reason it is accepted.
+# Keep this file to comment lines until a reviewed false positive needs an entry.
