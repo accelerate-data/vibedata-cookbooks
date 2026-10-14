@@ -30,6 +30,8 @@
         "effective-dated-business-rules",
         "event-resource-attribution",
         "file-drop-to-bronze",
+        "finance-ar-aging-dso",
+        "finance-gl-subledger-tieout",
         "governed-spreadsheet-table",
         "identity-golden-record-crosswalk",
         "identity-standardize-names-addresses",
@@ -39,6 +41,7 @@
         "managed-connector-to-dlt",
         "master-b2b-account-hierarchy",
         "metric-population-and-rollups",
+        "metricflow-semantic-model",
         "notebook-transformation-to-dbt",
         "operational-state-duration",
         "prove-dbt-change-safe",
@@ -55,7 +58,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 29,
+      "supported_or_proven_count": 32,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -117,13 +120,17 @@
         "fabric-data-pipeline-as-code",
         "fabric-direct-lake-semantic-model",
         "file-drop-to-bronze",
+        "finance-ar-aging-dso",
+        "finance-gl-subledger-tieout",
         "governed-spreadsheet-table",
         "incremental-dbt-model-with-contract",
         "logistics-fleet-utilization",
         "materialized-view-to-dbt",
         "metric-population-and-rollups",
         "operational-state-duration",
+        "pii-classification-and-masking",
         "prove-dbt-change-safe",
+        "readiness-gated-orchestration",
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
@@ -159,7 +166,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 19,
+      "supported_or_proven_count": 23,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -206,13 +213,17 @@
         "effective-dated-business-rules",
         "event-resource-attribution",
         "file-drop-to-bronze",
+        "finance-ar-aging-dso",
+        "finance-gl-subledger-tieout",
         "governed-spreadsheet-table",
         "incremental-dbt-model-with-contract",
         "logistics-fleet-utilization",
         "metric-population-and-rollups",
+        "metricflow-semantic-model",
         "motherduck-flight-scheduling",
         "operational-state-duration",
         "prove-dbt-change-safe",
+        "readiness-gated-orchestration",
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt"
@@ -222,7 +233,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 16,
+      "supported_or_proven_count": 20,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -672,11 +683,12 @@
     },
     {
       "area": "orchestration",
-      "description": "Author a Fabric Data Pipeline and its schedule as committed code that runs ingestion, the dbt job and a downstream step in order, validate its dependency graph statically, run it once on demand, and document its schedule and dependency order.",
+      "description": "Author a Fabric Data Pipeline and its schedule as committed code that runs the approved loads, the dbt build and a downstream refresh in order under approved failure, retry and overlap rules, prove its order and failure paths against the committed definition, and run it where an ephemeral Fabric run is approved.",
       "domain_objects": [
         "fabric_data_pipeline",
         "dbt_job",
-        "schedule"
+        "schedule",
+        "pipeline_activity"
       ],
       "evidence": {
         "evals": [],
@@ -690,13 +702,25 @@
       "id": "fabric-data-pipeline-as-code",
       "job_category": "build",
       "path": "recipes/fabric-data-pipeline-as-code/recipe.md",
-      "pitch": "Turn a clicked-together Fabric pipeline into committed code that runs ingestion, dbt and the downstream refresh in order.",
+      "pitch": "Turn a clicked-together Fabric pipeline into committed code whose order, failure rules and schedule are proven against its definition.",
+      "qualifiers": [
+        "Not yet assessed end to end on fabric_lakehouse or fabric_warehouse.",
+        "Sequences existing loads and dbt models; it authors only the pipeline, its schedule and the items that invoke them.",
+        "Outside a Fabric Domain only the committed definition can be proven; running it needs a Fabric workspace.",
+        "Needs a Studio route for dlt to read source files; cloud buckets (ADLS, S3) have none today.",
+        "Scheduling on MotherDuck belongs to motherduck-flight-scheduling."
+      ],
       "readiness": "supported",
-      "sha256": "29159f5e5339cf756b3c72510ab2f4b4c1f5953f6fce83186404af7042b522ef",
+      "related": [
+        "motherduck-flight-scheduling",
+        "source-freshness-sla"
+      ],
+      "sha256": "a6dd50de9703eeb51d41993e71aa733745867bd9d9f2828a9d4d3afb2812dbbc",
       "title": "Author a Fabric Data Pipeline that sequences ingestion, dbt, and downstream refresh as committed code",
       "trigger": [
-        "A Fabric Data Pipeline was built by clicking and lives only in the workspace.",
-        "Ingestion, the dbt build and a downstream refresh have to run in order on a schedule in Fabric."
+        "The nightly loads, the dbt build and the report refresh are run by hand or live only as a pipeline clicked together in the workspace.",
+        "Nobody can say what happens to the dbt build and the report refresh when one load fails, times out or is retried.",
+        "Production runs on Fabric, and the sequence, its retries and its schedule have to be reviewed and deployed from the repository."
       ],
       "works_with": {
         "platforms": [
@@ -822,6 +846,123 @@
         ],
         "tools": [
           "dlt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For each approved as-of date, list every in-scope receivable open on that date with its open amount, days past due and aging bucket, total it at the approved grain, and compute DSO under the user's approved rules, while every record that cannot be processed stays visible, as an exception or in an explicit run failure, so no amount is lost, counted twice or settled early.",
+      "domain_objects": [
+        "accounts_receivable",
+        "invoice",
+        "credit_memo",
+        "payment",
+        "cash_application",
+        "aging_bucket",
+        "days_sales_outstanding",
+        "receivables_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "finance-ar-aging-dso",
+      "job_category": "build",
+      "path": "recipes/finance-ar-aging-dso/recipe.md",
+      "pitch": "Rebuild aged receivables and DSO for each approved as-of date from dated receivable documents, payments and, where recorded, cash applications.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Settling as of a past date needs dated cash applications, or an approved rule linking payments to documents.",
+        "Reproducing results as known on a past date needs entry timestamps or kept snapshots of the results.",
+        "Stops at aging and DSO; collections, disputes and bad-debt provisioning are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "dbt-snapshot-history"
+      ],
+      "sha256": "374fb410351e37aa8bd99270a3ef8f9aa4a79b7542c9b1a0c83201566a1083a7",
+      "title": "Age receivables and compute DSO from open invoices as of any chosen date",
+      "trigger": [
+        "Finance needs the aged receivables report and DSO for a past month or quarter end, but the receivables system only shows what is open today.",
+        "The aging report and DSO are rebuilt by hand in a spreadsheet each month, and their totals never quite agree with the open invoices.",
+        "An auditor asks what was open at a past date and how overdue it was, and someone has to rebuild the answer by hand."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "At the approved reconciliation grain, including legal entity and currency where relevant, set the general-ledger balance beside its subledger balance, explain the difference as breaks classed under approved rules, leave any residual visible as unexplained, and keep unprocessable records visible as exceptions, so no amount is lost, counted twice or absorbed.",
+      "domain_objects": [
+        "general_ledger",
+        "journal_line",
+        "subledger_document",
+        "control_account",
+        "reconciliation_break",
+        "reconciliation_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "finance-gl-subledger-tieout",
+      "job_category": "build",
+      "path": "recipes/finance-gl-subledger-tieout/recipe.md",
+      "pitch": "Reconcile every control account to its subledger with each break classified and nothing quietly absorbed.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Linking breaks to documents needs a document reference on ledger lines or an approved matching rule.",
+        "Reproducing a past tie-out after rule or source changes needs kept history of the tie-out.",
+        "Stops at the classified tie-out; correcting postings, sign-off and close packs are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "effective-dated-business-rules",
+        "dbt-snapshot-history"
+      ],
+      "sha256": "bf5b0d47cfed9049b65722ff88329d0acce795b94f661c491432b8e33dab69a1",
+      "title": "Tie the general ledger to its subledgers and classify every break",
+      "trigger": [
+        "Month-end close stalls because control accounts do not agree with their subledgers and the difference is worked out by hand in a spreadsheet.",
+        "The controller will not sign off until every control-account difference is explained, from late postings to manual journals, with nothing left unexplained.",
+        "An auditor asks why a control account differed from its subledger at a past period end, and someone has to rebuild the explanation by hand."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
         ]
       }
     },
@@ -1350,11 +1491,67 @@
       }
     },
     {
+      "area": "semantic-layer",
+      "description": "Define the approved metrics once as dbt MetricFlow semantic models over a gold fact mart, prove that the values the semantic layer returns equal an independent computation of each approved definition at the approved precision, and reconcile them to the agreed reference figures, every difference named and sized; code only, nothing published.",
+      "domain_objects": [
+        "semantic_model",
+        "governed_metric",
+        "metric_population",
+        "dimension",
+        "time_spine",
+        "metric_reconciliation"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-semantic-model",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "metricflow-semantic-model",
+      "job_category": "build",
+      "path": "recipes/metricflow-semantic-model/recipe.md",
+      "pitch": "Define each metric once, prove its numbers, and name and size every difference from the agreed reference figures.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; motherduck and redshift rely on MetricFlow support and are unassessed.",
+        "Needs MetricFlow installed where metrics are queried; Studio's managed runtime does not include it today.",
+        "Needs a gold fact mart with a declared grain; changing existing marts or building new fact marts is outside this Recipe.",
+        "Code only; publishing to a semantic-layer service or BI tool is outside this Recipe."
+      ],
+      "readiness": "supported",
+      "related": [
+        "metric-population-and-rollups"
+      ],
+      "sha256": "72476ebae26ac7200ff5e5980def2c89a6e3e85685aa4b12c97f57f726e5722b",
+      "title": "Define governed metrics as a MetricFlow semantic model over a gold mart",
+      "trigger": [
+        "Revenue or average order value means different things in different marts and dashboards, and nobody can say which number is right.",
+        "Each new report re-implements the same KPI in SQL with its own filters, and the copies drift apart.",
+        "A rate gives a different answer by day than by month because copies aggregate it differently.",
+        "Analysts need agreed metrics they can slice by agreed dimensions and periods without knowing the joins."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
       "area": "orchestration",
-      "description": "Author a MotherDuck Flight as committed code that runs a dlt load and then a dbt build in order on a schedule, with every credential declared as a secret, and prove one on-demand run succeeded on the workload's own result as well as the Flight's status.",
+      "description": "Author a MotherDuck Flight as committed code that runs the approved load and then the dbt build of an approved selection on a schedule, under approved failure, recovery and overlap rules, prove its order, failure paths and carried project against the committed program, and run it in a MotherDuck sandbox where approved.",
       "domain_objects": [
         "motherduck_flight",
-        "schedule"
+        "schedule",
+        "flight_secret"
       ],
       "evidence": {
         "evals": [],
@@ -1368,13 +1565,27 @@
       "id": "motherduck-flight-scheduling",
       "job_category": "build",
       "path": "recipes/motherduck-flight-scheduling/recipe.md",
-      "pitch": "Replace the laptop cron with a committed MotherDuck Flight that loads and builds on a schedule.",
+      "pitch": "Replace the laptop cron with a committed MotherDuck Flight that loads, builds and fails loudly on a schedule.",
+      "qualifiers": [
+        "Not yet assessed end to end on motherduck.",
+        "Schedules the load and build on MotherDuck only; local DuckDB has no scheduler.",
+        "The dbt project the Flight carries must fit MotherDuck's Flight source-code size limit.",
+        "A schedule only runs on a MotherDuck plan that offers scheduled Flight runs.",
+        "The load must reach its source from the Flight runtime, with credentials held as Flight secrets.",
+        "Scheduling on Fabric belongs to fabric-data-pipeline-as-code."
+      ],
       "readiness": "supported",
-      "sha256": "eb9c19cf1ca5f56065b6bec12e3bd27f8dad141def591983d47ac4abe3cd3df7",
+      "related": [
+        "fabric-data-pipeline-as-code",
+        "readiness-gated-orchestration",
+        "source-freshness-sla"
+      ],
+      "sha256": "44c9988f3abc94bbc6ce8da63be2c243e268ff634928c505f5050d71c98d08d0",
       "title": "Schedule a dlt load and a dbt build on MotherDuck as a committed MotherDuck Flight",
       "trigger": [
-        "The MotherDuck load and build run from a cron job on someone's laptop.",
-        "A dlt load and a dbt build on MotherDuck have to run in order on a schedule without standing up an orchestrator."
+        "The MotherDuck load and the dbt build that follows it run from a cron job on someone's laptop.",
+        "A dlt load and a dbt build on MotherDuck have to run in order on a schedule without standing up an orchestrator.",
+        "A scheduled run reports success while the load or the build behind it actually failed."
       ],
       "works_with": {
         "platforms": [
@@ -1485,6 +1696,62 @@
       }
     },
     {
+      "area": "governance-cost",
+      "description": "Classify every column of the governed relations as a kind of personal data or as not personal, serve a lower-privilege audience each kind masked as approved, limit that audience to the approved access, prove the masked outputs correct whether or not grants are applied, and, where applying the grants is approved, verify each role's effective access, including whether clear values can be recovered.",
+      "domain_objects": [
+        "personal_data_classification",
+        "masking_treatment",
+        "access_role",
+        "masked_column",
+        "discovery_candidate"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "pii-classification-and-masking",
+      "job_category": "build",
+      "path": "recipes/pii-classification-and-masking/recipe.md",
+      "pitch": "Classify personal data by column, mask it by kind for a lower-privilege audience, and verify that audience's access where grants are applied.",
+      "qualifiers": [
+        "Not yet assessed end to end on fabric_warehouse or redshift.",
+        "Needs database roles and per-object grants on the target; DuckDB and MotherDuck have neither.",
+        "Applying the roles and grants and running the role checks need a live warehouse and approval to change access.",
+        "Fabric Lakehouse is excluded because its SQL endpoint grants do not govern OneLake or Spark reads.",
+        "Assumes the lower-privilege audience has no storage-level read path that bypasses database grants.",
+        "Finds personal data inside free text only as far as the approved discovery rules reach.",
+        "Row-level security, sensitivity labels, encryption, erasure and access auditing are outside this Recipe."
+      ],
+      "readiness": "supported",
+      "related": [
+        "identity-standardize-names-addresses",
+        "identity-golden-record-crosswalk"
+      ],
+      "sha256": "f6bce8f88d2a8d8d645888ded954f3de84baf5951eea983263d70366bd6da19e",
+      "title": "Tag personal-data columns, mask them by kind for a lower-privilege audience and prove the masked outputs",
+      "trigger": [
+        "Analysts need tables that carry names, addresses, emails, phone numbers or ID numbers they must not see.",
+        "Nobody can say which published columns hold personal data, so a new column can leak it unnoticed.",
+        "An auditor asks to see exactly what a lower-privilege user can read, and whether the clear values can be reached another way."
+      ],
+      "works_with": {
+        "platforms": [
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
       "area": "data-quality",
       "description": "Produce an independent assessment of an existing dbt change against approved requirements and baselines, with semantic checks, evidence gaps and a merge recommendation while preserving the reviewed implementation.",
       "domain_objects": [
@@ -1521,6 +1788,57 @@
           "fabric_lakehouse",
           "fabric_warehouse",
           "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "orchestration",
+      "description": "Author a consumer pipeline as committed code that starts each period's build only when the required upstream feeds meet the approved readiness signal, handles missed, late and restated periods as the approved rules say, and fails explicitly without building when a required feed misses its deadline.",
+      "domain_objects": [
+        "orchestration_pipeline",
+        "readiness_signal",
+        "schedule"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "generating-orchestration",
+          "evaluating-orchestration",
+          "running-orchestration-in-sandbox",
+          "documenting-orchestration"
+        ]
+      },
+      "id": "readiness-gated-orchestration",
+      "job_category": "build",
+      "path": "recipes/readiness-gated-orchestration/recipe.md",
+      "pitch": "Start the build when the data is ready, not when the clock says so, and fail loudly instead of building on partial data.",
+      "qualifiers": [
+        "Needs each required upstream feed to expose an approved readiness signal per period.",
+        "Not yet assessed end to end on any listed target.",
+        "Needs an orchestrator that can wait for readiness, check it and fail a run.",
+        "Studio's orchestration templates do not yet include a readiness gate for every listed target.",
+        "Checks readiness by polling within an approved window; event-triggered starts are out of scope."
+      ],
+      "readiness": "supported",
+      "related": [
+        "source-freshness-sla",
+        "fabric-data-pipeline-as-code"
+      ],
+      "sha256": "2321f0d983a7055f30ef9878bca29d20965e09778b216a53c1fc2432d2afc504",
+      "title": "Gate a consumer pipeline on upstream data readiness instead of a clock",
+      "trigger": [
+        "A consumer build runs at a fixed time and, on runs where an upstream load is late, builds on partial data without anyone noticing.",
+        "The schedule was pushed later to be safe, so in an ordinary period the consumers wait hours for no reason.",
+        "Several upstream teams land data at different times, and the build must start only when the feeds it needs are ready, and fail loudly when one misses its deadline."
+      ],
+      "works_with": {
+        "platforms": [
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse"
         ],
         "tools": [
           "dbt"
