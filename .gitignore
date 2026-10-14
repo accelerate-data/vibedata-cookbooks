@@ -3,6 +3,6 @@ __pycache__/
 .pytest_cache/
 .DS_Store
 .cache/
-docs/plans/
-docs/superpowers/
+docs/*
+!docs/adr/
 .superpowers/
