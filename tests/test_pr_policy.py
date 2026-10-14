@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import json
+import subprocess
 from typing import Any
 
+import check_pr_policy
 from check_pr_policy import EVIDENCE_HEADINGS, check, main
 
 FULL_BODY = "".join(f"## {heading}\n\nFilled in.\n\n" for heading in EVIDENCE_HEADINGS)
@@ -96,3 +98,17 @@ def test_main_out_of_scope_needs_no_git(tmp_path):
     ev = tmp_path / "event.json"
     ev.write_text(json.dumps(event("", base="main")))
     assert main(["--event", str(ev)]) == 0
+
+
+def test_main_excludes_deleted_files_from_git_diff(tmp_path, monkeypatch):
+    calls = []
+
+    def fake_run(argv, **kwargs):
+        calls.append(argv)
+        return subprocess.CompletedProcess(argv, 0, stdout="", stderr="")
+
+    monkeypatch.setattr(check_pr_policy.subprocess, "run", fake_run)
+    ev = tmp_path / "event.json"
+    ev.write_text(json.dumps(event("")))
+    assert main(["--event", str(ev)]) == 0
+    assert calls == [["git", "diff", "--name-only", "--diff-filter=d", "b...h"]]
