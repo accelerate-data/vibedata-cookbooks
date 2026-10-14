@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 from typing import Any
 
 import check_pr_policy
 from check_pr_policy import EVIDENCE_HEADINGS, check, main
+from samples import REPO_ROOT
 
 FULL_BODY = "".join(f"## {heading}\n\nFilled in.\n\n" for heading in EVIDENCE_HEADINGS)
 RECIPE = ["recipes/foo/recipe.md"]
@@ -112,3 +114,8 @@ def test_main_excludes_deleted_files_from_git_diff(tmp_path, monkeypatch):
     ev.write_text(json.dumps(event("")))
     assert main(["--event", str(ev)]) == 0
     assert calls == [["git", "diff", "--name-only", "--diff-filter=d", "b...h"]]
+
+
+def test_template_headings_match_policy():
+    text = (REPO_ROOT / ".github/pull_request_template.md").read_text(encoding="utf-8")
+    assert re.findall(r"^## (.+?)\s*$", text, re.M)[: len(EVIDENCE_HEADINGS)] == list(EVIDENCE_HEADINGS)
