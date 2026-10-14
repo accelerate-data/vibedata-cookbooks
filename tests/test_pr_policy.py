@@ -183,3 +183,36 @@ def test_text_after_closing_marker_is_section_text_not_a_heading():
     assert check(event(body), RECIPE) == []
     body = FULL_BODY.replace("## Summary\n\nFilled in.", "## Summary\n<!-- note\n--> ## Platform compatibility")
     assert sections(body)["Summary"].strip() == "## Platform compatibility"
+
+
+def hidden_after(opener: str) -> None:
+    body = FULL_BODY.replace("## Distinct", f"{opener}\n## Distinct")
+    assert len(check(event(body), RECIPE)) == len(EVIDENCE_HEADINGS) - 1
+
+
+def test_unclosed_comment_after_a_closed_one_hides_the_rest():
+    hidden_after("<!-- a --><!-- b")
+    hidden_after("<!-- a\n--> <!-- b")
+
+
+def test_tilde_line_inside_backtick_fence_does_not_close_it():
+    assert len(check(event("```\n~~~\n" + FULL_BODY + "```\n"), RECIPE)) == len(EVIDENCE_HEADINGS)
+
+
+def test_fence_with_info_string_opens_and_bare_fence_closes():
+    assert len(check(event("```python\n" + FULL_BODY + "```\n"), RECIPE)) == len(EVIDENCE_HEADINGS)
+    assert check(event("```python\ncode\n```\n" + FULL_BODY), RECIPE) == []
+
+
+def test_short_backtick_run_inside_longer_fence_does_not_close_it():
+    assert len(check(event("````\n```\n" + FULL_BODY + "```\n````\n"), RECIPE)) == len(EVIDENCE_HEADINGS)
+    assert check(event("````\n```\n````\n" + FULL_BODY), RECIPE) == []
+
+
+def test_short_comment_forms_are_complete_comments():
+    for form in ("<!-->", "<!--->"):
+        assert check(event(FULL_BODY.replace("Filled in.", f"{form}\nFilled in.", 1)), RECIPE) == []
+
+
+def test_unclosed_block_comment_reports_all_six_missing():
+    assert len(check(event("<!-- never closed\n" + FULL_BODY), RECIPE)) == len(EVIDENCE_HEADINGS)

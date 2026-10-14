@@ -36,42 +36,53 @@ EVIDENCE_HEADINGS: tuple[str, ...] = (
 )
 
 HEADING = re.compile(r"^ {0,3}## (.+?)(?:\s+#+)?\s*$")
-FENCE = re.compile(r"^ {0,3}(```|~~~)")
+FENCE_OPEN = re.compile(r"^ {0,3}(`{3,}(?=[^`]*$)|~{3,})")  # a backtick info string holds no backtick
+FENCE_CLOSE = re.compile(r"^ {0,3}(`{3,}|~{3,})[ \t]*$")
 COMMENT_OPEN = re.compile(r"^ {0,3}<!--")
-INLINE_COMMENT = re.compile(r"<!--.*?-->")  # an unclosed mid-line "<!--" stays literal
+INLINE_COMMENT = re.compile(r"<!--(?:-?>|.*?-->)")  # "<!-->" and "<!--->" are complete comments
 
 
 def sections(body: str | None) -> dict[str, str]:
     """Map each '## ' heading to its section text, following GitHub's rendering of
-    code fences and HTML comments. Fences are literal. A comment block opens at a line
-    starting with '<!--' and runs through the first line holding '-->' (an unclosed
-    block hides the rest). Text after '-->' is section text, never a heading."""
+    code fences and HTML comments. A fence closes only on the opener's character, at
+    least its length, with no info string. A comment block opens at a line starting
+    with '<!--' and runs through the first line holding '-->'. Text after '-->' is
+    section text, never a heading; an unclosed '<!--' there, or an unclosed block,
+    hides the rest of the body."""
     found: dict[str, list[str]] = {}
     current: list[str] | None = None
-    fenced = False
+    fence: str | None = None  # the opener's run, such as "```" or "~~~~"
     in_comment = False
     for line in (body or "").replace("\r\n", "\n").split("\n"):
-        text = None  # section text to keep when the line is not a heading
+        tail = None  # text after a comment block's closing '-->'
         if in_comment:
             end = line.find("-->")
             if end == -1:
                 continue
-            in_comment, line, text = False, "", line[end + 3 :]
-        elif FENCE.match(line):
-            fenced = not fenced
-        elif not fenced and COMMENT_OPEN.match(line):
-            end = line.find("-->", line.index("<!--") + 4)
+            in_comment, tail = False, line[end + 3 :]
+        elif fence is not None:
+            close = FENCE_CLOSE.match(line)
+            if close and close.group(1)[0] == fence[0] and len(close.group(1)) >= len(fence):
+                fence = None
+        elif opener := FENCE_OPEN.match(line):
+            fence = opener.group(1)
+        elif COMMENT_OPEN.match(line):
+            end = line.find("-->", line.index("<!--") + 2)
             if end == -1:
                 in_comment = True
                 continue
-            text = line[end + 3 :]
-        elif not fenced:
-            line = INLINE_COMMENT.sub("", line)
-        if text is not None:
-            line = INLINE_COMMENT.sub("", text)
+            tail = line[end + 3 :]
+        if tail is not None:
+            line = INLINE_COMMENT.sub("", tail)
+            if "<!--" in line:
+                in_comment = True  # an unclosed comment hides the rest, as on GitHub
+                line = line.split("<!--")[0]
+            match = None
+        elif fence is not None:
             match = None
         else:
-            match = None if fenced else HEADING.match(line)
+            line = INLINE_COMMENT.sub("", line)
+            match = HEADING.match(line)
         if match:
             current = found.setdefault(match.group(1), [])
         elif current is not None:
