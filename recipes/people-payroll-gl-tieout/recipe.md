@@ -1,12 +1,12 @@
 ---
 id: people-payroll-gl-tieout
-title: Tie payroll to the general ledger every pay period and classify every break
+title: Tie payroll to the general ledger at every cut-off and classify every break
 trigger:
   - Payroll expense in the general ledger does not match the payroll register at close, and the gap is worked out by hand.
   - Finance cannot say which pay run or cost center explains the difference between the register and the ledger.
   - An auditor asks what an accrual, an off-cycle run or a misposting did to a period, and someone has to rebuild the answer.
 description: At the approved reconciliation grain, set the payroll register total, mapped to GL accounts, beside what the ledger posted, explain the difference as breaks classed under approved rules, leave any residual visible as unexplained, and account for every register line and ledger posting.
-pitch: Reconcile payroll to the ledger every pay period with each break classified and nothing quietly absorbed.
+pitch: Reconcile payroll to the ledger at every cut-off with each break classified and nothing quietly absorbed.
 job_category: build
 area: transformation
 readiness: supported
@@ -63,13 +63,13 @@ Build <tieout_model>, <breaks_model>, <accountability_model> and <exceptions_mod
 - On a run that completes, every register line and ledger posting in the approved register and ledger extracts, in scope or not, is accounted for once at each grain it affects: in a tie-out row (matched or contributing to a break), left out with its reason, or a problem with its reason.
 - At each grain and cut-off, the register and ledger amounts (under the approved accrual basis, allocation and translation), each class's claim and the residual equal values derived from the sources and approved rules independently of the implementation; each record's disposition fits its row.
 - A difference that fits several classes is attributed as the approved precedence and attribution rule say, so no amount belongs to two classes and class amounts plus residual equal the difference; an approved rule held as data governs every record it covers, within the approved rule form.
-- Where a pay period spans a cut-off, the register side follows the approved accrual basis for each pay code; the approved attribution rule decides what a timing class takes, a late or missing posting is never timing unless the approved rule identifies it, and what no class takes stays unexplained.
+- Where a pay period spans a cut-off, the register side follows the approved accrual basis for each pay code; the approved attribution rule decides what any approved timing class takes, a late or missing posting is never timing unless that rule identifies it, and what no class takes stays unexplained.
 - Where an approved class pairs an attribution to another run or cost center with its counterpart row, the paired amounts are equal and opposite and not counted twice; where the approved rule does not pair them, each claim is as that rule says. An approved allocation's shares sum to the posting.
 - Records just inside and just outside each approved tolerance edge, cut-off and period boundary are classed as the approved rules say; where carry-forward is approved, an item stays at every later cut-off until the approved settlement rule settles it, so an open break never disappears.
 - A pay code the mapping lacks, a posting with no run or an unlisted account, and a duplicate, void, retro, recharged, invalid or foreign-currency record follow the approved policy: visible with reason and amount or suppressed per the disclosure rule, never dropped, zeroed or given a guessed account.
 - Where the approved policy fails the run on an unexplained residual, an unmapped pay code or an unprocessable record, the run fails explicitly, names each offending grain or record with its reason and publishes nothing as complete; every other bullet then applies only to published results.
 - Roll-ups published beside the rows sum to the rows beneath them, counting any suppressed row at its hidden value, combine entities or currencies only as the approved mapping, rates and rules say, and carry breaks, residual and counts.
-- Where a minimum group size is approved, a suppressed figure keeps its reason and its records stay accounted for; every published total, roll-up, difference, class amount, other-side amount, count, flag and drill-down is withheld, merged or suppressed so no suppressed figure can be recomputed.
+- Where a minimum group size is approved, a suppressed figure is shown as approved with its reason and its records stay accounted for; where complementary hiding is approved, no figure in an approved output lets a suppressed figure be recomputed.
 - Each break traces to the register and ledger line ids behind it as the approved identifiers allow, each output is unique on its declared grain with required fields populated, and the outcome states open breaks, exceptions and what the inputs cannot prove.
 
 ## Agent guidance
@@ -98,7 +98,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - If unresolved, which break classes exist and how is each identified, which wins when several fit and does it take the whole difference or only the part it explains, what tolerance applies (inclusive edge, per row or run), and which way is the difference taken?
 - If unresolved, is an unmapped pay code, an unexplained residual or an unprocessable record counted and flagged, excluded with a visible count and amount, or a failure of the run, and is it reported once per reason or once overall?
 - If unresolved, how are duplicates, voids, retro adjustments, intercompany recharges and split cost centers treated, and is consolidation or translation across entities or currencies approved, under which mapping and rates?
-- If unresolved, which identifiers and amounts may drill-down rows carry, is a minimum group size applied and what counts as a group, and which other-side amounts, break amounts, totals and roll-ups may be shown beside a suppressed figure without letting it be recomputed?
+- If unresolved, which identifiers and amounts may drill-down rows carry, is a minimum group size applied and what counts as a group, how is a suppressed figure shown (marked, merged, omitted), and is complementary hiding required, over which outputs?
 
 ### Guardrails
 
@@ -108,6 +108,6 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - Never drop or double count a record; every unprocessable or left-out record stays visible with its reason and amount, or suppressed under the approved disclosure rule, and an unmapped pay code is never given a guessed account.
 - Do not link a posting to a run by amount or date alone, or spread one posting across runs, unless the approved rules say so; report unlinked postings under the approved rule.
 - Where differences carry forward, do not drop a run from later cut-offs before the approved settlement rule says it is settled.
-- Register lines are personal data: publish names, pay amounts or keys only as the approved disclosure rule allows; where a minimum group size is approved, a small group's figure is not exposed through a total, roll-up or drill-down.
+- Register lines are personal data: publish names, pay amounts or keys only as the approved disclosure rule allows; where a minimum group size is approved a small group's figure is suppressed as approved, and where complementary hiding is approved it is not exposed through the approved outputs.
 - A break records a difference, not which side is wrong; do not assume the register or the ledger is correct.
 - Stop at the classified tie-out: do not calculate payroll, post corrections or accruals, or sign off, and keep sources read-only.
