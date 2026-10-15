@@ -35,6 +35,7 @@
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
         "finance-gl-subledger-tieout",
+        "finance-revenue-recognition",
         "finance-trial-balance-close",
         "governed-spreadsheet-table",
         "identity-golden-record-crosswalk",
@@ -62,7 +63,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 36,
+      "supported_or_proven_count": 37,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -72,6 +73,7 @@
       "id": "finance-data-engineering",
       "kind": "function",
       "resolved_members": [
+        "finance-revenue-recognition",
         "finance-trial-balance-close"
       ],
       "selector": {
@@ -79,7 +81,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 1,
+      "supported_or_proven_count": 2,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": false
@@ -131,6 +133,7 @@
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
         "finance-gl-subledger-tieout",
+        "finance-revenue-recognition",
         "finance-trial-balance-close",
         "governed-spreadsheet-table",
         "incremental-dbt-model-with-contract",
@@ -176,7 +179,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 27,
+      "supported_or_proven_count": 28,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -228,6 +231,7 @@
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
         "finance-gl-subledger-tieout",
+        "finance-revenue-recognition",
         "finance-trial-balance-close",
         "governed-spreadsheet-table",
         "incremental-dbt-model-with-contract",
@@ -247,7 +251,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 24,
+      "supported_or_proven_count": 25,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1156,6 +1160,72 @@
         "Month-end close stalls because control accounts do not agree with their subledgers and the difference is worked out by hand in a spreadsheet.",
         "The controller will not sign off until every control-account difference is explained, from late postings to manual journals, with nothing left unexplained.",
         "An auditor asks why a control account differed from its subledger at a past period end, and someone has to rebuild the explanation by hand."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Schedule each contract line's allocated price by period under the approved recognition rules, net billing against it into deferred revenue or the approved asset or receivable at the approved netting level, roll the positions forward at the approved grain, and keep every unprocessable contract or billing line visible, so no amount is lost, counted twice or recognised early.",
+      "domain_objects": [
+        "contract",
+        "contract_line",
+        "performance_obligation",
+        "billing_line",
+        "revenue_schedule",
+        "deferred_revenue",
+        "contract_asset",
+        "revenue_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "finance-revenue-recognition",
+      "job_category": "build",
+      "path": "recipes/finance-revenue-recognition/recipe.md",
+      "pitch": "Turn contracts and invoices into a revenue schedule and a deferred-revenue roll-forward that tie to each other and to every invoice line.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Needs contract lines carrying their allocated price and dated terms; price allocation is a separate outcome.",
+        "Treats each contract line as one performance obligation; combining lines into one obligation is a separate outcome.",
+        "On business dates alone, a backdated change restates earlier periods; reproducing them needs kept history.",
+        "Stops at the schedule and roll-forward; journal postings, period locking and translation are separate."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-ar-aging-dso",
+        "finance-gl-subledger-tieout",
+        "effective-dated-business-rules",
+        "dbt-snapshot-history"
+      ],
+      "sha256": "c6e82ab474d84cc1a163184a0722dd141191b40f65252b77d11a2cd1fb127be9",
+      "title": "Generate the revenue-recognition schedule and deferred-revenue roll-forward from contracts",
+      "trigger": [
+        "Revenue is spread across months by hand in a spreadsheet and never agrees with the deferred revenue balance or with what was invoiced.",
+        "Every month-end someone rebuilds the deferred revenue roll-forward and cannot explain its movement contract by contract.",
+        "An auditor asks how much of a contract was recognised in each period and why, including after it was upsold, repriced or cancelled part way through."
       ],
       "works_with": {
         "platforms": [
