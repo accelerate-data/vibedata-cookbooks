@@ -49,7 +49,11 @@
         "metricflow-semantic-model",
         "notebook-transformation-to-dbt",
         "operational-state-duration",
+        "people-attrition-tenure",
+        "people-headcount-rollforward",
+        "people-pay-band-gaps",
         "prove-dbt-change-safe",
+        "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
         "revops-quota-commission",
         "scalar-sql-function-to-dbt-macro",
@@ -63,7 +67,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 37,
+      "supported_or_proven_count": 41,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -141,9 +145,13 @@
         "materialized-view-to-dbt",
         "metric-population-and-rollups",
         "operational-state-duration",
+        "people-attrition-tenure",
+        "people-headcount-rollforward",
+        "people-pay-band-gaps",
         "pii-classification-and-masking",
         "prove-dbt-change-safe",
         "readiness-gated-orchestration",
+        "revops-bookings-billings-cash",
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
@@ -179,7 +187,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 28,
+      "supported_or_proven_count": 32,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -240,8 +248,12 @@
         "metricflow-semantic-model",
         "motherduck-flight-scheduling",
         "operational-state-duration",
+        "people-attrition-tenure",
+        "people-headcount-rollforward",
+        "people-pay-band-gaps",
         "prove-dbt-change-safe",
         "readiness-gated-orchestration",
+        "revops-bookings-billings-cash",
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt"
@@ -251,7 +263,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 25,
+      "supported_or_proven_count": 29,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -2032,6 +2044,206 @@
       }
     },
     {
+      "area": "transformation",
+      "description": "Classify every leaver, compute attrition rates for the approved cuts under the user's approved definitions, show how tenure is spread across current staff and how each hire cohort is retained, and reconcile leavers to the headcount roll-forward, while every termination record stays accounted for and small groups stay hidden where the approved policy hides them.",
+      "domain_objects": [
+        "worker",
+        "headcount",
+        "termination",
+        "leaver",
+        "attrition_rate",
+        "tenure_band",
+        "hire_cohort",
+        "retention",
+        "attrition_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "hr"
+      ],
+      "id": "people-attrition-tenure",
+      "job_category": "build",
+      "path": "recipes/people-attrition-tenure/recipe.md",
+      "pitch": "One attrition, tenure and retention picture built on the same people the headcount counts, with every leaver accounted for.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Needs per-worker period-end state with population status (and FTE if the base uses it) and its roll-forward.",
+        "Needs termination records with a date, a reason code and the worker's placement on the last day worked.",
+        "Results as known on a past date need kept snapshots; backdated HR changes restate past periods.",
+        "Stops at attrition, tenure and retention; building headcount, pay and forecasting are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "metric-population-and-rollups",
+        "effective-dated-business-rules",
+        "pii-classification-and-masking",
+        "dbt-snapshot-history"
+      ],
+      "sha256": "2a3220a46fe9799398c632839e9af7c4aa2261c107b1bc2b91ad10f5cd815ceb",
+      "title": "Measure attrition, tenure and hire-cohort retention from the headcount outputs",
+      "trigger": [
+        "Leadership asks whether attrition is rising and where, and nobody can answer from one consistent set of figures.",
+        "HR and finance quote different turnover rates for the same year because each counts leavers and headcount differently.",
+        "Nobody can say whether recent hires leave faster than earlier ones, or how long people stay before they go."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "From effective-dated job history, place every worker in the approved population at each reporting date, publish headcount and FTE at the approved grain with org roll-ups, explain each period's change through approved movement classes, and keep every excluded or unprocessable record visible so no worker is lost or counted twice.",
+      "domain_objects": [
+        "worker",
+        "job_record",
+        "employment_type",
+        "org_unit",
+        "org_hierarchy",
+        "legal_entity",
+        "work_location",
+        "headcount",
+        "fte",
+        "headcount_roll_forward",
+        "workforce_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "people"
+      ],
+      "id": "people-headcount-rollforward",
+      "job_category": "build",
+      "path": "recipes/people-headcount-rollforward/recipe.md",
+      "pitch": "Turn effective-dated HR job history into one month-end headcount and FTE everyone can use, with a roll-forward that ties every period.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Past headcount needs effective-dated job history; a current-state worker table cannot show past moves.",
+        "Reproducing figures as known on a past date needs entry timestamps or kept snapshots of the results.",
+        "Stops at headcount, FTE and the roll-forward; attrition, tenure, payroll and positions are separate."
+      ],
+      "readiness": "supported",
+      "related": [
+        "effective-dated-business-rules",
+        "dbt-snapshot-history",
+        "metric-population-and-rollups",
+        "master-b2b-account-hierarchy"
+      ],
+      "sha256": "854a927c9d787ef02d3ecdf1b25d290b8c509f69fa7868a11d7abf1bf8a93eb2",
+      "title": "Build period-end headcount and FTE by org and a roll-forward that ties every period",
+      "trigger": [
+        "HR, finance and the board deck each report a different headcount for the same month-end, and nobody can say why.",
+        "Every month someone rebuilds opening plus hires minus leavers plus transfers in a spreadsheet, and it never equals the closing headcount.",
+        "Leadership asks how many people a team had at a past month-end, under the org structure that applied then."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "governance-cost",
+      "description": "For the approved review date, place each counted worker's pay against the band in force, keep that worker-level result apart from the published outputs, and publish only approved aggregates, such as unadjusted pay gaps, with the approved small-group hiding, while every record is accounted for.",
+      "domain_objects": [
+        "worker",
+        "pay_record",
+        "salary_band",
+        "band_placement",
+        "comparison_group",
+        "pay_gap",
+        "suppression_rule",
+        "pay_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "people-pay-band-gaps",
+      "job_category": "build",
+      "path": "recipes/people-pay-band-gaps/recipe.md",
+      "pitch": "Check pay against salary bands and publish approved pay gaps by group, with approved small-group hiding and its remaining limits stated.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Pay, band and worker records arrive as landed tables; landing them is a separate outcome.",
+        "Stops at the check and the aggregate report; remediation, adjusted-gap modelling and pay planning are separate outcomes.",
+        "Restricting worker-level pay needs roles and grants (pii-classification-and-masking); without them it is a label.",
+        "On fabric_lakehouse, SQL grants do not govern OneLake reads, so restriction cannot be assured there.",
+        "Statutory report formats and statistical significance are separate outcomes.",
+        "Hiding small groups alone does not make a figure safe to release; totals and other releases can reveal one.",
+        "Unless issued reports are frozen, a later correction restates them; frozen ones need kept snapshots."
+      ],
+      "readiness": "supported",
+      "related": [
+        "governed-spreadsheet-table",
+        "pii-classification-and-masking",
+        "metric-population-and-rollups",
+        "effective-dated-business-rules",
+        "dbt-snapshot-history"
+      ],
+      "sha256": "b85724c03f034d6320ad0c994b6c781913df37459010e9328c2d16306005f3ea",
+      "title": "Check pay against salary bands and report pay gaps at an aggregate grain",
+      "trigger": [
+        "A pay-equity review is due and worker-level compensation cannot be shared widely.",
+        "Managers are told people are paid outside the band, but nobody can say how many, where, or on which band version.",
+        "HR is asked for pay gaps between groups and cannot tell whether publishing a number could reveal a small group."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
       "area": "governance-cost",
       "description": "Classify every column of the governed relations as a kind of personal data or as not personal, serve a lower-privilege audience each kind masked as approved, limit that audience to the approved access, prove the masked outputs correct whether or not grants are applied, and, where applying the grants is approved, verify each role's effective access, including whether clear values can be recovered.",
       "domain_objects": [
@@ -2175,6 +2387,69 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For each approved as-of date, tie every in-scope booking line to what was scheduled, billed after credit memos and collected, split each gap into breaks classed under the user's approved rules, show any residual as unexplained, and keep every unplaceable record visible with its reason.",
+      "domain_objects": [
+        "booking_line",
+        "billing_plan",
+        "invoice_line",
+        "credit_memo",
+        "payment",
+        "cash_application",
+        "reconciliation_break",
+        "reconciliation_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "revops-bookings-billings-cash",
+      "job_category": "build",
+      "path": "recipes/revops-bookings-billings-cash/recipe.md",
+      "pitch": "Reconcile what was booked to what was billed and what was collected, with every gap named and nothing quietly absorbed.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Billing needs a stated booking-line reference and cash a stated invoice application, or an approved matching rule.",
+        "Stops at the classified tie; revenue recognition, ageing, commission and ledger tie-out are separate outcomes.",
+        "Reproducing a past as-of result after back-dated changes needs kept history; a rebuild restates it."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-gl-subledger-tieout",
+        "finance-ar-aging-dso",
+        "revops-quota-commission",
+        "finance-revenue-recognition",
+        "effective-dated-business-rules"
+      ],
+      "sha256": "06ee3ccb0b9621ac4d3fd9bf5f405067a3b9d1835c53d12b86bf4b076338b789",
+      "title": "Tie bookings to billings to cash and classify every break",
+      "trigger": [
+        "RevOps and Finance each quote booked, billed and collected, and the three numbers never agree because every team ties them together with its own spreadsheet.",
+        "A signed booking is billed late, billed twice or billed after it was cancelled, or an invoice has no booking behind it, and nobody sees it until the customer calls.",
+        "Cash arrives that nobody can match to an invoice, or an invoice is part paid, and the gap between billed and collected has no stated reason."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
