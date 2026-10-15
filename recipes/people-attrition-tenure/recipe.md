@@ -93,16 +93,16 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 - If unresolved, which terminations of headcount members count as leavers (interns, fixed-term ends, retirements, deaths), is a leaver a person or an employment record when someone holds several jobs, and are rescinded terminations and unprocessable records set aside, counted or made to fail the run?
 - If unresolved, is the termination date the last day worked or the first day gone, which period gets a period-end termination, and are a hire and termination in one period, a termination from leave or another status outside headcount, and a quick rehire (such as an entity change) leavers?
-- If unresolved, which reason codes are voluntary, involuntary or other and who maintains that mapping, is an unmapped code counted as unclassified, excluded or a failure, where does regret come from, and how is a missing regret value treated?
+- If unresolved, which reason codes are voluntary, involuntary or other and who maintains that mapping, is an unmapped code counted as unclassified, excluded or a failure, where does regret come from, how is a missing regret value treated, and who may read person-level leaver or termination data?
 - If unresolved, which leavers form the headline rate, is the base heads or full-time equivalents and averaged how (period ends, opening and closing, or daily), over which window and calendar, is a rate for less than a year annualised, and what is shown for periods without enough history?
 - If unresolved, is a leaver placed by the last day worked or the period start, do internal transfers count as leavers for the losing unit, is history shown under the structure as it stood or as it stands, and at which grain do leavers reconcile to the roll-forward, failing or flagging a mismatch?
 - If unresolved, does tenure start at the latest hire, the original hire or an adjusted service date, in what unit and with which boundary rule, taken at which reference dates (at leaving, period end or window start), with which band edges and which early-exit window?
 - If unresolved, how is a hire cohort defined, is a rehire a new cohort entry or a return, what counts as retained, and how are exits without a termination (such as a move out of the population) shown?
-- If unresolved, what are the minimum group size and its base, does it also cover class splits and changes between consecutive periods, which levels are never hidden, is complementary hiding required, how are published rates rounded, and who may read person-level relations?
+- If unresolved, which cuts (organisation, legal entity, location, employment type, tenure band) are published, what are the minimum group size and its base (also for class splits and consecutive periods), which levels are never hidden, is complementary hiding required, and how are rates rounded?
 
 ### Guardrails
 
-- Do not choose the leaver population, rate definition, termination-date convention, tenure basis, cohort rule, mismatch handling or disclosure threshold for the user, and take none from the data or common practice; the user may ask for alternatives or a recommendation.
+- Do not choose the leaver population, rate definition, termination-date convention, tenure basis, cohort rule, published cuts, mismatch handling or disclosure threshold for the user, and take none from the data or common practice; the user may ask for alternatives or a recommendation.
 - Never recompute the headcount population or rebuild the headcount roll-forward; use them as given, so leavers and headcount describe the same people.
 - Never take regret from a source, or fill a missing regret value, in a way the approved rule does not name, and never guess a class for an unmapped reason code.
 - Never drop or double count a termination record; every record outside the counted leavers stays visible with its reason.
