@@ -39,6 +39,7 @@ related:
   - finance-gl-subledger-tieout
   - file-drop-to-bronze
   - database-tables-to-bronze
+  - managed-connector-to-dlt
 evidence:
   features:
     - capturing-requirements
@@ -53,13 +54,13 @@ evidence:
 
 ## Prompt
 
-Build <cost_allocation_model>, <untagged_cost_model>, <shared_pool_model>, <daily_spike_model> and <invoice_closure_model> from <billing_line_source>, <invoice_source>, <tag_rule_source> and, where recorded or approved, <pool_driver_source> and <owner_source>. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only those they leave open. Assign each in-scope billing line to a team, product and environment through its tags under the approved normalisation, keep lines that no tag or approved mapping places as untagged, missing and invalid apart, with the account owner beside them and never spread, split each shared pool by its approved method to the approved precision, flag daily team spikes under the approved rule, and close allocated plus unallocated to each invoice at the approved grain and cost measure, with every gap and every restated, duplicate, unreadable, tax, credit and other-currency line visible with its reason. Materialize the outputs in the Intent's sandbox and verify them against independent expectations.
+Build <cost_allocation_model>, <untagged_cost_model>, <shared_pool_model>, <daily_spike_model> and <invoice_closure_model> from <billing_line_source>, <invoice_source>, <tag_rule_source> and, where recorded or approved, <pool_driver_source> and <owner_source>. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only those they leave open. Assign each in-scope billing line to a team, product and environment through its tags under the approved normalisation, keep lines that no tag or approved mapping places as untagged, missing and invalid apart, with the account owner beside them and never spread without approval, split each shared pool by its approved method to the approved precision, flag daily team spikes under the approved rule, and close allocated plus unallocated to each invoice at the approved grain and cost measure, with every gap and every restated, duplicate, unreadable, tax, credit and other-currency line visible with its reason. Materialize the outputs in the Intent's sandbox and verify them against independent expectations.
 
 ## Verified by
 
 - On a run that completes, every input billing line lands once as allocated, pooled, untagged, tax or set aside with its reason, counts and per-currency amounts sum to the input, and nothing counts twice; the properties below hold on published outputs, and a failed run names each bad record.
 - Equivalent tag spellings resolve to one team, product and environment under the approved normalisation, and a changed rule value changes the output where the data reaches it, within the approved rule form.
-- Lines with no approved team after tags and approved mappings are untagged, with missing and invalid kept apart as approved, each carrying its account owner, and none of that amount reaches any team; conflicting tag values are never guessed; a partial tag lands on what it names.
+- Lines left without a team after tags and approved mappings are untagged, missing and invalid kept apart, each with its account owner; untagged cost always shows as untagged and reaches a team only as a separate, labelled share under approved redistribution; conflicting tag values are never guessed.
 - Credits, refunds, discounts and tax follow the approved treatment and are shown with it; a credit with no usable tag stays visible and reaches no team unless the approved treatment distributes it.
 - Each shared pool's shares add back to its total at the approved precision under the approved method, and a pool with no usable basis follows the approved no-basis treatment and stays visible with its reason.
 - At the approved grain and cost measure, allocated plus unallocated equals the invoice, or the gap is within the approved tolerance and shown; a gap, a line month with no invoice or an unreadable invoice is flagged, or fails the run naming each item, as approved, and is never plugged.
@@ -91,7 +92,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - If unresolved, the cost measure (billed, net of credits or discounts, amortised), the treatment of each charge type, credit, refund, discount and tax, the accounts, currencies and window, any approved rate source, date and type, and the handling of an unmapped account, charge type or service.
 - If unresolved, which tag keys define team, product and environment, which values are registered, which aliases, synonyms and case rule apply, and what counts as invalid: an unregistered value, a blank, or conflicting values for one key, and the precedence for conflicts.
 - If unresolved, whether account, project or service mappings or inherited parent tags allocate lines without tags of their own, their precedence over line tags, who owns each billing account, who may see owners and cost, and whether such lines count as tagged.
-- If unresolved, whether a team without a product (or the reverse) counts as tagged, what label each missing part carries, and whether the untagged percentage is net or gross of credits and over which charge types.
+- If unresolved, whether untagged or unallocated cost stays unallocated or is redistributed, to whom and on what basis, whether a team without a product counts as tagged and what label a missing part carries, and whether the untagged percentage is net or gross of credits.
 - If unresolved, which services or accounts form each shared pool, its eligible recipients and driver source and period, the split method (even, by usage, by headcount, by share of direct cost), the rounding and remainder rule, and the no-basis treatment.
 - If unresolved, at what grain and cost measure allocated plus unallocated must equal the invoice, what gap tolerance applies, and whether a gap, a line month with no invoice or an unreadable invoice is published and flagged or fails the run.
 - If unresolved, which measure the spike rule uses (directly attributed cost or with pool shares), the day boundary and time zone, how the newest incomplete day is handled, the comparison basis, threshold, floor, zero-base rule, series scope and currency.
@@ -99,7 +100,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 ### Guardrails
 
-- Do not spread untagged cost across teams, assign it to a default owner, or hide it inside a team total; it stays visible as untagged with its reason.
+- Do not spread untagged cost, assign it to a default owner or merge it into a team's direct cost without approval; it always stays visible as untagged with its reason.
 - Do not guess a tag when keys conflict without an approved precedence or a value fails the approved validity rule, and do not coerce an unreadable date, amount, revision time or invoice figure to a default.
 - Do not charge a shared pool in full to each recipient, drop its remainder, invent recipients, or use a basis the user has not approved; shares reconcile to the pool.
 - Do not sum, net or convert across currencies without an approved rate source, date and type, and do not let a credit or refund lower a team's cost beyond what the approved treatment names.
