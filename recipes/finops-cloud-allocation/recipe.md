@@ -57,7 +57,7 @@ Build <cost_allocation_model>, <untagged_cost_model>, <shared_pool_model>, <dail
 
 ## Verified by
 
-- On a run that completes, every input billing line lands once as allocated, in a shared pool, untagged, tax or set aside with its reason, and the counts, and the amounts per currency, sum to the input; no line vanishes or counts twice, and a failed run names each bad record.
+- On a run that completes, every input billing line lands once as allocated, pooled, untagged, tax or set aside with its reason, counts and per-currency amounts sum to the input, and nothing counts twice; the properties below hold on published outputs, and a failed run names each bad record.
 - Equivalent tag spellings resolve to one team, product and environment under the approved normalisation, and a changed rule value changes the output where the data reaches it, within the approved rule form.
 - Lines with no approved team after tags and approved mappings are untagged, with missing and invalid kept apart as approved, each carrying its account owner, and none of that amount reaches any team; conflicting tag values are never guessed; a partial tag lands on what it names.
 - Credits, refunds, discounts and tax follow the approved treatment and are shown with it; a credit with no usable tag stays visible and reaches no team unless the approved treatment distributes it.
@@ -65,7 +65,7 @@ Build <cost_allocation_model>, <untagged_cost_model>, <shared_pool_model>, <dail
 - At the approved grain and cost measure, allocated plus unallocated equals the invoice, or the gap is within the approved tolerance and shown; a gap, a line month with no invoice or an unreadable invoice is flagged, or fails the run naming each item, as approved, and is never plugged.
 - Amounts in different currencies are never summed or netted unless an approved conversion states its rate source and date; each currency ties out on its own.
 - A restated line counts once under the approved revision rule with earlier revisions visible, and an exact duplicate counts once; where the source gives no approved revision signal, restatement is stated as unproven, and late tag fixes and adjustments follow the approved restatement basis.
-- A value that cannot be read, such as a date, an amount, a revision time or an invoice figure, follows the approved disposition: excepted with its raw text visible, or the run fails naming it; it is never coerced to a default or dropped silently.
+- A value that cannot be read, such as a date, an amount, a revision time or an invoice figure, and an account, charge type or service with no mapping, follow the approved disposition: excepted with the raw text visible, or the run fails naming it; none is coerced to a default or dropped.
 - Spike flags follow the approved basis, day boundary, threshold, floor and zero-prior-day rule, including a day exactly on each edge; period-level pool shares and a still-incomplete newest day create no flags unless approved.
 - The untagged percentage states its numerator, denominator and approved basis and mixes currencies only under an approved conversion; every share, closure figure and flag equals an independent recomputation against invoice figures not derived from the lines.
 - The outcome states what the inputs cannot prove, such as a wrong but valid tag, cost with no billing line or amortisation the export hides, and owner names and cost appear only at the approved audience and grain.
@@ -88,14 +88,14 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 ### Ask first
 
-- If unresolved, which cost measure counts (billed, net of credits or discounts, amortised), which charge types, credits, refunds, discounts and tax are in scope and how each is treated, and which accounts, currencies and window apply, with any approved rate source, date and type.
+- If unresolved, the cost measure (billed, net of credits or discounts, amortised), the treatment of each charge type, credit, refund, discount and tax, the accounts, currencies and window, any approved rate source, date and type, and the handling of an unmapped account, charge type or service.
 - If unresolved, which tag keys define team, product and environment, which values are registered, which aliases, synonyms and case rule apply, and what counts as invalid: an unregistered value, a blank, or conflicting values for one key, and the precedence for conflicts.
 - If unresolved, whether account, project or service mappings or inherited parent tags allocate lines without tags of their own, their precedence over line tags, who owns each billing account, who may see owners and cost, and whether such lines count as tagged.
 - If unresolved, whether a team without a product (or the reverse) counts as tagged, what label each missing part carries, and whether the untagged percentage is net or gross of credits and over which charge types.
 - If unresolved, which services or accounts form each shared pool, its eligible recipients and driver source and period, the split method (even, by usage, by headcount, by share of direct cost), the rounding and remainder rule, and the no-basis treatment.
 - If unresolved, at what grain and cost measure allocated plus unallocated must equal the invoice, what gap tolerance applies, and whether a gap, a line month with no invoice or an unreadable invoice is published and flagged or fails the run.
 - If unresolved, which measure the spike rule uses (directly attributed cost or with pool shares), the day boundary and time zone, how the newest incomplete day is handled, the comparison basis, threshold, floor, zero-base rule, series scope and currency.
-- If unresolved, how revisions of a line, reissued invoices and additive adjustment lines are identified and treated, how exact duplicates are recognised, whether an unreadable value is excepted or fails the run, and whether a late tag fix restates past periods.
+- If unresolved, how revisions of a line, reissued invoices and additive adjustment lines are identified and treated, how exact duplicates and tied revisions are recognised, whether an unreadable value is excepted or fails the run, and whether a late tag fix restates past periods.
 
 ### Guardrails
 
