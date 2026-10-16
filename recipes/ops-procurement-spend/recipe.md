@@ -32,7 +32,7 @@ qualifiers:
   - Invoice lines, purchase-order lines and contracts arrive as landed tables; landing them is a separate outcome.
   - Supplier identity and item categories arrive conformed; matching suppliers and mapping items are separate outcomes.
   - Stops at the cube and contract flags; aging, duplicates, three-way match, rebates and savings are separate outcomes.
-  - Spend with no contract on file looks the same as spend that needs none; the contract list must be complete.
+  - Without an approved contract-exempt list, spend with no contract on file is unproven, not non-compliant.
   - Currency conversion needs an approved rate source; without one, other-currency lines are shown apart from the totals.
 related:
   - finance-ap-aging
@@ -54,13 +54,13 @@ evidence:
 
 ## Prompt
 
-Build <flagged_invoice_line_model>, <spend_cube_model> and <spend_exception_models> from <invoice_line_source>, <contract_source>, <contract_line_source> and, where recorded or approved, <purchase_order_line_source>, <category_mapping_source> and <business_unit_source>. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only those they leave open. Count in the approved spend measure and period, match each in-scope invoice line to the contract the approved rules say governs it, and flag it on contract, or off contract with the approved reason or reasons for each approved breach, such as no contract, outside its dates, outside its scope, above its price or over a cap. Roll the lines up to the approved cube grain (period, supplier, category and business unit) from the lines alone, net credits as approved, and list every record the approved rules leave out, cannot place or cannot match, with its reason, or name it in the failure where the approved policy fails the run. Keep sources read-only. Report what the inputs cannot prove.
+Build <flagged_invoice_line_model>, <spend_cube_model> and <spend_exception_models> from <invoice_line_source>, <contract_source>, <contract_line_source> and, where recorded or approved, <purchase_order_line_source>, <category_mapping_source> and <business_unit_source>. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only those they leave open. Count in the approved spend measure and period, match each in-scope invoice line to the contract the approved rules say governs it, and flag it on contract, or off contract with the approved reason or reasons for each approved breach, such as no contract, outside its dates, outside its scope, above its price or over a cap. Roll the lines up to the approved cube grain, such as period, supplier, category and business unit, from the lines alone, net credits as approved, and list every record the approved rules leave out, cannot place or cannot match, with its reason, or name it in the failure where the approved policy fails the run. Keep sources read-only. Report what the inputs cannot prove.
 
 ## Verified by
 
 - On a run that completes, every input invoice line, credit note included, lands once in the cube's totals or once in a left-out list with its reason, and the counts, and the amounts per currency, sum to the input; a failed run names each bad record.
 - Spend follows the approved measure, sign convention and period basis, including lines on each period edge; each cube figure equals an independent recomputation from the lines, never an average, a document total or a purchase-order total.
-- A line is matched to the contract the approved rule picks, with every candidate contract visible; overlapping or tied contracts follow the approved resolution and are never picked silently, and a contract's dates apply at the approved edges, including a line dated on the end date.
+- A line's contract and reason equal an independent recomputation from the inputs, with every candidate contract visible; overlaps and ties follow the approved rule, never a silent pick, and dates apply at the approved edges, including the end date.
 - Each line, or part of a line the approved cap rule splits, is on contract, off contract or in an approved unflagged class with its reason; an off-contract line carries the approved reason and any other breach as the approved rule says, so no breach is hidden unless approved.
 - Where a price check is approved it follows the approved basis, tolerance and edge, including a price exactly on the edge; a price that cannot be compared without an approved conversion of currency, unit or price form shows as unchecked and is never reported compliant.
 - Where a cap is approved it follows the approved measure, order and period: a line exactly at the cap, the line that crosses it and later lines are treated as approved, and credits reduce the running total only as approved.
@@ -90,13 +90,13 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 ### Ask first
 
 - If unresolved, what counts as spend (invoiced, paid or committed; tax and freight in or out), which date sets the period, which calendar applies, and which suppliers, entities, spend types and invoice statuses (voided, held, disputed) are in scope, with those left out shown how?
-- If unresolved, which currency reports, are other currencies converted (at what rate source and date), excluded and shown apart, or reported separately, and may prices be compared across currencies?
+- If unresolved, which currency reports, are other currencies converted (rate source and date), excluded and shown apart, or reported separately, may prices and quantities convert across units, and which price forms (fixed, discount off list, tiered, indexed) apply?
 - If unresolved, what does a contract cover (item, category, supplier, entity, business unit), does a contract or PO reference on the line override inferred matching, which versions count (draft, terminated, amended, renewed, open-ended), are dates inclusive, and how are overlaps and ties resolved?
 - If unresolved, which breaches make a line off contract (no contract, outside dates, outside scope, price above, over a cap), what price tolerance and basis apply, is a missing purchase order a reason or a flag, and how many reasons does a line carry, in what precedence?
 - If unresolved, how is a cap measured (quantity or value, per contract, item or period), in what order are lines counted, is the crossing line wholly off contract or split, and do credits reduce the running total?
-- If unresolved, may prices and quantities convert across units, which price forms (fixed, discount off list, tiered, indexed) apply, and do tax, freight and split lines follow their parent line's contract match?
-- If unresolved, how are credit notes treated (netted in their own period or the original's, inheriting the original's flag or judged alone), and what happens to a credit whose original is missing or not in the input?
-- If unresolved, what happens to a record that cannot be placed (unknown supplier or item, no category, bad date or amount): list and exclude, flag and keep, or fail; which categories and business units apply, how is a split line attributed; and may later contract changes restate past periods?
+- If unresolved, which in-scope spend needs no contract (categories, spend types, suppliers or a value threshold), how is it shown in the cube, and is a line whose price stays unchecked on contract, off contract or in its own unflagged class?
+- If unresolved, how are credit notes treated (netted in their own period or the original's, inheriting the original's flag or judged alone), what happens to a credit whose original is missing, and do tax and freight lines follow their parent line's match?
+- If unresolved, what happens to a record that cannot be placed (unknown supplier or item, no category, bad date or amount): list and exclude, flag and keep, or fail; which dimensions the cube carries, how is a split line attributed; and may later contract changes restate past periods?
 
 ### Guardrails
 
