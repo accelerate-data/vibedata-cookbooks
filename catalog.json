@@ -52,6 +52,7 @@
         "people-attrition-tenure",
         "people-headcount-rollforward",
         "people-pay-band-gaps",
+        "people-payroll-gl-tieout",
         "prove-dbt-change-safe",
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
@@ -67,7 +68,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 41,
+      "supported_or_proven_count": 42,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -78,17 +79,18 @@
       "kind": "function",
       "resolved_members": [
         "finance-revenue-recognition",
-        "finance-trial-balance-close"
+        "finance-trial-balance-close",
+        "people-payroll-gl-tieout"
       ],
       "selector": {
         "function": [
           "finance"
         ]
       },
-      "supported_or_proven_count": 2,
+      "supported_or_proven_count": 3,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
-      "website_visible": false
+      "website_visible": true
     },
     {
       "description": "Logistics and fleet analytics Recipes, including reusable modelling patterns with relevant operational triggers and domain-specific fleet and shift outcomes.",
@@ -148,6 +150,7 @@
         "people-attrition-tenure",
         "people-headcount-rollforward",
         "people-pay-band-gaps",
+        "people-payroll-gl-tieout",
         "pii-classification-and-masking",
         "prove-dbt-change-safe",
         "readiness-gated-orchestration",
@@ -187,7 +190,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 32,
+      "supported_or_proven_count": 33,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -251,6 +254,7 @@
         "people-attrition-tenure",
         "people-headcount-rollforward",
         "people-pay-band-gaps",
+        "people-payroll-gl-tieout",
         "prove-dbt-change-safe",
         "readiness-gated-orchestration",
         "revops-bookings-billings-cash",
@@ -263,7 +267,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 29,
+      "supported_or_proven_count": 30,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -2229,6 +2233,72 @@
         "A pay-equity review is due and worker-level compensation cannot be shared widely.",
         "Managers are told people are paid outside the band, but nobody can say how many, where, or on which band version.",
         "HR is asked for pay gaps between groups and cannot tell whether publishing a number could reveal a small group."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "At the approved reconciliation grain, set the payroll register total, mapped to GL accounts, beside what the ledger posted, explain the difference as breaks classed under approved rules, leave any residual visible as unexplained, and account for every register line and ledger posting.",
+      "domain_objects": [
+        "payroll_register",
+        "pay_run",
+        "pay_period",
+        "pay_code_mapping",
+        "general_ledger",
+        "ledger_posting",
+        "reconciliation_break",
+        "reconciliation_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "domain-modeling",
+          "designing",
+          "planning",
+          "generating-dbt-model",
+          "executing-the-plan",
+          "verifying"
+        ]
+      },
+      "function": [
+        "hr",
+        "finance"
+      ],
+      "id": "people-payroll-gl-tieout",
+      "job_category": "build",
+      "path": "recipes/people-payroll-gl-tieout/recipe.md",
+      "pitch": "Reconcile payroll to the ledger at every cut-off with each break classified and nothing quietly absorbed.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Linking postings to pay runs needs a run reference on the ledger or an approved matching rule.",
+        "Needs a pay-code mapping to GL accounts, supplied or agreed; the Recipe never infers one.",
+        "Reproducing a past tie-out after rule or source changes needs kept history of the tie-out.",
+        "Stops at the classified tie-out; payroll calculation, correcting journals and sign-off are separate outcomes.",
+        "Payroll registers keyed by pay run; document-linked control accounts belong to finance-gl-subledger-tieout."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-gl-subledger-tieout",
+        "effective-dated-business-rules"
+      ],
+      "sha256": "67b9b5ddb8cfa58ccb64340f80b061a9db53012c837649af1069706604fd29c0",
+      "title": "Tie payroll to the general ledger at every cut-off and classify every break",
+      "trigger": [
+        "Payroll expense in the general ledger does not match the payroll register at close, and the gap is worked out by hand.",
+        "Finance cannot say which pay run or cost center explains the difference between the register and the ledger.",
+        "An auditor asks what an accrual, an off-cycle run or a misposting did to a period, and someone has to rebuild the answer."
       ],
       "works_with": {
         "platforms": [
