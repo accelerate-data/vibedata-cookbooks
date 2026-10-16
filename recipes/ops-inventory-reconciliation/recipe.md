@@ -59,7 +59,7 @@ Build <reconciliation_model>, <in_transit_model>, <coverage_model> and <complete
 
 - On a run that completes, at each in-scope key the warehouse, ERP and count quantities appear side by side in the approved unit, each pair with both sides present has its own signed difference, and nothing is summed across units, plants or entities the approved rules keep apart.
 - An absent position, an uncounted item and a blank or unreadable quantity are never read as zero unless the approved rules define that absence as zero: each is reported with its reason, or fails the run, as approved, and a recorded count of zero stays a count.
-- On a run that completes, each pair with a difference, a missing side or units the approved rules treat as a reason carries the reason the approved precedence gives, plus other fitting reasons where the rules keep them; explained plus left over equals any difference exactly.
+- On a run that completes, each pair with a difference, a missing side or a rule-given unit reason carries the approved-precedence reason plus other fitting reasons the rules keep; amounts follow the approved claim order and partial-claim rule, and explained plus left over equals any difference.
 - On a run that completes, a difference no approved rule explains stays visible as left over or unexplained, never absorbed into a reason or an adjustment; a difference inside the approved tolerance stays visible and is called matched only where the approved rules say so.
 - A timing reason appears only where the approved timing evidence is present and it claims no more than that evidence accounts for; without the evidence the difference falls to the next approved reason.
 - Where a count was recounted, the governing record follows the approved rule, superseded and conflicting records stay visible with their reasons, and a recount explains only the amount the approved rule gives it.
@@ -68,7 +68,7 @@ Build <reconciliation_model>, <in_transit_model>, <coverage_model> and <complete
 - Records the approved scope leaves out are counted and listed with their reason and move no comparison; a code no cross-reference resolves follows the approved disposition, listed with its reason, and is never dropped or read as an uncounted item.
 - A bad record (unresolvable code, disallowed duplicate, unreadable quantity, unit with no factor, or a conversion the approved precision rejects) is listed with its reason and is set aside with a visible count, compared as approved, or fails the run; it never changes another key's result.
 - Changing a rule the approved requirements hold as data (count date, tolerance, reference system, unit factors, cross-references, scope, reasons and their precedence) changes the published figures without a code change, within the approved rule form, and the result still reconciles.
-- Each output is unique on its declared grain, and each published difference traces to the source records behind it.
+- Each output is unique on its declared grain, each published difference traces to the source records behind it, and each pair's difference, reason and explained amounts equal values derived independently from the sources and approved rules.
 
 ## Agent guidance
 
@@ -90,7 +90,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 - If unresolved, which items, locations, plants and legal entities are in scope, which locations or item types does the count not cover (each left out with a listed reason), and which unit, factors and quantity precision apply: is a fractional conversion exact, rounded or a problem?
 - If unresolved, which count date or per-item count dates (cycle counts), cutoff time and time zone, and as-of reading per system apply, which system is the reference, and in which order and sign is each pair taken?
-- If unresolved, which reasons exist, how is each identified, which wins when several fit, may a pair carry several, and is a pair recorded in different units but equal after conversion matched or reasoned?
+- If unresolved, which reasons exist and how is each identified, which wins when several fit and may a pair carry several, in what order do reasons claim amounts, may a reason claim part of a larger movement or recount, and is a unit-only difference matched or reasoned?
 - If unresolved, what makes a difference timing (which movements, including adjustments posted after the count, posting system, posted times, window length, stock in transit across the count date), and which location does an in-transit movement explain?
 - If unresolved, which stock statuses and ownership types (own, consigned, third-party) count as on-hand in each system and which stay out (in transit, quarantine, blocked, returns), and is finer stock (status, lot, serial, bin) summed to the location or kept apart?
 - If unresolved, is a system's absent position nil stock or missing, how does the count tell a counted zero from a never-counted item, are several count lines summed or recounts, which record governs, and is a negative quantity a value or a problem?
@@ -105,5 +105,5 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - Never sum or compare quantities across units, plants or entities the approved rules keep apart, never compare unconverted quantities, and never round before comparing unless the user approved it.
 - On a run that completes, never drop or double count a record: every record of every input stays accounted for, including superseded, out-of-scope, in-transit and problem records.
 - Do not invent timing evidence the inputs do not carry, and do not admit a movement the approved evidence rule does not admit.
-- Do not hold an approved rule as a literal in the models; keep it as data that the models and tests read.
+- Do not hold a rule the approved requirements treat as data as a literal in the models; keep it as data that the models and tests read.
 - Stop at the classified reconciliation: do not post adjustments to the ERP or the warehouse system, value inventory or plan counts, and keep sources read-only.
