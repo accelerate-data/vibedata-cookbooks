@@ -1,0 +1,11 @@
+{
+  "id": "people-data-engineering",
+  "title": "People data engineering",
+  "kind": "function",
+  "description": "Recipes for data engineers working with people-domain data and controls.",
+  "selector": {
+    "function": [
+      "people"
+    ]
+  }
+}

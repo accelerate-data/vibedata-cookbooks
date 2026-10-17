@@ -10,6 +10,8 @@ pitch: Reproduce the pipeline as it stood at each captured snapshot period and m
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - revops
 domain_objects:
   - opportunity
   - pipeline_snapshot

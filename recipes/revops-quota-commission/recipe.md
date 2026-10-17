@@ -10,6 +10,8 @@ pitch: Turn written compensation plan rules into tested, traceable commission-el
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - revops
 domain_objects:
   - booking
   - compensation_plan_rule

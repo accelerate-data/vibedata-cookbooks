@@ -1,0 +1,11 @@
+{
+  "id": "it-finops-data-engineering",
+  "title": "IT FinOps data engineering",
+  "kind": "function",
+  "description": "Recipes for data engineers working with IT FinOps-domain data and controls.",
+  "selector": {
+    "function": [
+      "it-finops"
+    ]
+  }
+}

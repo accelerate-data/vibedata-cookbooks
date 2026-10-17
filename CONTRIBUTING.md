@@ -110,6 +110,8 @@ Nothing may escape its section: no HTML tags or comments, no HTML entities, no c
 
 A Collection in `collections/<id>.json` is a discovery view over Recipes: a `members` list of existing Recipe ids, a `selector` over Recipe metadata, or both. `schema/collection.schema.json` holds the rules.
 
+Every `function` value a Recipe uses needs a `kind: function` Collection whose selector names it, and a Recipe id that starts with `finance-`, `people-`, `revops-`, `ops-` or `service-` must carry the matching function (`finance`, `people`, `revops`, `supply-chain-ops`, `service`). `build_catalog.py --validate` fails otherwise. A function Collection shows on the website once it holds three supported or proven Recipes.
+
 ## Branches
 
 `pre-prod` is the default branch, so a new pull request already targets it. A pull request to `pre-prod` needs:

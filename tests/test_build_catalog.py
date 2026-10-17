@@ -200,3 +200,19 @@ def test_planned_recipes_do_not_count(cookbook):
     (collection,) = catalog["collections"]
     assert collection["supported_or_proven_count"] == 0
     assert collection["website_visible"] is False
+
+
+def test_function_tag_needs_a_function_collection(cookbook):
+    path = cookbook / RECIPE_REL
+    path.write_bytes(VALID_RECIPE.replace("readiness: supported\n", "readiness: supported\nfunction:\n  - hr\n").encode("utf-8"))
+    with pytest.raises(CookbookError, match="function 'hr' has no function Collection"):
+        build_catalog(cookbook)
+    collection = {**COLLECTION, "id": "hr", "kind": "function", "selector": {"function": ["hr"]}}
+    (cookbook / "collections/hr.json").write_text(json.dumps(collection), encoding="utf-8")
+    assert build_catalog(cookbook)[0]["collections"][0]["resolved_members"] == ["sample-recipe"]
+
+
+def test_domain_prefixed_id_needs_its_function_tag(cookbook):
+    write_recipe(cookbook, "finance-sample", VALID_RECIPE.replace("id: sample-recipe", "id: finance-sample"))
+    with pytest.raises(CookbookError, match="function must include finance"):
+        build_catalog(cookbook)

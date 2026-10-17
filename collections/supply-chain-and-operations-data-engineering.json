@@ -1,0 +1,11 @@
+{
+  "id": "supply-chain-and-operations-data-engineering",
+  "title": "Supply chain and operations data engineering",
+  "kind": "function",
+  "description": "Recipes for data engineers working with supply chain and operations-domain data and controls.",
+  "selector": {
+    "function": [
+      "supply-chain-ops"
+    ]
+  }
+}
