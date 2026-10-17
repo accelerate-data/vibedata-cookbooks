@@ -10,6 +10,8 @@ pitch: Rebuild aged payables and a reconciling roll-forward for any approved as-
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - finance
 domain_objects:
   - accounts_payable
   - vendor_bill

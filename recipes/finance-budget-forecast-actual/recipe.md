@@ -10,6 +10,8 @@ pitch: Compare GL actuals with the approved budget and selected forecast per cos
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - finance
 domain_objects:
   - budget
   - forecast

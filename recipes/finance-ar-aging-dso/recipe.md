@@ -10,6 +10,8 @@ pitch: Rebuild aged receivables and DSO for each approved as-of date from dated 
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - finance
 domain_objects:
   - accounts_receivable
   - invoice

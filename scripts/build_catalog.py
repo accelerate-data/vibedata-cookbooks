@@ -183,10 +183,29 @@ def load_collections(
     return collections
 
 
+# Recipe ids start with their domain; the function tag must say the same.
+DOMAIN_PREFIX = {"finance": "finance", "people": "people", "revops": "revops", "ops": "supply-chain-ops", "service": "service"}
+
+
+def check_functions(recipes: list[Recipe], collections: list[dict[str, Any]]) -> None:
+    covered = {f for c in collections if c["kind"] == "function" for f in c.get("selector", {}).get("function", [])}
+    for recipe in recipes:
+        functions = recipe.meta.get("function", [])
+        want = DOMAIN_PREFIX.get(recipe.meta["id"].split("-")[0])
+        if want and want not in functions:
+            raise CookbookError(f"{recipe.path}: id starts with a {want} domain prefix, so function must include {want}")
+        for function in functions:
+            if function not in covered:
+                raise CookbookError(
+                    f"{recipe.path}: function {function!r} has no function Collection; add collections/<id>.json with kind function and selector.function [{function!r}]"
+                )
+
+
 def build_catalog(root: Path = ROOT) -> tuple[dict[str, Any], str]:
     schemas = load_schemas(root)
     recipes = load_recipes(root, schemas["recipe"])
     collections = load_collections(root, schemas["collection"], schemas["recipe"]["x-body"]["markup"], recipes)
+    check_functions(recipes, collections)
     catalog = {
         "source": REPO_URL,
         "schema_versions": {name: schemas[name]["version"] for name in SCHEMA_NAMES},

@@ -11,6 +11,8 @@ pitch: See how every SLA number is computed and how old the open backlog was on 
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - service
 domain_objects:
   - ticket
   - sla_clock
