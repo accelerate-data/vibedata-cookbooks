@@ -11,6 +11,9 @@ pitch: See every corporate family's total, with every account placed or explicit
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - revops
+  - finance
 domain_objects:
   - account
   - parent_link

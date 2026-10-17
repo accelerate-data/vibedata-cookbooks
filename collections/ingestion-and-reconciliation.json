@@ -1,0 +1,14 @@
+{
+  "id": "ingestion-and-reconciliation",
+  "title": "Ingest and reconcile source data",
+  "kind": "problem-area",
+  "description": "Recipes for landing source data in owned pipelines and governed tables, with explicit record disposition, safe reruns and reconciliation.",
+  "members": [
+    "api-to-bronze-incremental-contract",
+    "database-tables-to-bronze",
+    "file-drop-to-bronze",
+    "governed-spreadsheet-table",
+    "managed-connector-to-dlt",
+    "spark-ingestion-notebook-to-dlt"
+  ]
+}

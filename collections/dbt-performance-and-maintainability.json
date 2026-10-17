@@ -4,6 +4,7 @@
   "kind": "curated",
   "description": "Recipes for improving dbt performance and maintainability while preserving required behaviour.",
   "members": [
-    "dbt-full-refresh-to-incremental"
+    "dbt-full-refresh-to-incremental",
+    "dbt-refactor-output-identical"
   ]
 }
