@@ -79,6 +79,11 @@
       "id": "finance-data-engineering",
       "kind": "function",
       "resolved_members": [
+        "finance-ap-aging",
+        "finance-ar-aging-dso",
+        "finance-budget-forecast-actual",
+        "finance-duplicate-invoice-detection",
+        "finance-gl-subledger-tieout",
         "finance-revenue-recognition",
         "finance-trial-balance-close",
         "people-payroll-gl-tieout"
@@ -88,10 +93,25 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 3,
+      "supported_or_proven_count": 8,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
+    },
+    {
+      "description": "Recipes for data engineers working with IT FinOps-domain data and controls.",
+      "id": "it-finops-data-engineering",
+      "kind": "function",
+      "resolved_members": [],
+      "selector": {
+        "function": [
+          "it-finops"
+        ]
+      },
+      "supported_or_proven_count": 0,
+      "title": "IT FinOps data engineering",
+      "website_publication_threshold": 3,
+      "website_visible": false
     },
     {
       "description": "Logistics and fleet analytics Recipes, including reusable modelling patterns with relevant operational triggers and domain-specific fleet and shift outcomes.",
@@ -274,6 +294,79 @@
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
+    },
+    {
+      "description": "Recipes for data engineers working with people-domain data and controls.",
+      "id": "people-data-engineering",
+      "kind": "function",
+      "resolved_members": [
+        "people-attrition-tenure",
+        "people-headcount-rollforward",
+        "people-pay-band-gaps",
+        "people-payroll-gl-tieout"
+      ],
+      "selector": {
+        "function": [
+          "people"
+        ]
+      },
+      "supported_or_proven_count": 4,
+      "title": "People data engineering",
+      "website_publication_threshold": 3,
+      "website_visible": true
+    },
+    {
+      "description": "Recipes for data engineers working with revenue operations-domain data and controls.",
+      "id": "revenue-operations-data-engineering",
+      "kind": "function",
+      "resolved_members": [
+        "revops-bookings-billings-cash",
+        "revops-pipeline-snapshots",
+        "revops-quota-commission"
+      ],
+      "selector": {
+        "function": [
+          "revops"
+        ]
+      },
+      "supported_or_proven_count": 3,
+      "title": "Revenue operations data engineering",
+      "website_publication_threshold": 3,
+      "website_visible": true
+    },
+    {
+      "description": "Recipes for data engineers working with service-domain data and controls.",
+      "id": "service-data-engineering",
+      "kind": "function",
+      "resolved_members": [
+        "service-ticket-sla"
+      ],
+      "selector": {
+        "function": [
+          "service"
+        ]
+      },
+      "supported_or_proven_count": 1,
+      "title": "Service data engineering",
+      "website_publication_threshold": 3,
+      "website_visible": false
+    },
+    {
+      "description": "Recipes for data engineers working with supply chain and operations-domain data and controls.",
+      "id": "supply-chain-and-operations-data-engineering",
+      "kind": "function",
+      "resolved_members": [
+        "ops-otif"
+      ],
+      "selector": {
+        "function": [
+          "supply-chain-ops"
+        ]
+      },
+      "supported_or_proven_count": 1,
+      "title": "Supply chain and operations data engineering",
+      "website_publication_threshold": 3,
+      "website_visible": false
     }
   ],
   "recipes": [
@@ -912,6 +1005,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "finance"
+      ],
       "id": "finance-ap-aging",
       "job_category": "build",
       "path": "recipes/finance-ap-aging/recipe.md",
@@ -928,7 +1024,7 @@
         "finance-gl-subledger-tieout",
         "dbt-snapshot-history"
       ],
-      "sha256": "f4d151da49ff02b75160d540fbb7dd91f23cdf884dca3ae0ba2c4451adf48d8b",
+      "sha256": "617a94378a395b9472f6fbb4133f58176cfa91ed1341ffef3480e186fffdf6ce",
       "title": "Age payables from open items as of any chosen date and reconcile the total",
       "trigger": [
         "Finance needs the aged payables for a past month or quarter end, but the payables system only shows what is owed today.",
@@ -973,6 +1069,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "finance"
+      ],
       "id": "finance-ar-aging-dso",
       "job_category": "build",
       "path": "recipes/finance-ar-aging-dso/recipe.md",
@@ -987,7 +1086,7 @@
       "related": [
         "dbt-snapshot-history"
       ],
-      "sha256": "374fb410351e37aa8bd99270a3ef8f9aa4a79b7542c9b1a0c83201566a1083a7",
+      "sha256": "d1a4f5a341cef0e528198e415480fe6983eafd8b6e8f3f3245ff9b5884060ffb",
       "title": "Age receivables and compute DSO from open invoices as of any chosen date",
       "trigger": [
         "Finance needs the aged receivables report and DSO for a past month or quarter end, but the receivables system only shows what is open today.",
@@ -1034,6 +1133,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "finance"
+      ],
       "id": "finance-budget-forecast-actual",
       "job_category": "build",
       "path": "recipes/finance-budget-forecast-actual/recipe.md",
@@ -1052,7 +1154,7 @@
         "metric-population-and-rollups",
         "dbt-snapshot-history"
       ],
-      "sha256": "63a9413c72493d1aed0fc66e127b76257b33862827a9f6fb8a117f8fddd10130",
+      "sha256": "91abf1a7de23d34dca6fc90ea9de3ae1fc131ee8b75ea27bdda73ef8759c055b",
       "title": "Compare budget and forecast to actuals at cost-center grain",
       "trigger": [
         "Budget-versus-actual is a monthly copy-paste from the general ledger into the budget spreadsheet, and the variances change depending on who built them.",
@@ -1098,6 +1200,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "finance"
+      ],
       "id": "finance-duplicate-invoice-detection",
       "job_category": "build",
       "path": "recipes/finance-duplicate-invoice-detection/recipe.md",
@@ -1115,7 +1220,7 @@
         "identity-golden-record-crosswalk",
         "identity-standardize-names-addresses"
       ],
-      "sha256": "39c65b01b643bd6b593f3884b2fe0e4938fff04f08d2ccb2096f6cb4922b5abf",
+      "sha256": "40c003232d80d66f46a6c0adbdb7b2d31cd3f5ddf6ccd6d1a59d0be981afa6d9",
       "title": "Detect duplicate invoice candidates from explicit matching rules before payment",
       "trigger": [
         "Accounts payable paid the same supplier invoice twice and only found out when the supplier returned the money.",
@@ -1158,6 +1263,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "finance"
+      ],
       "id": "finance-gl-subledger-tieout",
       "job_category": "build",
       "path": "recipes/finance-gl-subledger-tieout/recipe.md",
@@ -1173,7 +1281,7 @@
         "effective-dated-business-rules",
         "dbt-snapshot-history"
       ],
-      "sha256": "bf5b0d47cfed9049b65722ff88329d0acce795b94f661c491432b8e33dab69a1",
+      "sha256": "f10cb188d4cccfcc15f5fa4a087254c5b79f646880e672c75bb8af7005b60fcc",
       "title": "Tie the general ledger to its subledgers and classify every break",
       "trigger": [
         "Month-end close stalls because control accounts do not agree with their subledgers and the difference is worked out by hand in a spreadsheet.",
@@ -2073,6 +2181,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "supply-chain-ops"
+      ],
       "id": "ops-otif",
       "job_category": "build",
       "path": "recipes/ops-otif/recipe.md",
@@ -2091,7 +2202,7 @@
         "metric-population-and-rollups",
         "effective-dated-business-rules"
       ],
-      "sha256": "a03a5feeded3ebcfb1fe990a870a78d8ab4f63c4df36242f5dba1439c0dbe658",
+      "sha256": "5672ac214be9769ef0a320e7483af754b19c3fe14f63a9fd5b01a7dd9b5ffb8c",
       "title": "Measure on-time-in-full delivery by customer, carrier and plant",
       "trigger": [
         "Customers report late deliveries, and Sales, Supply Chain and the carriers each quote a different on-time-in-full figure because each applies its own promise date, tolerance and partial-shipment rule.",
@@ -2270,6 +2381,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "people"
+      ],
       "id": "people-pay-band-gaps",
       "job_category": "build",
       "path": "recipes/people-pay-band-gaps/recipe.md",
@@ -2292,7 +2406,7 @@
         "effective-dated-business-rules",
         "dbt-snapshot-history"
       ],
-      "sha256": "b85724c03f034d6320ad0c994b6c781913df37459010e9328c2d16306005f3ea",
+      "sha256": "2dff4eaa3d5ae20c9eaafaa11866ddb998eaaab439c445506a8ae5326b90e294",
       "title": "Check pay against salary bands and report pay gaps at an aggregate grain",
       "trigger": [
         "A pay-equity review is due and worker-level compensation cannot be shared widely.",
@@ -2553,6 +2667,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "revops"
+      ],
       "id": "revops-bookings-billings-cash",
       "job_category": "build",
       "path": "recipes/revops-bookings-billings-cash/recipe.md",
@@ -2571,7 +2688,7 @@
         "finance-revenue-recognition",
         "effective-dated-business-rules"
       ],
-      "sha256": "06ee3ccb0b9621ac4d3fd9bf5f405067a3b9d1835c53d12b86bf4b076338b789",
+      "sha256": "b0ca6e1dbc28bfd6ecba1cdcb28633dd3b4ac79a74ef43eb685592ec43a6e7d5",
       "title": "Tie bookings to billings to cash and classify every break",
       "trigger": [
         "RevOps and Finance each quote booked, billed and collected, and the three numbers never agree because every team ties them together with its own spreadsheet.",
@@ -2613,6 +2730,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "revops"
+      ],
       "id": "revops-pipeline-snapshots",
       "job_category": "build",
       "path": "recipes/revops-pipeline-snapshots/recipe.md",
@@ -2631,7 +2751,7 @@
         "operational-state-duration",
         "business-event-fact"
       ],
-      "sha256": "413642cdfc9a681616e424d6e82b65d66472e3ac12fe058574a2fef8c431dfdd",
+      "sha256": "3d20661a48486a7c6857c6823c74412b4ba8dbf7de6bb9b36989899a6f3e3e10",
       "title": "Build a periodic opportunity pipeline snapshot with stage conversion and slippage",
       "trigger": [
         "The CRM overwrites opportunity stage, amount and close date, so past pipeline cannot be reproduced as it stood at an earlier point.",
@@ -2669,6 +2789,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "revops"
+      ],
       "id": "revops-quota-commission",
       "job_category": "build",
       "path": "recipes/revops-quota-commission/recipe.md",
@@ -2685,7 +2808,7 @@
         "metric-population-and-rollups",
         "business-event-fact"
       ],
-      "sha256": "74d7f7bcd11d15f1b3d19567383a21ea32f1aca714c20b71fd5fa7461805ded9",
+      "sha256": "56f5b17e57c5492b39dff0ff96660e279f99faa339d4dc44f81e5dc43a619f80",
       "title": "Build commission-eligible bookings and quota attainment from explicit plan rules",
       "trigger": [
         "Reps, managers and finance disagree on attainment because each team credits bookings with its own spreadsheet logic.",
@@ -2778,6 +2901,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "service"
+      ],
       "id": "service-ticket-sla",
       "job_category": "build",
       "path": "recipes/service-ticket-sla/recipe.md",
@@ -2795,7 +2921,7 @@
         "business-event-fact",
         "dbt-snapshot-history"
       ],
-      "sha256": "ab0ce1fbc6ba27e0e9e02c24d5de751d2f5a814413c4e7f3905aaf1ad931efb4",
+      "sha256": "47aba1697703854eecdc1148123a14539d5b826d62853d9a1b310a6ffada9d55",
       "title": "Track ticket SLA attainment and backlog aging outside the vendor dashboard",
       "trigger": [
         "The ticketing vendor's dashboard reports SLA met or breached, but nobody can check how its numbers are calculated.",

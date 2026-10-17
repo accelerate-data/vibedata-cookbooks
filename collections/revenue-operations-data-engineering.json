@@ -1,0 +1,11 @@
+{
+  "id": "revenue-operations-data-engineering",
+  "title": "Revenue operations data engineering",
+  "kind": "function",
+  "description": "Recipes for data engineers working with revenue operations-domain data and controls.",
+  "selector": {
+    "function": [
+      "revops"
+    ]
+  }
+}

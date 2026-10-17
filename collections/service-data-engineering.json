@@ -1,0 +1,11 @@
+{
+  "id": "service-data-engineering",
+  "title": "Service data engineering",
+  "kind": "function",
+  "description": "Recipes for data engineers working with service-domain data and controls.",
+  "selector": {
+    "function": [
+      "service"
+    ]
+  }
+}

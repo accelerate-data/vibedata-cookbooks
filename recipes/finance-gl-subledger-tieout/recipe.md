@@ -10,6 +10,8 @@ pitch: Reconcile every control account to its subledger with each break classifi
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - finance
 domain_objects:
   - general_ledger
   - journal_line

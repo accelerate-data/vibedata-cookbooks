@@ -10,6 +10,8 @@ pitch: Reconcile what was booked to what was billed and what was collected, with
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - revops
 domain_objects:
   - booking_line
   - billing_plan

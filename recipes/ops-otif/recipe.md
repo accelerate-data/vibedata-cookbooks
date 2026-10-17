@@ -11,6 +11,8 @@ pitch: One delivery figure per order line, order, customer, carrier and plant, w
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - supply-chain-ops
 domain_objects:
   - order_line
   - order

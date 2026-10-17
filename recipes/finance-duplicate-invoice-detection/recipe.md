@@ -10,6 +10,8 @@ pitch: Catch suspected duplicate supplier invoices before they are paid, with th
 job_category: build
 area: data-quality
 readiness: supported
+function:
+  - finance
 domain_objects:
   - accounts_payable
   - supplier_invoice

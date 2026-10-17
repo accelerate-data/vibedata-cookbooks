@@ -10,6 +10,8 @@ pitch: Check pay against salary bands and publish approved pay gaps by group, wi
 job_category: build
 area: governance-cost
 readiness: supported
+function:
+  - people
 domain_objects:
   - worker
   - pay_record
