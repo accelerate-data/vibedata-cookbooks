@@ -5,12 +5,14 @@
       "id": "dbt-performance-and-maintainability",
       "kind": "curated",
       "members": [
-        "dbt-full-refresh-to-incremental"
+        "dbt-full-refresh-to-incremental",
+        "dbt-refactor-output-identical"
       ],
       "resolved_members": [
-        "dbt-full-refresh-to-incremental"
+        "dbt-full-refresh-to-incremental",
+        "dbt-refactor-output-identical"
       ],
-      "supported_or_proven_count": 1,
+      "supported_or_proven_count": 2,
       "title": "dbt performance and maintainability",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -37,6 +39,8 @@
         "finance-gl-subledger-tieout",
         "finance-revenue-recognition",
         "finance-trial-balance-close",
+        "finops-cloud-allocation",
+        "finops-saas-license-utilization",
         "governed-spreadsheet-table",
         "identity-golden-record-crosswalk",
         "identity-standardize-names-addresses",
@@ -45,11 +49,14 @@
         "logistics-fleet-utilization",
         "managed-connector-to-dlt",
         "master-b2b-account-hierarchy",
+        "master-product-sku-hierarchy",
         "metric-population-and-rollups",
         "metricflow-semantic-model",
         "notebook-transformation-to-dbt",
         "operational-state-duration",
+        "ops-inventory-reconciliation",
         "ops-otif",
+        "ops-procurement-spend",
         "people-attrition-tenure",
         "people-headcount-rollforward",
         "people-pay-band-gaps",
@@ -69,7 +76,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 43,
+      "supported_or_proven_count": 48,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -86,29 +93,61 @@
         "finance-gl-subledger-tieout",
         "finance-revenue-recognition",
         "finance-trial-balance-close",
-        "people-payroll-gl-tieout"
+        "finops-saas-license-utilization",
+        "master-b2b-account-hierarchy",
+        "ops-procurement-spend",
+        "people-payroll-gl-tieout",
+        "revops-bookings-billings-cash"
       ],
       "selector": {
         "function": [
           "finance"
         ]
       },
-      "supported_or_proven_count": 8,
+      "supported_or_proven_count": 12,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
+      "website_visible": true
+    },
+    {
+      "description": "Recipes for landing source data in owned pipelines and governed tables, with explicit record disposition, safe reruns and reconciliation.",
+      "id": "ingestion-and-reconciliation",
+      "kind": "problem-area",
+      "members": [
+        "api-to-bronze-incremental-contract",
+        "database-tables-to-bronze",
+        "file-drop-to-bronze",
+        "governed-spreadsheet-table",
+        "managed-connector-to-dlt",
+        "spark-ingestion-notebook-to-dlt"
+      ],
+      "resolved_members": [
+        "api-to-bronze-incremental-contract",
+        "database-tables-to-bronze",
+        "file-drop-to-bronze",
+        "governed-spreadsheet-table",
+        "managed-connector-to-dlt",
+        "spark-ingestion-notebook-to-dlt"
+      ],
+      "supported_or_proven_count": 6,
+      "title": "Ingest and reconcile source data",
+      "website_publication_threshold": 1,
       "website_visible": true
     },
     {
       "description": "Recipes for data engineers working with IT FinOps-domain data and controls.",
       "id": "it-finops-data-engineering",
       "kind": "function",
-      "resolved_members": [],
+      "resolved_members": [
+        "finops-cloud-allocation",
+        "finops-saas-license-utilization"
+      ],
       "selector": {
         "function": [
           "it-finops"
         ]
       },
-      "supported_or_proven_count": 0,
+      "supported_or_proven_count": 2,
       "title": "IT FinOps data engineering",
       "website_publication_threshold": 3,
       "website_visible": false
@@ -162,13 +201,18 @@
         "finance-gl-subledger-tieout",
         "finance-revenue-recognition",
         "finance-trial-balance-close",
+        "finops-cloud-allocation",
+        "finops-saas-license-utilization",
         "governed-spreadsheet-table",
         "incremental-dbt-model-with-contract",
         "logistics-fleet-utilization",
+        "master-product-sku-hierarchy",
         "materialized-view-to-dbt",
         "metric-population-and-rollups",
         "operational-state-duration",
+        "ops-inventory-reconciliation",
         "ops-otif",
+        "ops-procurement-spend",
         "people-attrition-tenure",
         "people-headcount-rollforward",
         "people-pay-band-gaps",
@@ -212,7 +256,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 34,
+      "supported_or_proven_count": 39,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -266,14 +310,19 @@
         "finance-gl-subledger-tieout",
         "finance-revenue-recognition",
         "finance-trial-balance-close",
+        "finops-cloud-allocation",
+        "finops-saas-license-utilization",
         "governed-spreadsheet-table",
         "incremental-dbt-model-with-contract",
         "logistics-fleet-utilization",
+        "master-product-sku-hierarchy",
         "metric-population-and-rollups",
         "metricflow-semantic-model",
         "motherduck-flight-scheduling",
         "operational-state-duration",
+        "ops-inventory-reconciliation",
         "ops-otif",
+        "ops-procurement-spend",
         "people-attrition-tenure",
         "people-headcount-rollforward",
         "people-pay-band-gaps",
@@ -290,7 +339,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 31,
+      "supported_or_proven_count": 36,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -320,6 +369,7 @@
       "id": "revenue-operations-data-engineering",
       "kind": "function",
       "resolved_members": [
+        "master-b2b-account-hierarchy",
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
         "revops-quota-commission"
@@ -329,7 +379,7 @@
           "revops"
         ]
       },
-      "supported_or_proven_count": 3,
+      "supported_or_proven_count": 4,
       "title": "Revenue operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -356,17 +406,22 @@
       "id": "supply-chain-and-operations-data-engineering",
       "kind": "function",
       "resolved_members": [
-        "ops-otif"
+        "logistics-fleet-utilization",
+        "master-product-sku-hierarchy",
+        "ops-inventory-reconciliation",
+        "ops-otif",
+        "ops-procurement-spend",
+        "shift-unit-economics"
       ],
       "selector": {
         "function": [
           "supply-chain-ops"
         ]
       },
-      "supported_or_proven_count": 1,
+      "supported_or_proven_count": 6,
       "title": "Supply chain and operations data engineering",
       "website_publication_threshold": 3,
-      "website_visible": false
+      "website_visible": true
     }
   ],
   "recipes": [
@@ -1430,6 +1485,150 @@
       }
     },
     {
+      "area": "governance-cost",
+      "description": "At the approved grain, assign each billing line to a team, product and environment by its tags, split shared pools by an approved method, keep untagged and unallocated cost visible with its reason, flag daily spikes, and close allocated plus unallocated to each invoice.",
+      "domain_objects": [
+        "billing_line",
+        "invoice",
+        "cost_tag",
+        "team",
+        "shared_cost_pool",
+        "cost_allocation",
+        "cost_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "it-finops"
+      ],
+      "id": "finops-cloud-allocation",
+      "job_category": "build",
+      "path": "recipes/finops-cloud-allocation/recipe.md",
+      "pitch": "Show which team drives the cloud bill, with untagged cost kept as untagged and every allocation closing to the invoice.",
+      "qualifiers": [
+        "Billing lines, invoices and tag rules arrive as landed tables; landing a provider export is a separate outcome.",
+        "Stops at the allocation; budgets, forecasts, commitment optimisation and chargeback are separate outcomes.",
+        "Currency conversion needs an approved rate source; without one, each currency is reported on its own.",
+        "Allocation is only as good as the tags and drivers supplied; a wrong but valid tag is not detectable."
+      ],
+      "readiness": "supported",
+      "related": [
+        "shift-unit-economics",
+        "finance-gl-subledger-tieout",
+        "file-drop-to-bronze",
+        "database-tables-to-bronze",
+        "managed-connector-to-dlt"
+      ],
+      "sha256": "0ded5f7dcd68e42459b1b77d7b1062d49e3321ae7762fc4f6fc30a4b6ddb746c",
+      "title": "Allocate cloud and platform spend to teams and flag untagged cost and daily spikes",
+      "trigger": [
+        "The cloud bill grew and nobody can say which team or product drove the increase.",
+        "Untagged spend is unknown, or is quietly spread across teams so that no one owns it.",
+        "Shared platform costs are split by a rule nobody can reproduce, and the shares do not add back to the bill.",
+        "A daily cost spike is noticed only when the invoice arrives."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "governance-cost",
+      "description": "For each application and period, compare the seats the contract entitles, the invoice bills and the console assigns with the seats used under an approved activity rule, publish utilisation, unused-seat cost, shelfware and renewal timing, keep person-level idle seats restricted, and account for every record.",
+      "domain_objects": [
+        "application",
+        "license_contract",
+        "contract_version",
+        "invoice_line",
+        "seat_assignment",
+        "activity_event",
+        "seat_identity",
+        "utilisation_period",
+        "shelfware_flag",
+        "idle_seat_list",
+        "seat_problem",
+        "suppression_rule"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "it-finops",
+        "finance"
+      ],
+      "id": "finops-saas-license-utilization",
+      "job_category": "build",
+      "path": "recipes/finops-saas-license-utilization/recipe.md",
+      "pitch": "Measure paid SaaS seats against real use, flag shelfware before renewal, and keep the idle-user list restricted.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Contract, invoice, assignment and activity records arrive as landed tables; landing them is a separate outcome.",
+        "Stops at the utilisation report; renewal terms, deprovisioning and seat reclaim are separate outcomes.",
+        "Other plan models (usage-based, unlimited, pooled) need an approved treatment before they count as seats.",
+        "Past periods need assignment history of an approved form; a current-only export leaves them unproven.",
+        "Restricting the person-level lists needs roles and grants; without them the restriction is a label only.",
+        "On fabric_lakehouse, SQL grants do not govern OneLake reads, so restriction cannot be assured there.",
+        "Hiding small groups alone does not make a figure safe to release; totals and sibling cells can reveal one.",
+        "Unless issued periods are kept as retained copies, a late or backdated event restates the periods it affects.",
+        "Vendor activity feeds differ; unless approved otherwise, no feed or a declared gap reads unknown, not inactive."
+      ],
+      "readiness": "supported",
+      "related": [
+        "people-pay-band-gaps",
+        "metric-population-and-rollups",
+        "effective-dated-business-rules",
+        "pii-classification-and-masking",
+        "identity-golden-record-crosswalk",
+        "file-drop-to-bronze",
+        "database-tables-to-bronze",
+        "managed-connector-to-dlt"
+      ],
+      "sha256": "ae029b76555a095a248bc4667ae592ade758b891ace0a4255934cea02a94abc8",
+      "title": "Measure SaaS licence utilisation and shelfware against contracts and invoices",
+      "trigger": [
+        "A SaaS renewal is due and nobody can say how many of the paid seats are actually used.",
+        "The vendor console, the contract and the invoice show different seat counts for the same application.",
+        "Finance is asked what the unused seats cost and which applications are shelfware before the renewal date."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
       "area": "ingestion",
       "description": "Build a dlt pipeline and a governed table that load each new export of a hand-maintained spreadsheet under an approved structure contract, keep the last accepted version live when an export breaks it, set aside bad rows with reasons, retain accepted versions as approved, and document every column with its owner.",
       "domain_objects": [
@@ -1717,6 +1916,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "supply-chain-ops"
+      ],
       "id": "logistics-fleet-utilization",
       "industry": [
         "logistics"
@@ -1725,7 +1927,7 @@
       "path": "recipes/logistics-fleet-utilization/recipe.md",
       "pitch": "Measure fleet use against defensible available asset time while keeping missing observations and maintenance evidence visible.",
       "readiness": "supported",
-      "sha256": "4afab5882fbb3c186aff5e52a4ed2e820f1abc6e83edac3a1e4b861af35cc5e0",
+      "sha256": "735ae108d49d7149ffcdbcbf99aea878eab56ca7c6dd2091c59310d8fbffe22d",
       "title": "Build fleet utilisation against explicit asset availability",
       "trigger": [
         "A fleet dashboard labels observed vehicle occupancy as utilisation without an authoritative available-time denominator.",
@@ -1821,6 +2023,10 @@
           "verifying"
         ]
       },
+      "function": [
+        "revops",
+        "finance"
+      ],
       "id": "master-b2b-account-hierarchy",
       "job_category": "build",
       "path": "recipes/master-b2b-account-hierarchy/recipe.md",
@@ -1837,7 +2043,7 @@
         "dbt-snapshot-history",
         "identity-golden-record-crosswalk"
       ],
-      "sha256": "9cb690c2b1f549f0b997c65bed700c012741924dccd9ee905a65e0b8ecb1879d",
+      "sha256": "928435a2a4d647eb2e7f6509a29d19fef73d7ee234deee6fcf28ce9078206d97",
       "title": "Resolve B2B account hierarchies and roll measures to the ultimate parent",
       "trigger": [
         "Sales and finance cannot see total revenue or pipeline for a whole corporate family because subsidiaries sit as separate accounts.",
@@ -1848,6 +2054,68 @@
       "works_with": {
         "platforms": [
           "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Bind every source item to at most one conformed product and SKU or list why not, map each source category into the approved conformed hierarchy with each product placed at most once per view or listed unplaced, and tie item counts and units to each source at every level with every difference explained or marked not tied.",
+      "domain_objects": [
+        "source_item",
+        "product_binding",
+        "conformed_sku",
+        "conformed_product",
+        "category_mapping",
+        "conformed_hierarchy",
+        "product_placement",
+        "catalog_tieout",
+        "product_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops"
+      ],
+      "id": "master-product-sku-hierarchy",
+      "job_category": "build",
+      "path": "recipes/master-product-sku-hierarchy/recipe.md",
+      "pitch": "One conformed catalog, every item bound or explained, every product rolled up once, and totals that tie back to each source.",
+      "qualifiers": [
+        "Item records, category trees and any sale lines must already be landed as tables; this Recipe does not ingest catalogs.",
+        "An item no approved rule can bind stays unbound unless an approved cross-reference binds it.",
+        "Units tie out only for systems that supply sale lines.",
+        "Earlier taxonomy versions can be rebuilt only from dated mapping history; without it they cannot be restated."
+      ],
+      "readiness": "supported",
+      "related": [
+        "master-b2b-account-hierarchy",
+        "identity-golden-record-crosswalk",
+        "effective-dated-business-rules",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "c64143db39492b719cc554683135e2ce58f1b804bba6fe69a4d1742a7962ef4c",
+      "title": "Conform product and SKU hierarchies across systems",
+      "trigger": [
+        "The same product carries different SKUs and category trees in the ERP, the web shop and the point of sale, so sales by category disagree between reports.",
+        "A new system or an acquisition brings another catalog and nobody can say which of its items are already known.",
+        "Category reporting needs one taxonomy with each product in exactly one place, and duplicate or reused SKUs and GTINs make product counts untrustworthy."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
@@ -1989,7 +2257,7 @@
       "related": [
         "metric-population-and-rollups"
       ],
-      "sha256": "72476ebae26ac7200ff5e5980def2c89a6e3e85685aa4b12c97f57f726e5722b",
+      "sha256": "4a205c7c4789161e0dc93c0ba8f53f40fb01f58ec503adc03b34737f6e8a8e35",
       "title": "Define governed metrics as a MetricFlow semantic model over a gold mart",
       "trigger": [
         "Revenue or average order value means different things in different marts and dashboards, and nobody can say which number is right.",
@@ -2004,7 +2272,8 @@
           "redshift"
         ],
         "tools": [
-          "dbt"
+          "dbt",
+          "metricflow"
         ]
       }
     },
@@ -2160,6 +2429,72 @@
     },
     {
       "area": "transformation",
+      "description": "At the approved grain and count date, set warehouse, ERP and count quantities side by side in one unit, give each pair of systems its own difference and reason under approved rules, keep what no rule explains visible, and account for every record of every input.",
+      "domain_objects": [
+        "inventory_position",
+        "stock_count",
+        "stock_movement",
+        "item_location",
+        "unit_of_measure",
+        "reconciliation_difference"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops"
+      ],
+      "id": "ops-inventory-reconciliation",
+      "job_category": "build",
+      "path": "recipes/ops-inventory-reconciliation/recipe.md",
+      "pitch": "Put three inventory systems side by side and give every difference a reason, with nothing quietly absorbed.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "A timing reason needs a movement log and evidence the approved rule accepts of which system lagged.",
+        "Quantities only; valuation, availability promising and consignment ownership settlement are separate outcomes.",
+        "Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze.",
+        "Stops at the classified reconciliation; posting adjustments back to a system is a separate outcome.",
+        "Reproducing a past count date after rule or source changes needs kept history of the sources."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-gl-subledger-tieout",
+        "effective-dated-business-rules",
+        "dbt-snapshot-history",
+        "file-drop-to-bronze",
+        "governed-spreadsheet-table"
+      ],
+      "sha256": "70cba340900e84ea32eb03573bd29af20ad937601e461b474fbe269a5cc0316f",
+      "title": "Reconcile inventory positions across warehouse, ERP and physical counts and give every difference a reason",
+      "trigger": [
+        "The warehouse system, the ERP and the last stock count report different quantities for the same item and nobody can say which is right or why.",
+        "A stock count is due and the variance report is a spreadsheet that cannot tell a counting error from a timing difference or a posting error.",
+        "Finance asks why book inventory differs from what is on the shelf before the books close."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "For each approved as-of date, judge every in-scope order line on time, in full and both under the user's approved promise, tolerance and partial-shipment rules, give each miss one reason, roll the verdicts up by order, customer, carrier and plant from the lines, and keep every excluded record visible with its reason.",
       "domain_objects": [
         "order_line",
@@ -2209,6 +2544,74 @@
         "A late or short order cannot be traced to a plant, a carrier or a customer change, so each side blames another.",
         "A shipment is split across days, carriers or plants, or the customer moved the promise date, and no report says whether the line counted as on time, in full or neither.",
         "Cancelled lines, lines not yet due, undelivered lines and shipments matching no order line fall out of the delivery figure with no stated reason."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For the approved periods, roll invoice lines up to a spend cube, match each line to the contract that governs it and flag it on or off contract with the approved reason, keeping every line, credit and unmatched record visible so no spend is lost, counted twice or silently cleared.",
+      "domain_objects": [
+        "invoice_line",
+        "purchase_order_line",
+        "supplier_contract",
+        "contract_line",
+        "spend_cube",
+        "off_contract_reason",
+        "spend_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops",
+        "finance"
+      ],
+      "id": "ops-procurement-spend",
+      "job_category": "build",
+      "path": "recipes/ops-procurement-spend/recipe.md",
+      "pitch": "Build one defensible monthly spend cube and see which lines were bought off contract, and why, line by line.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Invoice lines, purchase-order lines and contracts arrive as landed tables; landing them is a separate outcome.",
+        "Supplier identity and item categories arrive conformed; matching suppliers and mapping items are separate outcomes.",
+        "Stops at the cube and contract flags; aging, duplicates, three-way match, rebates and savings are separate outcomes.",
+        "Without an approved contract-exempt list, spend with no contract on file is unproven, not non-compliant.",
+        "Currency conversion needs an approved rate source; without one, other-currency lines are shown apart from the totals."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-ap-aging",
+        "finance-duplicate-invoice-detection",
+        "identity-golden-record-crosswalk",
+        "effective-dated-business-rules",
+        "metric-population-and-rollups"
+      ],
+      "sha256": "f3a6197079772b947cd0873b8ae9b342f47f323f9599895efcfa40ebb06025b8",
+      "title": "Build the procurement spend cube and flag invoice lines on or off contract",
+      "trigger": [
+        "Procurement, Finance and the business units each quote a different spend total, and nobody can say how much was bought outside a contract.",
+        "Procurement is asked which suppliers and categories are bought off contract and why, and cannot show the invoice lines behind the number.",
+        "A contract expires or is renegotiated and the team cannot see how much spend still flows to it after the end date, above its price or beyond its cap."
       ],
       "works_with": {
         "platforms": [
@@ -2668,7 +3071,8 @@
         ]
       },
       "function": [
-        "revops"
+        "revops",
+        "finance"
       ],
       "id": "revops-bookings-billings-cash",
       "job_category": "build",
@@ -2688,7 +3092,7 @@
         "finance-revenue-recognition",
         "effective-dated-business-rules"
       ],
-      "sha256": "b0ca6e1dbc28bfd6ecba1cdcb28633dd3b4ac79a74ef43eb685592ec43a6e7d5",
+      "sha256": "4c1d581f86ee030bc15cca669dbee0c102370afcf8cfee91b5fa6dd01eded3ec",
       "title": "Tie bookings to billings to cash and classify every break",
       "trigger": [
         "RevOps and Finance each quote booked, billed and collected, and the three numbers never agree because every team ties them together with its own spreadsheet.",
@@ -2960,6 +3364,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "supply-chain-ops"
+      ],
       "id": "shift-unit-economics",
       "industry": [
         "logistics"
@@ -2968,7 +3375,7 @@
       "path": "recipes/shift-unit-economics/recipe.md",
       "pitch": "Explain shift economics with traceable revenue, complete cost status and allocations that conserve source amounts.",
       "readiness": "supported",
-      "sha256": "8debaef4cfdb2d2abf143eb2a86dcfad2695ab62ee42750a07ca8cfcf5cce5e6",
+      "sha256": "52360011db28a7d102a130ec20dbd1f7ba52ff04102597ddac420c044e0b9429",
       "title": "Build shift revenue, cost and margin with reconciled rollups",
       "trigger": [
         "A fleet dashboard reports revenue per shift but cannot establish whether a shift covers its applicable costs.",
@@ -3048,7 +3455,7 @@
         "spark_notebook",
         "dlt_pipeline",
         "bronze_table",
-        "rejected_record",
+        "rejected_records",
         "consumer_contract",
         "reconciliation_report"
       ],
@@ -3082,7 +3489,7 @@
         "legacy-sql-to-dbt",
         "prove-dbt-change-safe"
       ],
-      "sha256": "8d9abd29201893f604be0b7fa6f8500e4493aff070faceedcb5c4494cba99546",
+      "sha256": "0763c29b6b5b9d490b3f94984f01cf24d815194a986f510b2711948beb86b80e",
       "title": "Convert a Spark ingestion notebook into a dlt pipeline and reconcile what it lands",
       "trigger": [
         "A Spark notebook lands raw files into bronze, and the team wants that load as tested pipeline code without keeping a cluster for it.",

@@ -10,6 +10,8 @@ pitch: Explain shift economics with traceable revenue, complete cost status and 
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - supply-chain-ops
 industry:
   - logistics
 domain_objects:
