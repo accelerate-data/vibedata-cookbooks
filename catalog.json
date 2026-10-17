@@ -2139,7 +2139,7 @@
         ]
       },
       "function": [
-        "hr"
+        "people"
       ],
       "id": "people-attrition-tenure",
       "job_category": "build",
@@ -2159,7 +2159,7 @@
         "pii-classification-and-masking",
         "dbt-snapshot-history"
       ],
-      "sha256": "2a3220a46fe9799398c632839e9af7c4aa2261c107b1bc2b91ad10f5cd815ceb",
+      "sha256": "00df919e10ae6e0c89596a2006fd132586cc974b027483777d22a3e944b2906f",
       "title": "Measure attrition, tenure and hire-cohort retention from the headcount outputs",
       "trigger": [
         "Leadership asks whether attrition is rising and where, and nobody can answer from one consistent set of figures.",
@@ -2338,7 +2338,7 @@
         ]
       },
       "function": [
-        "hr",
+        "people",
         "finance"
       ],
       "id": "people-payroll-gl-tieout",
@@ -2358,7 +2358,7 @@
         "finance-gl-subledger-tieout",
         "effective-dated-business-rules"
       ],
-      "sha256": "67b9b5ddb8cfa58ccb64340f80b061a9db53012c837649af1069706604fd29c0",
+      "sha256": "5158e00212f5425ebd438bb855ad057843658bd68b716625bc95de282d8f69cc",
       "title": "Tie payroll to the general ledger at every cut-off and classify every break",
       "trigger": [
         "Payroll expense in the general ledger does not match the payroll register at close, and the gap is worked out by hand.",
