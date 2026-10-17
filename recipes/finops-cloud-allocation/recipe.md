@@ -1,6 +1,6 @@
 ---
 id: finops-cloud-allocation
-title: Allocate cloud and platform spend to teams and flag untagged cost
+title: Allocate cloud and platform spend to teams and flag untagged cost and daily spikes
 trigger:
   - The cloud bill grew and nobody can say which team or product drove the increase.
   - Untagged spend is unknown, or is quietly spread across teams so that no one owns it.
@@ -29,7 +29,6 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Billing lines, invoices and tag rules arrive as landed tables; landing a provider export is a separate outcome.
   - Stops at the allocation; budgets, forecasts, commitment optimisation and chargeback are separate outcomes.
   - Currency conversion needs an approved rate source; without one, each currency is reported on its own.
