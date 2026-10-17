@@ -11,7 +11,7 @@ job_category: build
 area: transformation
 readiness: supported
 function:
-  - hr
+  - people
   - finance
 domain_objects:
   - payroll_register
