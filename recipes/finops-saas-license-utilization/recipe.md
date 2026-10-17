@@ -12,6 +12,7 @@ area: governance-cost
 readiness: supported
 function:
   - it-finops
+  - finance
 domain_objects:
   - application
   - license_contract

@@ -14,7 +14,7 @@ domain_objects:
   - spark_notebook
   - dlt_pipeline
   - bronze_table
-  - rejected_record
+  - rejected_records
   - consumer_contract
   - reconciliation_report
 works_with:

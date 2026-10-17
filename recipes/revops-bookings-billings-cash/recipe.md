@@ -12,6 +12,7 @@ area: transformation
 readiness: supported
 function:
   - revops
+  - finance
 domain_objects:
   - booking_line
   - billing_plan

@@ -10,6 +10,8 @@ pitch: One conformed catalog, every item bound or explained, every product rolle
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - supply-chain-ops
 domain_objects:
   - source_item
   - product_binding

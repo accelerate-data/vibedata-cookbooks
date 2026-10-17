@@ -11,6 +11,8 @@ pitch: Show which team drives the cloud bill, with untagged cost kept as untagge
 job_category: build
 area: governance-cost
 readiness: supported
+function:
+  - it-finops
 domain_objects:
   - billing_line
   - invoice

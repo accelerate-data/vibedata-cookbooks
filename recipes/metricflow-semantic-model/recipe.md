@@ -25,6 +25,7 @@ works_with:
     - redshift
   tools:
     - dbt
+    - metricflow
 qualifiers:
   - Assessed end to end on duckdb_local only; motherduck and redshift rely on MetricFlow support and are unassessed.
   - Needs MetricFlow installed where metrics are queried; Studio's managed runtime does not include it today.

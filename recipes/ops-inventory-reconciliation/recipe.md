@@ -10,6 +10,8 @@ pitch: Put three inventory systems side by side and give every difference a reas
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - supply-chain-ops
 domain_objects:
   - inventory_position
   - stock_count
