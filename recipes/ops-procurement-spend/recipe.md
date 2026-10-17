@@ -89,14 +89,14 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 ### Ask first
 
-- If unresolved, what counts as spend (invoiced, paid or committed; tax and freight in or out), which date sets the period, which calendar applies, and which suppliers, entities, spend types and invoice statuses (voided, held, disputed) are in scope, with those left out shown how?
-- If unresolved, which currency reports, are other currencies converted (rate source and date), excluded and shown apart, or reported separately, may prices and quantities convert across units, and which price forms (fixed, discount off list, tiered, indexed) apply?
-- If unresolved, what does a contract cover (item, category, supplier, entity, business unit), does a contract or PO reference on the line override inferred matching, which versions count (draft, terminated, amended, renewed, open-ended), are dates inclusive, and how are overlaps and ties resolved?
-- If unresolved, which breaches make a line off contract (no contract, outside dates, outside scope, price above, over a cap), what price tolerance and basis apply, is a missing purchase order a reason or a flag, and how many reasons does a line carry, in what precedence?
-- If unresolved, how is a cap measured (quantity or value, per contract, item or period), in what order are lines counted, is the crossing line wholly off contract or split, and do credits reduce the running total?
+- If unresolved, what counts as spend (invoiced, paid or committed), which date sets the period, which calendar applies, and which dimensions the cube carries?
+- If unresolved, which suppliers, entities, spend types and invoice statuses (voided, held, disputed) are in scope, do tax and freight count and follow their parent line's match, and how are left-out lines shown?
+- If unresolved, which currency reports, are other currencies converted (rate source and date), excluded and shown apart, or reported separately, and may prices and quantities convert across units and price forms (fixed, discount, tiered, indexed)?
+- If unresolved, what does a contract cover (item, category, supplier, entity, business unit), does a contract or PO reference override inferred matching, which versions count (draft, terminated, amended, renewed, open-ended), and are dates inclusive?
+- If unresolved, how are overlapping or tied contracts resolved, which breaches make a line off contract (no contract, outside dates, outside scope, price above, over a cap), what price tolerance applies, and is a missing PO a reason or a flag?
+- If unresolved, how is a cap measured (quantity or value; per contract, item or period), in what order are lines counted, is the crossing line wholly off contract or split, do credits reduce it, and how many reasons does a line carry, in what precedence?
 - If unresolved, which in-scope spend needs no contract (categories, spend types, suppliers or a value threshold), how is it shown in the cube, and is a line whose price stays unchecked on contract, off contract or in its own unflagged class?
-- If unresolved, how are credit notes treated (netted in their own period or the original's, inheriting the original's flag or judged alone), what happens to a credit whose original is missing, and do tax and freight lines follow their parent line's match?
-- If unresolved, what happens to a record that cannot be placed (unknown supplier or item, no category, bad date or amount): list and exclude, flag and keep, or fail; which dimensions the cube carries, how is a split line attributed; and may later contract changes restate past periods?
+- If unresolved, how are credit notes treated (own or original's period, inherit the original's flag or judged alone), what happens to an unplaceable record (exclude and list, flag and keep, or fail), how is a split line attributed, and may later contract changes restate past periods?
 
 ### Guardrails
 
