@@ -10,6 +10,9 @@ pitch: Build one defensible monthly spend cube and see which lines were bought o
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - supply-chain-ops
+  - finance
 domain_objects:
   - invoice_line
   - purchase_order_line
