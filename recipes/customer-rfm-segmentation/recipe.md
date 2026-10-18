@@ -1,6 +1,6 @@
 ---
 id: customer-rfm-segmentation
-title: Score customers with RFM and maintain segments incrementally
+title: Score customers with RFM, maintain segments incrementally and explain every move
 trigger:
   - Marketing segment lists come from a spreadsheet or BI export nobody can reproduce, and the same customer lands in different segments depending on who pulled the list.
   - Segments must stay current as transactions arrive without rescoring everyone from scratch, yet match a rebuild from zero for the same date.
@@ -89,9 +89,9 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - If unresolved, which transactions count (statuses, types), whether amounts net discounts, refunds, corrections and exclude tips or tax, which date places a refund, whether a fully refunded line counts, how zero, negative, other-currency and unmatched lines go, and which reason wins (window too)?
 - If unresolved, which date places a transaction, in which time zone (one or per customer) and with what day cutoff, and what window (trailing days, all history)?
 - If unresolved, how are recency (days since last), frequency (transactions, days or lines) and spend measured, and where do customers whose qualifying history lies wholly outside the window go: a lapsed class, unscored, or lowest?
-- If unresolved, how is each measure scored: population quantiles, fixed cut-offs or day bands, how many bins and which direction, where tied values land, which population sets the cut-offs, and what a thin or degenerate distribution does?
+- If unresolved, how is each measure scored: population quantiles, fixed cut-offs or day bands, how many bins and which direction, where tied values land, which population sets the cut-offs and when they are recomputed, and what a thin or degenerate distribution does?
 - If unresolved, what are the segments, which rules over the scores assign them in what priority, what catches a combination no rule names, where unscored, lapsed and excluded customers sit, and who may read customer-level output with which attributes?
-- If unresolved, which as-of dates and how often, may an as-of see only input recorded by it or all now known, does late or corrected input restate history or correct forward, what does an out-of-order as-of do, when does a definition edit apply, and what does a run that cannot score do?
+- If unresolved, which as-of dates and how often, is history kept per as-of, may an as-of see only input recorded by it or all now known, is late input restated or corrected forward, what does an out-of-order as-of do, when does a definition edit apply, and what does a failed run do?
 - If unresolved, what counts as a move (segment change, entry, class change), what each reason beyond time, cut-off shift and definition change means, how interacting causes rank, and which is primary?
 
 ### Guardrails
