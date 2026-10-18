@@ -59,7 +59,7 @@ Build <customer_period_status_model>, <cohort_assignment_model>, <retention_tabl
 ## Verified by
 
 - Every customer record and event row is counted or set aside with its reason, counted plus set aside equals the input per source, a row failing several checks shows each reason, and a failed or held run names the offending items.
-- Each customer in scope has one cohort entry under the approved anchor and period, plus one per return the approved rule makes a new entry; one with no usable anchor is handled as approved and listed, and entries plus those left out tie to the customers in scope.
+- Each customer in scope is placed under the approved anchor and period with one cohort entry, plus one per return the approved rule makes a new entry, or is left out as approved and listed; customers placed plus those left out equal the customers in scope.
 - Which events count as activity, the churn definition and the date a churn is recognised follow the approved rules, and an event that does not count stays visible with its reason.
 - A row's status and features use only events dated on or before its period end, and a loss enters a row only once recognised by that end, whatever date the approved rule gives it, so changing or deleting any later event leaves that row unchanged.
 - Where silence is the only route to loss, a customer whose silent window is not complete at the as-of date reads not churned yet, never lost.
