@@ -25,6 +25,7 @@
         "api-to-bronze-incremental-contract",
         "bounded-partition-backfill",
         "business-event-fact",
+        "customer-rfm-segmentation",
         "database-tables-to-bronze",
         "dbt-full-refresh-to-incremental",
         "dbt-refactor-output-identical",
@@ -76,7 +77,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 48,
+      "supported_or_proven_count": 49,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -188,6 +189,7 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "business-event-fact",
+        "customer-rfm-segmentation",
         "database-tables-to-bronze",
         "effective-dated-business-rules",
         "event-resource-attribution",
@@ -256,7 +258,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 39,
+      "supported_or_proven_count": 40,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -274,10 +276,12 @@
         "logistics-fleet-utilization",
         "shift-unit-economics",
         "effective-dated-business-rules",
-        "prove-dbt-change-safe"
+        "prove-dbt-change-safe",
+        "customer-rfm-segmentation"
       ],
       "resolved_members": [
         "business-event-fact",
+        "customer-rfm-segmentation",
         "dbt-snapshot-history",
         "effective-dated-business-rules",
         "event-resource-attribution",
@@ -287,7 +291,7 @@
         "prove-dbt-change-safe",
         "shift-unit-economics"
       ],
-      "supported_or_proven_count": 9,
+      "supported_or_proven_count": 10,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -299,6 +303,7 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "business-event-fact",
+        "customer-rfm-segmentation",
         "database-tables-to-bronze",
         "effective-dated-business-rules",
         "event-resource-attribution",
@@ -339,7 +344,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 36,
+      "supported_or_proven_count": 37,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -561,6 +566,66 @@
         "Transaction feeds overlap, and source deliveries may be counted as separate business events.",
         "Replayed deliveries change a report's unique event count or additive totals.",
         "A trip or consignment fact must preserve valid similar events and explain conflicting records."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Score each customer's recency, frequency and spend as of a date from approved transactions, assign one approved segment or an explicit reason, keep every as-of's cut-offs and definitions, and maintain it so each result equals a rebuild for that date, with every segment move explained.",
+      "domain_objects": [
+        "customer",
+        "qualifying_transaction",
+        "rfm_score",
+        "score_cutoff",
+        "segment_map",
+        "customer_segment",
+        "segment_move",
+        "definition_version"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "id": "customer-rfm-segmentation",
+      "job_category": "build",
+      "path": "recipes/customer-rfm-segmentation/recipe.md",
+      "pitch": "Repeatable RFM segments that stay current as data arrives, equal a rebuild from zero, and say why a customer moved.",
+      "qualifiers": [
+        "Customer, transaction, refund and correction records must already be landed as tables; this Recipe does not ingest them.",
+        "Customers are scored under the key the Intent supplies; resolving who a customer is belongs to the identity Recipes.",
+        "Amounts must already be in one reporting currency; other currencies follow the approved handling, never converted here.",
+        "Rebuilding a past as-of as first published needs recorded dates and detectable deletes on inputs; else it is unproven."
+      ],
+      "readiness": "supported",
+      "related": [
+        "identity-golden-record-crosswalk",
+        "effective-dated-business-rules",
+        "metric-population-and-rollups",
+        "incremental-dbt-model-with-contract",
+        "dbt-full-refresh-to-incremental",
+        "revops-pipeline-snapshots"
+      ],
+      "sha256": "b8cc63e715967d6c9ecc7f33f9c8194cffdd949de16dc361c863310d6d9e328d",
+      "title": "Score customers with RFM, maintain segments incrementally and explain every move",
+      "trigger": [
+        "Marketing segment lists come from a spreadsheet or BI export nobody can reproduce, and the same customer lands in different segments depending on who pulled the list.",
+        "Segments must stay current as transactions arrive without rescoring everyone from scratch, yet match a rebuild from zero for the same date.",
+        "A cut-off or segment definition is about to change and the owner must see who moves, and why, before it goes live."
       ],
       "works_with": {
         "platforms": [
