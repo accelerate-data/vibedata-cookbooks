@@ -61,7 +61,8 @@ Build <readmission_cohort>, <readmission_rate> and <cohort_coverage> from <admis
 - An admission whose follow-up is not fully observed is shown as the approved rules say and is never counted as not readmitted.
 - A duplicate, an overlapping pair, an inconsistent date, an unplaceable patient and an excluded visit type each land as approved with their reason: a copy that does not survive or a record set aside is never an index or linked, and none is silently dropped.
 - The rate has one row per approved facility and period with its eligible index count, readmission count and rate, empty not zero where none was eligible; before any approved suppression its counts equal the cohort's, and a suppressed row is marked with its reason.
-- Changing the window or an exclusion in its data changes the cohort and rate with no change to the logic, within the approved rule form.
+- Changing the window's edge rule or an exclusion in its data changes the cohort and rate with no change to the logic, within the approved rule form.
+- The coverage output publishes each accounting check (disposition add-back, one link each way, rate ties to cohort) with its residue; a check that does not hold is shown, never hidden.
 - The dispositions, links and rates equal figures derived independently from the input admissions, and each rate row traces to the admissions behind it.
 - The outcome states the count per reason, which admissions the data cannot place and what the inputs cannot prove, such as a readmission to a facility the data does not hold.
 
@@ -84,7 +85,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 ### Ask first
 
 - If unresolved, which facilities, periods, stay types and admission types are in scope, which key makes two admissions the same patient across facilities, and where do other visits, unplaceable patients and records outside scope go, shown with a reason?
-- If unresolved, how long is the window, which date starts it and which ends it, and do a same-day return and the last day count?
+- If unresolved, which date starts the thirty-day window and which ends it, and do a same-day return and the last day count?
 - If unresolved, which later admissions count as a readmission (any facility or the same, all causes or related), how is a planned admission treated and a missing planned flag, which one is linked when several follow, and which index claims it?
 - If unresolved, which discharge outcomes remove an index (a death, a transfer to another acute hospital, a discharge against medical advice, hospice or others), in what precedence, and can an excluded admission still be a readmission?
 - If unresolved, against what date is follow-up complete, does a death or loss of coverage after discharge end it, and where does an index whose window is not fully observed go?
@@ -94,7 +95,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 ### Guardrails
 
-- Do not choose the window, exclusions and precedence, readmission and planned-admission rules, follow-up reference, duplicate and overlap rules, denominator or attribution for the user, and take none from the data or common practice; the user may ask for alternatives or a recommendation.
+- Do not choose the window edges, exclusions and precedence, readmission and planned-admission rules, follow-up reference, duplicate and overlap rules, denominator or attribution for the user, and take none from the data or common practice; the user may ask for alternatives or a recommendation.
 - Never drop or double count an admission; every admission that is not an eligible index stays visible with its reason.
 - Never count an index as not readmitted when its follow-up is not fully observed.
 - Never flatten a chain of admissions to one row per patient.
