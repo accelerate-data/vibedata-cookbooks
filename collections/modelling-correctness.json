@@ -15,6 +15,7 @@
     "prove-dbt-change-safe",
     "customer-rfm-segmentation",
     "customer-historical-ltv",
-    "customer-retention-churn-features"
+    "customer-retention-churn-features",
+    "shared-calendar-fiscal-periods"
   ]
 }
