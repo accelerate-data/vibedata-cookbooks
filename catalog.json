@@ -1,6 +1,25 @@
 {
   "collections": [
     {
+      "description": "Recipes for building customer value, retention, segmentation and product behaviour models that business teams can reproduce.",
+      "id": "customer-and-product-analytics",
+      "kind": "curated",
+      "members": [
+        "customer-rfm-segmentation",
+        "customer-historical-ltv",
+        "customer-retention-churn-features"
+      ],
+      "resolved_members": [
+        "customer-historical-ltv",
+        "customer-retention-churn-features",
+        "customer-rfm-segmentation"
+      ],
+      "supported_or_proven_count": 3,
+      "title": "Customer and product analytics",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
       "description": "Recipes for improving dbt performance and maintainability while preserving required behaviour.",
       "id": "dbt-performance-and-maintainability",
       "kind": "curated",
@@ -25,6 +44,9 @@
         "api-to-bronze-incremental-contract",
         "bounded-partition-backfill",
         "business-event-fact",
+        "customer-historical-ltv",
+        "customer-retention-churn-features",
+        "customer-rfm-segmentation",
         "database-tables-to-bronze",
         "dbt-full-refresh-to-incremental",
         "dbt-refactor-output-identical",
@@ -76,7 +98,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 48,
+      "supported_or_proven_count": 51,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -86,6 +108,7 @@
       "id": "finance-data-engineering",
       "kind": "function",
       "resolved_members": [
+        "customer-historical-ltv",
         "finance-ap-aging",
         "finance-ar-aging-dso",
         "finance-budget-forecast-actual",
@@ -104,7 +127,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 12,
+      "supported_or_proven_count": 13,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -188,6 +211,9 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "business-event-fact",
+        "customer-historical-ltv",
+        "customer-retention-churn-features",
+        "customer-rfm-segmentation",
         "database-tables-to-bronze",
         "effective-dated-business-rules",
         "event-resource-attribution",
@@ -256,7 +282,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 39,
+      "supported_or_proven_count": 42,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -274,10 +300,16 @@
         "logistics-fleet-utilization",
         "shift-unit-economics",
         "effective-dated-business-rules",
-        "prove-dbt-change-safe"
+        "prove-dbt-change-safe",
+        "customer-rfm-segmentation",
+        "customer-historical-ltv",
+        "customer-retention-churn-features"
       ],
       "resolved_members": [
         "business-event-fact",
+        "customer-historical-ltv",
+        "customer-retention-churn-features",
+        "customer-rfm-segmentation",
         "dbt-snapshot-history",
         "effective-dated-business-rules",
         "event-resource-attribution",
@@ -287,7 +319,7 @@
         "prove-dbt-change-safe",
         "shift-unit-economics"
       ],
-      "supported_or_proven_count": 9,
+      "supported_or_proven_count": 12,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -299,6 +331,9 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "business-event-fact",
+        "customer-historical-ltv",
+        "customer-retention-churn-features",
+        "customer-rfm-segmentation",
         "database-tables-to-bronze",
         "effective-dated-business-rules",
         "event-resource-attribution",
@@ -339,7 +374,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 36,
+      "supported_or_proven_count": 39,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -561,6 +596,199 @@
         "Transaction feeds overlap, and source deliveries may be counted as separate business events.",
         "Replayed deliveries change a report's unique event count or additive totals.",
         "A trip or consignment fact must preserve valid similar events and explain conflicting records."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Compute realised revenue, cost and margin per customer and tenure period under the user's approved rules, roll them up by acquisition cohort as cumulative value, and tie the totals back to source revenue with every order and refund accounted for.",
+      "domain_objects": [
+        "customer",
+        "order",
+        "refund",
+        "cost_component",
+        "cohort",
+        "tenure_period",
+        "lifetime_value",
+        "margin",
+        "ltv_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "customer-historical-ltv",
+      "job_category": "build",
+      "path": "recipes/customer-historical-ltv/recipe.md",
+      "pitch": "One reproducible, cohort-by-tenure customer value built on net revenue and margin, with refunds, unknown cost and unreached months shown honestly.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Needs revenue events with a customer key, a date and an amount, refunds with a recorded date, and a cost source.",
+        "Takes cost at order grain or as an order rate; allocating pooled cost is a separate outcome.",
+        "Keeps each currency separate; currency conversion is a separate outcome.",
+        "Needs a signup date source when the cohort anchors on signup, and kept history to reproduce a past as-of result.",
+        "Reports realised history to an as-of date; predictive value and forecasting are separate outcomes.",
+        "Takes one customer key as given; customer matching and merging are separate outcomes.",
+        "Uses order or billed amounts as given; recognition, deferral, churn and retention are separate outcomes.",
+        "Stops at value by cohort and tenure; acquisition cost, payback and segmentation are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "effective-dated-business-rules",
+        "metric-population-and-rollups",
+        "identity-golden-record-crosswalk",
+        "finance-revenue-recognition"
+      ],
+      "sha256": "aa4377cad5393e64b019f1902d1674138beb0580bbef132310f1268ce15c3323",
+      "title": "Compute historical customer lifetime value with margin",
+      "trigger": [
+        "The payback conversation uses a customer value from a spreadsheet nobody can reproduce, and it counts order revenue only, with no refunds and no cost of serving the orders.",
+        "Finance and growth quote different customer values because one counts gross order revenue and the other nets refunds and cost.",
+        "Young and old customer cohorts are compared at different tenure and look better or worse for the wrong reason."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Place each customer in one cohort, publish a retention table by cohort and elapsed period, and a customer-by-period feature table with a forward churn label under approved definitions, with every record counted or set aside and labels the data cannot yet settle marked unobservable.",
+      "domain_objects": [
+        "customer",
+        "signup_cohort",
+        "activity_event",
+        "churn_event",
+        "retention_cell",
+        "customer_period_feature",
+        "churn_label",
+        "retention_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "customer-retention-churn-features",
+      "job_category": "build",
+      "path": "recipes/customer-retention-churn-features/recipe.md",
+      "pitch": "One agreed definition of active and lost, a cohort retention table, and features with a churn label that only looks forward.",
+      "qualifiers": [
+        "Customer and activity records must already be landed as tables; this Recipe does not ingest them.",
+        "Each source's covered date range is known or approved before results depend on it.",
+        "Counts customers, not revenue; revenue retention and lifetime value are separate outcomes.",
+        "Features use event time under an approved as-of date; facts known only later or later corrected are not separated.",
+        "Churn inferred from silence cannot tell a lost customer from one who has not returned yet.",
+        "Stops at cohorts, retention, features and the label; training, scoring and serving are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "people-attrition-tenure",
+        "identity-golden-record-crosswalk",
+        "metric-population-and-rollups",
+        "file-drop-to-bronze",
+        "customer-rfm-segmentation",
+        "customer-historical-ltv"
+      ],
+      "sha256": "ec2d271579d5bb6c0d4cfe3db850b505e9f61652499c4d12e74bb4b7106a67a1",
+      "title": "Build retention cohorts and a churn feature table",
+      "trigger": [
+        "Marketing, finance and product each quote a different churn rate because each defines an active and a lost customer differently.",
+        "Nobody can say whether newer customer cohorts keep their customers better or worse than older ones.",
+        "A data science team wants a customer-by-period table of features and a churn label, but has no agreed definition and no way to show the features cannot see the future."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Score each customer's recency, frequency and spend as of a date from approved transactions, assign one approved segment or an explicit reason, keep every as-of's cut-offs and definitions, and maintain it so each result equals a rebuild for that date, with every segment move explained.",
+      "domain_objects": [
+        "customer",
+        "qualifying_transaction",
+        "rfm_score",
+        "score_cutoff",
+        "segment_map",
+        "customer_segment",
+        "segment_move",
+        "definition_version"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "id": "customer-rfm-segmentation",
+      "job_category": "build",
+      "path": "recipes/customer-rfm-segmentation/recipe.md",
+      "pitch": "Repeatable RFM segments that stay current as data arrives, equal a rebuild from zero, and say why a customer moved.",
+      "qualifiers": [
+        "Customer, transaction, refund and correction records must already be landed as tables; this Recipe does not ingest them.",
+        "Customers are scored under the key the Intent supplies; resolving who a customer is belongs to the identity Recipes.",
+        "Amounts must already be in one reporting currency; other currencies follow the approved handling, never converted here.",
+        "Rebuilding a past as-of as first published needs recorded dates and detectable deletes on inputs; else it is unproven."
+      ],
+      "readiness": "supported",
+      "related": [
+        "identity-golden-record-crosswalk",
+        "effective-dated-business-rules",
+        "metric-population-and-rollups",
+        "incremental-dbt-model-with-contract",
+        "dbt-full-refresh-to-incremental",
+        "revops-pipeline-snapshots"
+      ],
+      "sha256": "b8cc63e715967d6c9ecc7f33f9c8194cffdd949de16dc361c863310d6d9e328d",
+      "title": "Score customers with RFM, maintain segments incrementally and explain every move",
+      "trigger": [
+        "Marketing segment lists come from a spreadsheet or BI export nobody can reproduce, and the same customer lands in different segments depending on who pulled the list.",
+        "Segments must stay current as transactions arrive without rescoring everyone from scratch, yet match a rebuild from zero for the same date.",
+        "A cut-off or segment definition is about to change and the owner must see who moves, and why, before it goes live."
       ],
       "works_with": {
         "platforms": [
