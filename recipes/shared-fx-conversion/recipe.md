@@ -28,7 +28,7 @@ works_with:
     - dbt
 qualifiers:
   - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
-  - Needs amounts with a currency code and a date, and rate quotes with a quote date, a source and a recorded time.
+  - Needs amounts with a currency code and a date, and rate quotes with a quote date and a source.
   - Takes the quotes as supplied; sourcing a rate feed and checking it against a provider are separate outcomes.
   - Converts to an approved reporting currency; translation, exchange gain or loss, hedging and consolidation are separate.
   - Reproducing a past run needs kept rate versions with their recorded time; without them the outcome says it cannot.
@@ -50,7 +50,7 @@ evidence:
 
 ## Prompt
 
-Build <conversion_model>, <currency_addback_model> and <unused_rate_model> from <amounts_source>, <currency_list_source> and <rate_source> for the reporting-currency restatement in this Intent. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only the semantics they leave open. Give every amount one disposition, converted or set aside with exactly one reason. For each converted amount publish the original amount and currency as supplied, the rate used with its own date and source, the selection method, whether the rate was carried from an earlier date, and the amount in the reporting currency before and after rounding. Select the rate under the approved date basis, gap rule, quote forms and order, round once under the approved rule, and apply the approved rule that fixes which rate versions count. Publish, per original currency, an add-back of converted and set-aside amounts to what was received, and list the quotes the approved rules left unused with the reason for each. Keep each original currency apart and stop at the converted amounts.
+Build <conversion_model>, <currency_addback_model> and <unused_rate_model> from <amounts_source>, <currency_list_source> and <rate_source> for the reporting-currency restatement in this Intent. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only the semantics they leave open. Give every amount one disposition, converted or set aside with exactly one reason. For each converted amount publish the original amount and currency as supplied, the rate used with its own date and source (except for amounts already in the reporting currency), the selection method, whether the rate was carried from an earlier date, and the amount in the reporting currency before and after rounding. Select the rate under the approved date basis, gap rule, quote forms and order, round once under the approved rule, and apply the approved rule that fixes which rate versions count. Publish, per original currency, an add-back of converted and set-aside amounts to what was received, and list the quotes the approved rules left unused with the reason for each. Keep each original currency apart and stop at the converted amounts.
 
 ## Verified by
 
