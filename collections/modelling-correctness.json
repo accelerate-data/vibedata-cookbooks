@@ -14,6 +14,7 @@
     "effective-dated-business-rules",
     "prove-dbt-change-safe",
     "customer-rfm-segmentation",
-    "customer-historical-ltv"
+    "customer-historical-ltv",
+    "customer-retention-churn-features"
   ]
 }

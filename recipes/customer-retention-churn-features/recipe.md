@@ -40,6 +40,8 @@ related:
   - identity-golden-record-crosswalk
   - metric-population-and-rollups
   - file-drop-to-bronze
+  - customer-rfm-segmentation
+  - customer-historical-ltv
 evidence:
   features:
     - capturing-requirements
