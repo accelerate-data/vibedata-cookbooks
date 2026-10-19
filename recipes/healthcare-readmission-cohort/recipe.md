@@ -62,7 +62,7 @@ Build <readmission_cohort>, <readmission_rate> and <cohort_coverage> from <admis
 - A duplicate, an overlapping pair, an inconsistent date, an unplaceable patient and an excluded visit type each land as approved with their reason: a copy that does not survive or a record set aside is never an index or linked, and none is silently dropped.
 - The rate has one row per approved facility and period with its eligible index count, readmission count and rate, empty not zero where none was eligible; before any approved suppression its counts equal the cohort's, and a suppressed row is marked with its reason.
 - Changing the window's edge rule or an exclusion in its data changes the cohort and rate with no change to the logic, within the approved rule form.
-- The coverage output publishes each accounting check (disposition add-back, one link each way, rate ties to cohort) with its residue; a check that does not hold is shown, never hidden.
+- The coverage output publishes each accounting check (disposition add-back, each link as the approved linking rule allows, rate ties to cohort) with its residue; a check that does not hold is shown, never hidden.
 - The dispositions, links and rates equal figures derived independently from the input admissions, and each rate row traces to the admissions behind it.
 - The outcome states the count per reason, which admissions the data cannot place and what the inputs cannot prove, such as a readmission to a facility the data does not hold.
 
