@@ -59,12 +59,12 @@ Build <rfm_model> that scores each customer in <customer_sources> as of each as-
 - Recency, frequency and spend equal independent recomputations from the transactions under the approved window, day basis, amount and refund rules, counting only input the approved time basis allows for that as-of.
 - Each score equals a recomputation from that as-of's stored cut-offs or the approved fixed bands; ties are placed as approved and never by row order or run order, and when values are too few for the approved bins the effective bin count is recorded and no split is invented.
 - Every scored customer has exactly one segment from the approved map; the map is data under which every score combination resolves to one segment by the approved priority, and a gap or an unresolved priority follows the approved failure rule and never drops a customer.
-- Unscored customers appear with their approved reason and stay out of the cut-off population unless approved otherwise; their transactions are still accounted for.
+- Unscored customers keep their approved reason, stay out of the cut-off population unless approved, with their transactions accounted for; a run that cannot score (absent input, incomplete map, invalid definition) follows the approved failure rule and never publishes a partly scored as-of silently.
 - A rerun on unchanged input changes no published row, an as-of earlier than one already published is refused or handled as approved, and input recorded later changes only later as-of dates and is flagged with the as-of it concerns, unless restatement is approved.
 - A rebuild from zero for an as-of, under the same rules and the input the approved time basis allows, reproduces its maintained rows, and any difference the approved policy permits is reported, never hidden.
 - Each as-of stores the cut-offs and the version of each definition it used (bands, map, window, time zone); an edit applies from its approved effective as-of and rewrites no earlier published row unless approved.
+- A proposed definition version can be scored for an as-of without publishing it, and shows each customer whose segment would change, with from, to and reasons.
 - A moved customer shows its from and to, every approved reason that applies and a primary by the approved precedence; a reason is set only where its approved definition holds (a definition change only where the new definitions change the segment), and an unexplained move is reported, never defaulted.
-- A run that cannot score (absent input, incomplete map, invalid definition) follows the approved failure rule and never publishes a partly scored as-of silently.
 - Independent expected results for a labelled case set cover each approved rule that applies (ties, window edges, refunds and corrections, late input, ageing, cut-off shift, definition change, each unscored, excluded or set-aside class); a case an approved rule makes inapplicable is stated as such.
 
 ## Agent guidance

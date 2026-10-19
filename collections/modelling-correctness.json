@@ -12,6 +12,7 @@
     "logistics-fleet-utilization",
     "shift-unit-economics",
     "effective-dated-business-rules",
-    "prove-dbt-change-safe"
+    "prove-dbt-change-safe",
+    "customer-rfm-segmentation"
   ]
 }
