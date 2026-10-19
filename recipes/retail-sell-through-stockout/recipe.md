@@ -97,7 +97,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 - If unresolved, which stores, SKUs and days are in scope, what is the day boundary and time zone, how is ranging held and dated, and which items count as ranged (new, delisted, seasonal, test, display-only)?
 - If unresolved, how is sell-through defined (sold over sold plus closing stock, opening stock, or opening plus receipts) over what period, what does a non-positive denominator show, and what makes a day out of stock (closing at or below zero, any point in the day, all day)?
-- If unresolved, what makes an item at risk (cover under a threshold, run-out projected from the approved rate of sale, unit floor), at what threshold and window, counting which days, does on-order or in-transit stock count toward cover, and what minimum history and no-sales display apply?
+- If unresolved, what makes an item at risk (cover under a threshold, run-out projected from the approved rate of sale, unit floor), at what threshold, window and counted days, does on-order or in-transit stock count toward cover, and what minimum history, no-sales and out-of-stock-day display apply?
 - If unresolved, which stock counts as sellable (damaged, quarantined, held, display, in transit, on order), is the position a closing snapshot or built from movements, and is stock above or below the recorded position a value or a problem?
 - If unresolved, which sales channels count and on which date (transaction or fulfilment), how do returns (also to another store), voids, exchanges, bundles and sales in another or fractional unit count, on which day does a return land, and what do an unknown pack size and a net-negative day show?
 - If unresolved, what happens on a day with no count (unknown, carried forward, or no row meaning zero stock), a negative count, two identical counts or two that disagree, and which reason is given when several fit?
@@ -109,7 +109,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - Do not choose the sell-through definition, out-of-stock test, risk measure, threshold, window, stock eligibility, return and unit treatment, missing-count rule, ranging or failure behaviour for the user, or take them from common practice; the user may ask for a recommendation.
 - Never read a missing, negative or conflicting stock position as an empty shelf or as zero stock unless the approved rules define it so, and never carry a count forward unless approved.
 - Never let a day with no stock lower the rate of sale the risk reads unless the approved basis counts it, and never present infinite cover as a number.
-- Never guess a unit conversion the approved rules do not give, and never drop, double count or default an unplaceable record; every record of every input stays accounted for, including voided, unranged and duplicate records.
+- Never guess a unit conversion the approved rules do not give, and never drop, double count or default an unplaceable record; on a run that completes, every record of every input stays accounted for, including voided, unranged and duplicate records.
 - Never publish a day as complete when the run could not establish the stock feed for that day.
 - Never restate a published day with a late or corrected count or sale unless the approved rules say so.
 - Do not hold a rule the approved requirements treat as data as a literal in the models; keep it as data that the models and tests read.
