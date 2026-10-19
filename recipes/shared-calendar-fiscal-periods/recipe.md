@@ -57,7 +57,7 @@ Build <date_table_model> as the one governed date table every mart joins, from <
 
 ## Verified by
 
-- The table holds one row per calendar day from the approved window start to its end, each calendar-day key unique and not null with no day missing, and the window values are stated inputs, never derived from the facts at run time.
+- The table holds one row per calendar day from the approved window start to its end, each calendar-day key unique and not null with no day missing, and the window follows the approved rule, stated values or a stated derivation, never an unstated one derived from the facts at run time.
 - Every fact date of every joining mart has a row or is handled as approved; a date outside the window or a null date is never placed on another day, and the count of each per mart is reported.
 - Each date carries exactly one fiscal year, period, quarter and week per approved fiscal calendar, agreeing with one another as the approved week and period rules define, and fiscal identifiers equal those of any fiscal calendar the Domain already publishes, or each approved difference is stated.
 - Each fiscal year has the number of week indices a hand-worked expectation states, including a year with an extra week and a first or last week cut short by the year boundary or by the window edge, computed under the approved week rule and never forced to a number it does not set.
@@ -86,19 +86,19 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 
 ### Ask first
 
-- If unresolved, which fiscal calendar applies: the year start, whether periods are calendar months or groups of weeks (such as 4-4-5 or 13 periods) and when an extra week is added, how a year and period are named, any adjustment period, and whether the calendar changed over time.
+- If unresolved, which fiscal calendars apply (one, or one per entity or region, with the key that identifies each) and for each: the year start, month or week-group periods (such as 4-4-5 or 13) and when an extra week is added, naming, any adjustment period, and any change over time.
 - If unresolved, how weeks and calendar attributes are defined: the week start day, whether week 1 starts on the year's first day, its first full week or by a majority-of-days rule, which year a straddling week belongs to, the week-year rule, the weekend days and the language of names.
-- If unresolved, what window the table covers and how it is bounded (stated start, end and forward horizon, whole fiscal years or not), and who extends it.
-- If unresolved, which holiday list applies and the dates it covers, what makes a working day (weekdays, observed holidays, local days off, half days), what a date outside the list's coverage shows, and which business-day numbers are published and where each restarts.
-- If unresolved, how same-period-last-year aligns (same date, same week index and weekday, or same period) and what is shown where no counterpart exists.
+- If unresolved, what window the table covers and how it is bounded (stated start, end and forward horizon, whole fiscal years or not, or a stated derivation), and who extends it.
+- If unresolved, which holiday list applies and the dates it covers, what makes a working day (weekdays, observed holidays, local days off, half days), and what a date outside the list's coverage shows.
+- If unresolved, which business-day numbers are published and where each restarts, and how same-period-last-year aligns (same date, same week index and weekday, or same period) and what is shown where no counterpart exists.
 - If unresolved, how a null, unparseable, out-of-window or not-yet-occurred fact date is handled (unknown member, set aside, flagged or the run failed), how that member is keyed and how it is kept out of day counts.
-- If unresolved, which existing date relations and consumers join the table, whether it extends one in place or stands alone, whether a published column may be added, changed or widened, which date or time zone places each fact, and whether any mart is restated.
-- If unresolved, whether more than one fiscal calendar or holiday calendar is needed (per entity or region) and, if so, what key identifies each and how it joins the grain.
+- If unresolved, which existing date relations and consumers join the table, whether it extends one in place or stands alone, and whether a published column may be added, changed or widened.
+- If unresolved, which date or time zone places each joining mart's facts, and whether any mart is restated or only documented.
 
 ### Guardrails
 
 - Do not choose the fiscal calendar, week construction, calendar attributes, year naming, window, holiday rules, business-day numbering, prior-year alignment, unknown-date handling or calendar grain for the user, and take none from sample data, a vendor default or existing code.
-- Never derive the window from the facts at run time or hard-code a date in the model; extending the window adds rows and changes no key.
+- Never derive the window from the facts at run time by an unstated rule, or hard-code a date in the model; extending the window adds rows and changes no key.
 - Never place a null, unparseable or out-of-window fact date on another real day; it follows the approved handling and its count is reported.
 - Never force a fiscal year's week count to a number the approved week rule does not set; a year with an extra or partial week is computed and checked against the hand-worked expectation.
 - Never show a holiday or non-working answer the list does not support as known unless the user approves that value for uncovered dates; the coverage indicator shows which dates the list reaches.
