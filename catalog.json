@@ -46,6 +46,7 @@
         "api-to-bronze-incremental-contract",
         "bounded-partition-backfill",
         "business-event-fact",
+        "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
@@ -101,7 +102,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 52,
+      "supported_or_proven_count": 53,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -214,6 +215,7 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "business-event-fact",
+        "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
@@ -286,7 +288,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 43,
+      "supported_or_proven_count": 44,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -308,10 +310,12 @@
         "prove-dbt-change-safe",
         "customer-rfm-segmentation",
         "customer-historical-ltv",
-        "customer-retention-churn-features"
+        "customer-retention-churn-features",
+        "customer-consent-preferences"
       ],
       "resolved_members": [
         "business-event-fact",
+        "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
@@ -325,7 +329,7 @@
         "prove-dbt-change-safe",
         "shift-unit-economics"
       ],
-      "supported_or_proven_count": 13,
+      "supported_or_proven_count": 14,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -337,6 +341,7 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "business-event-fact",
+        "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
@@ -381,7 +386,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 40,
+      "supported_or_proven_count": 41,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -603,6 +608,73 @@
         "Transaction feeds overlap, and source deliveries may be counted as separate business events.",
         "Replayed deliveries change a report's unique event count or additive totals.",
         "A trip or consignment fact must preserve valid similar events and explain conflicting records."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "governance-cost",
+      "description": "Build one contact-permission state per customer, channel and purpose from consent events across sources under the user's approved ordering, scope and no-record rules, with the deciding event, a suppression list and the full event history, and every event applied or set aside with its reasons.",
+      "domain_objects": [
+        "customer",
+        "consent_event",
+        "channel",
+        "purpose",
+        "consent_state",
+        "lawful_basis",
+        "suppression_entry",
+        "decision_trace",
+        "consent_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "customer-consent-preferences",
+      "job_category": "build",
+      "path": "recipes/customer-consent-preferences/recipe.md",
+      "pitch": "One auditable answer to whether a customer may be contacted, with the deciding event and a suppression list that never loosens an opt-out.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Needs consent events already landed as tables with source, status, event time, received time and identifier.",
+        "Takes the customer key and identifier mapping as given; matching and merging customers are separate outcomes.",
+        "Shows permission to contact only; contact frequency, pressure and send eligibility are separate outcomes.",
+        "Carries the lawful basis the user approves; deciding lawful basis or regional law is not part of it.",
+        "Publishes tables only; syncing the state or suppression list into sending tools is a separate outcome.",
+        "Cannot prove consent given outside the delivered feeds, or a state as known on a past date without received times kept."
+      ],
+      "readiness": "supported",
+      "related": [
+        "identity-golden-record-crosswalk",
+        "effective-dated-business-rules",
+        "pii-classification-and-masking",
+        "source-freshness-sla",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "e9f00bf886a6cc90f4405de6b3a27726f57d16efd0a6ac4dd36c0d7013c618e7",
+      "title": "Unify consent and communication preferences with auditable latest-wins logic",
+      "trigger": [
+        "A customer who opted out in one system still gets messages from another, because each source says something different and whichever job ran last wins.",
+        "Nobody can say why a customer is or is not contactable, which event decided it, or what their state was on a past date.",
+        "Opt-outs, complaints and STOP replies arrive from several sources and nobody can show which one a decision rests on."
       ],
       "works_with": {
         "platforms": [
