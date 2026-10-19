@@ -5,6 +5,7 @@
   "description": "Recipes for building customer value, retention, segmentation and product behaviour models that business teams can reproduce.",
   "members": [
     "customer-rfm-segmentation",
-    "customer-historical-ltv"
+    "customer-historical-ltv",
+    "customer-retention-churn-features"
   ]
 }
