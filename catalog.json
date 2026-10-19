@@ -6,13 +6,15 @@
       "kind": "curated",
       "members": [
         "customer-rfm-segmentation",
-        "customer-historical-ltv"
+        "customer-historical-ltv",
+        "customer-retention-churn-features"
       ],
       "resolved_members": [
         "customer-historical-ltv",
+        "customer-retention-churn-features",
         "customer-rfm-segmentation"
       ],
-      "supported_or_proven_count": 2,
+      "supported_or_proven_count": 3,
       "title": "Customer and product analytics",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -43,6 +45,7 @@
         "bounded-partition-backfill",
         "business-event-fact",
         "customer-historical-ltv",
+        "customer-retention-churn-features",
         "customer-rfm-segmentation",
         "database-tables-to-bronze",
         "dbt-full-refresh-to-incremental",
@@ -95,7 +98,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 50,
+      "supported_or_proven_count": 51,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -209,6 +212,7 @@
         "api-to-bronze-incremental-contract",
         "business-event-fact",
         "customer-historical-ltv",
+        "customer-retention-churn-features",
         "customer-rfm-segmentation",
         "database-tables-to-bronze",
         "effective-dated-business-rules",
@@ -278,7 +282,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 41,
+      "supported_or_proven_count": 42,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -298,11 +302,13 @@
         "effective-dated-business-rules",
         "prove-dbt-change-safe",
         "customer-rfm-segmentation",
-        "customer-historical-ltv"
+        "customer-historical-ltv",
+        "customer-retention-churn-features"
       ],
       "resolved_members": [
         "business-event-fact",
         "customer-historical-ltv",
+        "customer-retention-churn-features",
         "customer-rfm-segmentation",
         "dbt-snapshot-history",
         "effective-dated-business-rules",
@@ -313,7 +319,7 @@
         "prove-dbt-change-safe",
         "shift-unit-economics"
       ],
-      "supported_or_proven_count": 11,
+      "supported_or_proven_count": 12,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -326,6 +332,7 @@
         "api-to-bronze-incremental-contract",
         "business-event-fact",
         "customer-historical-ltv",
+        "customer-retention-churn-features",
         "customer-rfm-segmentation",
         "database-tables-to-bronze",
         "effective-dated-business-rules",
@@ -367,7 +374,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 38,
+      "supported_or_proven_count": 39,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -656,6 +663,72 @@
         "The payback conversation uses a customer value from a spreadsheet nobody can reproduce, and it counts order revenue only, with no refunds and no cost of serving the orders.",
         "Finance and growth quote different customer values because one counts gross order revenue and the other nets refunds and cost.",
         "Young and old customer cohorts are compared at different tenure and look better or worse for the wrong reason."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Place each customer in one cohort, publish a retention table by cohort and elapsed period, and a customer-by-period feature table with a forward churn label under approved definitions, with every record counted or set aside and labels the data cannot yet settle marked unobservable.",
+      "domain_objects": [
+        "customer",
+        "signup_cohort",
+        "activity_event",
+        "churn_event",
+        "retention_cell",
+        "customer_period_feature",
+        "churn_label",
+        "retention_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "customer-retention-churn-features",
+      "job_category": "build",
+      "path": "recipes/customer-retention-churn-features/recipe.md",
+      "pitch": "One agreed definition of active and lost, a cohort retention table, and features with a churn label that only looks forward.",
+      "qualifiers": [
+        "Customer and activity records must already be landed as tables; this Recipe does not ingest them.",
+        "Each source's covered date range is known or approved before results depend on it.",
+        "Counts customers, not revenue; revenue retention and lifetime value are separate outcomes.",
+        "Features use event time under an approved as-of date; facts known only later or later corrected are not separated.",
+        "Churn inferred from silence cannot tell a lost customer from one who has not returned yet.",
+        "Stops at cohorts, retention, features and the label; training, scoring and serving are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "people-attrition-tenure",
+        "identity-golden-record-crosswalk",
+        "metric-population-and-rollups",
+        "file-drop-to-bronze",
+        "customer-rfm-segmentation",
+        "customer-historical-ltv"
+      ],
+      "sha256": "ec2d271579d5bb6c0d4cfe3db850b505e9f61652499c4d12e74bb4b7106a67a1",
+      "title": "Build retention cohorts and a churn feature table",
+      "trigger": [
+        "Marketing, finance and product each quote a different churn rate because each defines an active and a lost customer differently.",
+        "Nobody can say whether newer customer cohorts keep their customers better or worse than older ones.",
+        "A data science team wants a customer-by-period table of features and a churn label, but has no agreed definition and no way to show the features cannot see the future."
       ],
       "works_with": {
         "platforms": [
