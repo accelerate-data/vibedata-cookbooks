@@ -65,7 +65,7 @@ Build <day_table>, <coverage_model> and <completeness_model> from <sale_line_sou
 
 - On a run that completes, there is one row per approved store, SKU and day for every pair the approved ranging covers that day, including days with no sale and no stock movement, and none for a pair the ranging leaves out; each output is unique on its declared grain.
 - Each row's sell-through rate equals the approved definition recomputed from the row's own units and stock; where the approved denominator is not positive the rate follows the approved treatment and carries its reason, and is never silently shown as zero unless the approved rule says so.
-- Units sold follow the approved treatment of returns, voids and recorded units: each return lands on the day the approved rule gives it, a voided line adds no units, and a sale in a unit the item has no approved conversion for is not guessed and is listed with its reason.
+- Units sold follow the approved treatment of returns, voids and recorded units: each return lands on the day the approved rule gives it, a voided line counts as the approved rule says, and a sale in a unit with no approved conversion is never guessed and is handled as approved.
 - Sellable stock on hand follows the approved eligibility, units the approved rules hold out stay visible beside it, and a position that cannot be trusted under the approved rules is shown as recorded or as missing, never repaired.
 - Out of stock follows the approved definition on every row, a day that ran out and was restocked is judged as the approved definition says, and each flagged row carries its reason.
 - A day whose stock count is missing, negative, duplicated or conflicting is handled as approved: the out-of-stock and at-risk states read unknown, never false, unless the approved rule gives another disposition, and neither an empty shelf nor zero stock is inferred from the gap.
@@ -95,20 +95,20 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 ### Ask first
 
 - If unresolved, which stores, SKUs and days are in scope, what is the day boundary and time zone, how is ranging held and dated, and which items count as ranged (new, delisted, seasonal, test, display-only)?
-- If unresolved, how is sell-through defined (sold over what: sold plus closing stock, opening stock, opening plus receipts), at which period, and what does a non-positive denominator show?
-- If unresolved, what makes a day out of stock (closing stock at or below zero, zero at any point in the day, zero all day), and how is a day that ran out and was restocked judged?
+- If unresolved, how is sell-through defined (sold over sold plus closing stock, opening stock, or opening plus receipts), what does a non-positive denominator show, and what makes a day out of stock (closing at or below zero, at any point in the day, all day)?
 - If unresolved, what makes an item at risk (cover under a threshold, projected run-out, unit floor), with what threshold and lead-time variation, over which window, counting which days toward the rate of sale, what minimum history, and what do an out-of-stock day and a no-sales item show?
 - If unresolved, which stock counts as sellable (damaged, quarantined, held, display, in transit, on order), is the position a closing snapshot or built from movements, and is stock above or below the recorded position a value or a problem?
-- If unresolved, how do returns, voids, exchanges and sales recorded in another unit (case, pack) count, on which day does a return land, how is a pack converted when the size is unknown, and what does a day whose net units are negative show?
+- If unresolved, how do returns (including to another store), voids, exchanges, bundles and sales in another or fractional unit (case, pack, weight) count, on which day does a return land, what happens to a sale whose pack size is unknown, and what does a net-negative day show?
 - If unresolved, what happens on a day with no count, a negative count, two identical counts or two that disagree: unknown, carried forward, or a failure, and which reason is given when several fit?
-- If unresolved, when a run cannot produce a trustworthy day (a stale feed, an unplaceable record), does it fail, publish flagged or publish nothing, are late or corrected counts and sales applied to past days, and which reasons name records set aside?
+- If unresolved, when a run cannot produce a trustworthy day (a stale feed, an unplaceable record), does it fail, publish flagged or publish nothing, and which reasons name records set aside?
+- If unresolved, are late or corrected counts and sales applied to days already published or only to later days, and does a rerun restate history?
 
 ### Guardrails
 
 - Do not choose the sell-through definition, out-of-stock test, risk measure, threshold, window, stock eligibility, return and unit treatment, missing-count rule, ranging or failure behaviour for the user, or take them from common practice; the user may ask for a recommendation.
 - Never read a missing, negative or conflicting stock position as an empty shelf or as zero stock unless the approved rules define it so, and never carry a count forward unless approved.
 - Never let a day with no stock lower the rate of sale the risk reads unless the approved basis counts it, and never present infinite cover as a number.
-- Never guess a unit conversion, and never drop, double count or default an unplaceable record; every record of every input stays accounted for, including voided, unranged and duplicate records.
+- Never guess a unit conversion the approved rules do not give, and never drop, double count or default an unplaceable record; every record of every input stays accounted for, including voided, unranged and duplicate records.
 - Never publish a day as complete when the run could not establish its stock position.
 - Never restate a published day with a late or corrected count or sale unless the approved rules say so.
 - Do not hold a rule the approved requirements treat as data as a literal in the models; keep it as data that the models and tests read.
