@@ -1,12 +1,12 @@
 ---
 id: healthcare-claims-remittance
-title: Reconcile billed claims to payer remittances and denials by payer
+title: Reconcile billed claims to payer remittances, denials and batch payments by payer
 trigger:
   - The revenue cycle team matches payer remittances to billed claims by hand, and nobody can say, payer by payer, how much of what was billed was paid, adjusted, denied or is still open.
   - A payer's denial rate or top denial reasons are quoted from a spreadsheet that mixes claim-level and line-level amounts, counts a resent remittance twice or reads patient responsibility as a denial.
   - A remittance batch does not match the payment it carries, a remittance names a claim nobody holds, or a billed claim has no remittance yet, and the gap is found only at month end.
 description: Explain every billed claim line as paid, adjusted, patient responsibility, denied or open so the pieces add up to the billed amount, summarise the same by payer with denial rate and denial reasons, account for every remittance line as applied or set aside with its reason, and tie each remittance batch to its payment.
-pitch: Billed to paid, adjusted, denied and open for every claim line and payer, with every remittance line applied or explained.
+pitch: Billed to paid, adjusted, denied and open for every claim line and payer, with every remittance line applied or explained and every batch tied to its payment.
 job_category: build
 area: transformation
 readiness: supported
@@ -66,7 +66,7 @@ Build <claim_line_reconciliation>, <claim_reconciliation>, <payer_summary>, <rem
 - The payer summary has one row per approved payer, with a payer seen only in remittances shown as approved; its pieces equal the sum over its claims, and its denial rate follows the approved definition and is empty, not zero, where nothing was billed.
 - The denial reasons and amounts on the payer summary equal the ranking recomputed independently from the published breakdown by payer and reason code.
 - Each remittance batch shows its carried payment, the approved sum of its amounts and the difference; a difference follows the approved disposition and changes no claim's pieces.
-- The pieces, payer rows and batch differences equal figures derived independently from the inputs, and each tie back to the input totals (billed, remitted, batch payments) is published with its residue, zero except an explained break.
+- The pieces, payer rows and batch differences equal figures derived independently from the inputs, and each tie back to the input totals (billed, remitted, batch payments) is published with its residue, zero except a difference the approved batch disposition shows.
 - Each output is unique on its declared grain with required fields populated, and each row traces to the claim lines and remittance lines behind it; the outcome states what is set aside, which batches do not tie, which claims have no remittance and what the inputs cannot prove.
 
 ## Agent guidance
@@ -92,7 +92,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - If unresolved, how are several remittances on one claim combined, what makes a line a resend, which copy is the line of record, and how are a reversal, a correction, a recovery and a replacement treated?
 - If unresolved, how is a remittance that names a claim but no service line attributed to the claim's lines, spread by what weight and rounding, or kept at claim grain?
 - If unresolved, how is open defined, and how are a claim with no remittance yet and a line paid above its billed amount shown, signed and flagged or limited?
-- If unresolved, which remittance lines are set aside rather than applied (unknown claim or line, another payer including a secondary payer under coordination of benefits), under which reasons, and at which grain is each reported?
+- If unresolved, which remittance lines are set aside rather than applied (unknown claim or line, another payer including a secondary payer under coordination of benefits), under which reasons, which reason wins when several apply to one line, and at which grain is each reported?
 - If unresolved, how is denial rate defined (by amount, line count or claim count), how many top denial reasons are published, ranked by what, and how are ties broken?
 - If unresolved, which amounts count toward a batch total (including provider-level adjustments, interest and withholds), is a resent line counted once, and does a difference fail the run or only flag?
 
