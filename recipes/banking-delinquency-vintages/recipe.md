@@ -31,7 +31,6 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Needs loans, dated payments and status events, and repayment schedules where delinquency is derived from them.
   - Covers instalment (term) loans; revolving and card products are a separate outcome.
   - Stops at delinquency measurement; provisioning, collections and recoveries are separate outcomes.
@@ -58,7 +57,7 @@ Build <placement_model>, <roll_rate_model>, <vintage_model> and <exceptions_mode
 - Delinquency and balance follow the approved balance definition and payment-application rules: partial payments, prepayments and payments dated before but recorded after a month-end are applied as approved, and the approved rule says whether a payment ahead of schedule can change a bucket.
 - On a run that completes, per from month-end, from-bucket and currency, the loans and balance across all roll-rate destinations reconcile on each approved roll-rate measure; a new loan is never counted in a from-bucket it did not hold; cured and worse follow the approved bucket order.
 - A loan that leaves without an ending event the approved rule recognises, cannot be followed, or cannot be bucketed is shown as the approved rule says, never silently as cured or current, and is listed with its reason.
-- Each published vintage measure equals an independent recomputation from the placements: each share uses the approved denominator, exits follow the approved cohort treatment, and an age not fully reached is absent, null or marked as approved, never zero.
+- Published placements, roll rates and vintage measures equal values derived independently from the sources and approved rules: each share uses the approved denominator, exits follow the approved cohort treatment, and an age not fully reached is absent, null or marked as approved, never zero.
 - Where the approved vintage measures include a reading on outstanding balance, its bucket split sums to the cohort's outstanding balance at that age, and an empty denominator follows the approved treatment, never a silent zero.
 - Modified, restructured or deferred loans follow the approved schedule rule and are flagged as approved; one never reads as current without it, and the delinquency it had before the change is kept or dropped as approved.
 - Every total and rate is keyed by currency; no published figure adds currencies unless an approved translation rule is stated and the totals reconcile under it; entities and products are combined only at the approved reporting cuts.
@@ -89,7 +88,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - If unresolved, what measures delinquency (days past due on the oldest unpaid instalment, missed instalments or a stored status), what grace period, buckets, inclusive edges and due-date convention apply, and how do payments, partial payments and prepayments settle instalments?
 - If unresolved, how are payoff, charge-off, sale or default recognised, what balance does an exiting loan carry out, is a transferred or re-keyed loan matched to its earlier key, and are acquired loans new originations and from which date?
 - If unresolved, what does a loan's balance hold (principal, accrued interest, fees, net of write-offs), what do the roll rates measure (balance or count) over what interval, and what counts as worse, cured or stayed?
-- If unresolved, how are cohorts formed (month, quarter or other), what counts as delinquent for the curve and on which balance, when is age zero, do exited loans stay in the cohort and its ever-delinquent count, and how are partly observed ages and empty denominators shown?
+- If unresolved, how are cohorts formed (month, quarter or other), what counts as delinquent for the curve (a depth, a charge-off) and on which balance, when is age zero, do exited loans stay in the cohort and its ever-delinquent count, and how are partly observed ages and empty denominators shown?
 - If unresolved, how are modified, restructured, forborne or payment-holiday loans treated: which schedule governs the bucket, is earlier delinquency kept, whether and how are they flagged, and may they cure at the change?
 - If unresolved, which month-ends are reported (window, whether the latest open month publishes), are they computed as known on each date using entry timestamps for payments, events and schedule changes or restated from final data, and which calendar defines month-end?
 - If unresolved, how is each excluded, unplaceable, new or missing record (orphan, duplicate, no schedule, malformed value) listed and counted, and does a month that cannot be trusted publish flagged, withhold or fail?
