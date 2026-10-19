@@ -30,7 +30,6 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Claims and claim transactions must already be landed as tables with the dates the approved time basis needs.
   - Amount triangles only; claim counts, factors, IBNR, ultimates, reserving and reinsurance cessions are separate.
   - Results are only as complete as the transaction history the source carries; earlier history is not recoverable here.
