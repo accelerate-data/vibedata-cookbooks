@@ -9,6 +9,7 @@
     "event-resource-attribution",
     "dbt-snapshot-history",
     "operational-state-duration",
+    "product-sessionization-funnels",
     "logistics-fleet-utilization",
     "shift-unit-economics",
     "effective-dated-business-rules",

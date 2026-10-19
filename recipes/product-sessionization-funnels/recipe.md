@@ -54,18 +54,18 @@ Build <visit_model> and <funnel_model> from the landed batch event exports for t
 
 ## Verified by
 
-- Every delivered event row is either in exactly one visit or set aside with a reason; counted plus set-aside rows equal delivered rows, and the event count follows the approved duplicate rule.
+- Every delivered event row is in exactly one visit, set aside with a reason, held outside visits under an approved disposition, or removed under the approved erasure rule; these populations reconcile to the delivered rows, and the event count follows the approved duplicate rule.
 - Each event resolves to an identity under the approved rule; events that rule cannot attribute, and events with no usable identity or time, are listed with reasons and never guessed.
 - No two visits of one approved visit owner overlap, and boundaries follow the approved gap, boundary side and any other approved cut rule.
-- Events the approved rule says do not keep a visit alive change no visit start, end or count, and none opens a visit; where the rule sets them aside, they are listed.
+- Events the approved rule says do not keep a visit alive change no visit start, end or count, and none opens a visit; one outside every visit is set aside with a reason or held under another approved disposition, and is listed.
 - Late, re-delivered, conflicting and skewed events follow the approved clock and rules, the same batches in give the same visits out, and published periods follow the approved restatement rule when late data or a changed rule arrives.
 - Visits near the export edge follow the approved treatment; where held open, each is marked and the mark clears only when later data settles it.
 - Funnel steps, their order, the gap and the window are read from configuration; within the approved rule form, changing a configured value changes the dependent figures without editing model logic.
 - Each step's reach equals an independent recomputation from the ordered events under the approved order, unit, repeat and window rules, including where those rules distinguish order or window end.
 - A configured step or source that matches no events is reported, never read as zero reach, and outputs show only the approved identifiers.
-- Each published rate equals its two published counts under the approved definitions, zero denominators follow the approved handling, and a period with no qualifying entries appears or not as approved.
-- Period placement follows the approved time zone, week start, grain and placing event: an event near local midnight lands in the right period, and a visit crossing midnight is split only if approved.
+- Each published rate equals its two published counts under the approved definitions and zero-denominator handling; periods follow the approved time zone, week start, grain and placing event, with an empty period shown or omitted as approved.
 - Excluded and unusable events stay visible with reasons, recoverable for comparison within approved retention, and appear in the funnel only where approved.
+- Where a reference figure is given, per step and period the per-cause differences, applied in the approved order, sum exactly to the reference minus the published figure; each cause is a named approved rule difference, and any residual is shown as unexplained and never folded into a cause.
 
 ## Agent guidance
 
@@ -85,7 +85,7 @@ Inherit the Intent's repository, platform, Domain and landed event tables. Inspe
 ### Ask first
 
 - If unresolved, how are events resolved to one identity: which ids, how anonymous activity links to an account and in which direction, whether a later merge relinks history, and how shared devices, several devices and unusable identities are treated?
-- If unspecified, what owns a visit (identity, device or platform), what is the inactivity gap, which side of it starts a new visit, which events keep a visit alive, and do any other rules cut a visit?
+- If unspecified, what owns a visit (identity, device or platform), what is the inactivity gap, which side of it starts a new visit, which events keep a visit alive and where do those outside every visit go, and do any other rules cut a visit?
 - If unresolved, which clock orders events, how are missing times, ties, skew and a batch cutoff handled, how are the export edge and expected batches known, and how is a visit near the edge treated?
 - If unresolved, which sources and event names feed the steps, which key identifies a delivered copy, how are re-delivered, conflicting and late data handled, and are published periods restated, from all history or an effective date?
 - If unresolved, which traffic, test or erased identities leave the population, who owns that rule, where do excluded rows go and how long are they retained, and which identifiers may outputs show?
