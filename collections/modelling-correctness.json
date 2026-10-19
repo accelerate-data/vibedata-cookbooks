@@ -17,6 +17,7 @@
     "customer-rfm-segmentation",
     "customer-historical-ltv",
     "customer-retention-churn-features",
-    "customer-consent-preferences"
+    "customer-consent-preferences",
+    "marketing-attribution-models"
   ]
 }

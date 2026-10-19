@@ -10,6 +10,8 @@ pitch: One reproducible attribution whose credit under every model adds back to 
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - revops
 domain_objects:
   - touchpoint
   - conversion
