@@ -10,6 +10,8 @@ pitch: One reproducible, cohort-by-tenure customer value built on net revenue an
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - finance
 domain_objects:
   - customer
   - order
@@ -69,6 +71,7 @@ Build <order_value_model>, <customer_period_model>, <cohort_value_model>, <compa
 - Every figure matches expected results worked out independently of the model for each agreed case, including a boundary order, a refund and an order with unknown cost; a dropped order or an unreached period shown as zero is caught.
 - Where the approved rule fails a run, it names each offending input and the reason and publishes no figures.
 - No column, description or output states or implies a forecast, projection, discounted or expected lifetime value, and the outcome states what the inputs cannot prove, such as orders or cost corrections recorded after the as-of date.
+- Where an approved minimum cohort size or customer-level access rule applies, no published cohort figure falls below it and customer-level rows are published only to the approved audience; suppressed cells say so and are distinguishable from empty and zero.
 
 ## Agent guidance
 

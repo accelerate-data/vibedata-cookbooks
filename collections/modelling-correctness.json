@@ -13,6 +13,7 @@
     "shift-unit-economics",
     "effective-dated-business-rules",
     "prove-dbt-change-safe",
-    "customer-rfm-segmentation"
+    "customer-rfm-segmentation",
+    "customer-historical-ltv"
   ]
 }
