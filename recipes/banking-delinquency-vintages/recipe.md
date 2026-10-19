@@ -11,6 +11,8 @@ pitch: Month-end buckets, roll rates and vintage curves for a term-loan book tha
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - finance
 industry:
   - banking
 domain_objects:
@@ -59,7 +61,7 @@ Build <placement_model>, <roll_rate_model>, <vintage_model> and <exceptions_mode
 - A loan that leaves without an ending event the approved rule recognises, cannot be followed, or cannot be bucketed is shown as the approved rule says, never silently as cured or current, and is listed with its reason.
 - Published placements, roll rates and vintage measures equal values derived independently from the sources and approved rules: each share uses the approved denominator, exits follow the approved cohort treatment, and an age not fully reached is absent, null or marked as approved, never zero.
 - Where the approved vintage measures include a reading on outstanding balance, its bucket split sums to the cohort's outstanding balance at that age, and an empty denominator follows the approved treatment, never a silent zero.
-- Modified, restructured or deferred loans follow the approved schedule rule and are flagged as approved; one never reads as current without it, and the delinquency it had before the change is kept or dropped as approved.
+- Modified, restructured or deferred loans follow the approved schedule rule and are flagged as approved; one never reads as current without the approved flag or treatment, and the delinquency it had before the change is kept or dropped as approved.
 - Every total and rate is keyed by currency; no published figure adds currencies unless an approved translation rule is stated and the totals reconcile under it; entities and products are combined only at the approved reporting cuts.
 - On a run that completes, every input row contributes to an output or is listed with its reason under the approved listing rule: orphans, duplicates, excluded products, loans with no schedule, loans missing from a month; none is dropped or counted twice and the residue is zero.
 - Where the approved basis is as known at each month-end, a payment, event, schedule version or loan change recorded later does not alter an earlier month-end; where restated, a rerun on unchanged inputs reproduces the same results and the outcome reports which month-ends changed.
