@@ -8,15 +8,17 @@
         "customer-rfm-segmentation",
         "customer-historical-ltv",
         "customer-retention-churn-features",
-        "product-sessionization-funnels"
+        "product-sessionization-funnels",
+        "marketing-attribution-models"
       ],
       "resolved_members": [
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
+        "marketing-attribution-models",
         "product-sessionization-funnels"
       ],
-      "supported_or_proven_count": 4,
+      "supported_or_proven_count": 5,
       "title": "Customer and product analytics",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -73,6 +75,7 @@
         "legacy-sql-to-dbt",
         "logistics-fleet-utilization",
         "managed-connector-to-dlt",
+        "marketing-attribution-models",
         "master-b2b-account-hierarchy",
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
@@ -102,7 +105,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 53,
+      "supported_or_proven_count": 54,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -237,6 +240,7 @@
         "governed-spreadsheet-table",
         "incremental-dbt-model-with-contract",
         "logistics-fleet-utilization",
+        "marketing-attribution-models",
         "master-product-sku-hierarchy",
         "materialized-view-to-dbt",
         "metric-population-and-rollups",
@@ -288,7 +292,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 44,
+      "supported_or_proven_count": 45,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -311,7 +315,8 @@
         "customer-rfm-segmentation",
         "customer-historical-ltv",
         "customer-retention-churn-features",
-        "customer-consent-preferences"
+        "customer-consent-preferences",
+        "marketing-attribution-models"
       ],
       "resolved_members": [
         "business-event-fact",
@@ -323,13 +328,14 @@
         "effective-dated-business-rules",
         "event-resource-attribution",
         "logistics-fleet-utilization",
+        "marketing-attribution-models",
         "metric-population-and-rollups",
         "operational-state-duration",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "shift-unit-economics"
       ],
-      "supported_or_proven_count": 14,
+      "supported_or_proven_count": 15,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -361,6 +367,7 @@
         "governed-spreadsheet-table",
         "incremental-dbt-model-with-contract",
         "logistics-fleet-utilization",
+        "marketing-attribution-models",
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
         "metricflow-semantic-model",
@@ -386,7 +393,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 41,
+      "supported_or_proven_count": 42,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -416,6 +423,7 @@
       "id": "revenue-operations-data-engineering",
       "kind": "function",
       "resolved_members": [
+        "marketing-attribution-models",
         "master-b2b-account-hierarchy",
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
@@ -426,7 +434,7 @@
           "revops"
         ]
       },
-      "supported_or_proven_count": 4,
+      "supported_or_proven_count": 5,
       "title": "Revenue operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -2306,6 +2314,68 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Split the value of each qualifying conversion across the marketing touches before it under several approved attribution models side by side, with each model's credit adding back to the conversion value, every touch and conversion accounted for, and channels compared across models.",
+      "domain_objects": [
+        "touchpoint",
+        "conversion",
+        "identity_link",
+        "channel_map",
+        "attribution_model",
+        "attribution_setting",
+        "credit_line",
+        "unattributed_amount"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "revops"
+      ],
+      "id": "marketing-attribution-models",
+      "job_category": "build",
+      "path": "recipes/marketing-attribution-models/recipe.md",
+      "pitch": "One reproducible attribution whose credit under every model adds back to booked value, so teams can see exactly where they differ.",
+      "qualifiers": [
+        "Touchpoint, conversion and any adjustment records must already be landed as tables; this Recipe does not ingest them.",
+        "Who converted is resolved through the identity the Intent supplies; this Recipe does not build identity.",
+        "Visits or sessions used as touches must already be built; this Recipe does not sessionize events.",
+        "Rule-based models only; data-driven models, incrementality, spend and payback are out of scope."
+      ],
+      "readiness": "supported",
+      "related": [
+        "business-event-fact",
+        "identity-golden-record-crosswalk",
+        "customer-historical-ltv",
+        "effective-dated-business-rules",
+        "metric-population-and-rollups"
+      ],
+      "sha256": "a4a75eff774507003ecf9a346c44df6a686d54df5a828dc51d5bd3532f0d55bb",
+      "title": "Attribute conversions to touchpoints under several models side by side",
+      "trigger": [
+        "Marketing and Sales each have a spreadsheet crediting their channel with the same revenue, and together they claim more than was booked.",
+        "Channel credit differs between tools or reports and nobody can show which rule explains the gap.",
+        "A lookback, conversion or model setting is about to change and the owner must see which channels gain or lose, and why, before the numbers move."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
           "dbt"
         ]
       }
