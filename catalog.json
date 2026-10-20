@@ -98,6 +98,7 @@
         "scalar-sql-function-to-dbt-macro",
         "service-ticket-sla",
         "shared-calendar-fiscal-periods",
+        "shared-fx-conversion",
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt"
@@ -107,7 +108,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 56,
+      "supported_or_proven_count": 57,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -129,14 +130,15 @@
         "master-b2b-account-hierarchy",
         "ops-procurement-spend",
         "people-payroll-gl-tieout",
-        "revops-bookings-billings-cash"
+        "revops-bookings-billings-cash",
+        "shared-fx-conversion"
       ],
       "selector": {
         "function": [
           "finance"
         ]
       },
-      "supported_or_proven_count": 13,
+      "supported_or_proven_count": 14,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -261,6 +263,7 @@
         "readiness-gated-orchestration",
         "revops-bookings-billings-cash",
         "shared-calendar-fiscal-periods",
+        "shared-fx-conversion",
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
@@ -296,7 +299,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 47,
+      "supported_or_proven_count": 48,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -322,7 +325,8 @@
         "customer-consent-preferences",
         "marketing-attribution-models",
         "banking-aml-features",
-        "shared-calendar-fiscal-periods"
+        "shared-calendar-fiscal-periods",
+        "shared-fx-conversion"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -341,9 +345,10 @@
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "shared-calendar-fiscal-periods",
+        "shared-fx-conversion",
         "shift-unit-economics"
       ],
-      "supported_or_proven_count": 17,
+      "supported_or_proven_count": 18,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -394,6 +399,7 @@
         "readiness-gated-orchestration",
         "revops-bookings-billings-cash",
         "shared-calendar-fiscal-periods",
+        "shared-fx-conversion",
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt"
@@ -403,7 +409,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 44,
+      "supported_or_proven_count": 45,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -3902,6 +3908,69 @@
         "Two reports put the same day in different weeks, months, quarters or fiscal periods because each mart builds its own date logic.",
         "Last year's comparison drifts whenever a fiscal year carries an extra week, or a business-day count ignores the holiday list.",
         "Facts dated outside the date table, or with no date, silently drop out of the reports that join it."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Restate each transaction amount in one reporting currency at the rate the user's approved date basis and rate rules select, keep the original amount and the rate used on every row, set aside what cannot convert with one reason each, and tie converted and set-aside amounts back to what was received in each currency.",
+      "domain_objects": [
+        "transaction_amount",
+        "currency",
+        "exchange_rate",
+        "rate_version",
+        "currency_conversion",
+        "conversion_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "shared-fx-conversion",
+      "job_category": "build",
+      "path": "recipes/shared-fx-conversion/recipe.md",
+      "pitch": "One repeatable reporting-currency figure where every amount shows its rate, date, source and method, and every amount that could not convert shows why.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Needs amounts with a currency code and a date, and rate quotes with a quote date and a source.",
+        "Takes the quotes as supplied; sourcing a rate feed and checking it against a provider are separate outcomes.",
+        "Converts to an approved reporting currency; translation, exchange gain or loss, hedging and consolidation are separate.",
+        "Reproducing a past run needs kept rate versions with their recorded time; without them the outcome says it cannot.",
+        "Keeps each original currency apart; netting across currencies, pricing and rate forecasting are separate outcomes.",
+        "Rates are inputs to conversion, not general dated business rules; effective-dated rules are a separate outcome."
+      ],
+      "readiness": "supported",
+      "related": [
+        "effective-dated-business-rules",
+        "customer-historical-ltv",
+        "finance-trial-balance-close",
+        "ops-procurement-spend",
+        "revops-quota-commission"
+      ],
+      "sha256": "6325c18093dd43416a553ade64ea91ebed2e5ad44d22bd74d303280b07a3e067",
+      "title": "Normalize multi-currency amounts to a reporting currency with as-of rates",
+      "trigger": [
+        "Finance adds amounts held in several currencies as if they were one, or restates old transactions at today's rate, and the total changes every time someone reruns it.",
+        "A report that must be in one currency cannot show which exchange rate converted each amount, from which date and which source.",
+        "A rate was corrected after the fact and nobody can say whether a past figure used the old rate or the corrected one."
       ],
       "works_with": {
         "platforms": [
