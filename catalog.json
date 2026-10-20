@@ -92,6 +92,7 @@
         "people-payroll-gl-tieout",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
+        "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
         "revops-quota-commission",
@@ -108,7 +109,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 57,
+      "supported_or_proven_count": 58,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -261,6 +262,7 @@
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "readiness-gated-orchestration",
+        "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
@@ -299,7 +301,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 48,
+      "supported_or_proven_count": 49,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -326,7 +328,8 @@
         "marketing-attribution-models",
         "banking-aml-features",
         "shared-calendar-fiscal-periods",
-        "shared-fx-conversion"
+        "shared-fx-conversion",
+        "retail-sell-through-stockout"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -344,11 +347,12 @@
         "operational-state-duration",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
+        "retail-sell-through-stockout",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "shift-unit-economics"
       ],
-      "supported_or_proven_count": 18,
+      "supported_or_proven_count": 19,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -397,6 +401,7 @@
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "readiness-gated-orchestration",
+        "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
@@ -409,7 +414,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 45,
+      "supported_or_proven_count": 46,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -482,6 +487,7 @@
         "ops-inventory-reconciliation",
         "ops-otif",
         "ops-procurement-spend",
+        "retail-sell-through-stockout",
         "shift-unit-economics"
       ],
       "selector": {
@@ -489,7 +495,7 @@
           "supply-chain-ops"
         ]
       },
-      "supported_or_proven_count": 6,
+      "supported_or_proven_count": 7,
       "title": "Supply chain and operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -3556,6 +3562,78 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For each approved store, SKU and day, publish units sold, sellable stock on hand, the sell-through rate, and out-of-stock and at-risk states under the approved definitions, each flag with its reason, unknown where the stock position cannot be trusted, and every input record placed or listed with why not.",
+      "domain_objects": [
+        "store",
+        "sku",
+        "assortment_range",
+        "stock_position",
+        "sale_line",
+        "sell_through",
+        "stockout_state",
+        "stockout_risk",
+        "coverage_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops"
+      ],
+      "id": "retail-sell-through-stockout",
+      "industry": [
+        "retail"
+      ],
+      "job_category": "build",
+      "path": "recipes/retail-sell-through-stockout/recipe.md",
+      "pitch": "One row per store, SKU and day that says what sold, what is left and what is about to run out, with a reason on every flag and nothing dropped.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Needs sale lines, a stock position per store, SKU and day (or movements), the ranging and any source the rules need.",
+        "A risk measure that reads past sales needs history before the first published day; shorter shows the approved treatment.",
+        "Stops at the day-grain states; forecasting, reorder quantities, available-to-promise and shelf life are separate.",
+        "Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze.",
+        "Conforming item codes across systems belongs to master-product-sku-hierarchy."
+      ],
+      "readiness": "supported",
+      "related": [
+        "ops-inventory-reconciliation",
+        "master-product-sku-hierarchy",
+        "effective-dated-business-rules",
+        "metric-population-and-rollups"
+      ],
+      "sha256": "ab7d03b4d0e83f9dbad2c9536f14fd4b6454880d9ea3a0dc6d085b70d783f6dc",
+      "title": "Build sell-through and stockout risk by store, SKU, and day",
+      "trigger": [
+        "Planners cannot tell which items are about to run out because sell-through and stock-outs live in spreadsheets, and each one counts a day with no stock differently.",
+        "A SKU that was empty for several days looks like a slow seller, because zero sales on an empty shelf is read as weak demand instead of lost sales.",
+        "Store, planning and merchandising reports disagree about what was out of stock because returns, voided sales, case-pack sales and items a store does not range are each treated differently.",
+        "Stock counts are missing, negative, duplicated or conflicting, and nobody can say whether a shelf was empty or the count was wrong."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
