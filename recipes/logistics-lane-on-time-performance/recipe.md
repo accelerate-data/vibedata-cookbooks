@@ -88,9 +88,9 @@ Inherit the Intent's repository, platform, Domain and sources. Inspect approved 
 ### Ask first
 
 - If unresolved, which movements are trips (leg, shipment or order; multi-leg movements; cancelled, test or rescheduled), what identifies a lane (ordered or unordered location pair, any mode or carrier split), and which lanes belong in the list?
-- If unspecified, which day a trip belongs to (due, arrival or other), in which time zone and calendar, which report window and as-of time apply, and are rows shown for every listed lane on every day or only active ones?
+- If unspecified, which day a trip belongs to (due, arrival or other), in which time zone and calendar, which report window and as-of time apply, does a later change restate a past as-of time, and are rows shown for every listed lane on every day or only active ones?
 - If not approved, which planned time governs (original, latest agreed or in force at the as-of time), is it an instant or a window, who may move it, and may a move excuse a miss?
-- If unresolved, which event is the arrival (arrived, delivered, proof of delivery), which wins when events repeat or are corrected, how are duplicate, unknown-trip and unrecognised events treated, which recorded time admits an event, and does a later change restate a past as-of time?
+- If unresolved, which event is the arrival (arrived, delivered, proof of delivery), what links an event to a trip (trip, leg or stop id), which wins when events repeat or are corrected, how are duplicate, unknown-trip and unrecognised events treated, and which recorded time admits an event?
 - If not established, what makes a trip on time, early or late (allowances in minutes or days, by customer or lane), does early count as on time, and how is lateness measured and summarised per lane-day?
 - If still open, how is a due trip with no arrival treated (open versus overdue boundary, in or out of the rate, lateness measure) and is departure state shown?
 - If unspecified, which statuses form the rate's numerator and denominator, which roll-ups beyond lane-day are needed, and what does an empty denominator show (null, zero or other) at what precision?
