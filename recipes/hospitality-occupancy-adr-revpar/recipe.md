@@ -61,7 +61,7 @@ Build <nightly_kpi_model> with one row per property and night from <reservation_
 ## Verified by
 
 - The table holds exactly one row per property and night under the approved population rule, keys unique and not null, and the row count equals the count of property-nights that rule names.
-- A stay counts on every night from check-in through the night before check-out and never on its checkout day, including a stay that crosses a week or month boundary.
+- A stay counts on every night from check-in through the night before check-out and never on its checkout day, except a day-use stay treated as the approved rule says, including a stay that crosses a week or month boundary.
 - Rooms available follow the approved out-of-order rule, the out-of-order count is published beside them where the source carries it, and a night with every room out of order reads as the approved rule shows, not as a missing row.
 - Comp and house-use rooms enter rooms sold, rooms occupied and room revenue as the approved rule says, each published as its own count, and the approved ratio bases are stated.
 - Room revenue is the approved nightly amount per counted room and night, in one approved currency, holds only the amounts the approved rule names as room revenue with every other amount kept apart, and a rate that changes mid-stay is taken per night.
@@ -94,13 +94,13 @@ Inherit the Intent's repository, platform, Domain and sources. Inspect the reser
 - How do comp and house-use rooms count in rooms sold, rooms occupied, revenue, ADR and occupancy, is a line one room or a room count, and how are sharers and room moves counted?
 - Which statuses count (tentative, waitlist, guaranteed, unpicked group block), what are cancelled, no-show and early-departure lines worth, is departure booked or actual, and is any fee room revenue?
 - Which amounts are room revenue (rate before tax, service charge, resort fee, packages, incidentals) and in which currency, and is conversion needed?
-- Which properties are in scope (test, closed, managed), which lines are unusable (unknown property, unreadable or backwards dates, zero nights, negative rate) and in what order, and what makes two lines the same reservation and which counts?
+- Which properties are in scope (test, closed, managed), which lines are unusable (unknown property, unreadable or backwards dates, zero nights unless the day-use rule counts them, negative rate) and in what order, and what makes two lines the same reservation and which counts?
 - When does a night close, what happens to a reservation amended afterwards, and where is the published state kept so a restatement can show previous and new figures?
 - Which ratios read null or zero when nothing was sold or available, how is an over-capacity night shown, and which week and calendar do the roll-ups use?
 
 ### Guardrails
 
-- Do not count a stay on its check-in day only, and do not count the checkout day as a night.
+- Do not count a stay on its check-in day only, and do not count the checkout day as a night unless the approved day-use rule says so.
 - Do not average nightly occupancy, ADR or RevPAR to a period; recompute from summed components.
 - Do not show a zero denominator as zero unless the approved rule says so, and state the rule beside the figure.
 - Do not include tax, service charge, fees or incidentals in room revenue unless the approved rule says so.
