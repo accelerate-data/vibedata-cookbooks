@@ -20,6 +20,7 @@
     "customer-consent-preferences",
     "marketing-attribution-models",
     "banking-aml-features",
-    "shared-calendar-fiscal-periods"
+    "shared-calendar-fiscal-periods",
+    "shared-fx-conversion"
   ]
 }
