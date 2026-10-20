@@ -94,8 +94,8 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - If unresolved, which event makes a subject enrolled (randomization, consent, first dose), does a later withdrawal or status change un-enroll, and which wins when the outcome and the dates disagree?
 - If unresolved, how are a duplicate row, an impossible or inconsistent date, a screening at a site not on the list, an unknown reason code, a screening with no outcome yet and an enrolling event outside the site's dates treated, and do set-aside subjects count as screened?
 - If unresolved, what starts and ends a site's life, which months get a row, which date places each count in a month, what is each target set for (study, site, country, arm or cohort), how does a study cap or close apply, and how does a changed target apply?
-- If unresolved, where does a subject with records at several sites count, what is the rate's numerator, denominator and rounding, and what shows for a month with nothing screened?
-- If unresolved, what is the screen-failure vocabulary, which reason wins when several apply, and where does a failure with no reason go, and which keys match a screening to its site and to its reason?
+- If unresolved, which keys match a screening to its site and to its reason, where does a subject with records at several sites count, what is the rate's numerator, denominator and rounding, and what shows for a month with nothing screened?
+- If unresolved, what is the screen-failure vocabulary, which reason wins when several apply, and where does a failure with no reason go?
 - If unresolved, who reads the outputs, may they carry subject identifiers, and is a small site or month suppressed, for which outputs, with complementary hiding?
 
 ### Guardrails
