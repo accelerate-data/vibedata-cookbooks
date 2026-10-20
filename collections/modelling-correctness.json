@@ -22,6 +22,7 @@
     "banking-aml-features",
     "shared-calendar-fiscal-periods",
     "shared-fx-conversion",
-    "retail-sell-through-stockout"
+    "retail-sell-through-stockout",
+    "insurance-loss-triangles"
   ]
 }
