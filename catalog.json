@@ -79,6 +79,7 @@
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
         "legacy-sql-to-dbt",
+        "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "managed-connector-to-dlt",
         "marketing-attribution-models",
@@ -116,7 +117,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 65,
+      "supported_or_proven_count": 66,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -153,6 +154,26 @@
       "supported_or_proven_count": 18,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
+      "website_visible": true
+    },
+    {
+      "description": "Recipes for data engineers working with healthcare and life-sciences data, such as claims, admissions and clinical-trial enrollment.",
+      "id": "healthcare-and-life-sciences",
+      "kind": "industry",
+      "resolved_members": [
+        "healthcare-claims-remittance",
+        "healthcare-readmission-cohort",
+        "life-sciences-enrollment"
+      ],
+      "selector": {
+        "industry": [
+          "healthcare",
+          "life-sciences"
+        ]
+      },
+      "supported_or_proven_count": 3,
+      "title": "Healthcare and life sciences",
+      "website_publication_threshold": 1,
       "website_visible": true
     },
     {
@@ -263,6 +284,7 @@
         "healthcare-readmission-cohort",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
+        "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "marketing-attribution-models",
         "master-product-sku-hierarchy",
@@ -321,7 +343,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 56,
+      "supported_or_proven_count": 57,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -356,7 +378,8 @@
         "banking-delinquency-vintages",
         "cpg-promotion-lift",
         "utilities-meter-to-bill",
-        "telecom-cdr-usage"
+        "telecom-cdr-usage",
+        "life-sciences-enrollment"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -373,6 +396,7 @@
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
         "insurance-loss-triangles",
+        "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "marketing-attribution-models",
         "metric-population-and-rollups",
@@ -386,7 +410,7 @@
         "telecom-cdr-usage",
         "utilities-meter-to-bill"
       ],
-      "supported_or_proven_count": 26,
+      "supported_or_proven_count": 27,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -423,6 +447,7 @@
         "healthcare-readmission-cohort",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
+        "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "marketing-attribution-models",
         "master-product-sku-hierarchy",
@@ -455,7 +480,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 53,
+      "supported_or_proven_count": 54,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -2660,6 +2685,71 @@
       "works_with": {
         "platforms": [
           "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Classify every loaded screening record as an enrolled subject, a screen failure with one named reason or a record set aside or left out of scope with its reason, and publish study, site and month enrollment against the approved target in force, with the approved screen-failure rate and time to first enrollment, tied back to the subjects.",
+      "domain_objects": [
+        "screening_record",
+        "study_subject",
+        "enrollment_disposition",
+        "screen_failure_reason",
+        "site_month",
+        "enrollment_target",
+        "completeness_check"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "life-sciences-enrollment",
+      "industry": [
+        "life-sciences"
+      ],
+      "job_category": "build",
+      "path": "recipes/life-sciences-enrollment/recipe.md",
+      "pitch": "Every screening record is enrolled, failed for a stated reason, set aside or left out of scope, and site performance ties back to the subjects.",
+      "qualifiers": [
+        "Screening records and the site list with dates must be landed; reasons and targets may be captured as data.",
+        "Stops at enrollment and site performance; forecasting, site selection and monitoring are separate.",
+        "Screenings at sites missing from the data cannot be seen, and are not claimed absent."
+      ],
+      "readiness": "supported",
+      "related": [
+        "effective-dated-business-rules",
+        "metric-population-and-rollups",
+        "business-event-fact",
+        "operational-state-duration",
+        "healthcare-readmission-cohort"
+      ],
+      "sha256": "57028eaa1e227265ce412cfbddf4c0107520e7a3119c522164f7ca974d826031",
+      "title": "Build clinical-trial enrollment and site-performance models with every screened subject accounted for",
+      "trigger": [
+        "Clinical operations rebuilds enrollment and site performance in a spreadsheet each month, and nobody can say who was left out of the enrolled count or why a site looks slow.",
+        "Re-screens and people screened for more than one study are counted inconsistently, so enrolled counts and screen-failure rates cannot be defended.",
+        "Randomizations before a site was activated or after it closed, bad dates and subjects at unlisted sites sit in the counts or vanish from them without a trace.",
+        "A site that enrolled nobody in a month has no row, and a changed enrollment target is applied in the wrong period."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
