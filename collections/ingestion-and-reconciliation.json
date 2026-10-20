@@ -9,6 +9,7 @@
     "file-drop-to-bronze",
     "governed-spreadsheet-table",
     "managed-connector-to-dlt",
-    "spark-ingestion-notebook-to-dlt"
+    "spark-ingestion-notebook-to-dlt",
+    "telecom-cdr-usage"
   ]
 }
