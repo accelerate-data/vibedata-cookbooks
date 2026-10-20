@@ -9,16 +9,18 @@
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "product-sessionization-funnels",
-        "marketing-attribution-models"
+        "marketing-attribution-models",
+        "saas-mrr-waterfall-nrr"
       ],
       "resolved_members": [
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
         "marketing-attribution-models",
-        "product-sessionization-funnels"
+        "product-sessionization-funnels",
+        "saas-mrr-waterfall-nrr"
       ],
-      "supported_or_proven_count": 5,
+      "supported_or_proven_count": 6,
       "title": "Customer and product analytics",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -102,6 +104,7 @@
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
         "revops-quota-commission",
+        "saas-mrr-waterfall-nrr",
         "scalar-sql-function-to-dbt-macro",
         "service-ticket-sla",
         "shared-calendar-fiscal-periods",
@@ -117,7 +120,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 66,
+      "supported_or_proven_count": 67,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -143,6 +146,7 @@
         "ops-procurement-spend",
         "people-payroll-gl-tieout",
         "revops-bookings-billings-cash",
+        "saas-mrr-waterfall-nrr",
         "shared-fx-conversion",
         "utilities-meter-to-bill"
       ],
@@ -151,7 +155,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 18,
+      "supported_or_proven_count": 19,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -304,6 +308,7 @@
         "readiness-gated-orchestration",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
+        "saas-mrr-waterfall-nrr",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "shift-unit-economics",
@@ -343,7 +348,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 57,
+      "supported_or_proven_count": 58,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -379,7 +384,8 @@
         "cpg-promotion-lift",
         "utilities-meter-to-bill",
         "telecom-cdr-usage",
-        "life-sciences-enrollment"
+        "life-sciences-enrollment",
+        "saas-mrr-waterfall-nrr"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -404,13 +410,14 @@
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "retail-sell-through-stockout",
+        "saas-mrr-waterfall-nrr",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "shift-unit-economics",
         "telecom-cdr-usage",
         "utilities-meter-to-bill"
       ],
-      "supported_or_proven_count": 27,
+      "supported_or_proven_count": 28,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -467,6 +474,7 @@
         "readiness-gated-orchestration",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
+        "saas-mrr-waterfall-nrr",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "shift-unit-economics",
@@ -480,7 +488,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 54,
+      "supported_or_proven_count": 55,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -515,14 +523,15 @@
         "master-b2b-account-hierarchy",
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
-        "revops-quota-commission"
+        "revops-quota-commission",
+        "saas-mrr-waterfall-nrr"
       ],
       "selector": {
         "function": [
           "revops"
         ]
       },
-      "supported_or_proven_count": 6,
+      "supported_or_proven_count": 7,
       "title": "Revenue operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -4277,6 +4286,80 @@
       "works_with": {
         "platforms": [
           "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Turn subscription records into monthly recurring revenue per customer under approved rules, a monthly waterfall of new, expansion, contraction, churn and reactivation that foots, and net and gross revenue retention, with every record counted or set aside.",
+      "domain_objects": [
+        "customer",
+        "subscription_record",
+        "monthly_recurring_revenue",
+        "revenue_movement",
+        "mrr_waterfall",
+        "revenue_retention",
+        "subscription_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "revops"
+      ],
+      "id": "saas-mrr-waterfall-nrr",
+      "industry": [
+        "saas"
+      ],
+      "job_category": "build",
+      "path": "recipes/saas-mrr-waterfall-nrr/recipe.md",
+      "pitch": "One agreed definition of monthly recurring revenue, a waterfall that foots, and retention figures the board can trace.",
+      "qualifiers": [
+        "Subscription records must already be landed as tables; this Recipe does not ingest them.",
+        "Keeps each currency separate; conversion is a separate outcome.",
+        "Counts recurring subscription revenue only; usage, one-off and recognised revenue are separate outcomes.",
+        "Needs dated, priced subscription terms; past results after backdated changes need kept history.",
+        "Stops at MRR, waterfall and retention; forecasting, customer-count churn and billing ties are separate outcomes.",
+        "Restricting customer-level rows needs roles and grants; without them the restriction is a label only."
+      ],
+      "readiness": "supported",
+      "related": [
+        "customer-retention-churn-features",
+        "finance-revenue-recognition",
+        "customer-historical-ltv",
+        "revops-bookings-billings-cash",
+        "shared-fx-conversion",
+        "shared-calendar-fiscal-periods",
+        "effective-dated-business-rules",
+        "database-tables-to-bronze"
+      ],
+      "sha256": "06622cfc4e2b74345ecdfd56c4ae3b8dbb462df2dd175b54f33db591d4d6c3c8",
+      "title": "Build the MRR waterfall with net and gross revenue retention",
+      "trigger": [
+        "Finance, RevOps and the board each quote a different net revenue retention because each turns subscriptions into monthly recurring revenue its own way.",
+        "A monthly revenue bridge never foots, or shows a plan switch as a lost customer beside a new one.",
+        "Nobody can say how much of a month's change came from new customers, upgrades, downgrades, losses and returns."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
