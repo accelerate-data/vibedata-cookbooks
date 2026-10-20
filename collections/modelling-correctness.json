@@ -24,6 +24,7 @@
     "shared-fx-conversion",
     "retail-sell-through-stockout",
     "insurance-loss-triangles",
-    "healthcare-readmission-cohort"
+    "healthcare-readmission-cohort",
+    "utilities-meter-to-bill"
   ]
 }
