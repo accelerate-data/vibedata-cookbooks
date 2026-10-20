@@ -61,14 +61,14 @@ Build <nightly_kpi_model> with one row per property and night from <reservation_
 ## Verified by
 
 - The table holds exactly one row per property and night under the approved population rule, keys unique and not null, and the row count equals the count of property-nights that rule names.
-- A stay counts on every night from check-in through the night before check-out and never on its checkout day, except a day-use stay treated as the approved rule says, including a stay that crosses a week or month boundary.
+- A stay counts on every night from check-in through the night before check-out and never on its checkout day, including a stay that crosses a week or month boundary, except a day-use stay treated as the approved rule says.
 - Rooms available follow the approved out-of-order rule, the out-of-order count is published beside them where the source carries it, and a night with every room out of order reads as the approved rule shows, not as a missing row.
 - Comp and house-use rooms enter rooms sold, rooms occupied and room revenue as the approved rule says, each published as its own count, and the approved ratio bases are stated.
 - Room revenue is the approved nightly amount per counted room and night, in one approved currency, holds only the amounts the approved rule names as room revenue with every other amount kept apart, and a rate that changes mid-stay is taken per night.
 - Occupancy, ADR and RevPAR recompute from the published components each night, a zero denominator reads as the approved value and never an unstated zero, and a week or month ratio divides summed components, never averaged nightly ratios.
 - Lines whose status the approved rules exclude, and any line they call unusable, are set aside once each with their reason and appear in no count or revenue figure; any fee on them goes where the approved rule says.
 - A stayed night with no inventory row, a night where occupied rooms exceed available rooms, and a reservation delivered twice are each handled as approved and visible, never silently dropped, capped or double counted.
-- Every reservation line is counted or set aside exactly once, any stayed night set aside is listed with its reason, and counts add back to the lines landed with rooms and revenue tying to the counted nights and no residue.
+- Every reservation line is counted or set aside exactly once, any stayed night set aside is listed with its reason, and counts add back to the lines landed with rooms and revenue tying to the counted nights and no residue, plus any approved adjustment shown beside them.
 - An amendment after its night's close is handled as the approved rule says, restated with previous and new figures or posted as an approved adjustment, never silently rewritten; with no kept published state or amendment dates, the change is reported as unproven.
 - Published figures, set-asides and restatements match expected results derived independently from the delivered lines, including each approved policy branch and the awkward cases present in the data.
 - Changing an approved rule value, such as the set-aside reasons or a close date, moves the figures with no code change, within the approved rule form.
