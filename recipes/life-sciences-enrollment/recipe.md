@@ -6,8 +6,8 @@ trigger:
   - Re-screens and people screened for more than one study are counted inconsistently, so enrolled counts and screen-failure rates cannot be defended.
   - Randomizations before a site was activated or after it closed, bad dates and subjects at unlisted sites sit in the counts or vanish from them without a trace.
   - A site that enrolled nobody in a month has no row, and a changed enrollment target is applied in the wrong period.
-description: Classify every loaded screening record as an enrolled subject, a screen failure with one named reason or a record set aside or left out of scope with its reason, and publish study, site and month enrollment against the target in force, with screen-failure rate and time to first enrollment, tied back to the subjects.
-pitch: Every screening record is enrolled, failed for a stated reason or set aside, and site performance ties back to the subjects.
+description: Classify every loaded screening record as an enrolled subject, a screen failure with one named reason or a record set aside or left out of scope with its reason, and publish study, site and month enrollment against the approved target in force, with the approved screen-failure rate and time to first enrollment, tied back to the subjects.
+pitch: Every screening record is enrolled, failed for a stated reason, set aside or left out of scope, and site performance ties back to the subjects.
 job_category: build
 area: transformation
 readiness: supported
@@ -58,7 +58,7 @@ Build <subject_dispositions>, <site_performance> and <enrollment_coverage> from 
 
 ## Verified by
 
-- Every loaded screening record appears once with exactly one disposition and, if it did not enroll, one named reason; the enrolled, screen-failure and set-aside or out-of-scope counts add back to the number of records loaded.
+- Every loaded screening record is accounted for once: enrolled, a screen failure with one named reason, set aside, or left out of scope and shown or counted with its reason as approved; the counts add back to the records loaded, and the outcome states how many were left out and why.
 - Under the approved subject identity and re-screening rules, a subject is enrolled at most once per study; a repeat screening is handled as approved and shown with its reason, and a person in two studies counts in each only where the rules say so.
 - A record that is unusable by itself (duplicate, impossible or inconsistent date, site not on the list, unknown reason code) lands as approved with its reason and never hides or replaces a usable screening of the same subject.
 - Enrolled follows the approved definition: a later withdrawal or status change does not un-enroll where the rules say so, and an enrolling event outside the site's activation and closure dates lands as approved with its reason.
@@ -89,13 +89,13 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 ### Ask first
 
-- If unresolved, which studies, sites and months are in scope, which key makes two screening records the same subject (within one study or across studies), and where do records outside scope, such as test or training subjects, go, shown with a reason?
+- If unresolved, which studies, sites and months are in scope, which key makes two screening records the same subject (within one study or across studies), and are records outside scope, such as test or training subjects, listed or only counted, with a reason?
 - If unresolved, when a subject is screened more than once, is a later screening a re-screen or a new subject, which record represents them (an enrolled one, the earliest, the latest), and what happens to the others?
 - If unresolved, which event makes a subject enrolled (randomization, consent, first dose), does a later withdrawal or status change un-enroll, and which wins when the outcome and the dates disagree?
 - If unresolved, how are a duplicate row, an impossible or inconsistent date, a screening at a site not on the list, an unknown reason code, a screening with no outcome yet and an enrolling event outside the site's dates treated, and do set-aside subjects count as screened?
 - If unresolved, what starts and ends a site's life, which months get a row, which date places each count in a month, what is each target set for (study, site, country, arm or cohort), how does a study cap or close apply, and how does a changed target apply?
 - If unresolved, where does a subject with records at several sites count, what is the rate's numerator, denominator and rounding, and what shows for a month with nothing screened?
-- If unresolved, what is the screen-failure vocabulary, which reason wins when several apply, and where does a failure with no reason go?
+- If unresolved, what is the screen-failure vocabulary, which reason wins when several apply, and where does a failure with no reason go, and which keys match a screening to its site and to its reason?
 - If unresolved, who reads the outputs, may they carry subject identifiers, and is a small site or month suppressed, for which outputs, with complementary hiding?
 
 ### Guardrails
