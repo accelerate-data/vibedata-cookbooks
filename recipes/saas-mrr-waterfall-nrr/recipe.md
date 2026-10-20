@@ -62,15 +62,15 @@ evidence:
 
 ## Prompt
 
-Build <customer_month_model>, <waterfall_model>, <retention_model>, <exceptions_model> and <accounting_model> from <subscription_source> and any <plan_source>, <term_source> or <currency_source>. Inherit the Intent's sources, platform and approved requirements, and settle with the user only the revenue semantics they leave open. Turn each in-scope subscription record into its monthly equivalent under the approved rules, publish recurring revenue per customer, currency and approved month with one movement from the approved classes, publish a waterfall per currency and month whose opening plus movements equals its closing, publish net and gross revenue retention over the approved base with no ratio where the base is empty, leave months the data has not reached absent or unknown rather than zero, account for every subscription record as counted or set aside with its reason, and report what the inputs cannot prove.
+Build <customer_month_model>, <waterfall_model>, <retention_model>, <exceptions_model> and <accounting_model> from <subscription_source> and any <plan_source>, <term_source> or <currency_source>. Inherit the Intent's sources, platform and approved requirements, and settle with the user only the revenue semantics they leave open. Turn each in-scope subscription record into its monthly equivalent under the approved rules, publish recurring revenue per customer, currency and approved month with its movement from the approved classes, publish a waterfall per currency and month whose opening plus movements equals its closing, publish net and gross revenue retention over the approved base with no ratio where the base is empty, leave months the data has not reached absent or unknown rather than zero, account for every subscription record as counted or set aside with its reason, and report what the inputs cannot prove.
 
 ## Verified by
 
 - Every subscription record is counted or set aside with its reason as the approved rule shows, counted plus set aside equals the input, the outcome states how many were left out and why, and a failed or held run names the offending records.
 - Each counted record contributes its monthly equivalent under the approved interval, quantity, discount and rounding rules; charges the approved rules leave out contribute nothing and stay visible with their reason.
-- Each customer-month figure equals the sum of the customer's in-force subscriptions under the approved measurement basis, per currency, and equals a recomputation from the source records and approved rules done independently of the models.
-- Each customer-month has at most one movement from the approved classes; where movements are decided per customer, a plan switch or seat move is never a loss beside a new customer, and a return reads as approved, new only where the rule says so.
-- Each currency-month waterfall shows opening, each approved movement with its customer count, and closing; opening plus movements equals closing, closing equals the sum of the customer figures, and movements equal those behind them.
+- Each customer-month figure equals the sum of the customer's in-force subscriptions under the approved measurement basis, per currency, before any approved suppression, and equals a recomputation from the source records and approved rules done independently of the models.
+- Each movement is of one approved class at the approved level, and where movements are decided per customer a customer-month has at most one; a plan switch or seat move is then never a loss beside a new customer, and a return reads as approved.
+- Each currency-month waterfall shows opening, each approved movement with its count, and closing; before any approved suppression, opening plus movements equals closing, closing equals the sum of the customer figures, and movements equal those behind them.
 - Retention for a month uses only the approved base, equals values derived independently by hand from the approved rules, leaves out customers outside the base, and shows no ratio, never 0 or 100%, where the base is empty.
 - Months after the approved as-of date, or outside a source's covered range, are absent or marked unknown with a reason, never zero, and moving the as-of changes only which months appear.
 - Amounts in different currencies are never added or blended in any figure, movement or ratio, and a customer billed in two currencies appears once per currency.
@@ -96,7 +96,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 ### Ask first
 
-- If unresolved, which customers are in scope (internal, test, trial, free, merged), what is the customer key, which line types count as recurring (one-off, usage, setup, paused, negative), how recurring discounts and credit memos enter, and how left-out records are shown?
+- If unresolved, which customers and billing entities are in scope (internal, test, trial, free, merged), what is the customer key, which line types count as recurring (one-off, usage, setup, paused, negative), how recurring discounts and credit memos enter, and how left-out records are shown?
 - If unresolved, how a billing interval becomes a monthly amount, how quantity, rounding and a term the rules do not cover are treated, and which term applies when several are dated?
 - If unresolved, is the figure a month-end rate, any-day overlap or day-prorated, which months (calendar or fiscal) and as-of date apply, and does a dormant month between a loss and a return get a row, a zero or nothing?
 - If unresolved, from which date to which date is each source complete, where does opening revenue for customers older than the sources come from, and what does a month outside that range show?
