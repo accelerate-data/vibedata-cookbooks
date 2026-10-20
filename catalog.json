@@ -47,6 +47,7 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "banking-aml-features",
+        "banking-delinquency-vintages",
         "bounded-partition-backfill",
         "business-event-fact",
         "customer-consent-preferences",
@@ -112,7 +113,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 61,
+      "supported_or_proven_count": 62,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -122,6 +123,7 @@
       "id": "finance-data-engineering",
       "kind": "function",
       "resolved_members": [
+        "banking-delinquency-vintages",
         "customer-historical-ltv",
         "finance-ap-aging",
         "finance-ar-aging-dso",
@@ -144,7 +146,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 16,
+      "supported_or_proven_count": 17,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -228,6 +230,7 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "banking-aml-features",
+        "banking-delinquency-vintages",
         "business-event-fact",
         "customer-consent-preferences",
         "customer-historical-ltv",
@@ -309,7 +312,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 52,
+      "supported_or_proven_count": 53,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -340,10 +343,12 @@
         "retail-sell-through-stockout",
         "insurance-loss-triangles",
         "healthcare-readmission-cohort",
-        "healthcare-claims-remittance"
+        "healthcare-claims-remittance",
+        "banking-delinquency-vintages"
       ],
       "resolved_members": [
         "banking-aml-features",
+        "banking-delinquency-vintages",
         "business-event-fact",
         "customer-consent-preferences",
         "customer-historical-ltv",
@@ -366,7 +371,7 @@
         "shared-fx-conversion",
         "shift-unit-economics"
       ],
-      "supported_or_proven_count": 22,
+      "supported_or_proven_count": 23,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -378,6 +383,7 @@
       "resolved_members": [
         "api-to-bronze-incremental-contract",
         "banking-aml-features",
+        "banking-delinquency-vintages",
         "business-event-fact",
         "customer-consent-preferences",
         "customer-historical-ltv",
@@ -431,7 +437,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 49,
+      "supported_or_proven_count": 50,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -625,6 +631,73 @@
         "A transaction-monitoring model is fed hand-built features nobody can reproduce, so two runs on the same data disagree.",
         "A backtest looks better than live performance because a feature quietly used a transaction recorded after the day being scored.",
         "Analysts and model builders each count cash near the reporting threshold, pass-through and velocity differently, and cannot say which transactions were left out."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For each approved month-end, place every in-scope term loan in a delinquency bucket, show where each bucket's loans and balance went by the end of the approved roll interval including exits, and show how each origination cohort turns delinquent as it ages, with every record left out or unplaceable listed with its reason.",
+      "domain_objects": [
+        "loan",
+        "repayment_schedule",
+        "payment",
+        "delinquency_bucket",
+        "roll_rate",
+        "vintage_curve",
+        "delinquency_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "banking-delinquency-vintages",
+      "industry": [
+        "banking"
+      ],
+      "job_category": "build",
+      "path": "recipes/banking-delinquency-vintages/recipe.md",
+      "pitch": "Month-end buckets, roll rates and vintage curves for a term-loan book that add up, keep currencies apart by default and never invent a cure.",
+      "qualifiers": [
+        "Needs loans, dated payments and status events, and repayment schedules where delinquency is derived from them.",
+        "Covers instalment (term) loans; revolving and card products are a separate outcome.",
+        "Stops at delinquency measurement; provisioning, collections and recoveries are separate outcomes.",
+        "Results as known on a past month-end need entry timestamps on payments, events and schedule changes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-ar-aging-dso",
+        "dbt-snapshot-history",
+        "effective-dated-business-rules"
+      ],
+      "sha256": "e3f75e16338fb225e924c4eb889ccdb31f6f4e1d6fae29ce7b92b5f5a69a0f54",
+      "title": "Build loan delinquency roll rates and vintage curves from loan, schedule, payment and event records",
+      "trigger": [
+        "Credit risk reads delinquency off a servicer status field that each system refreshes on its own day, so bucket counts and roll rates differ from report to report.",
+        "Roll rates only show loans that stayed or got worse, because loans that paid off, were charged off or dropped out of the data vanish and the rows stop adding up.",
+        "Vintage curves look better for older cohorts than they should because they divide by today's balance, and young cohorts show a zero where the data does not reach yet.",
+        "A month that was already reported changes when late or backdated payments arrive, and nobody can say which version a published figure came from."
       ],
       "works_with": {
         "platforms": [
