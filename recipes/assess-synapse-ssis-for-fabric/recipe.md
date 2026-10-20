@@ -56,7 +56,7 @@ Assess <estate_exports>, the exported DDL and SSIS packages of <pool_or_ssis_est
 - Each item sits in one wave and none depends on a resolved item in a later wave; an item with an unresolved dependency is marked as gated by it, dependency cycle members share a named wave, each wave states its entry and exit criteria, and blockers that gate other waves are placed as approved.
 - Where the run completes, one recommendation follows from the approved criteria, stated before use, and reproduces from the report's counts; it states the unassessed and unconfirmed counts and the remaining blockers with their gated waves, and has no pilot design, conversion plan, budget or schedule.
 - No secret value appears in any output, committed evidence or log; each secret-bearing field is reported by location with an approved remediation class.
-- Counts, classes, waves and the recommendation equal values derived independently from the exports and the approved rules, every report figure comes from that analysis, and a value that disagrees with the independent derivation is reported, never absorbed.
+- Counts, classes, waves and any recommendation equal values derived independently from the exports and the approved rules, every report figure comes from that analysis, and a value that disagrees with the independent derivation is reported, never absorbed.
 - A report states that its totals describe the assessed export as of its export date only, and what the evidence cannot show: Fabric behaviour known only from cited documentation, and consumers, schedulers and reports outside the export unless declared.
 
 ## Agent guidance
