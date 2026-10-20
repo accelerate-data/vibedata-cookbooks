@@ -10,6 +10,8 @@ pitch: Match metered to billed energy for every in-scope period and quantify wha
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - finance
 industry:
   - utilities
 domain_objects:
@@ -94,7 +96,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - If unresolved, which reads anchor consumption (actual only, or estimates too), how is energy between reads placed into periods (by day, at the read date or otherwise), and what does a later actual read do to an earlier estimate?
 - If unresolved, where does each multiplier come from and from which date, is a lower later reading a rollover by a declared span, an export or a fault, and what happens when a meter is exchanged mid-period?
 - If unresolved, which bill lines count as billed (live, cancelled, rebilled, estimated, credits, adjustments), which supersedes which, which date or key places each line, a prior-period adjustment included, in a period, and where does a line that fits no period go?
-- If unresolved, which verdicts and reasons exist and which wins when several fit, what tolerance applies and is its edge inside it, may a partly covered period or one no read covers be compared, and which direction is over-billed?
+- If unresolved, which verdicts and reasons exist and which wins when several fit, what tolerance applies from which date and is its edge inside it, may a partly covered period or one no read covers be compared, and which side is over-billed?
 - If unresolved, what counts as unbilled energy (days no live bill covers, or also an under-billed shortfall, netted against over-billing or not), which as-of date limits it, how much billing lag is expected, and are partly covered periods reported apart?
 
 ### Guardrails
