@@ -73,6 +73,7 @@
         "identity-golden-record-crosswalk",
         "identity-standardize-names-addresses",
         "incremental-dbt-model-with-contract",
+        "insurance-loss-triangles",
         "legacy-sql-to-dbt",
         "logistics-fleet-utilization",
         "managed-connector-to-dlt",
@@ -109,7 +110,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 58,
+      "supported_or_proven_count": 59,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -128,6 +129,7 @@
         "finance-revenue-recognition",
         "finance-trial-balance-close",
         "finops-saas-license-utilization",
+        "insurance-loss-triangles",
         "master-b2b-account-hierarchy",
         "ops-procurement-spend",
         "people-payroll-gl-tieout",
@@ -139,7 +141,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 14,
+      "supported_or_proven_count": 15,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -245,6 +247,7 @@
         "finops-saas-license-utilization",
         "governed-spreadsheet-table",
         "incremental-dbt-model-with-contract",
+        "insurance-loss-triangles",
         "logistics-fleet-utilization",
         "marketing-attribution-models",
         "master-product-sku-hierarchy",
@@ -301,7 +304,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 49,
+      "supported_or_proven_count": 50,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -329,7 +332,8 @@
         "banking-aml-features",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
-        "retail-sell-through-stockout"
+        "retail-sell-through-stockout",
+        "insurance-loss-triangles"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -341,6 +345,7 @@
         "dbt-snapshot-history",
         "effective-dated-business-rules",
         "event-resource-attribution",
+        "insurance-loss-triangles",
         "logistics-fleet-utilization",
         "marketing-attribution-models",
         "metric-population-and-rollups",
@@ -352,7 +357,7 @@
         "shared-fx-conversion",
         "shift-unit-economics"
       ],
-      "supported_or_proven_count": 19,
+      "supported_or_proven_count": 20,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -384,6 +389,7 @@
         "finops-saas-license-utilization",
         "governed-spreadsheet-table",
         "incremental-dbt-model-with-contract",
+        "insurance-loss-triangles",
         "logistics-fleet-utilization",
         "marketing-attribution-models",
         "master-product-sku-hierarchy",
@@ -414,7 +420,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 46,
+      "supported_or_proven_count": 47,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -2230,6 +2236,74 @@
         "A new dbt model must be brought up to date incrementally on each run, and nobody can show that a rerun or a re-delivery of records already applied leaves it unchanged.",
         "Downstream consumers need a guaranteed set of columns, types and keys, and a build should fail when the output drifts from them.",
         "A loader resends or corrects records, and the table must stay correct when the same batch is delivered twice."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Publish paid and incurred loss triangles by accident period and development age, one per segment, each cell as known at its evaluation date, with every claim transaction counted in a cell or set aside with its reason and the totals tied back to the inputs.",
+      "domain_objects": [
+        "claim",
+        "claim_transaction",
+        "segment_map",
+        "loss_triangle",
+        "expense_total",
+        "set_aside_transaction",
+        "completeness_check"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "insurance-loss-triangles",
+      "industry": [
+        "insurance"
+      ],
+      "job_category": "build",
+      "path": "recipes/insurance-loss-triangles/recipe.md",
+      "pitch": "Reproducible paid and incurred triangles whose older diagonals never move, with every claim transaction counted or explained.",
+      "qualifiers": [
+        "Claims and claim transactions must already be landed as tables with the dates the approved time basis needs.",
+        "Amount triangles only; claim counts, factors, IBNR, ultimates, reserving and reinsurance cessions are separate.",
+        "Results are only as complete as the transaction history the source carries; earlier history is not recoverable here."
+      ],
+      "readiness": "supported",
+      "related": [
+        "dbt-snapshot-history",
+        "effective-dated-business-rules",
+        "revops-pipeline-snapshots",
+        "finance-gl-subledger-tieout",
+        "business-event-fact",
+        "metric-population-and-rollups"
+      ],
+      "sha256": "d57fe8fc82dfb2904aa68aea36223f259944944ac88e01594a3932076e82d9ea",
+      "title": "Build paid and incurred claims loss triangles by accident and development period",
+      "trigger": [
+        "Reserving analysts rebuild loss triangles by hand in spreadsheets, and a late payment or reserve change pushes back into cells that were already reported.",
+        "Two runs of the same claims data give different older diagonals, so development methods run on numbers nobody can reproduce.",
+        "Incurred is read with today's case reserve instead of the reserve as it stood at each evaluation date, and nobody can say which claim transactions a triangle left out."
       ],
       "works_with": {
         "platforms": [
