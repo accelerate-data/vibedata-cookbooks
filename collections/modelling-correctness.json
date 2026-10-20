@@ -32,6 +32,7 @@
     "telecom-cdr-usage",
     "life-sciences-enrollment",
     "saas-mrr-waterfall-nrr",
-    "manufacturing-oee-downtime"
+    "manufacturing-oee-downtime",
+    "hospitality-occupancy-adr-revpar"
   ]
 }
