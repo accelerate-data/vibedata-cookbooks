@@ -108,6 +108,7 @@
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
+        "telecom-cdr-usage",
         "utilities-meter-to-bill"
       ],
       "selector": {
@@ -115,7 +116,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 64,
+      "supported_or_proven_count": 65,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -164,7 +165,8 @@
         "file-drop-to-bronze",
         "governed-spreadsheet-table",
         "managed-connector-to-dlt",
-        "spark-ingestion-notebook-to-dlt"
+        "spark-ingestion-notebook-to-dlt",
+        "telecom-cdr-usage"
       ],
       "resolved_members": [
         "api-to-bronze-incremental-contract",
@@ -172,9 +174,10 @@
         "file-drop-to-bronze",
         "governed-spreadsheet-table",
         "managed-connector-to-dlt",
-        "spark-ingestion-notebook-to-dlt"
+        "spark-ingestion-notebook-to-dlt",
+        "telecom-cdr-usage"
       ],
-      "supported_or_proven_count": 6,
+      "supported_or_proven_count": 7,
       "title": "Ingest and reconcile source data",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -285,6 +288,7 @@
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
         "stored-procedure-to-dbt",
+        "telecom-cdr-usage",
         "utilities-meter-to-bill"
       ],
       "selector": {
@@ -317,7 +321,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 55,
+      "supported_or_proven_count": 56,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -351,7 +355,8 @@
         "healthcare-claims-remittance",
         "banking-delinquency-vintages",
         "cpg-promotion-lift",
-        "utilities-meter-to-bill"
+        "utilities-meter-to-bill",
+        "telecom-cdr-usage"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -378,9 +383,10 @@
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "shift-unit-economics",
+        "telecom-cdr-usage",
         "utilities-meter-to-bill"
       ],
-      "supported_or_proven_count": 25,
+      "supported_or_proven_count": 26,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -441,6 +447,7 @@
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
+        "telecom-cdr-usage",
         "utilities-meter-to-bill"
       ],
       "selector": {
@@ -448,7 +455,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 52,
+      "supported_or_proven_count": 53,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -4648,6 +4655,71 @@
           "redshift"
         ],
         "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "ingestion",
+      "description": "Land switch call-detail batches with their manifests, report every expected batch against its declared count, and publish usage per subscriber and day with each day's backing stated, every record counted or set aside with a reason, and late batches restated visibly.",
+      "domain_objects": [
+        "cdr_batch",
+        "batch_manifest",
+        "expected_batch_schedule",
+        "delivery_completeness",
+        "record_disposition",
+        "subscriber_day_usage",
+        "usage_restatement"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "add-or-update-source",
+          "generating-dlt-pipeline",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "id": "telecom-cdr-usage",
+      "industry": [
+        "telecom"
+      ],
+      "job_category": "build",
+      "path": "recipes/telecom-cdr-usage/recipe.md",
+      "pitch": "Land call-detail batches and publish subscriber-day usage with batch completeness, day backing and visible restatement of late batches.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; other listed targets rely on dlt and dbt support and are unassessed.",
+        "Needs a Studio route for dlt to read the drop; cloud buckets (ADLS, S3) have none today.",
+        "Needs each batch to arrive with a manifest stating its declared record count, or the batch cannot be judged.",
+        "Needs a source of expected batches; a batch neither expected nor delivered cannot be seen.",
+        "Covers delimited text batches such as CSV; other layouts are out of scope.",
+        "Stops at subscriber-day usage; rating, billing, churn, ARPU, fraud and network quality are separate work.",
+        "Landing controls for layout, rescans and part-way failure follow file-drop-to-bronze.",
+        "A generic file drop with no usage rollup belongs to file-drop-to-bronze."
+      ],
+      "readiness": "supported",
+      "related": [
+        "file-drop-to-bronze",
+        "business-event-fact",
+        "customer-retention-churn-features"
+      ],
+      "sha256": "b540e4aa02fd9224a327512cb1ef37be37c7049926b8fe1678baa38208b42bea",
+      "title": "Land call-detail batches and aggregate them into subscriber-day usage with manifest completeness",
+      "trigger": [
+        "Monthly subscriber usage differs by who ran it, because nobody can say which call-detail batches had landed or whether each arrived complete.",
+        "A batch is re-sent, cut short, missing its manifest or delivered late, and the usage numbers change or hold a quiet day that was really a gap.",
+        "Billing or network analytics need usage per subscriber per day with every record accounted for and each day marked as backed by complete batches or not."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dlt",
           "dbt"
         ]
       }
