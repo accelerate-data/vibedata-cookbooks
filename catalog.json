@@ -50,6 +50,7 @@
         "banking-delinquency-vintages",
         "bounded-partition-backfill",
         "business-event-fact",
+        "cpg-promotion-lift",
         "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
@@ -113,7 +114,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 62,
+      "supported_or_proven_count": 63,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -232,6 +233,7 @@
         "banking-aml-features",
         "banking-delinquency-vintages",
         "business-event-fact",
+        "cpg-promotion-lift",
         "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
@@ -312,7 +314,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 53,
+      "supported_or_proven_count": 54,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -344,12 +346,14 @@
         "insurance-loss-triangles",
         "healthcare-readmission-cohort",
         "healthcare-claims-remittance",
-        "banking-delinquency-vintages"
+        "banking-delinquency-vintages",
+        "cpg-promotion-lift"
       ],
       "resolved_members": [
         "banking-aml-features",
         "banking-delinquency-vintages",
         "business-event-fact",
+        "cpg-promotion-lift",
         "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
@@ -371,7 +375,7 @@
         "shared-fx-conversion",
         "shift-unit-economics"
       ],
-      "supported_or_proven_count": 23,
+      "supported_or_proven_count": 24,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -385,6 +389,7 @@
         "banking-aml-features",
         "banking-delinquency-vintages",
         "business-event-fact",
+        "cpg-promotion-lift",
         "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
@@ -437,7 +442,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 50,
+      "supported_or_proven_count": 51,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -467,6 +472,7 @@
       "id": "revenue-operations-data-engineering",
       "kind": "function",
       "resolved_members": [
+        "cpg-promotion-lift",
         "marketing-attribution-models",
         "master-b2b-account-hierarchy",
         "revops-bookings-billings-cash",
@@ -478,7 +484,7 @@
           "revops"
         ]
       },
-      "supported_or_proven_count": 5,
+      "supported_or_proven_count": 6,
       "title": "Revenue operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -792,6 +798,73 @@
         "Transaction feeds overlap, and source deliveries may be counted as separate business events.",
         "Replayed deliveries change a report's unique event count or additive totals.",
         "A trip or consignment fact must preserve valid similar events and explain conflicting records."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For each approved promotion event, compare actual sales in the event weeks with a baseline built under the user's approved method, show the method and its evidence on every row, report the post-event dip as its own figure, and give each unmeasurable event one reason or fail the run as approved.",
+      "domain_objects": [
+        "promotion_event",
+        "promotion_calendar_line",
+        "weekly_sales",
+        "baseline",
+        "promotion_lift",
+        "post_promotion_dip",
+        "lift_exception",
+        "holiday_calendar",
+        "account",
+        "product"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "revops"
+      ],
+      "id": "cpg-promotion-lift",
+      "industry": [
+        "cpg"
+      ],
+      "job_category": "build",
+      "path": "recipes/cpg-promotion-lift/recipe.md",
+      "pitch": "One lift and dip figure per promotion event, with the baseline method shown and a reason for every event that cannot be measured.",
+      "qualifiers": [
+        "Needs weekly sales by account and product, and a promotion calendar with account, product or product group, and dates.",
+        "Stops at lift and dip figures; trade spend, ROI, forecasting and price elasticity are separate outcomes.",
+        "Applies the approved baseline method; it does not prove causal incrementality.",
+        "Sales and calendar tables already in the Domain; exported files go to file-drop-to-bronze first."
+      ],
+      "readiness": "supported",
+      "related": [
+        "master-product-sku-hierarchy",
+        "effective-dated-business-rules",
+        "metric-population-and-rollups"
+      ],
+      "sha256": "28f074e9dd15ba16b5383b3e7a29690c10a92feba47a6bb526e02b37f6060096",
+      "title": "Measure trade-promotion lift and the post-promotion dip against an explicit baseline",
+      "trigger": [
+        "Trade marketing reports promotion results with whatever comparison each analyst chose, and nobody can say what \"without the promotion\" meant for a given event.",
+        "A promotion's lift looks inflated or deflated because the comparison weeks held another promotion, a holiday, a stock-out or missing sales.",
+        "Two promotions on one account and product overlap or run back to back, and the lift is credited to both or to neither.",
+        "Cancelled events, events with bad dates and events with no sales history vanish from the results with no stated reason.",
+        "The dip after a promotion is hidden inside the lift, so lifts cannot be compared from one event to the next."
       ],
       "works_with": {
         "platforms": [
