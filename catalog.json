@@ -46,6 +46,7 @@
       "kind": "platform",
       "resolved_members": [
         "api-to-bronze-incremental-contract",
+        "banking-aml-features",
         "bounded-partition-backfill",
         "business-event-fact",
         "customer-consent-preferences",
@@ -105,7 +106,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 54,
+      "supported_or_proven_count": 55,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -217,6 +218,7 @@
       "kind": "platform",
       "resolved_members": [
         "api-to-bronze-incremental-contract",
+        "banking-aml-features",
         "business-event-fact",
         "customer-consent-preferences",
         "customer-historical-ltv",
@@ -292,7 +294,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 45,
+      "supported_or_proven_count": 46,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -316,9 +318,11 @@
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "customer-consent-preferences",
-        "marketing-attribution-models"
+        "marketing-attribution-models",
+        "banking-aml-features"
       ],
       "resolved_members": [
+        "banking-aml-features",
         "business-event-fact",
         "customer-consent-preferences",
         "customer-historical-ltv",
@@ -335,7 +339,7 @@
         "prove-dbt-change-safe",
         "shift-unit-economics"
       ],
-      "supported_or_proven_count": 15,
+      "supported_or_proven_count": 16,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -346,6 +350,7 @@
       "kind": "platform",
       "resolved_members": [
         "api-to-bronze-incremental-contract",
+        "banking-aml-features",
         "business-event-fact",
         "customer-consent-preferences",
         "customer-historical-ltv",
@@ -393,7 +398,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 42,
+      "supported_or_proven_count": 43,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -533,6 +538,70 @@
         ],
         "tools": [
           "dlt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Publish one row per account and day with approved monitoring features computed under an approved time basis so no later transaction changes a published row, every transaction counted, set aside with its reason or listed as not counted, uncomputable features shown as unknown with a reason, and reference data read as now recorded stated as able to restate rows.",
+      "domain_objects": [
+        "account",
+        "transaction",
+        "exchange_rate",
+        "jurisdiction_risk_list",
+        "account_day_feature",
+        "set_aside_transaction",
+        "coverage_check"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "id": "banking-aml-features",
+      "industry": [
+        "banking"
+      ],
+      "job_category": "build",
+      "path": "recipes/banking-aml-features/recipe.md",
+      "pitch": "One reproducible feature row per account and day under a stated time basis, with every transaction counted or explained.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Accounts and transactions must already be landed as tables with the dates the approved time basis needs.",
+        "Features derive from transactions only; balance-based features need an as-known balance source and are out of scope.",
+        "Publishes features only; alerts, cases, SAR filing, sanctions screening and risk rating are separate.",
+        "Account grain only; customer or network roll-ups need entity resolution first.",
+        "Where a risk-list feature is approved, the list is needed with its effective dates.",
+        "Reader restriction needs platform roles; DuckDB and MotherDuck have none, so access there is reported unproven."
+      ],
+      "readiness": "supported",
+      "related": [
+        "customer-retention-churn-features",
+        "identity-golden-record-crosswalk",
+        "pii-classification-and-masking",
+        "effective-dated-business-rules",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "4e038de3898e969db0c81bb5c39499eebe79451b89c00be115830b7149e3725a",
+      "title": "Build AML monitoring features at account-day grain",
+      "trigger": [
+        "A transaction-monitoring model is fed hand-built features nobody can reproduce, so two runs on the same data disagree.",
+        "A backtest looks better than live performance because a feature quietly used a transaction recorded after the day being scored.",
+        "Analysts and model builders each count cash near the reporting threshold, pass-through and velocity differently, and cannot say which transactions were left out."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
         ]
       }
     },
