@@ -70,6 +70,7 @@
         "finops-cloud-allocation",
         "finops-saas-license-utilization",
         "governed-spreadsheet-table",
+        "healthcare-readmission-cohort",
         "identity-golden-record-crosswalk",
         "identity-standardize-names-addresses",
         "incremental-dbt-model-with-contract",
@@ -110,7 +111,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 59,
+      "supported_or_proven_count": 60,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -246,6 +247,7 @@
         "finops-cloud-allocation",
         "finops-saas-license-utilization",
         "governed-spreadsheet-table",
+        "healthcare-readmission-cohort",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
         "logistics-fleet-utilization",
@@ -304,7 +306,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 50,
+      "supported_or_proven_count": 51,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -333,7 +335,8 @@
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "retail-sell-through-stockout",
-        "insurance-loss-triangles"
+        "insurance-loss-triangles",
+        "healthcare-readmission-cohort"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -345,6 +348,7 @@
         "dbt-snapshot-history",
         "effective-dated-business-rules",
         "event-resource-attribution",
+        "healthcare-readmission-cohort",
         "insurance-loss-triangles",
         "logistics-fleet-utilization",
         "marketing-attribution-models",
@@ -357,7 +361,7 @@
         "shared-fx-conversion",
         "shift-unit-economics"
       ],
-      "supported_or_proven_count": 20,
+      "supported_or_proven_count": 21,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -388,6 +392,7 @@
         "finops-cloud-allocation",
         "finops-saas-license-utilization",
         "governed-spreadsheet-table",
+        "healthcare-readmission-cohort",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
         "logistics-fleet-utilization",
@@ -420,7 +425,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 47,
+      "supported_or_proven_count": 48,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -2090,6 +2095,66 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Classify every loaded admission as an eligible index admission, an admission excluded for one named reason, or an admission set aside as unusable, link each eligible index to the admission that readmits it, and publish a readmission rate by facility and month that ties back to the cohort.",
+      "domain_objects": [
+        "admission",
+        "index_admission",
+        "readmission_link",
+        "exclusion_reason",
+        "readmission_rate",
+        "completeness_check"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "healthcare-readmission-cohort",
+      "industry": [
+        "healthcare"
+      ],
+      "job_category": "build",
+      "path": "recipes/healthcare-readmission-cohort/recipe.md",
+      "pitch": "Every admission is an index, excluded for a stated reason or set aside, and the readmission rate ties back to it.",
+      "qualifiers": [
+        "Admissions with patient, facility, dates, type, outcome and planned flag must already be landed as a table.",
+        "Stops at the cohort and rate; risk adjustment, cost, root cause and outreach are separate.",
+        "Readmissions to facilities missing from the data cannot be seen, and are not claimed absent."
+      ],
+      "readiness": "supported",
+      "related": [
+        "operational-state-duration",
+        "business-event-fact"
+      ],
+      "sha256": "fe7c1e7d8a70ce6e5f17cf06e564479121075815ebc42db49a4b962e97e80fa1",
+      "title": "Build a thirty-day readmission cohort with explicit exclusions",
+      "trigger": [
+        "The quality team rebuilds a readmission rate from a spreadsheet each quarter, and nobody can say who was left out of the rate or why.",
+        "Readmissions come from a self-join, so a patient with several returns is counted twice, a planned return counts against the hospital or a return to another facility is missed.",
+        "Deaths, transfers, discharges against medical advice and discharges too recent to have had a full follow-up window sit in the rate, or vanish from it without a trace."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
           "dbt"
         ]
       }
