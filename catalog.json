@@ -7,14 +7,18 @@
       "members": [
         "customer-rfm-segmentation",
         "customer-historical-ltv",
-        "customer-retention-churn-features"
+        "customer-retention-churn-features",
+        "product-sessionization-funnels",
+        "marketing-attribution-models"
       ],
       "resolved_members": [
         "customer-historical-ltv",
         "customer-retention-churn-features",
-        "customer-rfm-segmentation"
+        "customer-rfm-segmentation",
+        "marketing-attribution-models",
+        "product-sessionization-funnels"
       ],
-      "supported_or_proven_count": 3,
+      "supported_or_proven_count": 5,
       "title": "Customer and product analytics",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -42,8 +46,10 @@
       "kind": "platform",
       "resolved_members": [
         "api-to-bronze-incremental-contract",
+        "banking-aml-features",
         "bounded-partition-backfill",
         "business-event-fact",
+        "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
@@ -70,6 +76,7 @@
         "legacy-sql-to-dbt",
         "logistics-fleet-utilization",
         "managed-connector-to-dlt",
+        "marketing-attribution-models",
         "master-b2b-account-hierarchy",
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
@@ -83,12 +90,14 @@
         "people-headcount-rollforward",
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
+        "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
         "revops-quota-commission",
         "scalar-sql-function-to-dbt-macro",
         "service-ticket-sla",
+        "shared-calendar-fiscal-periods",
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt"
@@ -98,7 +107,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 51,
+      "supported_or_proven_count": 56,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -210,7 +219,9 @@
       "kind": "platform",
       "resolved_members": [
         "api-to-bronze-incremental-contract",
+        "banking-aml-features",
         "business-event-fact",
+        "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
@@ -232,6 +243,7 @@
         "governed-spreadsheet-table",
         "incremental-dbt-model-with-contract",
         "logistics-fleet-utilization",
+        "marketing-attribution-models",
         "master-product-sku-hierarchy",
         "materialized-view-to-dbt",
         "metric-population-and-rollups",
@@ -244,9 +256,11 @@
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
         "pii-classification-and-masking",
+        "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "readiness-gated-orchestration",
         "revops-bookings-billings-cash",
+        "shared-calendar-fiscal-periods",
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
@@ -282,7 +296,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 42,
+      "supported_or_proven_count": 47,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -297,16 +311,23 @@
         "event-resource-attribution",
         "dbt-snapshot-history",
         "operational-state-duration",
+        "product-sessionization-funnels",
         "logistics-fleet-utilization",
         "shift-unit-economics",
         "effective-dated-business-rules",
         "prove-dbt-change-safe",
         "customer-rfm-segmentation",
         "customer-historical-ltv",
-        "customer-retention-churn-features"
+        "customer-retention-churn-features",
+        "customer-consent-preferences",
+        "marketing-attribution-models",
+        "banking-aml-features",
+        "shared-calendar-fiscal-periods"
       ],
       "resolved_members": [
+        "banking-aml-features",
         "business-event-fact",
+        "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
@@ -314,12 +335,15 @@
         "effective-dated-business-rules",
         "event-resource-attribution",
         "logistics-fleet-utilization",
+        "marketing-attribution-models",
         "metric-population-and-rollups",
         "operational-state-duration",
+        "product-sessionization-funnels",
         "prove-dbt-change-safe",
+        "shared-calendar-fiscal-periods",
         "shift-unit-economics"
       ],
-      "supported_or_proven_count": 12,
+      "supported_or_proven_count": 17,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -330,7 +354,9 @@
       "kind": "platform",
       "resolved_members": [
         "api-to-bronze-incremental-contract",
+        "banking-aml-features",
         "business-event-fact",
+        "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
@@ -350,6 +376,7 @@
         "governed-spreadsheet-table",
         "incremental-dbt-model-with-contract",
         "logistics-fleet-utilization",
+        "marketing-attribution-models",
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
         "metricflow-semantic-model",
@@ -362,9 +389,11 @@
         "people-headcount-rollforward",
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
+        "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "readiness-gated-orchestration",
         "revops-bookings-billings-cash",
+        "shared-calendar-fiscal-periods",
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt"
@@ -374,7 +403,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 39,
+      "supported_or_proven_count": 44,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -404,6 +433,7 @@
       "id": "revenue-operations-data-engineering",
       "kind": "function",
       "resolved_members": [
+        "marketing-attribution-models",
         "master-b2b-account-hierarchy",
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
@@ -414,7 +444,7 @@
           "revops"
         ]
       },
-      "supported_or_proven_count": 4,
+      "supported_or_proven_count": 5,
       "title": "Revenue operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -518,6 +548,70 @@
     },
     {
       "area": "transformation",
+      "description": "Publish one row per account and day with approved monitoring features computed under an approved time basis so no later transaction changes a published row, every transaction counted, set aside with its reason or listed as not counted, uncomputable features shown as unknown with a reason, and reference data read as now recorded stated as able to restate rows.",
+      "domain_objects": [
+        "account",
+        "transaction",
+        "exchange_rate",
+        "jurisdiction_risk_list",
+        "account_day_feature",
+        "set_aside_transaction",
+        "coverage_check"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "id": "banking-aml-features",
+      "industry": [
+        "banking"
+      ],
+      "job_category": "build",
+      "path": "recipes/banking-aml-features/recipe.md",
+      "pitch": "One reproducible feature row per account and day under a stated time basis, with every transaction counted or explained.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Accounts and transactions must already be landed as tables with the dates the approved time basis needs.",
+        "Features derive from transactions only; balance-based features need an as-known balance source and are out of scope.",
+        "Publishes features only; alerts, cases, SAR filing, sanctions screening and risk rating are separate.",
+        "Account grain only; customer or network roll-ups need entity resolution first.",
+        "Where a risk-list feature is approved, the list is needed with its effective dates.",
+        "Reader restriction needs platform roles; DuckDB and MotherDuck have none, so access there is reported unproven."
+      ],
+      "readiness": "supported",
+      "related": [
+        "customer-retention-churn-features",
+        "identity-golden-record-crosswalk",
+        "pii-classification-and-masking",
+        "effective-dated-business-rules",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "4e038de3898e969db0c81bb5c39499eebe79451b89c00be115830b7149e3725a",
+      "title": "Build AML monitoring features at account-day grain",
+      "trigger": [
+        "A transaction-monitoring model is fed hand-built features nobody can reproduce, so two runs on the same data disagree.",
+        "A backtest looks better than live performance because a feature quietly used a transaction recorded after the day being scored.",
+        "Analysts and model builders each count cash near the reporting threshold, pass-through and velocity differently, and cannot say which transactions were left out."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Apply a corrected rule to one approved date range of an incrementally loaded model and carry its effect through everything built from it, prove the range matches the new rule and nothing moved except by that effect, and keep normal loads working afterwards.",
       "domain_objects": [
         "dbt_model",
@@ -596,6 +690,73 @@
         "Transaction feeds overlap, and source deliveries may be counted as separate business events.",
         "Replayed deliveries change a report's unique event count or additive totals.",
         "A trip or consignment fact must preserve valid similar events and explain conflicting records."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "governance-cost",
+      "description": "Build one contact-permission state per customer, channel and purpose from consent events across sources under the user's approved ordering, scope and no-record rules, with the deciding event, a suppression list and the full event history, and every event applied or set aside with its reasons.",
+      "domain_objects": [
+        "customer",
+        "consent_event",
+        "channel",
+        "purpose",
+        "consent_state",
+        "lawful_basis",
+        "suppression_entry",
+        "decision_trace",
+        "consent_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "customer-consent-preferences",
+      "job_category": "build",
+      "path": "recipes/customer-consent-preferences/recipe.md",
+      "pitch": "One auditable answer to whether a customer may be contacted, with the deciding event and a suppression list that never loosens an opt-out.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Needs consent events already landed as tables with source, status, event time, received time and identifier.",
+        "Takes the customer key and identifier mapping as given; matching and merging customers are separate outcomes.",
+        "Shows permission to contact only; contact frequency, pressure and send eligibility are separate outcomes.",
+        "Carries the lawful basis the user approves; deciding lawful basis or regional law is not part of it.",
+        "Publishes tables only; syncing the state or suppression list into sending tools is a separate outcome.",
+        "Cannot prove consent given outside the delivered feeds, or a state as known on a past date without received times kept."
+      ],
+      "readiness": "supported",
+      "related": [
+        "identity-golden-record-crosswalk",
+        "effective-dated-business-rules",
+        "pii-classification-and-masking",
+        "source-freshness-sla",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "e9f00bf886a6cc90f4405de6b3a27726f57d16efd0a6ac4dd36c0d7013c618e7",
+      "title": "Unify consent and communication preferences with auditable latest-wins logic",
+      "trigger": [
+        "A customer who opted out in one system still gets messages from another, because each source says something different and whichever job ran last wins.",
+        "Nobody can say why a customer is or is not contactable, which event decided it, or what their state was on a past date.",
+        "Opt-outs, complaints and STOP replies arrive from several sources and nobody can show which one a decision rests on."
       ],
       "works_with": {
         "platforms": [
@@ -2233,6 +2394,68 @@
     },
     {
       "area": "transformation",
+      "description": "Split the value of each qualifying conversion across the marketing touches before it under several approved attribution models side by side, with each model's credit adding back to the conversion value, every touch and conversion accounted for, and channels compared across models.",
+      "domain_objects": [
+        "touchpoint",
+        "conversion",
+        "identity_link",
+        "channel_map",
+        "attribution_model",
+        "attribution_setting",
+        "credit_line",
+        "unattributed_amount"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "revops"
+      ],
+      "id": "marketing-attribution-models",
+      "job_category": "build",
+      "path": "recipes/marketing-attribution-models/recipe.md",
+      "pitch": "One reproducible attribution whose credit under every model adds back to booked value, so teams can see exactly where they differ.",
+      "qualifiers": [
+        "Touchpoint, conversion and any adjustment records must already be landed as tables; this Recipe does not ingest them.",
+        "Who converted is resolved through the identity the Intent supplies; this Recipe does not build identity.",
+        "Visits or sessions used as touches must already be built; this Recipe does not sessionize events.",
+        "Rule-based models only; data-driven models, incrementality, spend and payback are out of scope."
+      ],
+      "readiness": "supported",
+      "related": [
+        "business-event-fact",
+        "identity-golden-record-crosswalk",
+        "customer-historical-ltv",
+        "effective-dated-business-rules",
+        "metric-population-and-rollups"
+      ],
+      "sha256": "a4a75eff774507003ecf9a346c44df6a686d54df5a828dc51d5bd3532f0d55bb",
+      "title": "Attribute conversions to touchpoints under several models side by side",
+      "trigger": [
+        "Marketing and Sales each have a spreadsheet crediting their channel with the same revenue, and together they claim more than was booked.",
+        "Channel credit differs between tools or reports and nobody can show which rule explains the gap.",
+        "A lookback, conversion or model setting is about to change and the owner must see which channels gain or lose, and why, before the numbers move."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Resolve accounts to their parent and ultimate parent under approved precedence and parent rules, keep accounts the rules cannot place explicitly unresolved unless an approved fallback places them, roll measures up every level of each corporate family for the approved periods, and list every hierarchy anomaly with its reason, never double counting an account or inventing hierarchy.",
       "domain_objects": [
         "account",
@@ -3180,6 +3403,66 @@
       }
     },
     {
+      "area": "transformation",
+      "description": "Resolve landed batch event exports to identities and visits, build a funnel from configured steps, account for every event, and reproduce a reference figure with each difference attributed to a named cause.",
+      "domain_objects": [
+        "product_event",
+        "identity",
+        "visit",
+        "funnel",
+        "funnel_step"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "product-sessionization-funnels",
+      "job_category": "build",
+      "path": "recipes/product-sessionization-funnels/recipe.md",
+      "pitch": "Rebuild visits and funnels from landed event exports so every conversion figure traces to events and differences from the vendor are explained.",
+      "qualifiers": [
+        "Batch-only, reading landed export tables; streaming or real-time sessions are out of scope.",
+        "Expects the export already landed as tables; ingesting the export is a separate Recipe.",
+        "Single linear funnel path; branching, optional steps, experiments and attribution are out of scope.",
+        "Consumes an approved identity map; person resolution across systems belongs to identity-golden-record-crosswalk.",
+        "Event identity beyond delivered copies belongs to business-event-fact.",
+        "Edge handling needs each batch's covered range; without it, export-edge completeness is unproven.",
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed."
+      ],
+      "readiness": "supported",
+      "related": [
+        "file-drop-to-bronze",
+        "business-event-fact",
+        "identity-golden-record-crosswalk"
+      ],
+      "sha256": "c69506c7e610b1f6cdf0e7c08ae22aac42959a5e57ce718107a5868adc1d84ea",
+      "title": "Sessionize event streams and build reproducible funnels from batch exports",
+      "trigger": [
+        "Product analytics numbers cannot be reproduced outside the vendor's screen, and nobody can say why two conversion figures differ.",
+        "Session or conversion counts change between runs or when a late or overlapping export batch arrives.",
+        "Teams define a visit or a conversion differently, and a funnel step cannot be traced back to events."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
       "area": "data-quality",
       "description": "Produce an independent assessment of an existing dbt change against approved requirements and baselines, with semantic checks, evidence gaps and a merge recommendation while preserving the reviewed implementation.",
       "domain_objects": [
@@ -3564,6 +3847,69 @@
       "works_with": {
         "platforms": [
           "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Publish one date table, one row per day without gaps over an approved window, carrying calendar attributes, fiscal year, period, quarter and week, a business-day flag and a prior-year pointer under approved rules, with unplaceable dates handled as approved.",
+      "domain_objects": [
+        "calendar_date",
+        "fiscal_calendar",
+        "fiscal_period",
+        "fiscal_week",
+        "holiday_calendar",
+        "business_day",
+        "prior_year_pointer",
+        "unknown_date_member"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "shared-calendar-fiscal-periods",
+      "job_category": "build",
+      "path": "recipes/shared-calendar-fiscal-periods/recipe.md",
+      "pitch": "One date table every mart joins, so a day lands in the same fiscal period in every report.",
+      "qualifiers": [
+        "Where a holiday list applies, it must already be landed as a table; sourcing it is a separate outcome.",
+        "Does not convert time zones; the date basis each fact uses is approved per mart.",
+        "Stops at the date table; close, lock, period-to-date measures and mart rewiring are separate outcomes.",
+        "Once published, consumers take their periods from this table instead of rebuilding calendars."
+      ],
+      "readiness": "supported",
+      "related": [
+        "effective-dated-business-rules",
+        "finance-trial-balance-close",
+        "metric-population-and-rollups",
+        "customer-retention-churn-features",
+        "finance-budget-forecast-actual"
+      ],
+      "sha256": "dceb55109dd97f90423d20ec27222e4b422565d60ec2a905b1ed11701091bb3f",
+      "title": "Build one shared calendar and fiscal-period date table",
+      "trigger": [
+        "Two reports put the same day in different weeks, months, quarters or fiscal periods because each mart builds its own date logic.",
+        "Last year's comparison drifts whenever a fiscal year carries an extra week, or a business-day count ignores the holiday list.",
+        "Facts dated outside the date table, or with no date, silently drop out of the reports that join it."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"

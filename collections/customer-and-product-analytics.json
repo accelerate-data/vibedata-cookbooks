@@ -6,6 +6,8 @@
   "members": [
     "customer-rfm-segmentation",
     "customer-historical-ltv",
-    "customer-retention-churn-features"
+    "customer-retention-churn-features",
+    "product-sessionization-funnels",
+    "marketing-attribution-models"
   ]
 }
