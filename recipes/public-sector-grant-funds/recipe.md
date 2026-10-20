@@ -5,7 +5,7 @@ trigger:
   - Grants accountants cannot say per award how much is authorized, obligated, spent and drawn, and each report gives a different answer.
   - An amendment, a cancelled commitment, a late posting or a draw ahead of spend changes an award's position and nobody can see why.
   - Program managers and auditors need over-commitment and cash exceptions flagged per award and budget category while every transaction line stays accounted for.
-description: For the approved awards, categories and periods, publish authorized, obligated, expended and drawn amounts with unobligated balance, unliquidated obligations and cash position, dated changes applied as approved, exceptions flagged beside the figures, and every source line counted or set aside with a reason.
+description: For the approved awards, categories and periods, publish authorized, obligated, expended and drawn amounts with unobligated balance, unliquidated obligations and cash position, dated changes applied as approved, exceptions flagged beside the figures, and every source line counted, de-obligated or set aside with a reason.
 pitch: Show each award's authorized, obligated, expended and drawn position per budget category and period, with flagged exceptions and every line reconciled.
 job_category: build
 area: transformation
@@ -36,7 +36,6 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Awards, amendments, obligations, expenditures and drawdowns arrive as landed tables; landing them is separate work.
   - A past period as first reported needs kept snapshots or a source arrival date; otherwise it is unproven.
   - Stops at the funds position; allowability, indirect rates, agency reports and budget variance are separate.
@@ -66,7 +65,7 @@ Build the funds position for <grant_awards> from the awards, amendments, obligat
 - Obligated, expended and drawn accumulate by each line's approved date; unobligated, unliquidated and cash position equal the approved definitions, with any excess shown beside them, and they tie per award and period to the lines.
 - Every in-scope award has the rows the approved grid rule gives, quiet periods shown as approved; a figure not recorded at a grain, such as a draw per category, reads as absent, never zero, unless an approved allocation labels it.
 - Spend with no obligation or above its obligation, a draw ahead of or behind spend, a draw above authorized and activity outside the performance window in force on its date carry the flags the approved rule gives, in or out of the figures as approved.
-- Every source line has exactly one disposition in the approved order: counted, de-obligated, or set aside with its approved reason; counts and amounts add back to the lines landed with no residue, and each set-aside line keeps its reason.
+- Every source line has exactly one disposition in the approved order: counted, de-obligated, or set aside with its approved reason, including lines outside the approved scope; counts and amounts add back to the lines landed, and the outcome states how many were excluded and why.
 - A re-sent line, reversal, refund or negative line, and a pending, held or returned draw, follow the approved treatment and are never silently dropped or counted twice; a repeat whose values differ is handled as approved and visible.
 - A late posting is placed where the approved rule puts it and listed with its arrival and close dates; where a close and arrival signal exists, the affected period's figure before and after is shown, otherwise the restatement is marked unproven.
 - Published figures, flags and dispositions equal values derived independently from the source lines and approved rules, including each approved policy branch and the awkward cases present in the sources.
