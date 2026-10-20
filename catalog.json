@@ -9,16 +9,18 @@
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "product-sessionization-funnels",
-        "marketing-attribution-models"
+        "marketing-attribution-models",
+        "saas-mrr-waterfall-nrr"
       ],
       "resolved_members": [
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
         "marketing-attribution-models",
-        "product-sessionization-funnels"
+        "product-sessionization-funnels",
+        "saas-mrr-waterfall-nrr"
       ],
-      "supported_or_proven_count": 5,
+      "supported_or_proven_count": 6,
       "title": "Customer and product analytics",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -74,6 +76,7 @@
         "governed-spreadsheet-table",
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
+        "hospitality-occupancy-adr-revpar",
         "identity-golden-record-crosswalk",
         "identity-standardize-names-addresses",
         "incremental-dbt-model-with-contract",
@@ -82,6 +85,7 @@
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "managed-connector-to-dlt",
+        "manufacturing-oee-downtime",
         "marketing-attribution-models",
         "master-b2b-account-hierarchy",
         "master-product-sku-hierarchy",
@@ -102,6 +106,7 @@
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
         "revops-quota-commission",
+        "saas-mrr-waterfall-nrr",
         "scalar-sql-function-to-dbt-macro",
         "service-ticket-sla",
         "shared-calendar-fiscal-periods",
@@ -117,7 +122,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 66,
+      "supported_or_proven_count": 69,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -143,6 +148,7 @@
         "ops-procurement-spend",
         "people-payroll-gl-tieout",
         "revops-bookings-billings-cash",
+        "saas-mrr-waterfall-nrr",
         "shared-fx-conversion",
         "utilities-meter-to-bill"
       ],
@@ -151,7 +157,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 18,
+      "supported_or_proven_count": 19,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -282,10 +288,12 @@
         "governed-spreadsheet-table",
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
+        "hospitality-occupancy-adr-revpar",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
+        "manufacturing-oee-downtime",
         "marketing-attribution-models",
         "master-product-sku-hierarchy",
         "materialized-view-to-dbt",
@@ -304,6 +312,7 @@
         "readiness-gated-orchestration",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
+        "saas-mrr-waterfall-nrr",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "shift-unit-economics",
@@ -343,7 +352,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 57,
+      "supported_or_proven_count": 60,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -379,7 +388,10 @@
         "cpg-promotion-lift",
         "utilities-meter-to-bill",
         "telecom-cdr-usage",
-        "life-sciences-enrollment"
+        "life-sciences-enrollment",
+        "saas-mrr-waterfall-nrr",
+        "manufacturing-oee-downtime",
+        "hospitality-occupancy-adr-revpar"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -395,22 +407,25 @@
         "event-resource-attribution",
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
+        "hospitality-occupancy-adr-revpar",
         "insurance-loss-triangles",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
+        "manufacturing-oee-downtime",
         "marketing-attribution-models",
         "metric-population-and-rollups",
         "operational-state-duration",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "retail-sell-through-stockout",
+        "saas-mrr-waterfall-nrr",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "shift-unit-economics",
         "telecom-cdr-usage",
         "utilities-meter-to-bill"
       ],
-      "supported_or_proven_count": 27,
+      "supported_or_proven_count": 30,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -445,10 +460,12 @@
         "governed-spreadsheet-table",
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
+        "hospitality-occupancy-adr-revpar",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
+        "manufacturing-oee-downtime",
         "marketing-attribution-models",
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
@@ -467,6 +484,7 @@
         "readiness-gated-orchestration",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
+        "saas-mrr-waterfall-nrr",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "shift-unit-economics",
@@ -480,7 +498,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 54,
+      "supported_or_proven_count": 57,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -515,14 +533,15 @@
         "master-b2b-account-hierarchy",
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
-        "revops-quota-commission"
+        "revops-quota-commission",
+        "saas-mrr-waterfall-nrr"
       ],
       "selector": {
         "function": [
           "revops"
         ]
       },
-      "supported_or_proven_count": 6,
+      "supported_or_proven_count": 7,
       "title": "Revenue operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -550,6 +569,7 @@
       "kind": "function",
       "resolved_members": [
         "logistics-fleet-utilization",
+        "manufacturing-oee-downtime",
         "master-product-sku-hierarchy",
         "ops-inventory-reconciliation",
         "ops-otif",
@@ -562,7 +582,7 @@
           "supply-chain-ops"
         ]
       },
-      "supported_or_proven_count": 7,
+      "supported_or_proven_count": 8,
       "title": "Supply chain and operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -2417,6 +2437,73 @@
     },
     {
       "area": "transformation",
+      "description": "Publish rooms available, sold and occupied, room revenue, occupancy, ADR and RevPAR per property and night from reservation lines and room inventory, with every line counted or set aside with a reason and amendments to closed nights handled visibly as approved.",
+      "domain_objects": [
+        "property",
+        "reservation_line",
+        "room_inventory",
+        "stay_night",
+        "rooms_available",
+        "rooms_sold",
+        "room_revenue",
+        "occupancy",
+        "adr",
+        "revpar",
+        "night_close",
+        "restatement"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "hospitality-occupancy-adr-revpar",
+      "industry": [
+        "hospitality"
+      ],
+      "job_category": "build",
+      "path": "recipes/hospitality-occupancy-adr-revpar/recipe.md",
+      "pitch": "One nightly table of occupancy, ADR and RevPAR that reconciles to every reservation line and rolls up from sums.",
+      "qualifiers": [
+        "Needs reservation lines with a nightly rate and a room inventory per property and night already landed as tables.",
+        "Stops at the nightly table; forecasting, pace, comp-set index, channel mix and profit measures are separate work.",
+        "Judging a later amendment needs a close per night, from the source or an approved rule."
+      ],
+      "readiness": "supported",
+      "related": [
+        "shared-calendar-fiscal-periods",
+        "metric-population-and-rollups",
+        "business-event-fact",
+        "metricflow-semantic-model",
+        "shared-fx-conversion"
+      ],
+      "sha256": "64556cd8617a675f4cc2ddfff18bbed4aa682ffcf93c4ef5e4a0f19a77e98248",
+      "title": "Build nightly occupancy, ADR and RevPAR by property with closed-night restatements",
+      "trigger": [
+        "Occupancy, ADR and RevPAR differ between reports because each one counts stays, comps, out-of-order rooms and cancellations its own way.",
+        "A multi-night stay lands on its check-in day, the checkout day is counted as a night, or a month's ADR is an average of daily ADRs.",
+        "A reservation amended after a night closed quietly changes a morning figure that revenue management already acted on."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Resolve customer records from several source systems into one golden record per customer, with a two-way crosswalk, approved match and survivorship rules held as data, golden ids that stay stable across runs, an unresolved list that accounts for every source record, and an optional comparison with a source system's own merge pointers.",
       "domain_objects": [
         "customer",
@@ -2860,6 +2947,70 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build availability, performance, quality and OEE per machine, shift and day with weighted line and plant roll-ups and a reason-ranked downtime Pareto, with every stop, count and machine accounted for.",
+      "domain_objects": [
+        "machine",
+        "production_schedule",
+        "downtime_event",
+        "production_count",
+        "production_line",
+        "ideal_cycle_time"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops"
+      ],
+      "id": "manufacturing-oee-downtime",
+      "industry": [
+        "manufacturing"
+      ],
+      "job_category": "build",
+      "path": "recipes/manufacturing-oee-downtime/recipe.md",
+      "pitch": "Show what cost each line its OEE points with every stop, piece and machine accounted for.",
+      "qualifiers": [
+        "Needs scheduled windows, a stop log, production counts and ideal cycle times",
+        "Stops at OEE and downtime ranking; yield and work-in-progress reconciliation are separate",
+        "Starts from reported stop intervals and period piece counts, not raw signals or counters"
+      ],
+      "readiness": "supported",
+      "related": [
+        "operational-state-duration",
+        "logistics-fleet-utilization",
+        "metric-population-and-rollups",
+        "effective-dated-business-rules"
+      ],
+      "sha256": "82d587d9e21ed8b95370525bdbcedd960b6e59455abcb961b0c01dcc212b24ba",
+      "title": "Build overall equipment effectiveness and a downtime Pareto",
+      "trigger": [
+        "Plant OEE comes from a hand-built spreadsheet and nobody can say whether stops, slow running or scrap cost a line its points.",
+        "Line and plant OEE averages machine OEEs, so a small machine moves the number as much as a large one.",
+        "Stops with no reason, no end or a shift-change crossing distort availability and leave the downtime ranking unable to tie back to OEE."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
           "dbt"
         ]
       }
@@ -4277,6 +4428,80 @@
       "works_with": {
         "platforms": [
           "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Turn subscription records into monthly recurring revenue per customer under approved rules, a monthly waterfall of new, expansion, contraction, churn and reactivation that foots, and net and gross revenue retention, with every record counted or set aside.",
+      "domain_objects": [
+        "customer",
+        "subscription_record",
+        "monthly_recurring_revenue",
+        "revenue_movement",
+        "mrr_waterfall",
+        "revenue_retention",
+        "subscription_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "revops"
+      ],
+      "id": "saas-mrr-waterfall-nrr",
+      "industry": [
+        "saas"
+      ],
+      "job_category": "build",
+      "path": "recipes/saas-mrr-waterfall-nrr/recipe.md",
+      "pitch": "One agreed definition of monthly recurring revenue, a waterfall that foots, and retention figures the board can trace.",
+      "qualifiers": [
+        "Subscription records must already be landed as tables; this Recipe does not ingest them.",
+        "Keeps each currency separate; conversion is a separate outcome.",
+        "Counts recurring subscription revenue only; usage, one-off and recognised revenue are separate outcomes.",
+        "Needs dated, priced subscription terms; past results after backdated changes need kept history.",
+        "Stops at MRR, waterfall and retention; forecasting, customer-count churn and billing ties are separate outcomes.",
+        "Restricting customer-level rows needs roles and grants; without them the restriction is a label only."
+      ],
+      "readiness": "supported",
+      "related": [
+        "customer-retention-churn-features",
+        "finance-revenue-recognition",
+        "customer-historical-ltv",
+        "revops-bookings-billings-cash",
+        "shared-fx-conversion",
+        "shared-calendar-fiscal-periods",
+        "effective-dated-business-rules",
+        "database-tables-to-bronze"
+      ],
+      "sha256": "06622cfc4e2b74345ecdfd56c4ae3b8dbb462df2dd175b54f33db591d4d6c3c8",
+      "title": "Build the MRR waterfall with net and gross revenue retention",
+      "trigger": [
+        "Finance, RevOps and the board each quote a different net revenue retention because each turns subscriptions into monthly recurring revenue its own way.",
+        "A monthly revenue bridge never foots, or shows a plan switch as a lost customer beside a new one.",
+        "Nobody can say how much of a month's change came from new customers, upgrades, downgrades, losses and returns."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
