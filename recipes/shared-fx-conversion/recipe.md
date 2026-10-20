@@ -10,6 +10,8 @@ pitch: One repeatable reporting-currency figure where every amount shows its rat
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - finance
 domain_objects:
   - transaction_amount
   - currency
