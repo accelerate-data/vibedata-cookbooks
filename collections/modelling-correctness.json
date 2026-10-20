@@ -23,6 +23,7 @@
     "shared-calendar-fiscal-periods",
     "shared-fx-conversion",
     "retail-sell-through-stockout",
-    "insurance-loss-triangles"
+    "insurance-loss-triangles",
+    "healthcare-readmission-cohort"
   ]
 }
