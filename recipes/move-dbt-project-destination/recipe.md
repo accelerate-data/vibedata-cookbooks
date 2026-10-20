@@ -1,6 +1,6 @@
 ---
 id: move-dbt-project-destination
-title: Move a dbt project to a new destination and prove parity before cutover
+title: Move a dbt project to a new destination and check parity before cutover
 trigger:
   - A dbt project has to run on a different warehouse or lakehouse, and the dashboards and reports that read it cannot show a different number afterwards.
   - Someone says the migration is done because the build is green on the new destination, but nobody has compared what consumers read.
@@ -49,13 +49,13 @@ Move <dbt_project> to <new_destination> and show, before cutover, whether every 
 
 ## Verified by
 
-- Every relation in the approved scope is named with a verdict of match, difference or not compared; a difference or a "not compared" carries an approved reason, and none is silently absent.
-- The ported project is committed and builds each in-scope relation on the destination under test, or the relation is listed with an approved reason it is not built.
+- Every relation in the approved scope is named with a verdict of match, difference or not compared; a difference lists its columns and cause (or is marked cause unknown), a "not compared" carries an approved reason, and none is silently absent.
+- The ported project is committed and builds each in-scope relation on the destination under test, or the relation is listed with an approved reason it is not built; the project's own tests pass there or each failure is listed.
 - Both destinations read the same inputs, shown identical by per-source row counts and a content check; any comparison input placed on the destination stays apart from consumer-facing relations.
-- Each relation's column set, declared types and rows match the unchanged baseline, or differ only where an approved type mapping or tolerance permits; each difference is listed. Rows are compared by key, not order, unless order is part of the consumer contract.
+- Each relation's column set, declared types and rows match the unchanged baseline, or differ only where an approved type mapping or tolerance permits; each difference is listed. Rows are compared by the approved row key, not order, unless order is part of the consumer contract.
 - Each published figure at an approved cut matches the baseline at the approved precision; a baseline figure that disagrees with an independent derivation under the approved rules is reported as a baseline defect, not changed.
 - Matches hold in each approved run mode, time zone and calendar; carried history such as snapshots or incremental state is shown moved or listed as a gap.
-- A deliberately introduced difference of each approved kind (value beyond tolerance, missing or empty value, row on one side only, changed type) is reported and one within tolerance is not; repeating the comparison on the same files returns the same verdict.
+- A deliberately introduced difference that the approved equality rules count as one (a value beyond tolerance, missing or empty value, row on one side only, changed type) is reported and one within tolerance is not; repeating the comparison on the same files returns the same verdict.
 - Every destination-specific construct, including seeds, hooks and access grants, has a verdict (ported, replaced, named gap or unproven) and its cutover consequence; none is inferred from behaviour on another engine.
 - The report names the destinations actually compared, makes no claim about one that was not run, and states which engine differences the run could not detect.
 - A baseline that returns different output on identical inputs is reported with the affected columns and handled as approved (separate fix, tolerated by the approved comparison, or blocker), never loosened without approval.
@@ -77,14 +77,14 @@ Inherit the Intent's repository, Domain, sources and approved requirements, and 
 
 ### Ask first
 
-- If unresolved, which relations, semantic models, metrics and published cuts must match, and which internal models are approved interfaces?
+- If unresolved, which relations, semantic models, metrics and published cuts must match, what identifies a row in each, which internal models are approved interfaces, and which relations may be left out, with their reason?
 - If unresolved, what does "the same" mean: exact, or a tolerance per column type; the published precision; whether order inside a list or text aggregate counts; and how NULL and empty text, collation, case sensitivity and identifier case or quoting are treated?
 - If unresolved, how does the destination get the same inputs, and what counts as identical inputs?
 - If unresolved, for each construct with no equivalent on the new destination (functions, types and their mapping, seeds, hooks, grants), is it ported, replaced with an approved equivalent or left as a named gap, and does it block cutover?
 - If unresolved, in which time zones, calendars, run modes (full rebuild, incremental) and carried history must results match?
 - If unresolved, when the unchanged project returns different output on identical inputs, is that fixed in a separate change, tolerated by the approved comparison, or a blocker?
 - If unresolved, who decides go or no-go, what evidence must be present for a go, and which open items block it?
-- If unresolved, is any output change wanted? It belongs in a separate change, not in this move.
+- If unresolved, which columns hold sensitive values, and may row-level differences be shown and stored in the report, or must they be masked?
 
 ### Guardrails
 
@@ -95,3 +95,4 @@ Inherit the Intent's repository, Domain, sources and approved requirements, and 
 - Do not change anything a consumer reads beyond approved differences, even to fix a wrong number; route it to a separate change.
 - Do not repoint consumers, retire the old destination or load production data; the only data placed on the destination is the approved comparison input, and production loading and file ingestion belong to their own Recipes.
 - Do not recommend a go while an item approved as cutover-blocking is open or unverified.
+- Do not write row values of sensitive columns into the report beyond what the approved masking allows.
