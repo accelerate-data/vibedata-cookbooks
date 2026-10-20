@@ -33,7 +33,6 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Subscription records must already be landed as tables; this Recipe does not ingest them.
   - Keeps each currency separate; conversion is a separate outcome.
   - Counts recurring subscription revenue only; usage, one-off and recognised revenue are separate outcomes.
@@ -67,7 +66,7 @@ Build <customer_month_model>, <waterfall_model>, <retention_model>, <exceptions_
 
 ## Verified by
 
-- Every subscription record is counted or set aside with exactly one reason, counted plus set aside equals the input, and a failed or held run names the offending records.
+- Every subscription record is counted or set aside with its reason as the approved rule shows, counted plus set aside equals the input, the outcome states how many were left out and why, and a failed or held run names the offending records.
 - Each counted record contributes its monthly equivalent under the approved interval, quantity, discount and rounding rules; charges the approved rules leave out contribute nothing and stay visible with their reason.
 - Each customer-month figure equals the sum of the customer's in-force subscriptions under the approved measurement basis, per currency, and equals a recomputation from the source records and approved rules done independently of the models.
 - Each customer-month has at most one movement from the approved classes; where movements are decided per customer, a plan switch or seat move is never a loss beside a new customer, and a return reads as approved, new only where the rule says so.
@@ -97,21 +96,22 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 ### Ask first
 
-- If unresolved, which records and customers are in scope, which line types count as recurring (one-off, usage, setup, free, trial, paused, negative), how recurring discounts and credit memos enter, and how left-out records are shown?
+- If unresolved, which customers are in scope (internal, test, trial, free, merged), what is the customer key, which line types count as recurring (one-off, usage, setup, paused, negative), how recurring discounts and credit memos enter, and how left-out records are shown?
 - If unresolved, how a billing interval becomes a monthly amount, how quantity, rounding and a term the rules do not cover are treated, and which term applies when several are dated?
-- If unresolved, is the figure a month-end rate, any-day overlap or day-prorated, which months (calendar or fiscal) and as-of date apply, from which date to which date is each source complete, and does a dormant month between a loss and a return get a row, a zero or nothing?
-- If unresolved, at what level are movements decided (customer or subscription), how plan switches, seat moves, price changes, a start or end inside one month and a fall to zero are classed?
-- If unresolved, when does a returning customer count as reactivation rather than new, and does that depend on a gap length?
+- If unresolved, is the figure a month-end rate, any-day overlap or day-prorated, which months (calendar or fiscal) and as-of date apply, and does a dormant month between a loss and a return get a row, a zero or nothing?
+- If unresolved, from which date to which date is each source complete, where does opening revenue for customers older than the sources come from, and what does a month outside that range show?
+- If unresolved, at what level are movements decided (customer or subscription), how are plan switches, seat moves, price changes, a start or end inside one month and a fall to zero classed, and when is a returning customer a reactivation rather than new (does a gap length matter)?
 - If unresolved, how are net and gross retention defined (window length or month over month, the base, gross capped at the starting amount, a customer who left and returned inside the window), and what shows where no base exists?
-- If unresolved, how are a repeated record id, a later version, a conflicting pair, a late or backdated change and an unplaceable record handled: counted, set aside with a reason, flagged or the run failed?
-- If unresolved, who may read customer-level rows, what minimum group size is published and for which outputs?
+- If unresolved, how are a repeated record id, a later version, a conflicting pair, a late or backdated change and an unplaceable record handled (counted, set aside with one reason or every reason, flagged or the run failed), and does a restated month show its prior figure?
+- If unresolved, who may read customer-level rows, what minimum group size is published and for which outputs, and is complementary hiding required?
 
 ### Guardrails
 
 - Do not choose the recurring line types, discount treatment, interval conversion, rounding, measurement basis, movement classes, reactivation rule, retention definition, window, duplicate rule or disclosure for the user, and take none from sample data, a vendor default or common practice.
 - Never decide movements at a level or in classes other than the approved ones; where they are decided per customer, never show a plan switch or seat move as a loss beside a new customer, and never show a returning customer as new unless the approved rule says so.
-- Never include in recurring revenue a charge the approved rules leave out, and never sum or blend currencies or convert them without an approved rate source.
+- Never include in recurring revenue a charge the approved rules leave out, and never sum, blend or convert currencies; conversion is a separate outcome.
 - Never publish a month the data has not reached or a source does not cover as zero, and never publish a ratio over an empty base as 0 or 100%.
+- Never publish customer-level rows beyond the approved readers or a group below the approved minimum, and never let a hidden group be worked back from published totals where the approved policy forbids it.
 - Never drop or double count a record; every record that cannot be placed stays visible with its reason, and a conflict the approved rule cannot resolve is named, not guessed.
 - Never let a waterfall disagree with the customer figures behind it, or restate a published month silently when a later or backdated change arrives.
 - Stop at recurring revenue, the waterfall and retention: do not forecast, recognise revenue, value or predict churn of customers, tie to billing or cash, or write back to the source systems.

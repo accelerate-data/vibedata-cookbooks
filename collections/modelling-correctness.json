@@ -26,6 +26,7 @@
     "insurance-loss-triangles",
     "healthcare-readmission-cohort",
     "healthcare-claims-remittance",
-    "banking-delinquency-vintages"
+    "banking-delinquency-vintages",
+    "saas-mrr-waterfall-nrr"
   ]
 }
