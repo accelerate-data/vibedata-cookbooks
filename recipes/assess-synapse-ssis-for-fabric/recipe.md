@@ -28,7 +28,7 @@ qualifiers:
   - Reads exported definition files and any usage evidence; it never connects to a live pool, SSISDB or Fabric workspace.
   - Fabric support claims come from cited documentation with an as-of date, never from a Fabric run.
   - It assesses and recommends only; conversion, data movement and cutover belong to other Recipes.
-  - A protected, unreadable or unmatched item is reported as unassessed or unconfirmed, never as compatible.
+  - A protected, unreadable or unmatched item is named as unassessed or unconfirmed, never counted as compatible.
 related:
   - legacy-sql-to-dbt
   - stored-procedure-to-dbt
@@ -46,18 +46,18 @@ Assess <estate_exports>, the exported DDL and SSIS packages of <pool_or_ssis_est
 
 ## Verified by
 
-- Every item of the approved kinds in the export appears exactly once with its approved target, counts by kind tie to an independent count of the export files, and anything else or outside the approved scope is shown or counted with its reason as approved, with how many were excluded and why.
+- Every item of the approved kinds appears exactly once under its qualified name with its approved target, counts by kind tie to an independent count of the export files, and anything else or out of scope is shown or counted with its reason as approved, with how many and why.
 - Each dependency the definitions declare resolves, under the approved name resolution, to an inventoried item or is listed as unresolved with its source item and the reference that could not be placed (dynamic SQL, an unplaceable name, a missing object); none is dropped.
 - Each item carries one verdict and the rule it came from, each rule carries its cited source and that source's as-of date, and a construct no rule covers is reported as uncovered and unconfirmed, never compatible, whatever verdict set is approved.
-- Every protected, unreadable or unparsed item, and every item read only by a labelled fallback, is listed and counted with its reason, or the run stops before any recommendation and names them, as approved; none is counted as compatible, and a report names the part of the estate it could not read.
+- Every protected, unreadable or unparsed item, and every item read only by a labelled fallback, is listed and counted with its reason, or, as approved, the run stops naming them and gives no recommendation; none is counted as compatible, and a report names the part of the estate it could not read.
 - The span the usage evidence covers is stated and an item it cannot cover is classed unknown, never unused; an item with no approved use in a covered window is a candidate for its owner's sign-off, never retired, and declared seasonal or critical status that conflicts with usage is reported.
 - Every blocker an item carries is listed with its type, who resolves it and the wave it gates, one marked primary; every item whose verdict needs a decision, is unconfirmed or is unreadable is covered, and blocker counts reconcile with the verdicts.
 - Each item carries a complexity class with its counted or measured drivers, recomputing the drivers under the approved rules reproduces every class, and any effort figure comes from stated drivers or calibration the user supplied, never from an invented number.
 - Each item sits in one wave and none depends on a resolved item in a later wave; an item with an unresolved dependency is marked as gated by it, dependency cycle members share a named wave, each wave states its entry and exit criteria, and blockers that gate other waves are placed as approved.
-- One recommendation follows from the approved criteria, stated before they are applied, and reproduces from the report's counts; it states the unassessed and unconfirmed counts, names the blockers that remain and the wave each gates, and holds no pilot design, conversion plan, budget or schedule.
+- Where the run completes, one recommendation follows from the approved criteria, stated before use, and reproduces from the report's counts; it states the unassessed and unconfirmed counts and the remaining blockers with their gated waves, and has no pilot design, conversion plan, budget or schedule.
 - No secret value appears in any output, committed evidence or log; each secret-bearing field is reported by location with an approved remediation class.
 - Counts, classes, waves and the recommendation equal values derived independently from the exports and the approved rules, every report figure comes from that analysis, and a value that disagrees with the independent derivation is reported, never absorbed.
-- The report states that its totals describe the assessed export only, and what the evidence cannot show: Fabric behaviour known only from cited documentation, and consumers, schedulers and reports outside the export unless declared.
+- A report states that its totals describe the assessed export as of its export date only, and what the evidence cannot show: Fabric behaviour known only from cited documentation, and consumers, schedulers and reports outside the export unless declared.
 
 ## Agent guidance
 
