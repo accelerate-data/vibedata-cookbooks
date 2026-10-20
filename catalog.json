@@ -107,14 +107,15 @@
         "shared-fx-conversion",
         "shift-unit-economics",
         "source-freshness-sla",
-        "spark-ingestion-notebook-to-dlt"
+        "spark-ingestion-notebook-to-dlt",
+        "utilities-meter-to-bill"
       ],
       "selector": {
         "platforms_any": [
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 63,
+      "supported_or_proven_count": 64,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -140,14 +141,15 @@
         "ops-procurement-spend",
         "people-payroll-gl-tieout",
         "revops-bookings-billings-cash",
-        "shared-fx-conversion"
+        "shared-fx-conversion",
+        "utilities-meter-to-bill"
       ],
       "selector": {
         "function": [
           "finance"
         ]
       },
-      "supported_or_proven_count": 17,
+      "supported_or_proven_count": 18,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -282,7 +284,8 @@
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
-        "stored-procedure-to-dbt"
+        "stored-procedure-to-dbt",
+        "utilities-meter-to-bill"
       ],
       "selector": {
         "platforms_any": [
@@ -314,7 +317,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 54,
+      "supported_or_proven_count": 55,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -347,7 +350,8 @@
         "healthcare-readmission-cohort",
         "healthcare-claims-remittance",
         "banking-delinquency-vintages",
-        "cpg-promotion-lift"
+        "cpg-promotion-lift",
+        "utilities-meter-to-bill"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -373,9 +377,10 @@
         "retail-sell-through-stockout",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
-        "shift-unit-economics"
+        "shift-unit-economics",
+        "utilities-meter-to-bill"
       ],
-      "supported_or_proven_count": 24,
+      "supported_or_proven_count": 25,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -435,14 +440,15 @@
         "shared-fx-conversion",
         "shift-unit-economics",
         "source-freshness-sla",
-        "spark-ingestion-notebook-to-dlt"
+        "spark-ingestion-notebook-to-dlt",
+        "utilities-meter-to-bill"
       ],
       "selector": {
         "platforms_any": [
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 51,
+      "supported_or_proven_count": 52,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -4638,6 +4644,74 @@
       ],
       "works_with": {
         "platforms": [
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Set metered energy beside billed energy for every in-scope service point and billing period, give each period one verdict under approved tolerance rules, quantify unbilled energy to an approved as-of date, and account for every read and bill line, with no missing read treated as zero.",
+      "domain_objects": [
+        "service_point",
+        "meter_read",
+        "billing_period",
+        "bill_line",
+        "tolerance_rule",
+        "reconciliation_verdict",
+        "unbilled_energy"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "utilities-meter-to-bill",
+      "industry": [
+        "utilities"
+      ],
+      "job_category": "build",
+      "path": "recipes/utilities-meter-to-bill/recipe.md",
+      "pitch": "Match metered to billed energy for every in-scope period and quantify what was never billed, with nothing silently dropped.",
+      "qualifiers": [
+        "Reads, a meter master and bill lines must already be landed as tables, with periods from a calendar or approved source.",
+        "Quantities only; tariffs, pricing and revenue accruals in money are separate outcomes.",
+        "Energy commodities only; volume-only commodities such as water are a separate outcome.",
+        "Stops at the classified reconciliation; correcting bills and estimating missing reads are separate.",
+        "Reproducing a past as-of date after rule or source changes needs kept history of the sources."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-gl-subledger-tieout",
+        "ops-inventory-reconciliation",
+        "effective-dated-business-rules",
+        "shared-calendar-fiscal-periods"
+      ],
+      "sha256": "72534c55160bd11eeabb965a6841a9427ac8196a796532d9cb4aceaddb8bfbbd",
+      "title": "Reconcile meter reads to bills and quantify unbilled energy",
+      "trigger": [
+        "Revenue assurance compares metered usage with billed usage in a spreadsheet each month, and nobody can say which differences are real and which are timing, estimates or a meter swap.",
+        "A meter with a multiplier, a register that rolled over or a meter exchanged mid-period makes billed energy disagree with the reads, and the cause is found by hand.",
+        "Finance asks how much energy was delivered but never billed, and the answer changes with every join, because a period with no read or no bill looks like zero."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
           "fabric_warehouse",
           "redshift"
         ],
