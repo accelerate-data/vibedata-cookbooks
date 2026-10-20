@@ -35,7 +35,6 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; other listed targets rely on dbt adapter support and are unassessed.
   - Needs reservation lines with a nightly rate and a room inventory per property and night already landed as tables.
   - Stops at the nightly table; forecasting, pace, comp-set index, channel mix and profit measures are separate work.
   - Judging a later amendment needs a close per night, from the source or an approved rule.
@@ -50,7 +49,7 @@ evidence:
     - capturing-requirements
     - profiling-source-data
     - generating-dbt-model
-    - dbt-unit-testing
+    - running-dbt-in-sandbox
     - verifying
   evals: []
 ---
@@ -69,7 +68,7 @@ Build <nightly_kpi_model> with one row per property and night from <reservation_
 - Occupancy, ADR and RevPAR recompute from the published components each night, a zero denominator reads as the approved value and never an unstated zero, and a week or month ratio divides summed components, never averaged nightly ratios.
 - Lines whose status the approved rules exclude, and any line they call unusable, are set aside once each with their reason and appear in no count or revenue figure; any fee on them goes where the approved rule says.
 - A stayed night with no inventory row, a night where occupied rooms exceed available rooms, and a reservation delivered twice are each handled as approved and visible, never silently dropped, capped or double counted.
-- Every reservation line is counted or set aside exactly once and counted lines and set-aside lines add back to the lines landed, and rooms and revenue tie to the counted lines with no residue.
+- Every reservation line is counted or set aside exactly once, any stayed night set aside is listed with its reason, and counts add back to the lines landed with rooms and revenue tying to the counted nights and no residue.
 - An amendment after its night's close is handled as the approved rule says, restated with previous and new figures or posted as an approved adjustment, never silently rewritten; with no kept published state or amendment dates, the change is reported as unproven.
 - Published figures, set-asides and restatements match expected results derived independently from the delivered lines, including each approved policy branch and the awkward cases present in the data.
 - Changing an approved rule value, such as the set-aside reasons or a close date, moves the figures with no code change, within the approved rule form.
@@ -85,7 +84,7 @@ Inherit the Intent's repository, platform, Domain and sources. Inspect the reser
 - capturing-requirements
 - profiling-source-data
 - generating-dbt-model
-- dbt-unit-testing
+- running-dbt-in-sandbox
 - verifying
 
 ### Ask first
@@ -95,7 +94,7 @@ Inherit the Intent's repository, platform, Domain and sources. Inspect the reser
 - How do comp and house-use rooms count in rooms sold, rooms occupied, revenue, ADR and occupancy, is a line one room or a room count, and how are sharers and room moves counted?
 - Which statuses count (tentative, waitlist, guaranteed, unpicked group block), what are cancelled, no-show and early-departure lines worth, is departure booked or actual, and is any fee room revenue?
 - Which amounts are room revenue (rate before tax, service charge, resort fee, packages, incidentals) and in which currency, and is conversion needed?
-- Which lines are unusable (unknown property, unreadable or backwards dates, zero nights, negative rate), in what order, and what makes two lines the same reservation and which counts?
+- Which properties are in scope (test, closed, managed), which lines are unusable (unknown property, unreadable or backwards dates, zero nights, negative rate) and in what order, and what makes two lines the same reservation and which counts?
 - When does a night close, what happens to a reservation amended afterwards, and where is the published state kept so a restatement can show previous and new figures?
 - Which ratios read null or zero when nothing was sold or available, how is an over-capacity night shown, and which week and calendar do the roll-ups use?
 
@@ -108,6 +107,6 @@ Inherit the Intent's repository, platform, Domain and sources. Inspect the reser
 - Do not let a comp, house-use, cancelled or no-show room dilute ADR or enter sold counts unless the approved rule says so.
 - Do not silently rewrite a closed night when a reservation changes; restate or adjust as approved, and report an unprovable change as unproven.
 - Do not drop, cap or silently correct a line or night that cannot be placed or exceeds capacity; give it a reason and keep the counts reconciled.
-- Do not hard-code set-aside reasons, close dates or rule values in code; keep them as data.
+- Do not hard-code approved rule values such as set-aside reasons or close dates in code; keep them as editable data.
 - Do not forecast, compute pace or comp-set index, or report channel mix or profit; those are separate work.
 - Label synthetic data as synthetic and never land it in a shared Domain relation.
