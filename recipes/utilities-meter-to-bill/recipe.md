@@ -5,8 +5,8 @@ trigger:
   - Revenue assurance compares metered usage with billed usage in a spreadsheet each month, and nobody can say which differences are real and which are timing, estimates or a meter swap.
   - A meter with a multiplier, a register that rolled over or a meter exchanged mid-period makes billed energy disagree with the reads, and the cause is found by hand.
   - Finance asks how much energy was delivered but never billed, and the answer changes with every join, because a period with no read or no bill looks like zero.
-description: Set metered energy beside billed energy for every service point and billing period, give each period one verdict under approved tolerance rules, quantify unbilled energy to an approved as-of date, and account for every read and bill line, with no missing read treated as zero.
-pitch: Match metered to billed energy for every period and quantify what was never billed, with nothing silently dropped.
+description: Set metered energy beside billed energy for every in-scope service point and billing period, give each period one verdict under approved tolerance rules, quantify unbilled energy to an approved as-of date, and account for every read and bill line, with no missing read treated as zero.
+pitch: Match metered to billed energy for every in-scope period and quantify what was never billed, with nothing silently dropped.
 job_category: build
 area: transformation
 readiness: supported
@@ -55,14 +55,14 @@ evidence:
 
 ## Prompt
 
-Build <reconciliation_model>, <unbilled_model> and <coverage_model> from <meter_reads>, <meter_master>, <bill_lines>, <billing_periods> and <tolerance_rules>. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only the semantics they leave open. At one row per service point and billing period, derive metered energy from the reads under the approved rules, derive billed energy from the approved bill lines, and give each period exactly one verdict under the approved tolerance rules. Quantify unbilled energy to the approved as-of date, show a period no read covers as unmeasured and never zero, and account for every read, meter, bill line and period as placed once or set aside with one reason. Keep the tolerance rules as data the user can change, within the approved rule form, keep sources read-only and report what the inputs cannot prove.
+Build <reconciliation_model>, <unbilled_model> and <coverage_model> from <meter_reads>, <meter_master>, <bill_lines>, <billing_periods> and <tolerance_rules>. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only the semantics they leave open. At one row per in-scope service point and billing period, derive metered energy from the reads under the approved rules, derive billed energy from the approved bill lines, and give each period exactly one verdict under the approved tolerance rules. Quantify unbilled energy to the approved as-of date, show a period no read covers as unmeasured and never zero, and account for every read, meter, bill line and period as placed once or set aside with one reason. Keep the tolerance rules as data the user can change, within the approved rule form, keep sources read-only and report what the inputs cannot prove.
 
 ## Verified by
 
 - Every in-scope service point and billing period appears once with exactly one verdict from the approved set, including a period with no read, a period with no bill and a period with neither; the verdict counts add back to the number of periods.
-- Metered energy for each period equals a recomputation from the approved reads under the approved rules, made independently of the build; a period that no usable read covers is empty, never zero.
+- Metered energy, the verdicts and the unbilled figures equal values recomputed independently of the build from the approved reads, bill lines and rules; a period that no usable read covers is empty, never zero.
 - A multiplier, a register rollover, a decrease the approved rules do not accept as a rollover, an estimated read and a meter exchange each land as approved, and an exchange stretch no read bridges is shown as unmeasured, never filled.
-- Billed energy for each period is the approved bill lines with credits carrying their sign; a cancelled, superseded or orphan line stays visible with its reason, and a cancelled-and-rebilled pair is never counted twice.
+- Billed energy for each period is the approved bill lines, with credits and adjustments handled as the approved rule says and never dropped; a cancelled, superseded or orphan line stays visible with its reason, and a cancelled-and-rebilled pair is never counted twice.
 - A period only partly covered by reads shows its coverage as the approved rule measures it and its partial metered energy, is classed as the approved rule says and is never presented as a full-period comparison unless the approved rules say so.
 - A variance exactly at, just inside and just outside the approved tolerance is classed as the approved rule says, and the tolerance applied is published with the row; changing a tolerance row changes the verdicts with no change to the logic, within the approved rule form.
 - Unbilled energy is quantified in the approved unit over the periods the approved as-of rule selects, itemised by service point and period with the as-of date stated; moving the as-of date changes what the approved rule says it restricts and nothing else.
@@ -93,13 +93,13 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - If unresolved, where do billing periods come from for each service point, in which time zone are reads dated, and does a read on a boundary day close the period or open the next?
 - If unresolved, which reads anchor consumption (actual only, or estimates too), how is energy between reads placed into periods (by day, at the read date or otherwise), and what does a later actual read do to an earlier estimate?
 - If unresolved, where does each multiplier come from and from which date, is a lower later reading a rollover by a declared span, an export or a fault, and what happens when a meter is exchanged mid-period?
-- If unresolved, which bill lines count as billed (live, cancelled, rebilled, estimated, credits, adjustments), which supersedes which, and which date or key places each line, a prior-period adjustment included, in a period?
+- If unresolved, which bill lines count as billed (live, cancelled, rebilled, estimated, credits, adjustments), which supersedes which, which date or key places each line, a prior-period adjustment included, in a period, and where does a line that fits no period go?
 - If unresolved, which verdicts and reasons exist and which wins when several fit, what tolerance applies and is its edge inside it, may a partly covered period or one no read covers be compared, and which direction is over-billed?
 - If unresolved, what counts as unbilled energy (days no live bill covers, or also an under-billed shortfall, netted against over-billing or not), which as-of date limits it, how much billing lag is expected, and are partly covered periods reported apart?
 
 ### Guardrails
 
-- Do not choose period source, register selection, estimate and exchange rules, bill-line placement, verdict precedence, tolerances, the unbilled definition, as-of date or exempt population for the user, or take them from the data or common practice; the user may ask for a recommendation.
+- Do not choose period source, register selection, estimate and exchange rules, bill-line placement and linking keys, verdict precedence, tolerances, the unbilled definition, as-of date or exempt population for the user, or take them from the data; the user may ask for a recommendation.
 - Never treat a missing read as zero consumption; show it as unmeasured. Never treat a missing bill as zero billed unless an approved rule says so.
 - Never count a cancelled-and-rebilled pair twice, drop a credit, or add energy across a meter exchange no read bridges.
 - Never join reads to bills so that a service point with reads and no bill vanishes, or a period is multiplied by its number of reads or lines.
