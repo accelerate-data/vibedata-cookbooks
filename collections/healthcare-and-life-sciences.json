@@ -1,0 +1,12 @@
+{
+  "id": "healthcare-and-life-sciences",
+  "title": "Healthcare and life sciences",
+  "kind": "industry",
+  "description": "Recipes for data engineers working with healthcare and life-sciences data, such as claims, admissions and clinical-trial enrollment.",
+  "selector": {
+    "industry": [
+      "healthcare",
+      "life-sciences"
+    ]
+  }
+}

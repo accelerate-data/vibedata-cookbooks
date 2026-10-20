@@ -18,6 +18,18 @@
     "customer-historical-ltv",
     "customer-retention-churn-features",
     "customer-consent-preferences",
-    "marketing-attribution-models"
+    "marketing-attribution-models",
+    "banking-aml-features",
+    "shared-calendar-fiscal-periods",
+    "shared-fx-conversion",
+    "retail-sell-through-stockout",
+    "insurance-loss-triangles",
+    "healthcare-readmission-cohort",
+    "healthcare-claims-remittance",
+    "banking-delinquency-vintages",
+    "cpg-promotion-lift",
+    "utilities-meter-to-bill",
+    "telecom-cdr-usage",
+    "life-sciences-enrollment"
   ]
 }
