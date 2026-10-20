@@ -59,7 +59,7 @@ Build <subject_dispositions>, <site_performance> and <enrollment_coverage> from 
 ## Verified by
 
 - Every loaded screening record is accounted for once: enrolled, a screen failure with one named reason, set aside, or left out of scope and shown or counted with its reason as approved; the counts add back to the records loaded, and the outcome states how many were left out and why.
-- Under the approved subject identity and re-screening rules, a subject is enrolled at most once per study; a repeat screening is handled as approved and shown with its reason, and a person in two studies counts in each only where the rules say so.
+- Under the approved subject identity and re-screening rules, a subject counts as enrolled at most once per study as those rules define it; a repeat screening is handled as approved and shown with its reason, and a person in two studies counts in each only where the rules say so.
 - A record that is unusable by itself (duplicate, impossible or inconsistent date, site not on the list, unknown reason code) lands as approved with its reason and never hides or replaces a usable screening of the same subject.
 - Enrolled follows the approved definition: a later withdrawal or status change does not un-enroll where the rules say so, and an enrolling event outside the site's activation and closure dates lands as approved with its reason.
 - The site table has one row per approved study, site and month, including quiet months within the approved span of the site's life; every count lands in the month the approved date rule names.
@@ -75,7 +75,7 @@ Build <subject_dispositions>, <site_performance> and <enrollment_coverage> from 
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and every semantic decision its approved requirements already record; do not ask the user to confirm them again. Profile the screening records (subject, study and site keys, consent, screening and randomization dates, outcome and reason codes, withdrawal), the site list with its dates and targets and the reason table before modelling. Use Ask first only for semantics still open, and record each decision as the user's own answer. Keep the enrolled definition, the reasons and their precedence, the rate definition, the month rule and the target history explicit and editable where the approved requirements say so. Evaluate the unusable checks as one ordered chain, so a record that trips two of them lands on one. Build the fixture with the awkward cases (re-screens, a person in two studies, duplicates, bad dates, a randomization outside a site's dates, an unlisted site, a site with a quiet month, a changed target) and derive independent expected results by hand before reading any output. The dispositions, the site table and the coverage must never disagree about a subject. Publish every set-aside record and what the inputs cannot prove.
+Inherit the Intent's repository, platform, Domain, sources and every semantic decision its approved requirements already record; do not ask the user to confirm them again. Profile the screening records (subject, study and site keys, consent, screening and randomization dates, outcome and reason codes, withdrawal), the site list with its dates and targets and the reason table before modelling. Use Ask first only for semantics still open, and record each decision as the user's own answer. Keep the enrolled definition, the reasons and their precedence, the rate definition, the month rule and the target history explicit and editable where the approved requirements say so. Evaluate the unusable checks as one ordered chain, so a record that trips two of them lands on one. Build the fixture with the awkward cases (re-screens, a person in two studies, duplicates, bad dates, an enrolling event outside a site's dates, an unlisted site, a site with a quiet month, a changed target) and derive independent expected results by hand before reading any output. The dispositions, the site table and the coverage must never disagree about a subject. Publish every set-aside record and what the inputs cannot prove.
 
 ### Compose
 
@@ -101,7 +101,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 ### Guardrails
 
 - Do not choose the subject identity, re-screening, enrolled definition, unusable-record, month, target and rate rules for the user, and take none from the data or common practice; the user may ask for alternatives or a recommendation.
-- Never drop or double count a screening record or a subject; every record that is not enrolled stays visible with its reason.
+- Never drop or double count a screening record or a subject; every record that is not enrolled is shown, or counted where the approved scope allows, with its reason.
 - Never let a record that is unusable by itself replace or hide a usable screening of the same subject.
 - Never merge a person across studies, or split a subject within one study, unless the approved identity rule says so.
 - Never publish a subject identifier or name unless the approved requirements allow it.
