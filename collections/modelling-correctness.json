@@ -19,6 +19,7 @@
     "customer-retention-churn-features",
     "customer-consent-preferences",
     "marketing-attribution-models",
-    "banking-aml-features"
+    "banking-aml-features",
+    "shared-calendar-fiscal-periods"
   ]
 }
