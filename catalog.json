@@ -76,6 +76,7 @@
         "governed-spreadsheet-table",
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
+        "hospitality-occupancy-adr-revpar",
         "identity-golden-record-crosswalk",
         "identity-standardize-names-addresses",
         "incremental-dbt-model-with-contract",
@@ -121,7 +122,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 68,
+      "supported_or_proven_count": 69,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -287,6 +288,7 @@
         "governed-spreadsheet-table",
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
+        "hospitality-occupancy-adr-revpar",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
         "life-sciences-enrollment",
@@ -350,7 +352,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 59,
+      "supported_or_proven_count": 60,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -388,7 +390,8 @@
         "telecom-cdr-usage",
         "life-sciences-enrollment",
         "saas-mrr-waterfall-nrr",
-        "manufacturing-oee-downtime"
+        "manufacturing-oee-downtime",
+        "hospitality-occupancy-adr-revpar"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -404,6 +407,7 @@
         "event-resource-attribution",
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
+        "hospitality-occupancy-adr-revpar",
         "insurance-loss-triangles",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
@@ -421,7 +425,7 @@
         "telecom-cdr-usage",
         "utilities-meter-to-bill"
       ],
-      "supported_or_proven_count": 29,
+      "supported_or_proven_count": 30,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -456,6 +460,7 @@
         "governed-spreadsheet-table",
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
+        "hospitality-occupancy-adr-revpar",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
         "life-sciences-enrollment",
@@ -493,7 +498,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 56,
+      "supported_or_proven_count": 57,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -2416,6 +2421,73 @@
         "The quality team rebuilds a readmission rate from a spreadsheet each quarter, and nobody can say who was left out of the rate or why.",
         "Readmissions come from a self-join, so a patient with several returns is counted twice, a planned return counts against the hospital or a return to another facility is missed.",
         "Deaths, transfers, discharges against medical advice and discharges too recent to have had a full follow-up window sit in the rate, or vanish from it without a trace."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Publish rooms available, sold and occupied, room revenue, occupancy, ADR and RevPAR per property and night from reservation lines and room inventory, with every line counted or set aside with a reason and amendments to closed nights handled visibly as approved.",
+      "domain_objects": [
+        "property",
+        "reservation_line",
+        "room_inventory",
+        "stay_night",
+        "rooms_available",
+        "rooms_sold",
+        "room_revenue",
+        "occupancy",
+        "adr",
+        "revpar",
+        "night_close",
+        "restatement"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "hospitality-occupancy-adr-revpar",
+      "industry": [
+        "hospitality"
+      ],
+      "job_category": "build",
+      "path": "recipes/hospitality-occupancy-adr-revpar/recipe.md",
+      "pitch": "One nightly table of occupancy, ADR and RevPAR that reconciles to every reservation line and rolls up from sums.",
+      "qualifiers": [
+        "Needs reservation lines with a nightly rate and a room inventory per property and night already landed as tables.",
+        "Stops at the nightly table; forecasting, pace, comp-set index, channel mix and profit measures are separate work.",
+        "Judging a later amendment needs a close per night, from the source or an approved rule."
+      ],
+      "readiness": "supported",
+      "related": [
+        "shared-calendar-fiscal-periods",
+        "metric-population-and-rollups",
+        "business-event-fact",
+        "metricflow-semantic-model",
+        "shared-fx-conversion"
+      ],
+      "sha256": "64556cd8617a675f4cc2ddfff18bbed4aa682ffcf93c4ef5e4a0f19a77e98248",
+      "title": "Build nightly occupancy, ADR and RevPAR by property with closed-night restatements",
+      "trigger": [
+        "Occupancy, ADR and RevPAR differ between reports because each one counts stays, comps, out-of-order rooms and cancellations its own way.",
+        "A multi-night stay lands on its check-in day, the checkout day is counted as a night, or a month's ADR is an average of daily ADRs.",
+        "A reservation amended after a night closed quietly changes a morning figure that revenue management already acted on."
       ],
       "works_with": {
         "platforms": [
