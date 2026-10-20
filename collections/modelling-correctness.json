@@ -30,6 +30,7 @@
     "cpg-promotion-lift",
     "utilities-meter-to-bill",
     "telecom-cdr-usage",
-    "life-sciences-enrollment"
+    "life-sciences-enrollment",
+    "saas-mrr-waterfall-nrr"
   ]
 }
