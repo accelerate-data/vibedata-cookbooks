@@ -8,6 +8,7 @@
     "customer-historical-ltv",
     "customer-retention-churn-features",
     "product-sessionization-funnels",
-    "marketing-attribution-models"
+    "marketing-attribution-models",
+    "saas-mrr-waterfall-nrr"
   ]
 }
