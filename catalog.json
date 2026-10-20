@@ -84,6 +84,7 @@
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "managed-connector-to-dlt",
+        "manufacturing-oee-downtime",
         "marketing-attribution-models",
         "master-b2b-account-hierarchy",
         "master-product-sku-hierarchy",
@@ -120,7 +121,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 67,
+      "supported_or_proven_count": 68,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -290,6 +291,7 @@
         "insurance-loss-triangles",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
+        "manufacturing-oee-downtime",
         "marketing-attribution-models",
         "master-product-sku-hierarchy",
         "materialized-view-to-dbt",
@@ -348,7 +350,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 58,
+      "supported_or_proven_count": 59,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -385,7 +387,8 @@
         "utilities-meter-to-bill",
         "telecom-cdr-usage",
         "life-sciences-enrollment",
-        "saas-mrr-waterfall-nrr"
+        "saas-mrr-waterfall-nrr",
+        "manufacturing-oee-downtime"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -404,6 +407,7 @@
         "insurance-loss-triangles",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
+        "manufacturing-oee-downtime",
         "marketing-attribution-models",
         "metric-population-and-rollups",
         "operational-state-duration",
@@ -417,7 +421,7 @@
         "telecom-cdr-usage",
         "utilities-meter-to-bill"
       ],
-      "supported_or_proven_count": 28,
+      "supported_or_proven_count": 29,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -456,6 +460,7 @@
         "insurance-loss-triangles",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
+        "manufacturing-oee-downtime",
         "marketing-attribution-models",
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
@@ -488,7 +493,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 55,
+      "supported_or_proven_count": 56,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -559,6 +564,7 @@
       "kind": "function",
       "resolved_members": [
         "logistics-fleet-utilization",
+        "manufacturing-oee-downtime",
         "master-product-sku-hierarchy",
         "ops-inventory-reconciliation",
         "ops-otif",
@@ -571,7 +577,7 @@
           "supply-chain-ops"
         ]
       },
-      "supported_or_proven_count": 7,
+      "supported_or_proven_count": 8,
       "title": "Supply chain and operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -2869,6 +2875,70 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build availability, performance, quality and OEE per machine, shift and day with weighted line and plant roll-ups and a reason-ranked downtime Pareto, with every stop, count and machine accounted for.",
+      "domain_objects": [
+        "machine",
+        "production_schedule",
+        "downtime_event",
+        "production_count",
+        "production_line",
+        "ideal_cycle_time"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops"
+      ],
+      "id": "manufacturing-oee-downtime",
+      "industry": [
+        "manufacturing"
+      ],
+      "job_category": "build",
+      "path": "recipes/manufacturing-oee-downtime/recipe.md",
+      "pitch": "Show what cost each line its OEE points with every stop, piece and machine accounted for.",
+      "qualifiers": [
+        "Needs scheduled windows, a stop log, production counts and ideal cycle times",
+        "Stops at OEE and downtime ranking; yield and work-in-progress reconciliation are separate",
+        "Starts from reported stop intervals and period piece counts, not raw signals or counters"
+      ],
+      "readiness": "supported",
+      "related": [
+        "operational-state-duration",
+        "logistics-fleet-utilization",
+        "metric-population-and-rollups",
+        "effective-dated-business-rules"
+      ],
+      "sha256": "82d587d9e21ed8b95370525bdbcedd960b6e59455abcb961b0c01dcc212b24ba",
+      "title": "Build overall equipment effectiveness and a downtime Pareto",
+      "trigger": [
+        "Plant OEE comes from a hand-built spreadsheet and nobody can say whether stops, slow running or scrap cost a line its points.",
+        "Line and plant OEE averages machine OEEs, so a small machine moves the number as much as a large one.",
+        "Stops with no reason, no end or a shift-change crossing distort availability and leave the downtime ranking unable to tie back to OEE."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
           "dbt"
         ]
       }
