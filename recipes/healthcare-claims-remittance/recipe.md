@@ -10,6 +10,8 @@ pitch: Billed to paid, adjusted, denied and open for every claim line and payer,
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - finance
 industry:
   - healthcare
 domain_objects:
@@ -31,7 +33,7 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Claims, remittance lines, batch payments and reason-code rules must already be landed as tables.
+  - Claims, remittance lines and batch payments must be landed; reason-code rules may be captured as editable data.
   - Stops at the reconciliation; appeals, resubmission, underpayment checks, patient billing and bank matching are separate.
   - Only as complete as the remittances received; claims not yet remitted are shown as approved.
 related:
@@ -58,7 +60,7 @@ Build <claim_line_reconciliation>, <claim_reconciliation>, <payer_summary>, <rem
 
 - At each published grain, the pieces of every row plus any residue shown add up to its billed amount; a claim with no remittance appears as the approved rule says.
 - On a run that completes, every input remittance line is either applied to a claim line or set aside with its approved reason, and the applied plus set-aside amounts equal the input total.
-- A remittance line the approved rules cannot link to a claim, line or payer is set aside with its approved identifying keys, amount and reason, never attached elsewhere; claims left out of scope stay visible with their reason.
+- A remittance line the approved rules cannot link to a claim, line or payer is set aside with its keys, amount and reason, never attached elsewhere; claims out of scope are shown or counted with their reason as approved, and the outcome states how many were excluded and why.
 - A resent line is not paid twice under the approved duplicate rule, the line of record follows it and each set-aside copy names the line it duplicates; several remittances on one claim combine as approved, and each negative amount is treated as the approved rule says.
 - A line paid above its billed amount shows the excess as the approved rule says, and a code the approved rules do not place lands where they say, visible and never silently classed; the pieces plus any excess the approved rule shows add up to the billed amount.
 - The class of an amount comes from the approved reason-code rules and not from the payer's own label; changing a rule changes the published pieces with no change to the logic within the approved rule form.
@@ -87,10 +89,10 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 ### Ask first
 
-- If unresolved, which payers (including one seen only in remittances), periods and currencies are in scope, which date places a claim in a period, how are corrected, replacement, voided or resubmitted claim versions treated, and are excluded claims shown with a reason?
+- If unresolved, which payers (including one seen only in remittances), periods and currencies are in scope, which date places a claim in a period, how are corrected, replacement, voided or resubmitted claim versions treated, and are excluded claims shown or only counted, with a reason?
 - If unresolved, which classes divide a billed amount, how does a rule map a code to a class (by reason code and adjustment group, per payer or global, with what default), is there a class for other adjustments, and where does a code the rules do not place go?
 - If unresolved, how are several remittances on one claim combined, what makes a line a resend, which copy is the line of record, and how are a reversal, a correction, a recovery and a replacement treated?
-- If unresolved, how is a remittance that names a claim but no service line attributed to the claim's lines, spread by what weight and rounding, or kept at claim grain?
+- If unresolved, which identifiers link a remittance to a claim, line and payer (a claim or payer control number, a line control number, or procedure code, modifiers and service date), how is a split or bundled line treated, and is a claim-level remittance spread over lines or kept at claim grain?
 - If unresolved, how is open defined, and how are a claim with no remittance yet and a line paid above its billed amount shown, signed and flagged or limited?
 - If unresolved, which remittance lines are set aside rather than applied (unknown claim or line, another payer including a secondary payer under coordination of benefits), under which reasons, which reason wins when several apply to one line, and at which grain is each reported?
 - If unresolved, how is denial rate defined (by amount, line count or claim count), how many top denial reasons are published, ranked by what, and how are ties broken?
@@ -98,7 +100,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 ### Guardrails
 
-- Do not choose classes, reason-code rules, resend and combination rules, the spreading rule, the open definition, the denial-rate definition, the set-aside reasons or the batch total for the user, and take none from the data or common practice; the user may ask for alternatives or a recommendation.
+- Do not choose classes, reason-code rules, the linking rule, resend and combination rules, the spreading rule, the open definition, the denial-rate definition, set-aside reasons or the batch total for the user, and take none from the data or common practice; the user may ask for alternatives.
 - Never mix claim-level and line-level amounts at one grain; when a claim-level amount is spread, keep the original and mark the spread.
 - Never drop or double count a remittance line; every line that cannot be applied stays visible with its reason.
 - Never clamp, floor or absorb a difference to make a row tie unless the approved rule says so; an overpayment, an unmapped amount and an untied batch stay visible.
