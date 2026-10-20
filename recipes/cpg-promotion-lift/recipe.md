@@ -12,6 +12,8 @@ pitch: One lift and dip figure per promotion event, with the baseline method sho
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - revops
 industry:
   - cpg
 domain_objects:
@@ -63,7 +65,7 @@ Build <lift_model>, carrying measured and listed events, and <coverage_model> fr
 - Where a minimum amount of evidence is approved, an event whose baseline would rest on less is listed, not measured, unless an approved fallback applies and the method name shows it; an event with exactly the minimum is measured.
 - A zero baseline is handled as approved and never shows an infinite or invented percentage; a negative lift is shown as negative unless the user approved another treatment, which the output states.
 - Overlapping events on one account and product follow the approved overlap rule and name the other events; a lift is attributed to overlapping events only as that rule says and is never counted twice in any total.
-- The approved status rule decides which promotions ran: one that did not run changes no other event's baseline or weeks; a placed one that ran does, even when it is itself listed, and the neighbours of an unplaceable one that ran are handled as approved and shown.
+- The approved status rule decides which promotions ran: one that did not run changes no other event's baseline or weeks; a placed one that ran follows the approved clean-week and overlap rules even if itself listed, and an unplaceable one that ran has its neighbours handled as approved and shown.
 - The post-event dip is its own figure over the approved length, read against the baseline and equal to an independent derivation; any net-of-dip lift is a separate labelled figure, and a dip the data cannot support is shown as approved with its reason.
 - A week with no row, or a duplicated, negative or null one, is never silently turned into zero, summed or picked: it is treated as approved and the treatment is shown; where it is unknown it leaves the baseline, and an event week with one is handled as approved.
 - In a published run each unmeasurable event is listed with the first approved reason that applies under its documented precedence; none is dropped or both measured and listed. A failed run names the offending records and publishes no partial figures.
