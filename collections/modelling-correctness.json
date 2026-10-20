@@ -27,6 +27,10 @@
     "healthcare-readmission-cohort",
     "healthcare-claims-remittance",
     "banking-delinquency-vintages",
+    "cpg-promotion-lift",
+    "utilities-meter-to-bill",
+    "telecom-cdr-usage",
+    "life-sciences-enrollment",
     "saas-mrr-waterfall-nrr"
   ]
 }

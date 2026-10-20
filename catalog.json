@@ -50,6 +50,7 @@
         "banking-delinquency-vintages",
         "bounded-partition-backfill",
         "business-event-fact",
+        "cpg-promotion-lift",
         "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
@@ -78,6 +79,7 @@
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
         "legacy-sql-to-dbt",
+        "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "managed-connector-to-dlt",
         "marketing-attribution-models",
@@ -106,14 +108,16 @@
         "shared-fx-conversion",
         "shift-unit-economics",
         "source-freshness-sla",
-        "spark-ingestion-notebook-to-dlt"
+        "spark-ingestion-notebook-to-dlt",
+        "telecom-cdr-usage",
+        "utilities-meter-to-bill"
       ],
       "selector": {
         "platforms_any": [
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 62,
+      "supported_or_proven_count": 66,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -139,16 +143,37 @@
         "ops-procurement-spend",
         "people-payroll-gl-tieout",
         "revops-bookings-billings-cash",
-        "shared-fx-conversion"
+        "shared-fx-conversion",
+        "utilities-meter-to-bill"
       ],
       "selector": {
         "function": [
           "finance"
         ]
       },
-      "supported_or_proven_count": 17,
+      "supported_or_proven_count": 18,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
+      "website_visible": true
+    },
+    {
+      "description": "Recipes for data engineers working with healthcare and life-sciences data, such as claims, admissions and clinical-trial enrollment.",
+      "id": "healthcare-and-life-sciences",
+      "kind": "industry",
+      "resolved_members": [
+        "healthcare-claims-remittance",
+        "healthcare-readmission-cohort",
+        "life-sciences-enrollment"
+      ],
+      "selector": {
+        "industry": [
+          "healthcare",
+          "life-sciences"
+        ]
+      },
+      "supported_or_proven_count": 3,
+      "title": "Healthcare and life sciences",
+      "website_publication_threshold": 1,
       "website_visible": true
     },
     {
@@ -161,7 +186,8 @@
         "file-drop-to-bronze",
         "governed-spreadsheet-table",
         "managed-connector-to-dlt",
-        "spark-ingestion-notebook-to-dlt"
+        "spark-ingestion-notebook-to-dlt",
+        "telecom-cdr-usage"
       ],
       "resolved_members": [
         "api-to-bronze-incremental-contract",
@@ -169,9 +195,10 @@
         "file-drop-to-bronze",
         "governed-spreadsheet-table",
         "managed-connector-to-dlt",
-        "spark-ingestion-notebook-to-dlt"
+        "spark-ingestion-notebook-to-dlt",
+        "telecom-cdr-usage"
       ],
-      "supported_or_proven_count": 6,
+      "supported_or_proven_count": 7,
       "title": "Ingest and reconcile source data",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -232,6 +259,7 @@
         "banking-aml-features",
         "banking-delinquency-vintages",
         "business-event-fact",
+        "cpg-promotion-lift",
         "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
@@ -256,6 +284,7 @@
         "healthcare-readmission-cohort",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
+        "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "marketing-attribution-models",
         "master-product-sku-hierarchy",
@@ -280,7 +309,9 @@
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
-        "stored-procedure-to-dbt"
+        "stored-procedure-to-dbt",
+        "telecom-cdr-usage",
+        "utilities-meter-to-bill"
       ],
       "selector": {
         "platforms_any": [
@@ -312,7 +343,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 53,
+      "supported_or_proven_count": 57,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -344,12 +375,17 @@
         "insurance-loss-triangles",
         "healthcare-readmission-cohort",
         "healthcare-claims-remittance",
-        "banking-delinquency-vintages"
+        "banking-delinquency-vintages",
+        "cpg-promotion-lift",
+        "utilities-meter-to-bill",
+        "telecom-cdr-usage",
+        "life-sciences-enrollment"
       ],
       "resolved_members": [
         "banking-aml-features",
         "banking-delinquency-vintages",
         "business-event-fact",
+        "cpg-promotion-lift",
         "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
@@ -360,6 +396,7 @@
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
         "insurance-loss-triangles",
+        "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "marketing-attribution-models",
         "metric-population-and-rollups",
@@ -369,9 +406,11 @@
         "retail-sell-through-stockout",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
-        "shift-unit-economics"
+        "shift-unit-economics",
+        "telecom-cdr-usage",
+        "utilities-meter-to-bill"
       ],
-      "supported_or_proven_count": 23,
+      "supported_or_proven_count": 27,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -385,6 +424,7 @@
         "banking-aml-features",
         "banking-delinquency-vintages",
         "business-event-fact",
+        "cpg-promotion-lift",
         "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
@@ -407,6 +447,7 @@
         "healthcare-readmission-cohort",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
+        "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "marketing-attribution-models",
         "master-product-sku-hierarchy",
@@ -430,14 +471,16 @@
         "shared-fx-conversion",
         "shift-unit-economics",
         "source-freshness-sla",
-        "spark-ingestion-notebook-to-dlt"
+        "spark-ingestion-notebook-to-dlt",
+        "telecom-cdr-usage",
+        "utilities-meter-to-bill"
       ],
       "selector": {
         "platforms_any": [
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 50,
+      "supported_or_proven_count": 54,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -467,6 +510,7 @@
       "id": "revenue-operations-data-engineering",
       "kind": "function",
       "resolved_members": [
+        "cpg-promotion-lift",
         "marketing-attribution-models",
         "master-b2b-account-hierarchy",
         "revops-bookings-billings-cash",
@@ -478,7 +522,7 @@
           "revops"
         ]
       },
-      "supported_or_proven_count": 5,
+      "supported_or_proven_count": 6,
       "title": "Revenue operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -792,6 +836,73 @@
         "Transaction feeds overlap, and source deliveries may be counted as separate business events.",
         "Replayed deliveries change a report's unique event count or additive totals.",
         "A trip or consignment fact must preserve valid similar events and explain conflicting records."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For each approved promotion event, compare actual sales in the event weeks with a baseline built under the user's approved method, show the method and its evidence on every row, report the post-event dip as its own figure, and give each unmeasurable event one reason or fail the run as approved.",
+      "domain_objects": [
+        "promotion_event",
+        "promotion_calendar_line",
+        "weekly_sales",
+        "baseline",
+        "promotion_lift",
+        "post_promotion_dip",
+        "lift_exception",
+        "holiday_calendar",
+        "account",
+        "product"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "revops"
+      ],
+      "id": "cpg-promotion-lift",
+      "industry": [
+        "cpg"
+      ],
+      "job_category": "build",
+      "path": "recipes/cpg-promotion-lift/recipe.md",
+      "pitch": "One lift and dip figure per promotion event, with the baseline method shown and a reason for every event that cannot be measured.",
+      "qualifiers": [
+        "Needs weekly sales by account and product, and a promotion calendar with account, product or product group, and dates.",
+        "Stops at lift and dip figures; trade spend, ROI, forecasting and price elasticity are separate outcomes.",
+        "Applies the approved baseline method; it does not prove causal incrementality.",
+        "Sales and calendar tables already in the Domain; exported files go to file-drop-to-bronze first."
+      ],
+      "readiness": "supported",
+      "related": [
+        "master-product-sku-hierarchy",
+        "effective-dated-business-rules",
+        "metric-population-and-rollups"
+      ],
+      "sha256": "28f074e9dd15ba16b5383b3e7a29690c10a92feba47a6bb526e02b37f6060096",
+      "title": "Measure trade-promotion lift and the post-promotion dip against an explicit baseline",
+      "trigger": [
+        "Trade marketing reports promotion results with whatever comparison each analyst chose, and nobody can say what \"without the promotion\" meant for a given event.",
+        "A promotion's lift looks inflated or deflated because the comparison weeks held another promotion, a holiday, a stock-out or missing sales.",
+        "Two promotions on one account and product overlap or run back to back, and the lift is credited to both or to neither.",
+        "Cancelled events, events with bad dates and events with no sales history vanish from the results with no stated reason.",
+        "The dip after a promotion is hidden inside the lift, so lifts cannot be compared from one event to the next."
       ],
       "works_with": {
         "platforms": [
@@ -2574,6 +2685,71 @@
       "works_with": {
         "platforms": [
           "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Classify every loaded screening record as an enrolled subject, a screen failure with one named reason or a record set aside or left out of scope with its reason, and publish study, site and month enrollment against the approved target in force, with the approved screen-failure rate and time to first enrollment, tied back to the subjects.",
+      "domain_objects": [
+        "screening_record",
+        "study_subject",
+        "enrollment_disposition",
+        "screen_failure_reason",
+        "site_month",
+        "enrollment_target",
+        "completeness_check"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "life-sciences-enrollment",
+      "industry": [
+        "life-sciences"
+      ],
+      "job_category": "build",
+      "path": "recipes/life-sciences-enrollment/recipe.md",
+      "pitch": "Every screening record is enrolled, failed for a stated reason, set aside or left out of scope, and site performance ties back to the subjects.",
+      "qualifiers": [
+        "Screening records and the site list with dates must be landed; reasons and targets may be captured as data.",
+        "Stops at enrollment and site performance; forecasting, site selection and monitoring are separate.",
+        "Screenings at sites missing from the data cannot be seen, and are not claimed absent."
+      ],
+      "readiness": "supported",
+      "related": [
+        "effective-dated-business-rules",
+        "metric-population-and-rollups",
+        "business-event-fact",
+        "operational-state-duration",
+        "healthcare-readmission-cohort"
+      ],
+      "sha256": "57028eaa1e227265ce412cfbddf4c0107520e7a3119c522164f7ca974d826031",
+      "title": "Build clinical-trial enrollment and site-performance models with every screened subject accounted for",
+      "trigger": [
+        "Clinical operations rebuilds enrollment and site performance in a spreadsheet each month, and nobody can say who was left out of the enrolled count or why a site looks slow.",
+        "Re-screens and people screened for more than one study are counted inconsistently, so enrolled counts and screen-failure rates cannot be defended.",
+        "Randomizations before a site was activated or after it closed, bad dates and subjects at unlisted sites sit in the counts or vanish from them without a trace.",
+        "A site that enrolled nobody in a month has no row, and a changed enrollment target is applied in the wrong period."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
@@ -4565,6 +4741,139 @@
       ],
       "works_with": {
         "platforms": [
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "ingestion",
+      "description": "Land switch call-detail batches with their manifests, report every expected batch against its declared count, and publish usage per subscriber and day with each day's backing stated, every record counted or set aside with a reason, and late batches restated visibly.",
+      "domain_objects": [
+        "cdr_batch",
+        "batch_manifest",
+        "expected_batch_schedule",
+        "delivery_completeness",
+        "record_disposition",
+        "subscriber_day_usage",
+        "usage_restatement"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "add-or-update-source",
+          "generating-dlt-pipeline",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "id": "telecom-cdr-usage",
+      "industry": [
+        "telecom"
+      ],
+      "job_category": "build",
+      "path": "recipes/telecom-cdr-usage/recipe.md",
+      "pitch": "Land call-detail batches and publish subscriber-day usage with batch completeness, day backing and visible restatement of late batches.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; other listed targets rely on dlt and dbt support and are unassessed.",
+        "Needs a Studio route for dlt to read the drop; cloud buckets (ADLS, S3) have none today.",
+        "Needs each batch to arrive with a manifest stating its declared record count, or the batch cannot be judged.",
+        "Needs a source of expected batches; a batch neither expected nor delivered cannot be seen.",
+        "Covers delimited text batches such as CSV; other layouts are out of scope.",
+        "Stops at subscriber-day usage; rating, billing, churn, ARPU, fraud and network quality are separate work.",
+        "Landing controls for layout, rescans and part-way failure follow file-drop-to-bronze.",
+        "A generic file drop with no usage rollup belongs to file-drop-to-bronze."
+      ],
+      "readiness": "supported",
+      "related": [
+        "file-drop-to-bronze",
+        "business-event-fact",
+        "customer-retention-churn-features"
+      ],
+      "sha256": "b540e4aa02fd9224a327512cb1ef37be37c7049926b8fe1678baa38208b42bea",
+      "title": "Land call-detail batches and aggregate them into subscriber-day usage with manifest completeness",
+      "trigger": [
+        "Monthly subscriber usage differs by who ran it, because nobody can say which call-detail batches had landed or whether each arrived complete.",
+        "A batch is re-sent, cut short, missing its manifest or delivered late, and the usage numbers change or hold a quiet day that was really a gap.",
+        "Billing or network analytics need usage per subscriber per day with every record accounted for and each day marked as backed by complete batches or not."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Set metered energy beside billed energy for every in-scope service point and billing period, give each period one verdict under approved tolerance rules, quantify unbilled energy to an approved as-of date, and account for every read and bill line, with no missing read treated as zero.",
+      "domain_objects": [
+        "service_point",
+        "meter_read",
+        "billing_period",
+        "bill_line",
+        "tolerance_rule",
+        "reconciliation_verdict",
+        "unbilled_energy"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "utilities-meter-to-bill",
+      "industry": [
+        "utilities"
+      ],
+      "job_category": "build",
+      "path": "recipes/utilities-meter-to-bill/recipe.md",
+      "pitch": "Match metered to billed energy for every in-scope period and quantify what was never billed, with nothing silently dropped.",
+      "qualifiers": [
+        "Reads, a meter master and bill lines must already be landed as tables, with periods from a calendar or approved source.",
+        "Quantities only; tariffs, pricing and revenue accruals in money are separate outcomes.",
+        "Energy commodities only; volume-only commodities such as water are a separate outcome.",
+        "Stops at the classified reconciliation; correcting bills and estimating missing reads are separate.",
+        "Reproducing a past as-of date after rule or source changes needs kept history of the sources."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-gl-subledger-tieout",
+        "ops-inventory-reconciliation",
+        "effective-dated-business-rules",
+        "shared-calendar-fiscal-periods"
+      ],
+      "sha256": "72534c55160bd11eeabb965a6841a9427ac8196a796532d9cb4aceaddb8bfbbd",
+      "title": "Reconcile meter reads to bills and quantify unbilled energy",
+      "trigger": [
+        "Revenue assurance compares metered usage with billed usage in a spreadsheet each month, and nobody can say which differences are real and which are timing, estimates or a meter swap.",
+        "A meter with a multiplier, a register that rolled over or a meter exchanged mid-period makes billed energy disagree with the reads, and the cause is found by hand.",
+        "Finance asks how much energy was delivered but never billed, and the answer changes with every join, because a period with no read or no bill looks like zero."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
           "fabric_warehouse",
           "redshift"
         ],
