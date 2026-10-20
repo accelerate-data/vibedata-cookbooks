@@ -102,6 +102,7 @@
         "people-payroll-gl-tieout",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
+        "public-sector-grant-funds",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
@@ -122,7 +123,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 69,
+      "supported_or_proven_count": 70,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -147,6 +148,7 @@
         "master-b2b-account-hierarchy",
         "ops-procurement-spend",
         "people-payroll-gl-tieout",
+        "public-sector-grant-funds",
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
         "shared-fx-conversion",
@@ -157,7 +159,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 19,
+      "supported_or_proven_count": 20,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -309,6 +311,7 @@
         "pii-classification-and-masking",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
+        "public-sector-grant-funds",
         "readiness-gated-orchestration",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
@@ -352,7 +355,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 60,
+      "supported_or_proven_count": 61,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -391,7 +394,8 @@
         "life-sciences-enrollment",
         "saas-mrr-waterfall-nrr",
         "manufacturing-oee-downtime",
-        "hospitality-occupancy-adr-revpar"
+        "hospitality-occupancy-adr-revpar",
+        "public-sector-grant-funds"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -417,6 +421,7 @@
         "operational-state-duration",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
+        "public-sector-grant-funds",
         "retail-sell-through-stockout",
         "saas-mrr-waterfall-nrr",
         "shared-calendar-fiscal-periods",
@@ -425,7 +430,7 @@
         "telecom-cdr-usage",
         "utilities-meter-to-bill"
       ],
-      "supported_or_proven_count": 30,
+      "supported_or_proven_count": 31,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -481,6 +486,7 @@
         "people-payroll-gl-tieout",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
+        "public-sector-grant-funds",
         "readiness-gated-orchestration",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
@@ -498,7 +504,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 57,
+      "supported_or_proven_count": 58,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -4114,6 +4120,74 @@
         "An existing dbt change builds successfully but reviewers still need evidence that its business answers remain valid.",
         "A change to fleet, shipment or financial models needs independent checks against agreed requirements and an approved baseline.",
         "A reviewer must distinguish an implementation defect from missing data, missing relationships or insufficient test coverage."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For the approved awards, categories and periods, publish authorized, obligated, expended and drawn amounts with unobligated balance, unliquidated obligations and cash position, dated changes applied as approved, exceptions flagged beside the figures, and every source line counted, de-obligated or set aside with a reason.",
+      "domain_objects": [
+        "grant_award",
+        "award_amendment",
+        "budget_category",
+        "period_of_performance",
+        "obligation",
+        "expenditure",
+        "drawdown",
+        "funds_position",
+        "cash_position",
+        "funds_exception",
+        "record_disposition"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "public-sector-grant-funds",
+      "industry": [
+        "public-sector"
+      ],
+      "job_category": "build",
+      "path": "recipes/public-sector-grant-funds/recipe.md",
+      "pitch": "Show each award's authorized, obligated, expended and drawn position per budget category and period, with flagged exceptions and every line reconciled.",
+      "qualifiers": [
+        "Awards, amendments, obligations, expenditures and drawdowns arrive as landed tables; landing them is separate work.",
+        "A past period as first reported needs kept snapshots or a source arrival date; otherwise it is unproven.",
+        "Stops at the funds position; allowability, indirect rates, agency reports and budget variance are separate.",
+        "Tying amounts to the general ledger belongs to finance-gl-subledger-tieout.",
+        "Commitments come from award records; invoice-to-contract matching belongs to ops-procurement-spend."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-gl-subledger-tieout",
+        "finance-budget-forecast-actual",
+        "effective-dated-business-rules",
+        "ops-procurement-spend",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "00ca8df5745689fd11ce7c960f5d758f1861bdb05b9b3ffc1129e9bede1f1ae3",
+      "title": "Track grant funds per award from authorization to drawdown and flag exceptions",
+      "trigger": [
+        "Grants accountants cannot say per award how much is authorized, obligated, spent and drawn, and each report gives a different answer.",
+        "An amendment, a cancelled commitment, a late posting or a draw ahead of spend changes an award's position and nobody can see why.",
+        "Program managers and auditors need over-commitment and cash exceptions flagged per award and budget category while every transaction line stays accounted for."
       ],
       "works_with": {
         "platforms": [
