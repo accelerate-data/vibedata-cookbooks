@@ -27,6 +27,7 @@
     "healthcare-readmission-cohort",
     "healthcare-claims-remittance",
     "banking-delinquency-vintages",
-    "cpg-promotion-lift"
+    "cpg-promotion-lift",
+    "utilities-meter-to-bill"
   ]
 }
