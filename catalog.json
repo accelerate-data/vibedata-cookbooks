@@ -46,6 +46,7 @@
       "kind": "platform",
       "resolved_members": [
         "api-to-bronze-incremental-contract",
+        "banking-aml-features",
         "bounded-partition-backfill",
         "business-event-fact",
         "customer-consent-preferences",
@@ -96,6 +97,8 @@
         "revops-quota-commission",
         "scalar-sql-function-to-dbt-macro",
         "service-ticket-sla",
+        "shared-calendar-fiscal-periods",
+        "shared-fx-conversion",
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt"
@@ -105,7 +108,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 54,
+      "supported_or_proven_count": 57,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -127,14 +130,15 @@
         "master-b2b-account-hierarchy",
         "ops-procurement-spend",
         "people-payroll-gl-tieout",
-        "revops-bookings-billings-cash"
+        "revops-bookings-billings-cash",
+        "shared-fx-conversion"
       ],
       "selector": {
         "function": [
           "finance"
         ]
       },
-      "supported_or_proven_count": 13,
+      "supported_or_proven_count": 14,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -217,6 +221,7 @@
       "kind": "platform",
       "resolved_members": [
         "api-to-bronze-incremental-contract",
+        "banking-aml-features",
         "business-event-fact",
         "customer-consent-preferences",
         "customer-historical-ltv",
@@ -257,6 +262,8 @@
         "prove-dbt-change-safe",
         "readiness-gated-orchestration",
         "revops-bookings-billings-cash",
+        "shared-calendar-fiscal-periods",
+        "shared-fx-conversion",
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
@@ -292,7 +299,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 45,
+      "supported_or_proven_count": 48,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -316,9 +323,13 @@
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "customer-consent-preferences",
-        "marketing-attribution-models"
+        "marketing-attribution-models",
+        "banking-aml-features",
+        "shared-calendar-fiscal-periods",
+        "shared-fx-conversion"
       ],
       "resolved_members": [
+        "banking-aml-features",
         "business-event-fact",
         "customer-consent-preferences",
         "customer-historical-ltv",
@@ -333,9 +344,11 @@
         "operational-state-duration",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
+        "shared-calendar-fiscal-periods",
+        "shared-fx-conversion",
         "shift-unit-economics"
       ],
-      "supported_or_proven_count": 15,
+      "supported_or_proven_count": 18,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -346,6 +359,7 @@
       "kind": "platform",
       "resolved_members": [
         "api-to-bronze-incremental-contract",
+        "banking-aml-features",
         "business-event-fact",
         "customer-consent-preferences",
         "customer-historical-ltv",
@@ -384,6 +398,8 @@
         "prove-dbt-change-safe",
         "readiness-gated-orchestration",
         "revops-bookings-billings-cash",
+        "shared-calendar-fiscal-periods",
+        "shared-fx-conversion",
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt"
@@ -393,7 +409,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 42,
+      "supported_or_proven_count": 45,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -533,6 +549,70 @@
         ],
         "tools": [
           "dlt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Publish one row per account and day with approved monitoring features computed under an approved time basis so no later transaction changes a published row, every transaction counted, set aside with its reason or listed as not counted, uncomputable features shown as unknown with a reason, and reference data read as now recorded stated as able to restate rows.",
+      "domain_objects": [
+        "account",
+        "transaction",
+        "exchange_rate",
+        "jurisdiction_risk_list",
+        "account_day_feature",
+        "set_aside_transaction",
+        "coverage_check"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "id": "banking-aml-features",
+      "industry": [
+        "banking"
+      ],
+      "job_category": "build",
+      "path": "recipes/banking-aml-features/recipe.md",
+      "pitch": "One reproducible feature row per account and day under a stated time basis, with every transaction counted or explained.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Accounts and transactions must already be landed as tables with the dates the approved time basis needs.",
+        "Features derive from transactions only; balance-based features need an as-known balance source and are out of scope.",
+        "Publishes features only; alerts, cases, SAR filing, sanctions screening and risk rating are separate.",
+        "Account grain only; customer or network roll-ups need entity resolution first.",
+        "Where a risk-list feature is approved, the list is needed with its effective dates.",
+        "Reader restriction needs platform roles; DuckDB and MotherDuck have none, so access there is reported unproven."
+      ],
+      "readiness": "supported",
+      "related": [
+        "customer-retention-churn-features",
+        "identity-golden-record-crosswalk",
+        "pii-classification-and-masking",
+        "effective-dated-business-rules",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "4e038de3898e969db0c81bb5c39499eebe79451b89c00be115830b7149e3725a",
+      "title": "Build AML monitoring features at account-day grain",
+      "trigger": [
+        "A transaction-monitoring model is fed hand-built features nobody can reproduce, so two runs on the same data disagree.",
+        "A backtest looks better than live performance because a feature quietly used a transaction recorded after the day being scored.",
+        "Analysts and model builders each count cash near the reporting threshold, pass-through and velocity differently, and cannot say which transactions were left out."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
         ]
       }
     },
@@ -3773,6 +3853,132 @@
       "works_with": {
         "platforms": [
           "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Publish one date table, one row per day without gaps over an approved window, carrying calendar attributes, fiscal year, period, quarter and week, a business-day flag and a prior-year pointer under approved rules, with unplaceable dates handled as approved.",
+      "domain_objects": [
+        "calendar_date",
+        "fiscal_calendar",
+        "fiscal_period",
+        "fiscal_week",
+        "holiday_calendar",
+        "business_day",
+        "prior_year_pointer",
+        "unknown_date_member"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "shared-calendar-fiscal-periods",
+      "job_category": "build",
+      "path": "recipes/shared-calendar-fiscal-periods/recipe.md",
+      "pitch": "One date table every mart joins, so a day lands in the same fiscal period in every report.",
+      "qualifiers": [
+        "Where a holiday list applies, it must already be landed as a table; sourcing it is a separate outcome.",
+        "Does not convert time zones; the date basis each fact uses is approved per mart.",
+        "Stops at the date table; close, lock, period-to-date measures and mart rewiring are separate outcomes.",
+        "Once published, consumers take their periods from this table instead of rebuilding calendars."
+      ],
+      "readiness": "supported",
+      "related": [
+        "effective-dated-business-rules",
+        "finance-trial-balance-close",
+        "metric-population-and-rollups",
+        "customer-retention-churn-features",
+        "finance-budget-forecast-actual"
+      ],
+      "sha256": "dceb55109dd97f90423d20ec27222e4b422565d60ec2a905b1ed11701091bb3f",
+      "title": "Build one shared calendar and fiscal-period date table",
+      "trigger": [
+        "Two reports put the same day in different weeks, months, quarters or fiscal periods because each mart builds its own date logic.",
+        "Last year's comparison drifts whenever a fiscal year carries an extra week, or a business-day count ignores the holiday list.",
+        "Facts dated outside the date table, or with no date, silently drop out of the reports that join it."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Restate each transaction amount in one reporting currency at the rate the user's approved date basis and rate rules select, keep the original amount and the rate used on every row, set aside what cannot convert with one reason each, and tie converted and set-aside amounts back to what was received in each currency.",
+      "domain_objects": [
+        "transaction_amount",
+        "currency",
+        "exchange_rate",
+        "rate_version",
+        "currency_conversion",
+        "conversion_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "shared-fx-conversion",
+      "job_category": "build",
+      "path": "recipes/shared-fx-conversion/recipe.md",
+      "pitch": "One repeatable reporting-currency figure where every amount shows its rate, date, source and method, and every amount that could not convert shows why.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Needs amounts with a currency code and a date, and rate quotes with a quote date and a source.",
+        "Takes the quotes as supplied; sourcing a rate feed and checking it against a provider are separate outcomes.",
+        "Converts to an approved reporting currency; translation, exchange gain or loss, hedging and consolidation are separate.",
+        "Reproducing a past run needs kept rate versions with their recorded time; without them the outcome says it cannot.",
+        "Keeps each original currency apart; netting across currencies, pricing and rate forecasting are separate outcomes.",
+        "Rates are inputs to conversion, not general dated business rules; effective-dated rules are a separate outcome."
+      ],
+      "readiness": "supported",
+      "related": [
+        "effective-dated-business-rules",
+        "customer-historical-ltv",
+        "finance-trial-balance-close",
+        "ops-procurement-spend",
+        "revops-quota-commission"
+      ],
+      "sha256": "6325c18093dd43416a553ade64ea91ebed2e5ad44d22bd74d303280b07a3e067",
+      "title": "Normalize multi-currency amounts to a reporting currency with as-of rates",
+      "trigger": [
+        "Finance adds amounts held in several currencies as if they were one, or restates old transactions at today's rate, and the total changes every time someone reruns it.",
+        "A report that must be in one currency cannot show which exchange rate converted each amount, from which date and which source.",
+        "A rate was corrected after the fact and nobody can say whether a past figure used the old rate or the corrected one."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"

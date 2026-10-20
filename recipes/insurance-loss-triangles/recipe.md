@@ -10,6 +10,8 @@ pitch: Reproducible paid and incurred triangles whose older diagonals never move
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - finance
 industry:
   - insurance
 domain_objects:
@@ -38,6 +40,8 @@ related:
   - effective-dated-business-rules
   - revops-pipeline-snapshots
   - finance-gl-subledger-tieout
+  - business-event-fact
+  - metric-population-and-rollups
 evidence:
   features:
     - capturing-requirements
