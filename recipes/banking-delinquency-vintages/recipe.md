@@ -6,8 +6,8 @@ trigger:
   - Roll rates only show loans that stayed or got worse, because loans that paid off, were charged off or dropped out of the data vanish and the rows stop adding up.
   - Vintage curves look better for older cohorts than they should because they divide by today's balance, and young cohorts show a zero where the data does not reach yet.
   - A month that was already reported changes when late or backdated payments arrive, and nobody can say which version a published figure came from.
-description: For each approved month-end, place every in-scope term loan in a delinquency bucket, show where each bucket's loans and balance went by the next month-end including exits, and show how each origination cohort turns delinquent as it ages, with every record left out or unplaceable listed with its reason.
-pitch: Month-end buckets, roll rates and vintage curves for a term-loan book that add up, keep currencies apart and never invent a cure.
+description: For each approved month-end, place every in-scope term loan in a delinquency bucket, show where each bucket's loans and balance went by the end of the approved roll interval including exits, and show how each origination cohort turns delinquent as it ages, with every record left out or unplaceable listed with its reason.
+pitch: Month-end buckets, roll rates and vintage curves for a term-loan book that add up, keep currencies apart by default and never invent a cure.
 job_category: build
 area: transformation
 readiness: supported
@@ -32,6 +32,10 @@ works_with:
     - redshift
   tools:
     - dbt
+related:
+  - finance-ar-aging-dso
+  - dbt-snapshot-history
+  - effective-dated-business-rules
 qualifiers:
   - Needs loans, dated payments and status events, and repayment schedules where delinquency is derived from them.
   - Covers instalment (term) loans; revolving and card products are a separate outcome.
@@ -51,7 +55,7 @@ evidence:
 
 ## Prompt
 
-Build <placement_model>, <roll_rate_model>, <vintage_model> and <exceptions_model> from <loan_master_source>, <repayment_schedule_source>, <payments_source> and <status_events_source>. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only the semantics they leave open. For each approved month-end, place every in-scope loan open then in a delinquency bucket under the approved rule, show where each bucket's loans and balance went by the next month-end, including loans that left or cannot be followed, and show for each origination cohort how delinquency builds with age, leaving ages the cohort has not reached empty rather than zero. Keep currencies apart, list every record left out or unplaceable with its reason, and keep a published month-end stable as the approved time basis says. Keep sources read-only. Report what the inputs cannot prove.
+Build <placement_model>, <roll_rate_model>, <vintage_model> and <exceptions_model> from <loan_master_source>, <repayment_schedule_source>, <payments_source> and <status_events_source>. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only the semantics they leave open. For each approved month-end, place every in-scope loan open then in a delinquency bucket under the approved rule, show where each bucket's loans and balance went by the end of the approved roll interval, including loans that left or cannot be followed, and show for each origination cohort how delinquency builds with age, leaving ages the cohort has not reached empty rather than zero. Keep currencies apart unless an approved translation rule says otherwise, list every record left out or unplaceable with its reason, and keep a published month-end stable as the approved time basis says. Keep sources read-only. Report what the inputs cannot prove.
 
 ## Verified by
 
@@ -102,7 +106,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - Never let a loan that leaves the book vanish from a roll rate: the from-bucket must still reconcile to what it held, with each exit under the approved destinations.
 - Never divide a cohort's delinquency by a balance the user has not approved, and never show an age the cohort has not reached as zero.
 - Never rewrite a published month-end under an as-known basis, and never present later-recorded input as if it were known earlier.
-- Never sum loans or balances across currencies, and across entities or products only at the approved reporting cuts; translate currencies only under an approved rate rule.
+- Never sum loans or balances across currencies except in a reporting currency under an approved rate rule, and across entities or products only at the approved reporting cuts.
 - Never default a missing amount, date or rate to zero or fill it without approval, and never drop or double count a record; every record that cannot be processed stays visible with its reason.
 - Do not re-age a modified loan or drop its earlier delinquency except as the user approves, and never without the flag the approved rule requires.
 - Stop at delinquency measurement: do not provision, set collection actions, value recoveries or change the source loan records.
