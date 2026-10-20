@@ -32,7 +32,6 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Reads, a meter master and bill lines must already be landed as tables, with periods from a calendar or approved source.
   - Quantities only; tariffs, pricing and revenue accruals in money are separate outcomes.
   - Energy commodities only; volume-only commodities such as water are a separate outcome.
