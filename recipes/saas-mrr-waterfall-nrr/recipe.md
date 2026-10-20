@@ -1,6 +1,6 @@
 ---
 id: saas-mrr-waterfall-nrr
-title: Build the MRR waterfall and net revenue retention
+title: Build the MRR waterfall with net and gross revenue retention
 trigger:
   - Finance, RevOps and the board each quote a different net revenue retention because each turns subscriptions into monthly recurring revenue its own way.
   - A monthly revenue bridge never foots, or shows a plan switch as a lost customer beside a new one.
@@ -97,7 +97,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 ### Ask first
 
 - If unresolved, which customers and billing entities are in scope (internal, test, trial, free, merged), what is the customer key, which line types count as recurring (one-off, usage, setup, paused, negative), how recurring discounts and credit memos enter, and how left-out records are shown?
-- If unresolved, how a billing interval becomes a monthly amount, how quantity, rounding and a term the rules do not cover are treated, and which term applies when several are dated?
+- If unresolved, which keys link a subscription to its customer, plan and term, how a billing interval becomes a monthly amount, how quantity, rounding and a term the rules do not cover are treated, and which term applies when several are dated?
 - If unresolved, is the figure a month-end rate, any-day overlap or day-prorated, which months (calendar or fiscal) and as-of date apply, and does a dormant month between a loss and a return get a row, a zero or nothing?
 - If unresolved, from which date to which date is each source complete, where does opening revenue for customers older than the sources come from, and what does a month outside that range show?
 - If unresolved, at what level are movements decided (customer or subscription), how are plan switches, seat moves, price changes, a start or end inside one month and a fall to zero classed, and when is a returning customer a reactivation rather than new (does a gap length matter)?
