@@ -97,6 +97,7 @@
         "revops-quota-commission",
         "scalar-sql-function-to-dbt-macro",
         "service-ticket-sla",
+        "shared-calendar-fiscal-periods",
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt"
@@ -106,7 +107,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 55,
+      "supported_or_proven_count": 56,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -259,6 +260,7 @@
         "prove-dbt-change-safe",
         "readiness-gated-orchestration",
         "revops-bookings-billings-cash",
+        "shared-calendar-fiscal-periods",
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
@@ -294,7 +296,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 46,
+      "supported_or_proven_count": 47,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -319,7 +321,8 @@
         "customer-retention-churn-features",
         "customer-consent-preferences",
         "marketing-attribution-models",
-        "banking-aml-features"
+        "banking-aml-features",
+        "shared-calendar-fiscal-periods"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -337,9 +340,10 @@
         "operational-state-duration",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
+        "shared-calendar-fiscal-periods",
         "shift-unit-economics"
       ],
-      "supported_or_proven_count": 16,
+      "supported_or_proven_count": 17,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -389,6 +393,7 @@
         "prove-dbt-change-safe",
         "readiness-gated-orchestration",
         "revops-bookings-billings-cash",
+        "shared-calendar-fiscal-periods",
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt"
@@ -398,7 +403,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 43,
+      "supported_or_proven_count": 44,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -3842,6 +3847,69 @@
       "works_with": {
         "platforms": [
           "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Publish one date table, one row per day without gaps over an approved window, carrying calendar attributes, fiscal year, period, quarter and week, a business-day flag and a prior-year pointer under approved rules, with unplaceable dates handled as approved.",
+      "domain_objects": [
+        "calendar_date",
+        "fiscal_calendar",
+        "fiscal_period",
+        "fiscal_week",
+        "holiday_calendar",
+        "business_day",
+        "prior_year_pointer",
+        "unknown_date_member"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "shared-calendar-fiscal-periods",
+      "job_category": "build",
+      "path": "recipes/shared-calendar-fiscal-periods/recipe.md",
+      "pitch": "One date table every mart joins, so a day lands in the same fiscal period in every report.",
+      "qualifiers": [
+        "Where a holiday list applies, it must already be landed as a table; sourcing it is a separate outcome.",
+        "Does not convert time zones; the date basis each fact uses is approved per mart.",
+        "Stops at the date table; close, lock, period-to-date measures and mart rewiring are separate outcomes.",
+        "Once published, consumers take their periods from this table instead of rebuilding calendars."
+      ],
+      "readiness": "supported",
+      "related": [
+        "effective-dated-business-rules",
+        "finance-trial-balance-close",
+        "metric-population-and-rollups",
+        "customer-retention-churn-features",
+        "finance-budget-forecast-actual"
+      ],
+      "sha256": "dceb55109dd97f90423d20ec27222e4b422565d60ec2a905b1ed11701091bb3f",
+      "title": "Build one shared calendar and fiscal-period date table",
+      "trigger": [
+        "Two reports put the same day in different weeks, months, quarters or fiscal periods because each mart builds its own date logic.",
+        "Last year's comparison drifts whenever a fiscal year carries an extra week, or a business-day count ignores the holiday list.",
+        "Facts dated outside the date table, or with no date, silently drop out of the reports that join it."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
