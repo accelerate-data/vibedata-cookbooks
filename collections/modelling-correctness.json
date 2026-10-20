@@ -29,6 +29,7 @@
     "banking-delinquency-vintages",
     "cpg-promotion-lift",
     "utilities-meter-to-bill",
-    "telecom-cdr-usage"
+    "telecom-cdr-usage",
+    "life-sciences-enrollment"
   ]
 }
