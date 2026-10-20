@@ -6,7 +6,7 @@ trigger:
   - The move is scoped from a feature checklist or a gut feeling, and the team needs an inventory, an order and a recommendation it can accept or reject.
   - The estate has dynamic SQL, script tasks, cross-database references, protected packages or objects that look unused, and nobody knows which of them block the move.
   - A steering group needs a go, go with named blockers or no-go before any conversion work is funded.
-description: Inventory the exported definitions and usage of a Synapse dedicated pool or SSIS estate, give each item one verdict from a sourced Fabric rule table, a typed blocker where blocked, a complexity class with its drivers and a place in a dependency-ordered wave, and recommend go, go with named blockers or no-go from stated criteria.
+description: Inventory the exported definitions and usage of a Synapse dedicated pool or SSIS estate, give each item one verdict from a Fabric rule table with cited sources, a typed blocker where blocked, a complexity class with its drivers and a place in a dependency-ordered wave, and recommend go, go with named blockers or no-go from approved criteria.
 pitch: Find out what a Synapse or SSIS estate would take to rebuild on Fabric, what blocks it and whether to go, before anyone converts a line.
 job_category: cross-platform
 area: governance-cost
@@ -25,7 +25,7 @@ works_with:
     - fabric_warehouse
     - redshift
 qualifiers:
-  - Reads exported definitions and usage files; it never connects to a live pool, SSISDB or Fabric workspace.
+  - Reads exported definition files and any usage evidence; it never connects to a live pool, SSISDB or Fabric workspace.
   - Fabric support claims come from cited documentation with an as-of date, never from a Fabric run.
   - It assesses and recommends only; conversion, data movement and cutover belong to other Recipes.
   - A protected, unreadable or unmatched item is reported as unassessed or unconfirmed, never as compatible.
@@ -42,12 +42,12 @@ evidence:
 
 ## Prompt
 
-Assess <estate_exports>, the exported DDL and SSIS packages of <pool_or_ssis_estate>, together with <usage_export> and any <declared_consumers>, for a rebuild on <fabric_target>. Inherit the Intent's repository, Domain and approved requirements, and resolve only the semantics they leave open. Inventory every item of the approved kinds and their dependencies, then give each item one verdict from a published, sourced rule table, its blockers, a complexity class with its counted drivers, a usage class and a place in a dependency-ordered wave. Recommend go, go with named blockers or no-go from criteria stated in advance. Keep what cannot be read, resolved or matched visible with its reason, report secrets by location only, and state what the evidence cannot show. Nothing is converted, moved, deployed or retired, and the recommendation is not a pilot plan, a budget or a schedule.
+Assess <estate_exports>, the exported DDL and SSIS packages of <pool_or_ssis_estate>, together with <usage_export> and any <declared_consumers>, for a rebuild on <fabric_target>. Inherit the Intent's repository, Domain and approved requirements, and resolve only the semantics they leave open. Inventory every item of the approved kinds and their dependencies, then give each item one verdict from a published, sourced rule table, its blockers, a complexity class with its counted drivers, a usage class and a place in a dependency-ordered wave. Recommend go, go with named blockers or no-go from approved criteria stated in advance. Keep what cannot be read, resolved or matched visible with its reason, report secrets by location only, and state what the evidence cannot show. Nothing is converted, moved, deployed or retired, and the recommendation is not a pilot plan, a budget or a schedule.
 
 ## Verified by
 
-- Every item of the approved kinds in the export appears exactly once with its approved target, counts by kind tie to an independent count of the export files, and anything of another kind or outside the approved scope is shown or counted with its reason, as approved.
-- Each dependency the definitions declare resolves to an inventoried item or is listed as unresolved with its source item and the reference that could not be placed (dynamic SQL, an unplaceable name, a missing object); none is dropped.
+- Every item of the approved kinds in the export appears exactly once with its approved target, counts by kind tie to an independent count of the export files, and anything else or outside the approved scope is shown or counted with its reason as approved, with how many were excluded and why.
+- Each dependency the definitions declare resolves, under the approved name resolution, to an inventoried item or is listed as unresolved with its source item and the reference that could not be placed (dynamic SQL, an unplaceable name, a missing object); none is dropped.
 - Each item carries one verdict and the rule it came from, each rule carries its cited source and that source's as-of date, and a construct no rule covers is reported as uncovered and unconfirmed, never compatible, whatever verdict set is approved.
 - Every protected, unreadable or unparsed item, and every item read only by a labelled fallback, is listed and counted with its reason, or the run stops before any recommendation and names them, as approved; none is counted as compatible, and a report names the part of the estate it could not read.
 - The span the usage evidence covers is stated and an item it cannot cover is classed unknown, never unused; an item with no approved use in a covered window is a candidate for its owner's sign-off, never retired, and declared seasonal or critical status that conflicts with usage is reported.
@@ -72,14 +72,14 @@ Inherit the Intent's repository, Domain and approved requirements, and resolve o
 
 ### Ask first
 
-- If unresolved, which item kinds and objects are in scope, which excluded items (system, temporary, test, staging) are listed or only counted, which Fabric target applies to each, and at what item level are counts and the recommendation stated?
+- If unresolved, which item kinds and objects are in scope, which excluded items (system, temporary, test, staging) are listed or only counted, which Fabric target applies to each, how names and usage rows link to items, and at what item level are counts stated?
 - If unresolved, which Fabric documentation counts as authoritative and as of what date, what verdict set and meanings apply, and which rule wins when several match (a construct no rule covers is unconfirmed in any set)?
 - If unresolved, over what window is use measured, which access counts as use and what minimum, how are declared seasonal windows and critical status treated against silence, and who signs off a retirement candidate when an item has no owner?
 - If unresolved, which drivers and thresholds set a complexity class, and is effort expressed as a class only or with calibration data you supply?
 - If unresolved, which blocker types apply, who resolves each, which verdicts count as blocked, and which blocker is primary when several apply to one item?
 - If unresolved, how are waves ordered beyond dependency, what floor a verdict sets, where blockers that gate other waves are placed, which priority breaks ties, and what must hold to enter and leave each wave?
 - If unresolved, what makes an item load-bearing or heavily used, which declared consumers outside the export count, and what thresholds separate go, go with named blockers and no-go?
-- If unresolved, are protected, unreadable or unparsed items listed and counted or does the run stop naming them, and who supplies the access or password that would let them be read?
+- If unresolved, are protected, unreadable or unparsed items listed and counted or does the run stop naming them, who supplies the access that would let them be read, and which remediation classes apply to secret-bearing fields?
 
 ### Guardrails
 
