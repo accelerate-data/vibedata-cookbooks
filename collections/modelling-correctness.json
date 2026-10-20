@@ -21,6 +21,7 @@
     "marketing-attribution-models",
     "banking-aml-features",
     "shared-calendar-fiscal-periods",
-    "shared-fx-conversion"
+    "shared-fx-conversion",
+    "retail-sell-through-stockout"
   ]
 }
