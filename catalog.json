@@ -70,6 +70,7 @@
         "finops-cloud-allocation",
         "finops-saas-license-utilization",
         "governed-spreadsheet-table",
+        "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
         "identity-golden-record-crosswalk",
         "identity-standardize-names-addresses",
@@ -111,7 +112,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 60,
+      "supported_or_proven_count": 61,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -130,6 +131,7 @@
         "finance-revenue-recognition",
         "finance-trial-balance-close",
         "finops-saas-license-utilization",
+        "healthcare-claims-remittance",
         "insurance-loss-triangles",
         "master-b2b-account-hierarchy",
         "ops-procurement-spend",
@@ -142,7 +144,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 15,
+      "supported_or_proven_count": 16,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -247,6 +249,7 @@
         "finops-cloud-allocation",
         "finops-saas-license-utilization",
         "governed-spreadsheet-table",
+        "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
@@ -306,7 +309,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 51,
+      "supported_or_proven_count": 52,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -336,7 +339,8 @@
         "shared-fx-conversion",
         "retail-sell-through-stockout",
         "insurance-loss-triangles",
-        "healthcare-readmission-cohort"
+        "healthcare-readmission-cohort",
+        "healthcare-claims-remittance"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -348,6 +352,7 @@
         "dbt-snapshot-history",
         "effective-dated-business-rules",
         "event-resource-attribution",
+        "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
         "insurance-loss-triangles",
         "logistics-fleet-utilization",
@@ -361,7 +366,7 @@
         "shared-fx-conversion",
         "shift-unit-economics"
       ],
-      "supported_or_proven_count": 21,
+      "supported_or_proven_count": 22,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -392,6 +397,7 @@
         "finops-cloud-allocation",
         "finops-saas-license-utilization",
         "governed-spreadsheet-table",
+        "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
@@ -425,7 +431,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 48,
+      "supported_or_proven_count": 49,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -2095,6 +2101,72 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Explain every billed claim line as paid, adjusted, patient responsibility, denied or open so the pieces add up to the billed amount, summarise the same by payer with denial rate and denial reasons, account for every remittance line as applied or set aside with its reason, and tie each remittance batch to its payment.",
+      "domain_objects": [
+        "claim",
+        "claim_line",
+        "remittance_line",
+        "remittance_batch",
+        "reason_code_map",
+        "payer_summary",
+        "set_aside_remittance_line",
+        "completeness_check"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "healthcare-claims-remittance",
+      "industry": [
+        "healthcare"
+      ],
+      "job_category": "build",
+      "path": "recipes/healthcare-claims-remittance/recipe.md",
+      "pitch": "Billed to paid, adjusted, denied and open for every claim line and payer, with every remittance line applied or explained and every batch tied to its payment.",
+      "qualifiers": [
+        "Claims, remittance lines and batch payments must be landed; reason-code rules may be captured as editable data.",
+        "Stops at the reconciliation; appeals, resubmission, underpayment checks, patient billing and bank matching are separate.",
+        "Only as complete as the remittances received; claims not yet remitted are shown as approved."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-gl-subledger-tieout",
+        "finance-duplicate-invoice-detection",
+        "finance-ar-aging-dso"
+      ],
+      "sha256": "b80217e79dea5076a426df075ff3d2aa940bf5be21d07f97c5fc1504bf22d000",
+      "title": "Reconcile billed claims to payer remittances, denials and batch payments by payer",
+      "trigger": [
+        "The revenue cycle team matches payer remittances to billed claims by hand, and nobody can say, payer by payer, how much of what was billed was paid, adjusted, denied or is still open.",
+        "A payer's denial rate or top denial reasons are quoted from a spreadsheet that mixes claim-level and line-level amounts, counts a resent remittance twice or reads patient responsibility as a denial.",
+        "A remittance batch does not match the payment it carries, a remittance names a claim nobody holds, or a billed claim has no remittance yet, and the gap is found only at month end."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
           "dbt"
         ]
       }
