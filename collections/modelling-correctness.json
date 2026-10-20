@@ -18,6 +18,7 @@
     "customer-historical-ltv",
     "customer-retention-churn-features",
     "customer-consent-preferences",
-    "marketing-attribution-models"
+    "marketing-attribution-models",
+    "banking-aml-features"
   ]
 }
