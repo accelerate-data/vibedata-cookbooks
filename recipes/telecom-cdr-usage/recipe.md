@@ -5,7 +5,7 @@ trigger:
   - Monthly subscriber usage differs by who ran it, because nobody can say which call-detail batches had landed or whether each arrived complete.
   - A batch is re-sent, cut short, missing its manifest or delivered late, and the usage numbers change or hold a quiet day that was really a gap.
   - Billing or network analytics need usage per subscriber per day with every record accounted for and each day marked as backed by complete batches or not.
-description: Land switch call-detail batches with their manifests, report every expected batch against its declared count, and publish usage per subscriber and day with each day's backing stated, every record counted, set aside or unusable with a reason, and late batches restated visibly.
+description: Land switch call-detail batches with their manifests, report every expected batch against its declared count, and publish usage per subscriber and day with each day's backing stated, every record counted or set aside with a reason, and late batches restated visibly.
 pitch: Land call-detail batches and publish subscriber-day usage with batch completeness, day backing and visible restatement of late batches.
 job_category: build
 area: ingestion
