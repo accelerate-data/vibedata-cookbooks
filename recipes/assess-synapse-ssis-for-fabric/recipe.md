@@ -9,7 +9,7 @@ trigger:
 description: Inventory the exported definitions and usage of a Synapse dedicated pool or SSIS estate, give each item a verdict from a Fabric rule table with cited sources, or unconfirmed where no rule matches, a typed blocker where blocked, a complexity class with its drivers and a place in a dependency-ordered wave, and recommend go, go with named blockers or no-go from approved criteria.
 pitch: Find out what a Synapse or SSIS estate would take to rebuild on Fabric, what blocks it and whether to go, before anyone converts a line.
 job_category: cross-platform
-area: migration
+area: re-engineering
 readiness: supported
 domain_objects:
   - synapse_dedicated_pool

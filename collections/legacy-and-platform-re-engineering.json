@@ -1,6 +1,6 @@
 {
-  "id": "legacy-and-platform-migration",
-  "title": "Legacy and platform migration",
+  "id": "legacy-and-platform-re-engineering",
+  "title": "Legacy and platform re-engineering",
   "kind": "curated",
   "description": "Recipes for moving existing SQL, notebooks, connectors and estates onto dbt, dlt and Fabric, from assessing what a move would take to converting each piece.",
   "members": [
