@@ -46,14 +46,14 @@ Build a two-axis version history for <tracked_attribute> of <entity_name> and tw
 ## Verified by
 
 - The approved contract defines the entity, version key, tracked attribute, interval ends, precision, time zone, what a cutoff includes, each consumer's grain, the dates and cutoffs answered, and how corrections, overlaps and unusable changes are treated.
-- Source evidence shows a recorded time carried by each change. A change without one is listed with its reason, never given a load time, run time or inferred time.
+- Source evidence shows a recorded time carried by each change. A change without one is listed with its reason, or fails the run naming it when that is approved, and never gets a load, run or inferred time.
 - Every usable change exists as its own version with both intervals. After a correction the superseded version remains with its own keys and lineage, and no version is overwritten, merged or deleted.
 - Both consumers' published answers equal expected answers derived independently from sources and approved rules, fixed before the consumers exist, for a grid of dates and cutoffs. A correction recorded after an early cutoff leaves that cutoff's answer unchanged and changes a later cutoff's.
 - Both axes are pinned at their boundaries by expected results that differ from their neighbours: an effective date at a version's start, just before its end and at its end, and a cutoff just before, at and after a correction's recording and a series' first recording, per the approved rules.
 - Deliberately wrong consumers, such as one ignoring the cutoff, one ignoring the effective date and one using the wrong end bound, each fail at least one expected case against the same expectations.
 - A date or cutoff with no applicable answer gets the approved disposition, and an unknown at that cutoff stays distinguishable from a date no version ever covered; a missing result never reads as zero or as a broken build.
 - An overlap the correction rules cannot resolve is flagged with the versions and recorded times involved, and the contested dates carry no chosen winner; any wider withholding than the contested dates is the approved policy and is stated, and dates outside it keep answering.
-- Every change delivered is accounted for once, as a version, an approved retraction or a set-aside with exactly one reason; counts reconcile at each stage.
+- Every change delivered is accounted for once, as a version, an approved retraction, a set-aside with exactly one reason or an approved failure naming it; counts reconcile at each stage.
 - A rerun on unchanged input leaves versions, keys and intervals identical, and a larger input adding a later correction changes only what that correction governs, with earlier versions and keys unchanged.
 - The answers, failures and flagged exceptions hold when read back from the built objects on the actual supported target, and the fixture returns to its starting state after reset.
 
