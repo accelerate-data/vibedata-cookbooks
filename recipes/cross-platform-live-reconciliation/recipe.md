@@ -37,7 +37,7 @@ Show that <comparison_tables> hold the same data in <old_system> and <new_system
 ## Verified by
 
 - Each side is read live and in place, read-only: neither is repaired or written, no copy of either side persists beyond findings and approved examples, and no credential or connection secret appears in the output.
-- Each table has an approved way of holding the comparison still (pinned instant, closed-date cutoff or settling window), or is unproven. A change during the read is reported as inconsistent, not as a value difference; a change outside the compared records is not.
+- Each table has an approved way of holding the comparison still (pinned instant, closed-date cutoff or settling window), or is unproven. A change during the read leaves the table unproven, reported as inconsistent rather than as a value difference; a change outside the compared records does not.
 - Rows the comparison leaves out (past the comparison point, outside the approved population) are shown or counted with their reason as approved and treated as the policy says; on each side compared plus left-out rows equal total rows.
 - Each distinct key falls in exactly one class: matched, only-old, only-new, duplicate, or null or partly null. The classes add up to the union of keys, set-aside keys are counted with their reason, and equal row counts never hide a missing key paired with an extra one.
 - Every column on either side is listed with both types, its mapping and an approved compatibility verdict. A column outside the compared scope, on one side only or incompatible is listed and counted with its reason, never silently skipped.
@@ -66,7 +66,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - Ask which records count (closed periods, record classes, soft-deleted or test rows) and whether left-out records are listed or only counted.
 - Ask how each side is held still: a pinned instant, a closed-date cutoff or a settling window, or neither, and how rows written after it, or lagging on one side, are treated.
 - Ask which type normalisation applies per column (integer width, decimal scale, timestamp precision and zone, text trim and case, NULL against empty text or another sentinel) and what tolerance, absolute or relative, if any.
-- Ask how duplicate keys, null keys, records on one side only and columns on one side only are treated: a blocker, a permitted difference, or a set-aside with a reason.
+- Ask how duplicate keys, null keys, records on one side only, and columns on one side only or with a type that cannot be normalised are treated: a blocker, a permitted difference, or a set-aside with a reason.
 - Ask what makes a table ready for cutover: zero differences, a stated mismatch budget, or a subset of blocking difference types, and whether overall readiness needs every table.
 - Ask whether the whole table or an approved sample or column subset is compared, how a sample is drawn, how many examples per finding to show and whether sensitive values may appear in them or must be masked.
 
