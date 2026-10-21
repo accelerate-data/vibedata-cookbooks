@@ -18,6 +18,7 @@
     "customer-rfm-segmentation",
     "customer-historical-ltv",
     "customer-retention-churn-features",
+    "point-in-time-training-dataset",
     "customer-consent-preferences",
     "marketing-attribution-models",
     "banking-aml-features",
