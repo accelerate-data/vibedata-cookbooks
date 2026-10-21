@@ -6,10 +6,10 @@ trigger:
   - The move is scoped from a feature checklist or a gut feeling, and the team needs an inventory, an order and a recommendation it can accept or reject.
   - The estate has dynamic SQL, script tasks, cross-database references, protected packages or objects that look unused, and nobody knows which of them block the move.
   - A steering group needs a go, go with named blockers or no-go before any conversion work is funded.
-description: Inventory the exported definitions and usage of a Synapse dedicated pool or SSIS estate, give each item one verdict from a Fabric rule table with cited sources, a typed blocker where blocked, a complexity class with its drivers and a place in a dependency-ordered wave, and recommend go, go with named blockers or no-go from approved criteria.
+description: Inventory the exported definitions and usage of a Synapse dedicated pool or SSIS estate, give each item a verdict from a Fabric rule table with cited sources, or unconfirmed where no rule matches, a typed blocker where blocked, a complexity class with its drivers and a place in a dependency-ordered wave, and recommend go, go with named blockers or no-go from approved criteria.
 pitch: Find out what a Synapse or SSIS estate would take to rebuild on Fabric, what blocks it and whether to go, before anyone converts a line.
 job_category: cross-platform
-area: governance-cost
+area: migration
 readiness: supported
 domain_objects:
   - synapse_dedicated_pool
@@ -42,13 +42,13 @@ evidence:
 
 ## Prompt
 
-Assess <estate_exports>, the exported DDL and SSIS packages of <pool_or_ssis_estate>, together with <usage_export> and any <declared_consumers>, for a rebuild on <fabric_target>. Inherit the Intent's repository, Domain and approved requirements, and resolve only the semantics they leave open. Inventory every item of the approved kinds and their dependencies, then give each item one verdict from a published, sourced rule table, its blockers, a complexity class with its counted drivers, a usage class and a place in a dependency-ordered wave. Recommend go, go with named blockers or no-go from approved criteria stated in advance. Keep what cannot be read, resolved or matched visible with its reason, report secrets by location only, and state what the evidence cannot show. Nothing is converted, moved, deployed or retired, and the recommendation is not a pilot plan, a budget or a schedule.
+Assess <estate_exports>, the exported DDL and SSIS packages of <pool_or_ssis_estate>, together with <usage_export> and any <declared_consumers>, for a rebuild on <fabric_target>. Inherit the Intent's repository, Domain and approved requirements, and resolve only the semantics they leave open. Inventory every item of the approved kinds and their dependencies, then give each item a verdict from a published, sourced rule table (unconfirmed, with no matching rule as its reason, where none matches), its blockers, a complexity class with its counted drivers, a usage class and a place in a dependency-ordered wave. Recommend go, go with named blockers or no-go from approved criteria stated in advance. Keep what cannot be read, resolved or matched visible with its reason, report secrets by location only, and state what the evidence cannot show. Nothing is converted, moved, deployed or retired, and the recommendation is not a pilot plan, a budget or a schedule.
 
 ## Verified by
 
 - Every item of the approved kinds appears exactly once under its qualified name with its approved target, counts by kind tie to an independent count of the export files, and anything else or out of scope is shown or counted with its reason as approved, with how many and why.
 - Each dependency the definitions declare resolves, under the approved name resolution, to an inventoried item or is listed as unresolved with its source item and the reference that could not be placed (dynamic SQL, an unplaceable name, a missing object); none is dropped.
-- Each item carries one verdict and the rule it came from, each rule carries its cited source and that source's as-of date, and a construct no rule covers is reported as uncovered and unconfirmed, never compatible, whatever verdict set is approved.
+- A matched item carries one verdict citing its rule, and each rule carries its cited source and as-of date; an item no rule covers is unconfirmed with no matching rule as its reason, no invented rule or citation, reported as uncovered and never compatible, whatever verdict set is approved.
 - Every protected, unreadable or unparsed item, and every item read only by a labelled fallback, is listed and counted with its reason, or, as approved, the run stops naming them and gives no recommendation; none is counted as compatible, and a report names the part of the estate it could not read.
 - The span the usage evidence covers is stated and an item it cannot cover is classed unknown, never unused; an item with no approved use in a covered window is a candidate for its owner's sign-off, never retired, and declared seasonal or critical status that conflicts with usage is reported.
 - Every blocker an item carries is listed with its type, who resolves it and the wave it gates, one marked primary; every item whose verdict needs a decision, is unconfirmed or is unreadable is covered, and blocker counts reconcile with the verdicts.
@@ -63,7 +63,7 @@ Assess <estate_exports>, the exported DDL and SSIS packages of <pool_or_ssis_est
 
 ### Instructions
 
-Inherit the Intent's repository, Domain and approved requirements, and resolve only the semantics they leave open. Work from the exported files only. Read each definition as fully as the tooling allows, keeping every statement or package it cannot read as an item flagged with its reason. Hold the Fabric rules as published data, each with its source and as-of date, apply the approved precedence, list conflicts between rules of equal specificity, and give a construct no rule covers the unconfirmed default. Resolve dependencies statically and list the rest as unresolved. Classify usage over the approved window, derive each class from counted or measured drivers under a published table, order waves by dependency under the approved rules, and derive the recommendation from the stated criteria. Render the report from the analysis output so no figure is typed by hand, derive expected results independently of the analysis, and report what could not be shown.
+Inherit the Intent's repository, Domain and approved requirements, and resolve only the semantics they leave open. Work from the exported files only. Read each definition as fully as the tooling allows, keeping every statement or package it cannot read as an item flagged with its reason. Hold the Fabric rules as published data, each with its source and as-of date, apply the approved precedence, list conflicts between rules of equal specificity, and give a construct no rule covers an unconfirmed verdict with no matching rule as its reason and no invented rule or citation. Resolve dependencies statically and list the rest as unresolved. Classify usage over the approved window, derive each class from counted or measured drivers under a published table, order waves by dependency under the approved rules, and derive the recommendation from the stated criteria. Render the report from the analysis output so no figure is typed by hand, derive expected results independently of the analysis, and report what could not be shown.
 
 ### Compose
 
