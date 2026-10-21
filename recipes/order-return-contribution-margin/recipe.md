@@ -57,7 +57,7 @@ Build <order_contribution_model> for the order margin questions in this Intent. 
 ## Verified by
 
 - The contract fixes the line grain, scoped population, period basis, amount basis, quantity basis, cost components and which are required, and every published output, each as approved.
-- Each in-scope order line, refund, return and cost record ends on a line or with a set-aside reason. Records the approved scope leaves out are shown or counted with their reason, and the outcome states how many were excluded and why.
+- Each in-scope order line, refund, return and cost record ends on a line, at an approved order-level holding or with a set-aside reason. Records the approved scope leaves out are shown or counted with their reason, and the outcome states how many were excluded and why.
 - Delivered refund amounts and returned units equal what the lines carry plus any redelivered, conflicting, unplaceable, order-level, other-currency or approved-excluded component, each shown with its reason.
 - A refund or return delivered again counts once under the approved identity rule. A conflicting delivery follows the approved handling and stays visible. One line with several refunds and returns carries each once, never their cross product.
 - In a labelled single-currency case where these are the line's approved components, revenue 100, refund 30, original goods cost 40, recovered goods cost 8, fees 5 and return cost 4 yield margin 29. Margin equals the approved components plus any approved fee reversal.
