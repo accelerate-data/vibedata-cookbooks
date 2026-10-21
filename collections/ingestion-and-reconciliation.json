@@ -4,6 +4,7 @@
   "kind": "problem-area",
   "description": "Recipes for landing source data in owned pipelines and governed tables, with explicit record disposition, safe reruns and reconciliation.",
   "members": [
+    "adf-mapping-data-flow-to-dlt-dbt",
     "api-to-bronze-incremental-contract",
     "batch-cdc-current-state",
     "cross-platform-live-reconciliation",

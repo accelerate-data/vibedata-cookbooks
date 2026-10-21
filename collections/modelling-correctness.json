@@ -8,6 +8,7 @@
     "metric-population-and-rollups",
     "event-resource-attribution",
     "dbt-snapshot-history",
+    "bitemporal-business-history",
     "operational-state-duration",
     "product-sessionization-funnels",
     "logistics-fleet-utilization",
@@ -18,6 +19,7 @@
     "customer-rfm-segmentation",
     "customer-historical-ltv",
     "customer-retention-churn-features",
+    "point-in-time-training-dataset",
     "customer-consent-preferences",
     "marketing-attribution-models",
     "banking-aml-features",
@@ -38,6 +40,7 @@
     "public-sector-grant-funds",
     "cost-attribution-by-model-job",
     "versioned-data-contract-cutover",
+    "order-return-contribution-margin",
     "procurement-three-way-match"
   ]
 }
