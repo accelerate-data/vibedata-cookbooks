@@ -117,6 +117,7 @@
         "revops-quota-commission",
         "saas-mrr-waterfall-nrr",
         "scalar-sql-function-to-dbt-macro",
+        "scd-procedure-to-dbt-snapshot",
         "service-ticket-sla",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
@@ -131,7 +132,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 75,
+      "supported_or_proven_count": 76,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -364,6 +365,7 @@
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
+        "scd-procedure-to-dbt-snapshot",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "shift-unit-economics",
@@ -403,7 +405,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 66,
+      "supported_or_proven_count": 67,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -549,6 +551,7 @@
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
+        "scd-procedure-to-dbt-snapshot",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "shift-unit-economics",
@@ -562,7 +565,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 63,
+      "supported_or_proven_count": 64,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -5083,6 +5086,64 @@
       "works_with": {
         "platforms": [
           "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Move a hand-written Type 2 history routine into a dbt snapshot with a published history relation, and prove after every replayed batch that versions, effective-from and effective-to dates and the current flag match the approved baseline.",
+      "domain_objects": [
+        "history_routine",
+        "history_table",
+        "dbt_snapshot",
+        "published_history",
+        "replay_batches",
+        "approved_baseline",
+        "parity_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "authoring-dbt-project-artifact",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "scd-procedure-to-dbt-snapshot",
+      "job_category": "re-engineer",
+      "path": "recipes/scd-procedure-to-dbt-snapshot/recipe.md",
+      "pitch": "Retire a hand-rolled history routine by proving a dbt snapshot keeps the same versions and dates after every batch.",
+      "qualifiers": [
+        "Needs the routine's per-run history or an approved rule baseline; history it never kept is not rebuilt.",
+        "Current-state-only procedures belong to stored-procedure-to-dbt; new history to dbt-snapshot-history."
+      ],
+      "readiness": "supported",
+      "related": [
+        "stored-procedure-to-dbt",
+        "dbt-snapshot-history",
+        "legacy-sql-to-dbt"
+      ],
+      "sha256": "70584d73728e01253ce827fab449c5085cd573503b154dc3d3facb372ccda170",
+      "title": "Convert a hand-written history routine into a dbt snapshot and prove history parity",
+      "trigger": [
+        "A Type 2 dimension is kept by a hand-written MERGE procedure or trigger that nobody wants to maintain.",
+        "The team wants dbt snapshot history, but consumers need proof the versions and dates match, not only today's rows.",
+        "A migration moves a history table's upkeep into dbt before the old routine can be retired."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
