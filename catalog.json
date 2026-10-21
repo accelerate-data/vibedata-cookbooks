@@ -52,6 +52,7 @@
         "banking-delinquency-vintages",
         "bounded-partition-backfill",
         "business-event-fact",
+        "cost-attribution-by-model-job",
         "cpg-promotion-lift",
         "customer-consent-preferences",
         "customer-historical-ltv",
@@ -124,7 +125,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 71,
+      "supported_or_proven_count": 72,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -217,6 +218,7 @@
       "id": "it-finops-data-engineering",
       "kind": "function",
       "resolved_members": [
+        "cost-attribution-by-model-job",
         "finops-cloud-allocation",
         "finops-saas-license-utilization"
       ],
@@ -225,10 +227,10 @@
           "it-finops"
         ]
       },
-      "supported_or_proven_count": 2,
+      "supported_or_proven_count": 3,
       "title": "IT FinOps data engineering",
       "website_publication_threshold": 3,
-      "website_visible": false
+      "website_visible": true
     },
     {
       "description": "Logistics and fleet analytics Recipes, including reusable modelling patterns with relevant operational triggers and domain-specific fleet and shift outcomes.",
@@ -270,6 +272,7 @@
         "banking-aml-features",
         "banking-delinquency-vintages",
         "business-event-fact",
+        "cost-attribution-by-model-job",
         "cpg-promotion-lift",
         "customer-consent-preferences",
         "customer-historical-ltv",
@@ -359,7 +362,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 62,
+      "supported_or_proven_count": 63,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -400,12 +403,14 @@
         "saas-mrr-waterfall-nrr",
         "manufacturing-oee-downtime",
         "hospitality-occupancy-adr-revpar",
-        "public-sector-grant-funds"
+        "public-sector-grant-funds",
+        "cost-attribution-by-model-job"
       ],
       "resolved_members": [
         "banking-aml-features",
         "banking-delinquency-vintages",
         "business-event-fact",
+        "cost-attribution-by-model-job",
         "cpg-promotion-lift",
         "customer-consent-preferences",
         "customer-historical-ltv",
@@ -436,7 +441,7 @@
         "telecom-cdr-usage",
         "utilities-meter-to-bill"
       ],
-      "supported_or_proven_count": 32,
+      "supported_or_proven_count": 33,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -450,6 +455,7 @@
         "banking-aml-features",
         "banking-delinquency-vintages",
         "business-event-fact",
+        "cost-attribution-by-model-job",
         "cpg-promotion-lift",
         "customer-consent-preferences",
         "customer-historical-ltv",
@@ -511,7 +517,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 59,
+      "supported_or_proven_count": 60,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -870,6 +876,72 @@
         "Transaction feeds overlap, and source deliveries may be counted as separate business events.",
         "Replayed deliveries change a report's unique event count or additive totals.",
         "A trip or consignment fact must preserve valid similar events and explain conflicting records."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "governance-cost",
+      "description": "Within each billed interval, share the billed cost among the queries that ran in it under an approved driver, publish it by model and by job run, keep idle and untied cost visible with reasons, and close attributed, idle and unattributed to each bill within the approved tolerance.",
+      "domain_objects": [
+        "warehouse_bill_interval",
+        "query_log_entry",
+        "model",
+        "job_run",
+        "cost_attribution",
+        "idle_cost",
+        "unattributed_cost"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "it-finops"
+      ],
+      "id": "cost-attribution-by-model-job",
+      "job_category": "explain",
+      "path": "recipes/cost-attribution-by-model-job/recipe.md",
+      "pitch": "Show which models and job runs drive the warehouse bill, with idle and untied cost visible and each interval closing to its bill as approved.",
+      "qualifiers": [
+        "Billed cost per interval and the query log arrive as landed tables; landing either is a separate outcome.",
+        "Stops at attribution; query tuning, budgets, forecasts and chargeback are separate outcomes.",
+        "Cost follows the model and job tags the log carries; a wrong but valid tag is not detectable.",
+        "Allocating the whole cloud bill to teams and tags is a separate outcome."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finops-cloud-allocation",
+        "finops-saas-license-utilization",
+        "source-freshness-sla",
+        "file-drop-to-bronze",
+        "database-tables-to-bronze"
+      ],
+      "sha256": "aece3ff033d78fba3e4c385b9395afc66d0f546925998009b80024c04a6739a3",
+      "title": "Attribute warehouse spend to the models and job runs behind it, keeping idle and untied cost visible",
+      "trigger": [
+        "The warehouse bill keeps growing and nobody can say which models or jobs are behind it.",
+        "Billed time that nobody used, or work nobody can tie to a model or job, is spread across whoever ran last or dropped.",
+        "Concurrent queries are each charged their full time, so the shares add up to more than the bill.",
+        "Failed, cancelled, retried and re-sent log rows change the answer and nobody can explain how."
       ],
       "works_with": {
         "platforms": [
