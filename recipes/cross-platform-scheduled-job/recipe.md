@@ -5,7 +5,7 @@ trigger:
   - A scheduled load-and-build job has to move to another platform, and nobody has written down what it must keep doing.
   - An earlier move changed the local hour a job ran, or ran it twice or not at all around a clock change.
   - A failure that used to stop later steps, skip a run or notify someone now passes silently on the new platform.
-description: Record the behavior a scheduled data job must keep, rebuild it as committed code on another platform, and show for each required behavior whether it holds, changed, cannot be kept, or could not be verified, with the evidence and any replacement stated.
+description: Record the behavior a scheduled data job must keep, rebuild it as committed code on another platform, and show for each required behavior whether it holds, changed, cannot be kept, or not verifiable, with the evidence and any replacement stated.
 pitch: Move a scheduled job to a new platform and get a per-behavior answer on what held and what could not.
 job_category: cross-platform
 area: orchestration
@@ -45,12 +45,12 @@ evidence:
 
 ## Prompt
 
-Convert the scheduled job <job_name>, run today by <source_scheduler>, to <target_platform> as committed code. Inherit the Intent's repository, platform, Domain, job definition and approved requirements, and resolve only the semantics they leave open: which behaviors are required, how each is judged unchanged, and what happens to one the target cannot express. Record the behavior the job must keep from its definition and recorded runs: its steps and their order, schedule and time zone, failure and skip rules, retries, overlapping runs, runs with nothing new, run-scoped values, notification and outputs. Rebuild it on the target, give every required behavior one verdict (holds, changed with the difference, cannot be kept with its replacement, or not verifiable here) with its evidence, show held behaviors by the same scenarios on both sides, and state what the evidence cannot prove.
+Convert the scheduled job <job_name>, run today by <source_scheduler>, to <target_platform> as committed code. Inherit the Intent's repository, platform, Domain, job definition and approved requirements, and resolve only the semantics they leave open: which behaviors are required, how each is judged unchanged, and what happens to one the target cannot express. Record the behavior the job must keep from its definition and recorded runs: its steps (loads, builds or others) and their order, schedule and time zone, failure and skip rules, retries, overlapping runs, runs with nothing new, run-scoped values, notification and outputs. Rebuild it on the target, give every required behavior one verdict (holds, changed with the difference, cannot be kept with its replacement, or not verifiable here) with its evidence, show held behaviors by the same scenarios on both sides, and state what the evidence cannot prove.
 
 ## Verified by
 
 - Every required behavior is listed with where it was learned (definition, recorded run or approved requirement) and carries one verdict of holds, changed, cannot be kept or not verifiable, with its evidence beside it and whether that evidence is an on-target run or an offline one.
-- The converted job is committed as code with no credential or environment-specific identifier, is never deployed or scheduled by this Recipe, and the original job is left in place and unedited.
+- The converted job is committed as code with no credential or environment-specific identifier, is never scheduled or activated by this Recipe and is deployed only to an approved ephemeral target, and the original job is left in place and unedited.
 - For each behavior judged to hold, the same scenario run on the original definition and on the converted job gives the same observable outcome: which steps ran and in what order, the exit status, what was reported and what landed.
 - The expected outcome of each scenario derives from the original job's behavior or the approved rule, never from the converted job's own output.
 - The firing instants of the original and converted schedules are shown side by side for ordinary days in each UTC offset and for every local clock change of the approved zone, and each difference is a changed verdict that names the instants.
@@ -89,7 +89,7 @@ Inherit the Intent's repository, platform, Domain, job definition and approved r
 ### Guardrails
 
 - Do not choose a required behavior, schedule rule, overlap or failure rule, or the substitute for an inexpressible behavior without approval; explain the alternatives if asked.
-- Do not edit, disable or retire the original job, deploy the converted one, or activate its schedule; cutover is a separate decision.
+- Do not edit, disable or retire the original job, deploy the converted one outside an approved ephemeral run, or activate its schedule; cutover is a separate decision.
 - Do not tune the original-side reference toward the converted job; a disagreement between them is a verdict.
 - Do not report a quiet, skipped or empty run as a plain success; even where success is approved, it states what it did not do.
 - Do not treat documentation, static validation or a local stand-in as proof that the target runs the job as stated.
