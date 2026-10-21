@@ -247,7 +247,7 @@
     },
     {
       "description": "Recipes for moving existing SQL, notebooks, connectors and estates onto dbt, dlt and Fabric, from assessing what a move would take to converting each piece.",
-      "id": "legacy-and-platform-migration",
+      "id": "legacy-and-platform-re-engineering",
       "kind": "curated",
       "members": [
         "assess-synapse-ssis-for-fabric",
@@ -270,7 +270,7 @@
         "stored-procedure-to-dbt"
       ],
       "supported_or_proven_count": 8,
-      "title": "Legacy and platform migration",
+      "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
     },
@@ -724,7 +724,7 @@
       }
     },
     {
-      "area": "migration",
+      "area": "re-engineering",
       "description": "Inventory the exported definitions and usage of a Synapse dedicated pool or SSIS estate, give each item a verdict from a Fabric rule table with cited sources, or unconfirmed where no rule matches, a typed blocker where blocked, a complexity class with its drivers and a place in a dependency-ordered wave, and recommend go, go with named blockers or no-go from approved criteria.",
       "domain_objects": [
         "synapse_dedicated_pool",
@@ -756,7 +756,7 @@
         "stored-procedure-to-dbt",
         "fabric-data-pipeline-as-code"
       ],
-      "sha256": "d60957a75f923020951ac5222c283be3e7ffbb36597aa34d3395823f00050a30",
+      "sha256": "363f69fde3004159495c42138a87a6a40754bd3c11dfcd0ae013345cb103e088",
       "title": "Assess a Synapse dedicated pool or SSIS estate for a Fabric rebuild and recommend whether to go",
       "trigger": [
         "A Synapse dedicated SQL pool or a set of SSIS packages is due to move to Fabric, and nobody can say what is in it, what each piece would take or what stops it.",
