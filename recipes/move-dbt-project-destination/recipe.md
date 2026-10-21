@@ -59,7 +59,7 @@ Move <dbt_project> to <new_destination> and show, before cutover, whether every 
 - Every destination-specific construct, including seeds, hooks and access grants, has a verdict (ported, replaced, named gap or unproven) and its cutover consequence; none is inferred from behaviour on another engine.
 - The report names the destinations actually compared, makes no claim about one that was not run, and states which engine differences the run could not detect.
 - A baseline that returns different output on identical inputs is reported with the affected columns and handled as approved (separate fix, tolerated by the approved comparison, or blocker), never loosened without approval.
-- Relations outside the approved scope keep their output against the unchanged baseline except approved differences, and every wanted change is listed as separate work.
+- Parity is claimed only for the approved scope; any change known to reach a relation outside it is named, and that relation's parity is marked unverified unless the user adds it to the scope. Every wanted output change is listed as separate work.
 - The recommendation is go only when no item approved as cutover-blocking is open or unverified and the approved go evidence is present; each unverified condition is named as an open item.
 
 ## Agent guidance
