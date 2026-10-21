@@ -259,6 +259,7 @@
       "id": "legacy-and-platform-re-engineering",
       "kind": "curated",
       "members": [
+        "adf-mapping-data-flow-to-dlt-dbt",
         "assess-synapse-ssis-for-fabric",
         "legacy-sql-to-dbt",
         "managed-connector-to-dlt",
@@ -269,6 +270,7 @@
         "stored-procedure-to-dbt"
       ],
       "resolved_members": [
+        "adf-mapping-data-flow-to-dlt-dbt",
         "assess-synapse-ssis-for-fabric",
         "legacy-sql-to-dbt",
         "managed-connector-to-dlt",
@@ -278,7 +280,7 @@
         "spark-ingestion-notebook-to-dlt",
         "stored-procedure-to-dbt"
       ],
-      "supported_or_proven_count": 8,
+      "supported_or_proven_count": 9,
       "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
