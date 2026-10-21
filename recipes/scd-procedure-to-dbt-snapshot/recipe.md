@@ -54,8 +54,8 @@ Convert <history_routine>, which keeps row history in <history_table> by closing
 
 - Each routine rule that opens, closes, ignores or removes a version maps to a snapshot behaviour or a stated reason none is needed; behaviour the history cannot show, such as writes elsewhere or error paths, is reported out of scope.
 - After every batch in the agreed replay, not only the last, the published history equals the approved baseline for that batch: same versions, effective-from and effective-to dates and current flag at the approved precision.
-- Expected history per batch is derived from the source rows and approved rules without reading the snapshot, and the published history equals it exactly; where no routine output exists the baseline is labelled as rules, not routine output.
-- The comparison can fail: a deliberately wrong boundary or end date fails it, and an agreement check on current rows alone would still pass that same history.
+- Expected history per batch is derived from the source rows and approved rules without reading the snapshot, and the published history equals it at the approved precision; where no routine output exists the baseline is labelled as rules, not routine output.
+- The comparison can fail: a deliberately wrong end date on a closed version fails it, while an agreement check on current rows alone would still pass.
 - Within one continuous presence of a key, versions neither overlap nor leave gaps, each closed end follows the approved convention from the next start, and a key present in the feed has exactly one current version.
 - A change to one tracked attribute alone opens exactly one version carrying the new value unless the approved batch rules set it aside, and a change confined to an untracked column opens none.
 - Replaying the same batch again leaves the published history unchanged and adds no version, because effective dates follow the approved effective-time rule.
@@ -69,7 +69,7 @@ Convert <history_routine>, which keeps row history in <history_table> by closing
 
 ### Instructions
 
-Read the routine end to end first: its key, tracked columns and comparison rule, how effective-from, effective-to and the current flag are set, what it does with deletes, returning keys and several rows for one key in a batch, and every consumer of the history table. Report behaviour the history cannot show as out of scope. Settle where the routine's history after each batch comes from, check the snapshot options the installed dbt and adapter support, and author the snapshot and a published relation that maps its internal dates to the approved convention. Build the expected history per batch with a committed builder that never reads the snapshot, replay the agreed batches in order from empty history, compare after each one, and run a negative control that proves the comparison can fail. Record which replay branches were exercised and which were not.
+Read the routine end to end first: its key, tracked columns and comparison rule, how effective-from, effective-to and the current flag are set, what it does with deletes, returning keys and several rows for one key in a batch, and every consumer of the history table. Report behaviour the history cannot show as out of scope. Settle where the routine's history after each batch comes from, check the snapshot options the installed dbt and adapter support, and author the snapshot and a published relation that maps its internal dates to the approved convention. Build the expected history per batch with a committed builder that never reads the snapshot, replay the agreed batches in order from the approved starting history, compare after each one, and run a negative control that proves the comparison can fail. Record which replay branches were exercised and which were not.
 
 ### Compose
 
@@ -96,7 +96,7 @@ Read the routine end to end first: its key, tracked columns and comparison rule,
 
 - Do not edit the routine or its captured per-batch output to make the comparison pass, or widen a tolerance, shorten the replay or narrow the approved contract to do so.
 - Do not accept agreement on current rows as history parity; a history that matches only after the last batch has not been shown to match the batches consumers read in between.
-- Do not rebuild history the routine never kept or backdate versions; coverage starts at the earliest approved replay batch, and a snapshot cannot rewrite a closed version.
+- Do not rebuild history the routine never kept or backdate versions; coverage starts where the approved starting history does, and a snapshot cannot rewrite a closed version.
 - Do not use the run clock as a version time unless the approved effective-time rule says so; a replay must not depend on when it ran.
 - Do not normalise, trim or default values the approved comparison keeps distinct, and do not let a column outside the approved tracked list open a version.
 - Do not correct a routine defect; reproduce it, report it as follow-up work and route any wanted change to a separate change.
