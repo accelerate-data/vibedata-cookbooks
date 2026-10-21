@@ -1,0 +1,16 @@
+{
+  "id": "legacy-and-platform-migration",
+  "title": "Legacy and platform migration",
+  "kind": "curated",
+  "description": "Recipes for moving existing SQL, notebooks, connectors and estates onto dbt, dlt and Fabric, from assessing what a move would take to converting each piece.",
+  "members": [
+    "assess-synapse-ssis-for-fabric",
+    "legacy-sql-to-dbt",
+    "managed-connector-to-dlt",
+    "materialized-view-to-dbt",
+    "notebook-transformation-to-dbt",
+    "scalar-sql-function-to-dbt-macro",
+    "spark-ingestion-notebook-to-dlt",
+    "stored-procedure-to-dbt"
+  ]
+}
