@@ -4,6 +4,7 @@
   "kind": "curated",
   "description": "Recipes for moving existing SQL, notebooks, connectors and estates onto dbt, dlt and Fabric, from assessing what a move would take to converting each piece.",
   "members": [
+    "adf-mapping-data-flow-to-dlt-dbt",
     "assess-synapse-ssis-for-fabric",
     "legacy-sql-to-dbt",
     "managed-connector-to-dlt",
