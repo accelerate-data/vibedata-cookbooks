@@ -126,14 +126,15 @@
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
         "telecom-cdr-usage",
-        "utilities-meter-to-bill"
+        "utilities-meter-to-bill",
+        "versioned-data-contract-cutover"
       ],
       "selector": {
         "platforms_any": [
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 77,
+      "supported_or_proven_count": 78,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -377,7 +378,8 @@
         "spark-ingestion-notebook-to-dlt",
         "stored-procedure-to-dbt",
         "telecom-cdr-usage",
-        "utilities-meter-to-bill"
+        "utilities-meter-to-bill",
+        "versioned-data-contract-cutover"
       ],
       "selector": {
         "platforms_any": [
@@ -409,7 +411,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 68,
+      "supported_or_proven_count": 69,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -451,7 +453,8 @@
         "manufacturing-oee-downtime",
         "hospitality-occupancy-adr-revpar",
         "public-sector-grant-funds",
-        "cost-attribution-by-model-job"
+        "cost-attribution-by-model-job",
+        "versioned-data-contract-cutover"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -486,9 +489,10 @@
         "shared-fx-conversion",
         "shift-unit-economics",
         "telecom-cdr-usage",
-        "utilities-meter-to-bill"
+        "utilities-meter-to-bill",
+        "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 33,
+      "supported_or_proven_count": 34,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -563,14 +567,15 @@
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
         "telecom-cdr-usage",
-        "utilities-meter-to-bill"
+        "utilities-meter-to-bill",
+        "versioned-data-contract-cutover"
       ],
       "selector": {
         "platforms_any": [
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 65,
+      "supported_or_proven_count": 66,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -5741,6 +5746,60 @@
         "Revenue assurance compares metered usage with billed usage in a spreadsheet each month, and nobody can say which differences are real and which are timing, estimates or a meter swap.",
         "A meter with a multiplier, a register that rolled over or a meter exchanged mid-period makes billed energy disagree with the reads, and the cause is found by hand.",
         "Finance asks how much energy was delivered but never billed, and the answer changes with every join, because a period with no read or no bill looks like zero."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build a breaking change to a relation's grain, column meaning or shape as a new version beside an unchanged old one, with a change record, revised queries for a bounded set of named consumers and observable criteria for retiring the old version.",
+      "domain_objects": [
+        "previous_version",
+        "new_version",
+        "change_record",
+        "named_consumer",
+        "retirement_criteria"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "generating-dbt-model",
+          "evaluating-dbt-project",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "versioned-data-contract-cutover",
+      "job_category": "re-engineer",
+      "path": "recipes/versioned-data-contract-cutover/recipe.md",
+      "pitch": "Build a breaking change as a new version beside the old one, with named consumers revised and checked and retirement left as stated criteria.",
+      "qualifiers": [
+        "A compatible type correction or one compatible rename belongs to an existing Feature, not to this Recipe.",
+        "Consumers are the bounded set the owner names; deployment and retirement belong to the existing harness."
+      ],
+      "readiness": "supported",
+      "related": [
+        "dbt-refactor-output-identical",
+        "incremental-dbt-model-with-contract",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "276ddc70f3401d8b73b18e35acacf26e85be26b8037cd1eb5a9dcf882b07ffc5",
+      "title": "Add a breaking data contract change as a new version beside the old one and revise its named consumers",
+      "trigger": [
+        "A required change to a published relation's grain, column meaning or shape cannot keep the old interface.",
+        "Known consumers cannot all switch on the same day and must keep working while they move.",
+        "Someone must say what changed, what each reader has to do and when the old version can be retired.",
+        "A reader that treats the new version as if it had the old grain would quietly get a wrong answer."
       ],
       "works_with": {
         "platforms": [
