@@ -35,6 +35,8 @@
     "saas-mrr-waterfall-nrr",
     "manufacturing-oee-downtime",
     "hospitality-occupancy-adr-revpar",
-    "public-sector-grant-funds"
+    "public-sector-grant-funds",
+    "cost-attribution-by-model-job",
+    "versioned-data-contract-cutover"
   ]
 }

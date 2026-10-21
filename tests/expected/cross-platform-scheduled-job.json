@@ -1,0 +1,8 @@
+{
+  "readiness": "supported",
+  "platforms": [
+    "motherduck",
+    "fabric_lakehouse",
+    "fabric_warehouse"
+  ]
+}
