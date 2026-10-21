@@ -59,7 +59,7 @@ Build <training_dataset_model>, <exception_model>, <fact_accounting_model> and <
 
 - Every entity and prediction time in the approved population, with eligibility judged on what was known by that time, is a training row or a listed exception with one reason; rows plus exceptions equal the population at each time, none in both.
 - Entities the approved scope leaves out are shown or counted with their reason as approved, and the outcome states how many were excluded and why.
-- Every fact version delivered is read by at least one row or set aside with one reason (never available, available before it happened, superseded before any row read it, conflicting) or counted or flagged as approved; per-source counts equal the input.
+- Every fact version delivered is read by at least one row or set aside with one reason (never available, available before it happened, superseded before any row read it, conflicting, belonging to an entity left out) or counted or flagged as approved; per-source counts equal the input.
 - A row reads only versions available by its prediction time under the approved boundary; a fact that happened earlier but became available later is absent from earlier rows and, in an approved window, present at the approved version from its availability on.
 - A correction changes only rows at or after its availability; changing or deleting any fact available after a row's prediction time leaves that row's features unchanged.
 - Each feature equals a value derived independently from the visible versions under the approved windows, with window boundaries holding on both sides and an empty window reading as approved.
