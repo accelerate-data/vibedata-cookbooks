@@ -5,7 +5,7 @@ trigger:
   - Part of a dbt project is moving to another warehouse, and a macro its models call only compiles, or only returns correct values, on the old one.
   - A macro renders SQL in one warehouse's dialect, so a model that calls it fails on a new target or quietly returns a different value.
   - The team wants one macro name that every model keeps calling, whichever warehouse builds it.
-description: Make an existing dbt macro render the right SQL for each approved warehouse behind one name and signature with callers unchanged, prove every target the Intent can run matches the current output, and report each target it cannot run as unproven.
+description: Make an existing dbt macro render the right SQL for each approved warehouse behind one name and signature with callers unchanged, prove every target the Intent can run matches the current output apart from approved differences, and report each target it cannot run as unproven.
 pitch: Port one dbt macro to each approved warehouse, with the models that call it left alone.
 job_category: cross-platform
 area: transformation
@@ -50,7 +50,7 @@ evidence:
 
 ## Prompt
 
-Make <macro_name> work on <target_warehouses> in the current Intent without changing its name, its arguments or the models that call it. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Keep the output on the current warehouse exactly as it is today, add the approved warehouse implementations behind the one macro name, and make any warehouse without an approved implementation stop at compile time with a clear message instead of silently rendering another warehouse's SQL. Deliver evidence that each caller keeps its approved output, that every target the Intent can run returns the same values and types as the baseline on the agreed inputs, and, for each target it cannot run, the SQL the macro itself renders with a statement that it is unproven, plus a check another target's first run can reuse. Handle the behaviours that differ between warehouses as approved, and state what the evidence cannot show.
+Make <macro_name> work on <target_warehouses> in the current Intent without changing its name, its arguments or the models that call it. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Keep the output on the current warehouse exactly as it is today, add the approved warehouse implementations behind the one macro name, and make any warehouse without an approved implementation stop at compile time with a clear message instead of silently rendering another warehouse's SQL. Deliver evidence that each caller keeps its approved output, that every target the Intent can run returns the same values and types as the baseline on the agreed inputs apart from approved differences, and, for each target it cannot run, the SQL the macro itself renders with a statement that it is unproven, plus a check another target's first run can reuse. Handle the behaviours that differ between warehouses as approved, and state what the evidence cannot show.
 
 ## Verified by
 
