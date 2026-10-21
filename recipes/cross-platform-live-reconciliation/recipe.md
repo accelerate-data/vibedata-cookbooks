@@ -19,7 +19,6 @@ works_with:
   platforms:
     - duckdb_local
 qualifiers:
-  - Assessed on duckdb_local with both sides readable as DuckDB databases; the other four Studio targets remain unassessed.
   - Each side must be readable live and read-only from the Intent; a side that is not stays unproven.
   - A baseline of the same project's unchanged dbt code belongs to dbt-refactor-output-identical.
 related:
@@ -63,7 +62,8 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 ### Ask first
 
 - Ask which two systems and tables are compared, which side is the reference, and how each side can be read live and read-only, only if the Intent does not already name them.
-- Ask for each table's business key, how key values and columns correspond across sides (renames, derived and technical columns, casing, collation, type), and which records count (closed periods, record classes, soft-deleted or test rows), and how left-out records are listed or counted.
+- Ask for each table's business key and how key values and columns correspond across the sides (renames, derived and technical columns, casing, collation, type).
+- Ask which records count (closed periods, record classes, soft-deleted or test rows) and whether left-out records are listed or only counted.
 - Ask how each side is held still: a pinned instant, a closed-date cutoff or a settling window, or neither, and how rows written after it, or lagging on one side, are treated.
 - Ask which type normalisation applies per column (integer width, decimal scale, timestamp precision and zone, text trim and case, NULL against empty text or another sentinel) and what tolerance, absolute or relative, if any.
 - Ask how duplicate keys, null keys, records on one side only and columns on one side only are treated: a blocker, a permitted difference, or a set-aside with a reason.
