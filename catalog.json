@@ -53,6 +53,7 @@
         "assess-synapse-ssis-for-fabric",
         "banking-aml-features",
         "banking-delinquency-vintages",
+        "batch-cdc-current-state",
         "bounded-partition-backfill",
         "business-event-fact",
         "cost-attribution-by-model-job",
@@ -132,7 +133,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 76,
+      "supported_or_proven_count": 77,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -199,6 +200,7 @@
       "kind": "problem-area",
       "members": [
         "api-to-bronze-incremental-contract",
+        "batch-cdc-current-state",
         "cross-platform-live-reconciliation",
         "database-tables-to-bronze",
         "file-drop-to-bronze",
@@ -209,6 +211,7 @@
       ],
       "resolved_members": [
         "api-to-bronze-incremental-contract",
+        "batch-cdc-current-state",
         "cross-platform-live-reconciliation",
         "database-tables-to-bronze",
         "file-drop-to-bronze",
@@ -217,7 +220,7 @@
         "spark-ingestion-notebook-to-dlt",
         "telecom-cdr-usage"
       ],
-      "supported_or_proven_count": 8,
+      "supported_or_proven_count": 9,
       "title": "Ingest and reconcile source data",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -310,6 +313,7 @@
         "assess-synapse-ssis-for-fabric",
         "banking-aml-features",
         "banking-delinquency-vintages",
+        "batch-cdc-current-state",
         "business-event-fact",
         "cost-attribution-by-model-job",
         "cpg-promotion-lift",
@@ -405,7 +409,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 67,
+      "supported_or_proven_count": 68,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -498,6 +502,7 @@
         "assess-synapse-ssis-for-fabric",
         "banking-aml-features",
         "banking-delinquency-vintages",
+        "batch-cdc-current-state",
         "business-event-fact",
         "cost-attribution-by-model-job",
         "cpg-promotion-lift",
@@ -565,7 +570,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 64,
+      "supported_or_proven_count": 65,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -891,6 +896,62 @@
           "redshift"
         ],
         "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "ingestion",
+      "description": "Load exported database change events into a ledger, rebuild each table's current state by source position, and publish every invalid event and incomplete transaction with its reason, with each affected table's state published as approved and checked against independently derived expected tables.",
+      "domain_objects": [
+        "change_event_ledger",
+        "current_state_table",
+        "table_state",
+        "problem_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dlt-pipeline",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "id": "batch-cdc-current-state",
+      "job_category": "build",
+      "path": "recipes/batch-cdc-current-state/recipe.md",
+      "pitch": "Rebuild current state from exported change events by source position, with every gap and unusable event listed and affected tables blocked as approved.",
+      "qualifiers": [
+        "Finite exported batches only; a live streaming connector is out of scope.",
+        "Needs a source position that orders events within a table, and a signal of transaction completeness.",
+        "Reading the source tables belongs to database-tables-to-bronze; delivering the files belongs to file-drop-to-bronze.",
+        "Keeping every event as a fact, or history of row versions, belongs to business-event-fact and dbt-snapshot-history."
+      ],
+      "readiness": "supported",
+      "related": [
+        "database-tables-to-bronze",
+        "file-drop-to-bronze",
+        "business-event-fact",
+        "dbt-snapshot-history"
+      ],
+      "sha256": "4872434f636446badc8a79bfa6511f12f0c447666832433502c2cd013bf68efa",
+      "title": "Build current-state tables from exported database change events",
+      "trigger": [
+        "A batch export of database change events is available and the current state of its tables has to be rebuilt without reading the source database again.",
+        "Batches arrive duplicated or out of order, and the rebuilt state must not depend on arrival order.",
+        "Consumers need to know which tables are trustworthy now, and why one stopped, when part of a transaction is missing or an event cannot be applied."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dlt",
           "dbt"
         ]
       }
