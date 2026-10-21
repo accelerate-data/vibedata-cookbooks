@@ -8,6 +8,7 @@
     "metric-population-and-rollups",
     "event-resource-attribution",
     "dbt-snapshot-history",
+    "bitemporal-business-history",
     "operational-state-duration",
     "product-sessionization-funnels",
     "logistics-fleet-utilization",
