@@ -31,13 +31,15 @@
       "kind": "curated",
       "members": [
         "dbt-full-refresh-to-incremental",
-        "dbt-refactor-output-identical"
+        "dbt-refactor-output-identical",
+        "cross-platform-dbt-macro"
       ],
       "resolved_members": [
+        "cross-platform-dbt-macro",
         "dbt-full-refresh-to-incremental",
         "dbt-refactor-output-identical"
       ],
-      "supported_or_proven_count": 2,
+      "supported_or_proven_count": 3,
       "title": "dbt performance and maintainability",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -48,12 +50,15 @@
       "kind": "platform",
       "resolved_members": [
         "api-to-bronze-incremental-contract",
+        "assess-synapse-ssis-for-fabric",
         "banking-aml-features",
         "banking-delinquency-vintages",
         "bounded-partition-backfill",
         "business-event-fact",
         "cost-attribution-by-model-job",
         "cpg-promotion-lift",
+        "cross-platform-dbt-macro",
+        "cross-platform-live-reconciliation",
         "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
@@ -93,6 +98,7 @@
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
         "metricflow-semantic-model",
+        "move-dbt-project-destination",
         "notebook-transformation-to-dbt",
         "operational-state-duration",
         "ops-inventory-reconciliation",
@@ -125,7 +131,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 72,
+      "supported_or_proven_count": 75,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -192,6 +198,7 @@
       "kind": "problem-area",
       "members": [
         "api-to-bronze-incremental-contract",
+        "cross-platform-live-reconciliation",
         "database-tables-to-bronze",
         "file-drop-to-bronze",
         "governed-spreadsheet-table",
@@ -201,6 +208,7 @@
       ],
       "resolved_members": [
         "api-to-bronze-incremental-contract",
+        "cross-platform-live-reconciliation",
         "database-tables-to-bronze",
         "file-drop-to-bronze",
         "governed-spreadsheet-table",
@@ -208,7 +216,7 @@
         "spark-ingestion-notebook-to-dlt",
         "telecom-cdr-usage"
       ],
-      "supported_or_proven_count": 7,
+      "supported_or_proven_count": 8,
       "title": "Ingest and reconcile source data",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -230,6 +238,35 @@
       "supported_or_proven_count": 3,
       "title": "IT FinOps data engineering",
       "website_publication_threshold": 3,
+      "website_visible": true
+    },
+    {
+      "description": "Recipes for moving existing SQL, notebooks, connectors and estates onto dbt, dlt and Fabric, from assessing what a move would take to converting each piece.",
+      "id": "legacy-and-platform-migration",
+      "kind": "curated",
+      "members": [
+        "assess-synapse-ssis-for-fabric",
+        "legacy-sql-to-dbt",
+        "managed-connector-to-dlt",
+        "materialized-view-to-dbt",
+        "notebook-transformation-to-dbt",
+        "scalar-sql-function-to-dbt-macro",
+        "spark-ingestion-notebook-to-dlt",
+        "stored-procedure-to-dbt"
+      ],
+      "resolved_members": [
+        "assess-synapse-ssis-for-fabric",
+        "legacy-sql-to-dbt",
+        "managed-connector-to-dlt",
+        "materialized-view-to-dbt",
+        "notebook-transformation-to-dbt",
+        "scalar-sql-function-to-dbt-macro",
+        "spark-ingestion-notebook-to-dlt",
+        "stored-procedure-to-dbt"
+      ],
+      "supported_or_proven_count": 8,
+      "title": "Legacy and platform migration",
+      "website_publication_threshold": 1,
       "website_visible": true
     },
     {
@@ -269,11 +306,14 @@
       "kind": "platform",
       "resolved_members": [
         "api-to-bronze-incremental-contract",
+        "assess-synapse-ssis-for-fabric",
         "banking-aml-features",
         "banking-delinquency-vintages",
         "business-event-fact",
         "cost-attribution-by-model-job",
         "cpg-promotion-lift",
+        "cross-platform-dbt-macro",
+        "cross-platform-scheduled-job",
         "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
@@ -307,6 +347,7 @@
         "master-product-sku-hierarchy",
         "materialized-view-to-dbt",
         "metric-population-and-rollups",
+        "move-dbt-project-destination",
         "operational-state-duration",
         "ops-inventory-reconciliation",
         "ops-otif",
@@ -362,7 +403,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 63,
+      "supported_or_proven_count": 66,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -452,11 +493,14 @@
       "kind": "platform",
       "resolved_members": [
         "api-to-bronze-incremental-contract",
+        "assess-synapse-ssis-for-fabric",
         "banking-aml-features",
         "banking-delinquency-vintages",
         "business-event-fact",
         "cost-attribution-by-model-job",
         "cpg-promotion-lift",
+        "cross-platform-dbt-macro",
+        "cross-platform-scheduled-job",
         "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
@@ -489,6 +533,7 @@
         "metric-population-and-rollups",
         "metricflow-semantic-model",
         "motherduck-flight-scheduling",
+        "move-dbt-project-destination",
         "operational-state-duration",
         "ops-inventory-reconciliation",
         "ops-otif",
@@ -517,7 +562,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 60,
+      "supported_or_proven_count": 63,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -662,6 +707,57 @@
         ],
         "tools": [
           "dlt"
+        ]
+      }
+    },
+    {
+      "area": "migration",
+      "description": "Inventory the exported definitions and usage of a Synapse dedicated pool or SSIS estate, give each item a verdict from a Fabric rule table with cited sources, or unconfirmed where no rule matches, a typed blocker where blocked, a complexity class with its drivers and a place in a dependency-ordered wave, and recommend go, go with named blockers or no-go from approved criteria.",
+      "domain_objects": [
+        "synapse_dedicated_pool",
+        "ssis_package",
+        "compatibility_rule",
+        "migration_wave",
+        "assessment_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "verifying"
+        ]
+      },
+      "id": "assess-synapse-ssis-for-fabric",
+      "job_category": "cross-platform",
+      "path": "recipes/assess-synapse-ssis-for-fabric/recipe.md",
+      "pitch": "Find out what a Synapse or SSIS estate would take to rebuild on Fabric, what blocks it and whether to go, before anyone converts a line.",
+      "qualifiers": [
+        "Reads exported definition files and any usage evidence; it never connects to a live pool, SSISDB or Fabric workspace.",
+        "Fabric support claims come from cited documentation with an as-of date, never from a Fabric run.",
+        "It assesses and recommends only; conversion, data movement and cutover belong to other Recipes.",
+        "A protected, unreadable or unmatched item is named as unassessed or unconfirmed, never counted as compatible."
+      ],
+      "readiness": "supported",
+      "related": [
+        "legacy-sql-to-dbt",
+        "stored-procedure-to-dbt",
+        "fabric-data-pipeline-as-code"
+      ],
+      "sha256": "d60957a75f923020951ac5222c283be3e7ffbb36597aa34d3395823f00050a30",
+      "title": "Assess a Synapse dedicated pool or SSIS estate for a Fabric rebuild and recommend whether to go",
+      "trigger": [
+        "A Synapse dedicated SQL pool or a set of SSIS packages is due to move to Fabric, and nobody can say what is in it, what each piece would take or what stops it.",
+        "The move is scoped from a feature checklist or a gut feeling, and the team needs an inventory, an order and a recommendation it can accept or reject.",
+        "The estate has dynamic SQL, script tasks, cross-database references, protected packages or objects that look unused, and nobody knows which of them block the move.",
+        "A steering group needs a go, go with named blockers or no-go before any conversion work is funded."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ]
       }
     },
@@ -1019,6 +1115,162 @@
           "redshift"
         ],
         "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Make an existing dbt macro render the right SQL for each approved warehouse behind one name and signature with callers unchanged, prove every target the Intent can run matches the current output apart from approved differences, and report each target it cannot run as unproven.",
+      "domain_objects": [
+        "dbt_macro",
+        "dbt_model",
+        "warehouse_target",
+        "consumer_contract",
+        "approved_baseline",
+        "parity_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "documenting-dbt-models",
+          "verifying"
+        ]
+      },
+      "id": "cross-platform-dbt-macro",
+      "job_category": "cross-platform",
+      "path": "recipes/cross-platform-dbt-macro/recipe.md",
+      "pitch": "Port one dbt macro to each approved warehouse, with the models that call it left alone.",
+      "qualifiers": [
+        "Needs the macro's current output on the agreed inputs, runnable or captured, as the baseline.",
+        "A target the Intent's platform cannot run is written and reviewed only, and reported unproven.",
+        "Macros that return a value from their arguments only; side effects or run-time state are out of scope.",
+        "Turning a warehouse function into a macro belongs to scalar-sql-function-to-dbt-macro."
+      ],
+      "readiness": "supported",
+      "related": [
+        "scalar-sql-function-to-dbt-macro",
+        "legacy-sql-to-dbt",
+        "prove-dbt-change-safe",
+        "dbt-refactor-output-identical"
+      ],
+      "sha256": "b11dbfd762ffb1321a8a5374a61326d3d4c590a905341f7acd4a4daa96fb8b53",
+      "title": "Port a dbt macro to each approved warehouse without changing its callers",
+      "trigger": [
+        "Part of a dbt project is moving to another warehouse, and a macro its models call only compiles, or only returns correct values, on the old one.",
+        "A macro renders SQL in one warehouse's dialect, so a model that calls it fails on a new target or quietly returns a different value.",
+        "The team wants one macro name that every model keeps calling, whichever warehouse builds it."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "data-quality",
+      "description": "Compare each approved table across two live systems in place, read-only, and give per-table and overall cutover verdicts with every difference counted exactly and examples shown as approved.",
+      "domain_objects": [
+        "comparison_pair",
+        "business_key",
+        "reconciliation_finding",
+        "cutover_verdict"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "verifying"
+        ]
+      },
+      "id": "cross-platform-live-reconciliation",
+      "job_category": "cross-platform",
+      "path": "recipes/cross-platform-live-reconciliation/recipe.md",
+      "pitch": "Show that the old and the rebuilt table hold the same data, read live from both, before you cut over.",
+      "qualifiers": [
+        "Each side must be readable live and read-only from the Intent; a side that is not stays unproven.",
+        "A baseline of the same project's unchanged dbt code belongs to dbt-refactor-output-identical."
+      ],
+      "readiness": "supported",
+      "related": [
+        "dbt-refactor-output-identical",
+        "prove-dbt-change-safe"
+      ],
+      "sha256": "4f65f4fa5933fa954faca803402451922f54a661707d9f30088ffc34ca240ec2",
+      "title": "Reconcile equivalent data across two live systems before cutover",
+      "trigger": [
+        "A table or model has been rebuilt on another platform or database while the original is still running, and the owner needs evidence the two hold the same data before cutting over.",
+        "Both sides keep changing, so a one-off or count-only comparison is not sign-off evidence.",
+        "A cutover decision needs a ready, blocked or unproven verdict per table, with the differences behind it listed."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ]
+      }
+    },
+    {
+      "area": "orchestration",
+      "description": "Record the behavior a scheduled data job must keep, rebuild it as committed code on another platform, and show for each required behavior whether it holds, changed, cannot be kept, or not verifiable, with the evidence and any replacement stated.",
+      "domain_objects": [
+        "scheduled_job",
+        "behavior_contract",
+        "schedule",
+        "parity_verdict"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "generating-orchestration",
+          "evaluating-orchestration",
+          "running-orchestration-in-sandbox",
+          "documenting-orchestration"
+        ]
+      },
+      "id": "cross-platform-scheduled-job",
+      "job_category": "cross-platform",
+      "path": "recipes/cross-platform-scheduled-job/recipe.md",
+      "pitch": "Move a scheduled job to a new platform and get a per-behavior answer on what held and what could not.",
+      "qualifiers": [
+        "Not yet assessed end to end on any listed target.",
+        "Needs the original job's definition or recorded runs; behavior it never shows is reported unproven.",
+        "Reports each behavior the target's scheduler or runtime cannot express; it does not add the missing capability.",
+        "Authors the converted job only; deployment and retiring the original are separate decisions.",
+        "Converting the workload code the job calls belongs to the Recipe for that source.",
+        "Readiness gating on upstream feeds belongs to readiness-gated-orchestration; here it is carried or reported."
+      ],
+      "readiness": "supported",
+      "related": [
+        "motherduck-flight-scheduling",
+        "fabric-data-pipeline-as-code",
+        "readiness-gated-orchestration"
+      ],
+      "sha256": "c022f45b24036e62bbe724a81ccd1416814f04eebe71151e5ef9577bb789cd52",
+      "title": "Convert a scheduled data job to another platform without changing its required behavior",
+      "trigger": [
+        "A scheduled load-and-build job has to move to another platform, and nobody has written down what it must keep doing.",
+        "An earlier move changed the local hour a job ran, or ran it twice or not at all around a clock change.",
+        "A failure that used to stop later steps, skip a run or notify someone now passes silently on the new platform."
+      ],
+      "works_with": {
+        "platforms": [
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse"
+        ],
+        "tools": [
+          "dlt",
           "dbt"
         ]
       }
@@ -3550,6 +3802,61 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Port an existing dbt project to a new destination and compare each relation in the approved scope with the unchanged project over identical inputs, within approved equality rules, with every destination-specific construct accounted for and a cutover recommendation that names what is still open.",
+      "domain_objects": [
+        "dbt_model",
+        "consumer_contract",
+        "approved_baseline",
+        "parity_report",
+        "construct_inventory",
+        "cutover_recommendation"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "evaluating-dbt-project",
+          "running-dbt-in-sandbox",
+          "dbt-unit-testing",
+          "verifying"
+        ]
+      },
+      "id": "move-dbt-project-destination",
+      "job_category": "cross-platform",
+      "path": "recipes/move-dbt-project-destination/recipe.md",
+      "pitch": "Find out whether a dbt project returns the same results on its new destination, within rules you approve, before anyone cuts over.",
+      "qualifiers": [
+        "Needs a second engine executable from the Intent; a same-engine rehearsal cannot show an engine difference."
+      ],
+      "readiness": "planned",
+      "related": [
+        "legacy-sql-to-dbt",
+        "dbt-refactor-output-identical",
+        "prove-dbt-change-safe",
+        "database-tables-to-bronze"
+      ],
+      "sha256": "b05c75c1e30f07c1bdfac629276ad7a1d741495f647566cc1d06ba7312ddef40",
+      "title": "Move a dbt project to a new destination and check parity before cutover",
+      "trigger": [
+        "A dbt project has to run on a different warehouse or lakehouse, and the dashboards and reports that read it cannot show a different number afterwards.",
+        "Someone says the migration is done because the build is green on the new destination, but nobody has compared what consumers read.",
+        "The project uses functions, types, hooks or access rules that may not exist or behave the same on the new destination.",
+        "The team needs a go or no-go for cutover, with the open items named."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
           "dbt"
         ]
       }
