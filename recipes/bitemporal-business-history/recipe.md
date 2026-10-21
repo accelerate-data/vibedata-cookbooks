@@ -10,6 +10,10 @@ pitch: Answer what applied on a date and what we knew at a cutoff, from one pres
 job_category: build
 area: transformation
 readiness: supported
+related:
+  - dbt-snapshot-history
+  - scd-procedure-to-dbt-snapshot
+  - effective-dated-business-rules
 domain_objects:
   - dimension
   - history
@@ -41,11 +45,11 @@ Build a two-axis version history for <tracked_attribute> of <entity_name> and tw
 
 ## Verified by
 
-- The approved contract defines the entity and version key, tracked attribute, both interval bounds and time precision, time zone, what a cutoff includes, which questions are answered at which dates and cutoffs, and how corrections, overlaps and unusable changes are treated.
+- The approved contract defines the entity, version key, tracked attribute, interval ends, precision, time zone, what a cutoff includes, each consumer's grain, the dates and cutoffs answered, and how corrections, overlaps and unusable changes are treated.
 - Source evidence shows a recorded time carried by each change. A change without one is listed with its reason, never given a load time, run time or inferred time.
 - Every usable change exists as its own version with both intervals. After a correction the superseded version remains with its own keys and lineage, and no version is overwritten, merged or deleted.
-- Independent expected answers for a grid of effective dates and cutoffs are fixed before the consumers exist. A correction recorded after an early cutoff leaves that cutoff's answer unchanged and changes the answer of a later cutoff for the same effective date.
-- Both axes are pinned at their boundaries by expected results that differ from their neighbours: an effective date at the start of a version, the last date before its end and at its end, a cutoff on the day a correction was recorded, the day before it, and on a series' first recording day.
+- Both consumers' published answers equal expected answers derived independently from sources and approved rules, fixed before the consumers exist, for a grid of dates and cutoffs. A correction recorded after an early cutoff leaves that cutoff's answer unchanged and changes a later cutoff's.
+- Both axes are pinned at their boundaries by expected results that differ from their neighbours: an effective date at a version's start, just before its end and at its end, and a cutoff just before, at and after a correction's recording and a series' first recording, per the approved rules.
 - Deliberately wrong consumers, such as one ignoring the cutoff, one ignoring the effective date and one using the wrong end bound, each fail at least one expected case against the same expectations.
 - A date or cutoff with no applicable answer gets the approved disposition, and an unknown at that cutoff stays distinguishable from a date no version ever covered; a missing result never reads as zero or as a broken build.
 - An overlap the correction rules cannot resolve is flagged with the versions and recorded times involved, and the contested dates carry no chosen winner; any wider withholding than the contested dates is the approved policy and is stated, and dates outside it keep answering.
@@ -70,8 +74,8 @@ Inherit the Intent's repository, platform, Domain and sources. Inspect approved 
 
 ### Ask first
 
-- If unresolved, which entity, attribute and analytical questions must this history answer, at which effective dates and cutoffs, and which source supplies each change's identity and recorded time?
-- If unspecified, how is a correction identified and resolved: by an explicit link from the correcting change, by period, or by another rule, and what happens with competing corrections of the same version?
+- If unresolved, which entity, attribute, changes and analytical questions must this history answer, at which effective dates and cutoffs, and which source supplies each change's identity and recorded time?
+- If unspecified, how is a correction identified and resolved: by an explicit link, by period or by another rule, may it cover only part of the version it corrects, and what happens with competing corrections of one version?
 - If unresolved, what do the consumers return for dates contested by an unresolvable overlap, and what do they return for a date with no applicable version or a cutoff before the first recording?
 - If unspecified, what do the interval ends include, what precision and time zone apply, what does a cutoff include, and which knowledge does the effective-date question read when no cutoff is given?
 - If unresolved, how are unusable changes, retractions, deletions and reappearing entities handled in the ledger and in the consumers?
