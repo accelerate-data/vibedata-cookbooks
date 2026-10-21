@@ -58,7 +58,7 @@ Build current-state tables for <table_list> from the <export_location> database 
 - Events at or below the approved bootstrap boundary are handled as the approved boundary rule says and are still accounted for with that reason.
 - Each incomplete transaction is listed per affected table with the approved completeness rule's evidence (such as declared, observed and missing counts); each affected table's state follows the approved block rule and states what it leaves out; tables outside the block scope are unaffected.
 - Each unreadable record and each event that cannot be ordered or applied is listed once with one reason, and one that is both invalid and withheld by a block is listed as invalid; it is never applied and affects its table as the approved rule says.
-- Every delivered record is accounted for: applied, covered by the boundary, invalid or unreadable, withheld by a block, outside the approved scope, a counted repeat, or a conflicting copy listed with its reason; the counts close.
+- Every delivered record is accounted for: applied, handled by the bootstrap boundary rule, invalid or unreadable, withheld by a block, outside the approved scope, a counted repeat, or a conflicting copy listed with its reason; the counts close.
 - Published current state, table state and problem list equal expected tables derived independently from the export and approved rules, compared both ways with nulls as values.
 - What the export cannot show, such as events never delivered or a transaction with no end marker, is stated as unproven and not claimed absent.
 
