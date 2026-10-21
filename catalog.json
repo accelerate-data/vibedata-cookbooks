@@ -49,11 +49,13 @@
       "id": "duckdb",
       "kind": "platform",
       "resolved_members": [
+        "adf-mapping-data-flow-to-dlt-dbt",
         "api-to-bronze-incremental-contract",
         "assess-synapse-ssis-for-fabric",
         "banking-aml-features",
         "banking-delinquency-vintages",
         "batch-cdc-current-state",
+        "bitemporal-business-history",
         "bounded-partition-backfill",
         "business-event-fact",
         "cost-attribution-by-model-job",
@@ -105,10 +107,13 @@
         "ops-inventory-reconciliation",
         "ops-otif",
         "ops-procurement-spend",
+        "order-return-contribution-margin",
         "people-attrition-tenure",
         "people-headcount-rollforward",
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
+        "point-in-time-training-dataset",
+        "procurement-three-way-match",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
@@ -134,7 +139,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 78,
+      "supported_or_proven_count": 83,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -158,7 +163,9 @@
         "insurance-loss-triangles",
         "master-b2b-account-hierarchy",
         "ops-procurement-spend",
+        "order-return-contribution-margin",
         "people-payroll-gl-tieout",
+        "procurement-three-way-match",
         "public-sector-grant-funds",
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
@@ -170,7 +177,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 20,
+      "supported_or_proven_count": 22,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -200,6 +207,7 @@
       "id": "ingestion-and-reconciliation",
       "kind": "problem-area",
       "members": [
+        "adf-mapping-data-flow-to-dlt-dbt",
         "api-to-bronze-incremental-contract",
         "batch-cdc-current-state",
         "cross-platform-live-reconciliation",
@@ -211,6 +219,7 @@
         "telecom-cdr-usage"
       ],
       "resolved_members": [
+        "adf-mapping-data-flow-to-dlt-dbt",
         "api-to-bronze-incremental-contract",
         "batch-cdc-current-state",
         "cross-platform-live-reconciliation",
@@ -221,7 +230,7 @@
         "spark-ingestion-notebook-to-dlt",
         "telecom-cdr-usage"
       ],
-      "supported_or_proven_count": 9,
+      "supported_or_proven_count": 10,
       "title": "Ingest and reconcile source data",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -250,6 +259,7 @@
       "id": "legacy-and-platform-re-engineering",
       "kind": "curated",
       "members": [
+        "adf-mapping-data-flow-to-dlt-dbt",
         "assess-synapse-ssis-for-fabric",
         "legacy-sql-to-dbt",
         "managed-connector-to-dlt",
@@ -260,6 +270,7 @@
         "stored-procedure-to-dbt"
       ],
       "resolved_members": [
+        "adf-mapping-data-flow-to-dlt-dbt",
         "assess-synapse-ssis-for-fabric",
         "legacy-sql-to-dbt",
         "managed-connector-to-dlt",
@@ -269,7 +280,7 @@
         "spark-ingestion-notebook-to-dlt",
         "stored-procedure-to-dbt"
       ],
-      "supported_or_proven_count": 8,
+      "supported_or_proven_count": 9,
       "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -358,11 +369,14 @@
         "ops-inventory-reconciliation",
         "ops-otif",
         "ops-procurement-spend",
+        "order-return-contribution-margin",
         "people-attrition-tenure",
         "people-headcount-rollforward",
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
         "pii-classification-and-masking",
+        "point-in-time-training-dataset",
+        "procurement-three-way-match",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
@@ -411,7 +425,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 69,
+      "supported_or_proven_count": 72,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -425,6 +439,7 @@
         "metric-population-and-rollups",
         "event-resource-attribution",
         "dbt-snapshot-history",
+        "bitemporal-business-history",
         "operational-state-duration",
         "product-sessionization-funnels",
         "logistics-fleet-utilization",
@@ -435,6 +450,7 @@
         "customer-rfm-segmentation",
         "customer-historical-ltv",
         "customer-retention-churn-features",
+        "point-in-time-training-dataset",
         "customer-consent-preferences",
         "marketing-attribution-models",
         "banking-aml-features",
@@ -454,11 +470,14 @@
         "hospitality-occupancy-adr-revpar",
         "public-sector-grant-funds",
         "cost-attribution-by-model-job",
-        "versioned-data-contract-cutover"
+        "versioned-data-contract-cutover",
+        "order-return-contribution-margin",
+        "procurement-three-way-match"
       ],
       "resolved_members": [
         "banking-aml-features",
         "banking-delinquency-vintages",
+        "bitemporal-business-history",
         "business-event-fact",
         "cost-attribution-by-model-job",
         "cpg-promotion-lift",
@@ -480,6 +499,9 @@
         "marketing-attribution-models",
         "metric-population-and-rollups",
         "operational-state-duration",
+        "order-return-contribution-margin",
+        "point-in-time-training-dataset",
+        "procurement-three-way-match",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
@@ -492,7 +514,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 34,
+      "supported_or_proven_count": 38,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -549,10 +571,13 @@
         "ops-inventory-reconciliation",
         "ops-otif",
         "ops-procurement-spend",
+        "order-return-contribution-margin",
         "people-attrition-tenure",
         "people-headcount-rollforward",
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
+        "point-in-time-training-dataset",
+        "procurement-three-way-match",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
@@ -575,7 +600,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 66,
+      "supported_or_proven_count": 69,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -652,6 +677,7 @@
         "ops-inventory-reconciliation",
         "ops-otif",
         "ops-procurement-spend",
+        "procurement-three-way-match",
         "retail-sell-through-stockout",
         "shift-unit-economics"
       ],
@@ -660,13 +686,74 @@
           "supply-chain-ops"
         ]
       },
-      "supported_or_proven_count": 9,
+      "supported_or_proven_count": 10,
       "title": "Supply chain and operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
     }
   ],
   "recipes": [
+    {
+      "area": "transformation",
+      "description": "Convert one exported ADF mapping data flow into a dlt pipeline for its external source reads and dbt models for its transformation graph, with a verdict for every step and each sink proven against the flow's approved reference output on an agreed slice.",
+      "domain_objects": [
+        "adf_data_flow",
+        "dlt_pipeline",
+        "dbt_model",
+        "sink",
+        "consumer_contract",
+        "reference_output",
+        "conversion_report",
+        "parity_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "add-or-update-source",
+          "generating-dlt-pipeline",
+          "ingestion-data-testing",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "documenting-dbt-models",
+          "verifying"
+        ]
+      },
+      "id": "adf-mapping-data-flow-to-dlt-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/adf-mapping-data-flow-to-dlt-dbt/recipe.md",
+      "pitch": "Rebuild an ADF mapping data flow as dlt and dbt code and prove sink by sink that it returns what the flow wrote.",
+      "qualifiers": [
+        "Needs the exported data flow definition and read access to the sources its reads and sinks name.",
+        "Needs the flow's own output on the agreed slice, or an approved reference built from its declared semantics.",
+        "Studio has no ADF connection; the flow is read from its exported definition and never run or edited."
+      ],
+      "readiness": "supported",
+      "related": [
+        "legacy-sql-to-dbt",
+        "spark-ingestion-notebook-to-dlt",
+        "notebook-transformation-to-dbt",
+        "stored-procedure-to-dbt",
+        "managed-connector-to-dlt"
+      ],
+      "sha256": "64febb5be837ed005a9158bb1e0430abeacfac5fe46693dd70641098f0ba1adc",
+      "title": "Convert an ADF mapping data flow into dlt and dbt and prove parity",
+      "trigger": [
+        "Order or customer reporting still comes from an Azure Data Factory mapping data flow whose logic lives only on the ADF canvas, with no tests or review.",
+        "The team is leaving Azure Data Factory and needs the data flow's source reads, joins, derived columns, aggregates and splits as dlt and dbt code.",
+        "Someone has to show the rebuilt output matches what the data flow writes to each sink before the data flow is switched off."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dlt",
+          "dbt"
+        ]
+      }
+    },
     {
       "area": "ingestion",
       "description": "Build a dlt pipeline that lands a SaaS or REST API into bronze incrementally under an approved cursor, enforces an approved schema contract for new fields and changed types, keeps refused records visible, and accounts for each load's records by outcome and by extraction, completely where the API offers an independent, enumerable view of what it holds.",
@@ -957,6 +1044,57 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Keep each business version with its own valid interval and recorded interval, never overwriting history, and answer bounded questions by effective date and by knowledge cutoff, with correction lineage, flagged unresolved overlaps and stable reruns.",
+      "domain_objects": [
+        "dimension",
+        "history",
+        "version_ledger",
+        "reporting_cutoff"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "authoring-dbt-project-artifact",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "bitemporal-business-history",
+      "job_category": "build",
+      "path": "recipes/bitemporal-business-history/recipe.md",
+      "pitch": "Answer what applied on a date and what we knew at a cutoff, from one preserved version ledger.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Needs a source recording when each change was captured; knowledge is never rebuilt from a snapshot.",
+        "Both time axes at once; business-axis history alone belongs to the dimension history Recipe."
+      ],
+      "readiness": "supported",
+      "related": [
+        "dbt-snapshot-history",
+        "scd-procedure-to-dbt-snapshot",
+        "effective-dated-business-rules"
+      ],
+      "sha256": "87feea4068705958e5104418fdfd2c4cea50420fedd8a613c5639f8606acf27d",
+      "title": "Preserve business-effective history and what was known at each reporting cutoff",
+      "trigger": [
+        "A backdated correction must change today's reading of the past, yet a report issued earlier has to stay reproducible as it was published.",
+        "Finance or regulators ask both what was in force on a date and what was known at a reporting cutoff, and a single history table answers only one of them.",
+        "Corrections arrive late or overlap an earlier version, and nobody can say which version applied or when it became known."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
           "dbt"
         ]
       }
@@ -4229,6 +4367,70 @@
     },
     {
       "area": "transformation",
+      "description": "Build order-line economics that separate refund value, returned quantity, recoverable goods cost, fees, fulfilment and return handling into a margin, with order and period rollups that reconcile to the lines and show where margin is unknown.",
+      "domain_objects": [
+        "order",
+        "order_line",
+        "refund",
+        "return",
+        "recoverable_goods_cost",
+        "fee",
+        "contribution_margin",
+        "period_rollup"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "order-return-contribution-margin",
+      "industry": [
+        "retail"
+      ],
+      "job_category": "build",
+      "path": "recipes/order-return-contribution-margin/recipe.md",
+      "pitch": "Show what an order actually earned after refunds, returns and recovered stock, with every adjustment counted once and no missing cost hidden as zero.",
+      "qualifiers": [
+        "Needs order-line, refund and return records; costs may be captured as approved editable data."
+      ],
+      "readiness": "supported",
+      "related": [
+        "shift-unit-economics",
+        "revops-bookings-billings-cash",
+        "customer-historical-ltv",
+        "retail-sell-through-stockout"
+      ],
+      "sha256": "e838c2f824a9999a1de3352ba658243c1b230e1f0bb39040230ed80970f9c407",
+      "title": "Build order-line contribution margin with order and period rollups after refunds and returns",
+      "trigger": [
+        "Gross sales minus original item cost overstates order margin because refunds and returns arrive after the order.",
+        "Finance cannot explain a margin because refund value, returned stock, recovered inventory cost, fees and return handling are mixed or missing.",
+        "A refund is delivered twice, a return is partial, or a refund has no physical return, and the order margin moves the wrong way."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Classify every leaver, compute attrition rates for the approved cuts under the user's approved definitions, show how tenure is spread across current staff and how each hire cohort is retained, and reconcile leavers to the headcount roll-forward, while every termination record stays accounted for and small groups stay hidden where the approved policy hides them.",
       "domain_objects": [
         "worker",
@@ -4544,6 +4746,135 @@
       ],
       "works_with": {
         "platforms": [
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build one batch table with one row per approved entity and prediction time, features from only the fact versions known by then, a forward label whose unfinished windows are marked or excluded as approved, and every entity-time and fact version accounted for.",
+      "domain_objects": [
+        "prediction_point",
+        "fact_version",
+        "availability_record",
+        "point_in_time_feature",
+        "outcome_label",
+        "training_row",
+        "training_exception",
+        "fact_accounting_entry"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "id": "point-in-time-training-dataset",
+      "job_category": "build",
+      "path": "recipes/point-in-time-training-dataset/recipe.md",
+      "pitch": "Training rows whose features see only what was known at prediction time, and a check that fails when a join looks ahead.",
+      "qualifiers": [
+        "Entities, facts and outcomes must already be landed as tables; this Recipe does not ingest them.",
+        "Each fact needs an availability time; absent history is an input gap, never rebuilt from event time.",
+        "Features and the label follow approved definitions; this Recipe assembles them by availability and defines none.",
+        "One batch dataset for one prediction target; streaming and online serving are separate outcomes.",
+        "Stops at the dataset, its exceptions and accounting; training, scoring and a feature store are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "customer-retention-churn-features",
+        "dbt-snapshot-history",
+        "effective-dated-business-rules",
+        "identity-golden-record-crosswalk"
+      ],
+      "sha256": "a61179151dbd0cab1bfa6e52ae47302bc3949ad448de818f620ea2ce4b47a018",
+      "title": "Build a training dataset that uses only information available at prediction time",
+      "trigger": [
+        "A model scores well in training but worse in production because training rows used facts, corrections or labels a real prediction could not have seen.",
+        "Historical facts are joined by when they happened, not by when they became known, so a late-arriving fact or correction rewrites earlier rows.",
+        "A data science team wants one row per entity and prediction time with a forward label, and no proof that each feature used only what was known by then."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For the approved review date, match each purchase order line to its receipts and invoices under the approved quantity, price and unit rules, show what it settles to and what is pending, and keep every source line and every exception visible so nothing is matched beyond what the approved rules allow, lost or counted twice.",
+      "domain_objects": [
+        "purchase_order_line",
+        "goods_receipt_line",
+        "supplier_invoice_line",
+        "credit_note",
+        "three_way_match",
+        "match_allocation",
+        "match_exception",
+        "tolerance_rule"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "supply-chain-ops"
+      ],
+      "id": "procurement-three-way-match",
+      "job_category": "build",
+      "path": "recipes/procurement-three-way-match/recipe.md",
+      "pitch": "See what each purchase order line settles to against goods received and invoiced, with every exception listed before anyone pays.",
+      "qualifiers": [
+        "Quantities and prices are compared in the purchase order line's unit and currency under approved conversions.",
+        "Produces evidence for review; it does not approve, release or pay anything or write back to a source system.",
+        "Stops at the match; spend cubes, duplicate invoice detection and recovering overpayments are separate.",
+        "Receipts and invoices link to a purchase order line by an explicit reference or an approved linking rule."
+      ],
+      "readiness": "supported",
+      "related": [
+        "ops-procurement-spend",
+        "finance-duplicate-invoice-detection",
+        "finance-ap-aging",
+        "effective-dated-business-rules"
+      ],
+      "sha256": "91c9a93e17c96c7fc81218ea80b4ddf2cc843fbd25c8fc1e7455ce4e8bc5c577",
+      "title": "Match purchase orders, receipts and invoices line by line with an exception ledger",
+      "trigger": [
+        "Accounts payable is asked to release payment and cannot say how much of an invoice is covered by the goods actually received.",
+        "One purchase order line has several receipts and several invoices, and nobody can tell which receipt covers which invoice.",
+        "Receipts reversed, goods returned, credit notes and different units leave the purchase order, receipt and invoice systems disagreeing, and the differences sit in spreadsheets."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
           "fabric_warehouse",
           "redshift"
         ],
