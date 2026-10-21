@@ -17,8 +17,8 @@ related:
 domain_objects:
   - dimension
   - history
-  - business_event
   - version_ledger
+  - reporting_cutoff
 works_with:
   platforms:
     - duckdb_local
@@ -26,7 +26,7 @@ works_with:
     - dbt
 qualifiers:
   - Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
-  - Needs a recorded time on each change; knowledge is never rebuilt from a present snapshot.
+  - Needs a source recording when each change was captured; knowledge is never rebuilt from a snapshot.
   - Both time axes at once; business-axis history alone belongs to the dimension history Recipe.
 evidence:
   features:
@@ -41,7 +41,7 @@ evidence:
 
 ## Prompt
 
-Build a two-axis version history for <tracked_attribute> of <entity_name> and two bounded consumers for the questions required in this Intent: what applied on <effective_date> and what was known at <reporting_cutoff>. Inspect approved requirements and source evidence first, and confirm that every change carries a recorded time before building anything. Keep each version with its own business-valid interval and recorded interval, keep correction lineage, never overwrite or delete a version, and expose overlaps the rules cannot resolve. Keep Domain sources read-only; use a labelled synthetic fixture or an approved writable fixture with reset when the Domain has no such feed. Prove the discriminating case where a backdated correction changes the corrected period for later cutoffs while an earlier cutoff keeps the earlier answer, both axes at their boundaries, unresolved overlaps, and an unchanged rerun that leaves the ledger identical.
+Build a two-axis version history for <tracked_attribute> of <entity_name> and two bounded consumers for the questions required in this Intent: what applied on <effective_date> and what was known at <reporting_cutoff>. Inspect approved requirements and source evidence first, and confirm that the source records a time for its changes before building anything. Keep each version with its own business-valid interval and recorded interval, keep correction lineage, never overwrite or delete a version, and expose overlaps the rules cannot resolve. Keep Domain sources read-only; use a labelled synthetic fixture or an approved writable fixture with reset when the Domain has no such feed. Prove the discriminating case where a backdated correction changes the corrected period for later cutoffs while an earlier cutoff keeps the earlier answer, both axes at their boundaries, unresolved overlaps, and an unchanged rerun that leaves the ledger identical.
 
 ## Verified by
 
@@ -55,13 +55,13 @@ Build a two-axis version history for <tracked_attribute> of <entity_name> and tw
 - An overlap the correction rules cannot resolve is flagged with the versions and recorded times involved, and the contested dates carry no chosen winner; any wider withholding than the contested dates is the approved policy and is stated, and dates outside it keep answering.
 - Every change delivered is accounted for once, as a version, an approved retraction or a set-aside with exactly one reason; counts reconcile at each stage.
 - A rerun on unchanged input leaves versions, keys and intervals identical, and a larger input adding a later correction changes only what that correction governs, with earlier versions and keys unchanged.
-- Results are read back on the actual supported Intent target, with expected and actual answers, the wrong consumers' failures and any unresolved exceptions reported, and the fixture reset verified.
+- The answers, failures and flagged exceptions hold when read back from the built objects on the actual supported target, and the fixture returns to its starting state after reset.
 
 ## Agent guidance
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain and sources. Inspect approved requirements and source evidence, and decide from the data whether each change carries a recorded time; stop and report when it does not. Use Ask first only for unresolved semantics, and record the entity, version key, intervals, cutoff meaning and dispositions before building. Check installed dbt and adapter versions. Derive the version key from the change's own identity so it survives rebuilds and reordering. Author expected answers by hand from the fixture before the consumers exist. Build the version ledger once with both axes, resolve corrections only by the agreed rule, and have the two consumers differ only by the cutoff filter so they cannot drift. Run the rerun and larger-input comparisons and the wrong-consumer checks against the same expectations, read the outputs back and verify fixture reset. Report missing recorded time, missing history or unexecuted required cases as incomplete verification.
+Inherit the Intent's repository, platform, Domain and sources. Inspect approved requirements and source evidence, and decide from the data whether each change carries a recorded time; stop and report when it does not. Use Ask first only for unresolved semantics, and record the entity, version key, intervals, cutoff meaning and dispositions before building. Check installed dbt and adapter versions. Derive the version key from the change's own identity so it survives rebuilds and reordering. Author expected answers by hand from the fixture before the consumers exist. Build the version ledger once with both axes, resolve corrections only by the agreed rule, and have both consumers share one resolution rule so they cannot disagree. Run the rerun and larger-input comparisons and the wrong-consumer checks against the same expectations, read the outputs back and verify fixture reset. Report missing recorded time, missing history or unexecuted required cases as incomplete verification.
 
 ### Compose
 
@@ -74,11 +74,11 @@ Inherit the Intent's repository, platform, Domain and sources. Inspect approved 
 
 ### Ask first
 
-- If unresolved, which entity, attribute, changes and analytical questions must this history answer, at which effective dates and cutoffs, and which source supplies each change's identity and recorded time?
+- If unresolved, which entity, attribute, changes and analytical questions must this history answer, at which effective dates and cutoffs, and which source supplies each change's identity and recorded time, meaning when the source recorded it or when this organisation received it?
 - If unspecified, how is a correction identified and resolved: by an explicit link, by period or by another rule, may it cover only part of the version it corrects, and what happens with competing corrections of one version?
 - If unresolved, what do the consumers return for dates contested by an unresolvable overlap, and what do they return for a date with no applicable version or a cutoff before the first recording?
 - If unspecified, what do the interval ends include, what precision and time zone apply, what does a cutoff include, and which knowledge does the effective-date question read when no cutoff is given?
-- If unresolved, how are unusable changes, retractions, deletions and reappearing entities handled in the ledger and in the consumers?
+- If unresolved, how are unusable changes, retractions, source deletions and reappearing entities recorded as new versions or flags, given that the ledger keeps every earlier version, and what do the consumers return for them?
 
 ### Guardrails
 
