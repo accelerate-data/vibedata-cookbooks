@@ -5,6 +5,7 @@
   "description": "Recipes for landing source data in owned pipelines and governed tables, with explicit record disposition, safe reruns and reconciliation.",
   "members": [
     "api-to-bronze-incremental-contract",
+    "cross-platform-live-reconciliation",
     "database-tables-to-bronze",
     "file-drop-to-bronze",
     "governed-spreadsheet-table",
