@@ -11,6 +11,7 @@
     "operational-state-duration",
     "logistics-fleet-utilization",
     "shift-unit-economics",
-    "effective-dated-business-rules"
+    "effective-dated-business-rules",
+    "logistics-lane-on-time-performance"
   ]
 }
