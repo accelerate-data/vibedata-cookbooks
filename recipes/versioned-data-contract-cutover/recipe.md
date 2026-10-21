@@ -1,6 +1,6 @@
 ---
 id: versioned-data-contract-cutover
-title: Add a breaking data contract change as a new version beside the old one
+title: Add a breaking data contract change as a new version beside the old one and revise its named consumers
 trigger:
   - A required change to a published relation's grain, column meaning or shape cannot keep the old interface.
   - Known consumers cannot all switch on the same day and must keep working while they move.
@@ -27,7 +27,6 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - A compatible type correction or one compatible rename belongs to an existing Feature, not to this Recipe.
   - Consumers are the bounded set the owner names; deployment and retirement belong to the existing harness.
 related:
