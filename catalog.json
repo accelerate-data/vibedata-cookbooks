@@ -84,6 +84,7 @@
         "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
+        "logistics-lane-on-time-performance",
         "managed-connector-to-dlt",
         "manufacturing-oee-downtime",
         "marketing-attribution-models",
@@ -123,7 +124,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 70,
+      "supported_or_proven_count": 71,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -241,7 +242,8 @@
         "operational-state-duration",
         "logistics-fleet-utilization",
         "shift-unit-economics",
-        "effective-dated-business-rules"
+        "effective-dated-business-rules",
+        "logistics-lane-on-time-performance"
       ],
       "resolved_members": [
         "business-event-fact",
@@ -249,11 +251,12 @@
         "effective-dated-business-rules",
         "event-resource-attribution",
         "logistics-fleet-utilization",
+        "logistics-lane-on-time-performance",
         "metric-population-and-rollups",
         "operational-state-duration",
         "shift-unit-economics"
       ],
-      "supported_or_proven_count": 8,
+      "supported_or_proven_count": 9,
       "title": "Logistics and fleet analytics",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -295,6 +298,7 @@
         "insurance-loss-triangles",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
+        "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
         "marketing-attribution-models",
         "master-product-sku-hierarchy",
@@ -355,7 +359,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 61,
+      "supported_or_proven_count": 62,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -372,6 +376,7 @@
         "operational-state-duration",
         "product-sessionization-funnels",
         "logistics-fleet-utilization",
+        "logistics-lane-on-time-performance",
         "shift-unit-economics",
         "effective-dated-business-rules",
         "prove-dbt-change-safe",
@@ -415,6 +420,7 @@
         "insurance-loss-triangles",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
+        "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
         "marketing-attribution-models",
         "metric-population-and-rollups",
@@ -430,7 +436,7 @@
         "telecom-cdr-usage",
         "utilities-meter-to-bill"
       ],
-      "supported_or_proven_count": 31,
+      "supported_or_proven_count": 32,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -470,6 +476,7 @@
         "insurance-loss-triangles",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
+        "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
         "marketing-attribution-models",
         "master-product-sku-hierarchy",
@@ -504,7 +511,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 58,
+      "supported_or_proven_count": 59,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -575,6 +582,7 @@
       "kind": "function",
       "resolved_members": [
         "logistics-fleet-utilization",
+        "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
         "master-product-sku-hierarchy",
         "ops-inventory-reconciliation",
@@ -588,7 +596,7 @@
           "supply-chain-ops"
         ]
       },
-      "supported_or_proven_count": 8,
+      "supported_or_proven_count": 9,
       "title": "Supply chain and operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -2887,6 +2895,71 @@
         "A fleet dashboard labels observed vehicle occupancy as utilisation without an authoritative available-time denominator.",
         "Fleet capacity reports omit available vehicles that never come online or subtract overlapping maintenance twice.",
         "Daily and monthly vehicle utilisation disagree because roster, observation and downtime windows differ."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build, for each approved lane and day, the transport trips due and how many arrived on time, early or late or remain open or overdue, with an on-time rate and lateness derived from trip events under the user's approved rules, and every unmeasurable record listed once with a reason as approved.",
+      "domain_objects": [
+        "transport_trip",
+        "trip_event",
+        "lane",
+        "location",
+        "planned_arrival",
+        "on_time_verdict",
+        "lane_day",
+        "set_aside_record"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops"
+      ],
+      "id": "logistics-lane-on-time-performance",
+      "industry": [
+        "logistics"
+      ],
+      "job_category": "build",
+      "path": "recipes/logistics-lane-on-time-performance/recipe.md",
+      "pitch": "A lane-by-day on-time view built from trip events, with open trips, quiet lanes and unmeasurable records shown as approved.",
+      "qualifiers": [
+        "Needs transport trips with a planned arrival and trip events with event times, already in the Domain.",
+        "Stops at lane-day punctuality; order-line in-full, freight cost, ETA forecasting and dwell are other outcomes.",
+        "A past as-of time reproduces only where event recorded times are kept; a rebuild restates it.",
+        "Exported files go to file-drop-to-bronze first."
+      ],
+      "readiness": "supported",
+      "related": [
+        "ops-otif",
+        "logistics-fleet-utilization",
+        "business-event-fact",
+        "effective-dated-business-rules"
+      ],
+      "sha256": "a59687fc179f9506ca46cfab496b677affcb0facb08d394b89341aacca95e3c5",
+      "title": "Build lane-day on-time transport performance with open trips and exceptions shown as approved",
+      "trigger": [
+        "A TMS dashboard reports on-time performance by lane, but nobody can inspect how it is calculated or reproduce its figure.",
+        "Trips that were due but never reported an arrival, or lanes that ran nothing on a day, drop out of the on-time figure.",
+        "A late arrival lands on a different day than planners expect, or time zones and clock changes move a trip's day or verdict.",
+        "Repeated or corrected events, cancelled trips and trips with no usable plan change the rate with no stated reason."
       ],
       "works_with": {
         "platforms": [
