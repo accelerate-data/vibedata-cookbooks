@@ -28,7 +28,6 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
   - Needs the routine's per-run history or an approved rule baseline; history it never kept is not rebuilt.
   - Current-state-only procedures belong to stored-procedure-to-dbt; new history to dbt-snapshot-history.
 related:
@@ -57,13 +56,13 @@ Convert <history_routine>, which keeps row history in <history_table> by closing
 - After every batch in the agreed replay, not only the last, the published history equals the approved baseline for that batch: same versions, effective-from and effective-to dates and current flag at the approved precision.
 - Expected history per batch is derived from the source rows and approved rules without reading the snapshot, and the published history equals it exactly; where no routine output exists the baseline is labelled as rules, not routine output.
 - The comparison can fail: a deliberately wrong boundary or end date fails it, and an agreement check on current rows alone would still pass that same history.
-- Within one continuous presence of a key, versions neither overlap nor leave gaps, each closed end follows the approved convention from the next start, and a live key has exactly one current version.
-- A change to one tracked attribute alone opens exactly one version carrying the new value, and a change confined to an untracked column opens none.
+- Within one continuous presence of a key, versions neither overlap nor leave gaps, each closed end follows the approved convention from the next start, and a key present in the feed has exactly one current version.
+- A change to one tracked attribute alone opens exactly one version carrying the new value unless the approved batch rules set it aside, and a change confined to an untracked column opens none.
 - Replaying the same batch again leaves the published history unchanged and adds no version, because effective dates follow the approved effective-time rule.
-- Null versus empty values, unchanged redelivery, same-day changes, duplicate rows and stale changes each follow the approved rule, and rows the rule ignores or the approved scope leaves out are counted with their reason.
-- A key that leaves the feed has its current version closed as approved; the absence gets no invented version, a returning key opens a new version, and closed versions are never rewritten.
+- Null versus empty values, unchanged redelivery, same-day changes, duplicate rows, stale changes and rows with no usable key each follow the approved rule, and rows the rule ignores or the approved scope leaves out are counted with their reason.
+- A key that leaves the feed follows the approved delete rule with no invented version for the absence, a returning key follows the approved return rule, and closed versions are never rewritten.
 - Each routine behaviour that looks like a defect is reproduced and listed with the versions it affects and what correcting it would change; none is silently corrected.
-- The published relation keeps the approved consumer contract, relations outside the conversion keep their output, and the routine stays in place until cutover is approved.
+- The published relation keeps the approved consumer contract, relations outside the approved scope are left unchanged or any change reaching one is named and its parity marked unverified, and the routine stays in place until cutover is approved.
 - What the comparison cannot prove is stated, including a baseline that was not the routine's own output and any replay branch never exercised.
 
 ## Agent guidance
@@ -86,11 +85,11 @@ Read the routine end to end first: its key, tracked columns and comparison rule,
 
 - If unresolved, which timestamp sets a version's effective-from (a source change time, a load date or the run time), at what date or time precision and time zone, and how effective-to and the current flag are shown?
 - If unresolved, which attributes open a version, which are ignored, and are null and empty values equal or different?
-- If unresolved, what happens with several rows for one key in a batch, several changes on one day, stale or out-of-order changes, and unchanged redelivery?
-- If unresolved, is each batch a complete delivery so absence means deletion, and how are a deleted key, its closing date and a returning key shown?
+- If unresolved, what happens with several rows for one key in a batch, several changes on one day, stale or out-of-order changes, unchanged redelivery, and rows with no usable key?
+- If unresolved, is each batch a complete delivery so absence means deletion, and what happens to a deleted key's current version, its closing date and a returning key?
 - If unresolved, where does the routine's history after each batch come from, such as running it beside the snapshot, approved extracts or approved rules, and who approves that baseline?
-- If unresolved, which batch sequence forms the replay, and is the comparison exact or within a stated precision?
-- If unresolved, which entities or records belong in the history, and how are excluded ones listed with their reasons?
+- If unresolved, which batch sequence forms the replay, how does existing history enter the snapshot at its start, and is the comparison exact or within a stated precision?
+- If unresolved, which entities or records belong in the history, which key identifies one entity, and how are excluded ones listed with their reasons?
 - If unresolved, what counts as unchanged output (name, columns, types, order), does the snapshot take over the history table's name or do consumers move later, and is the routine kept or removed after parity?
 
 ### Guardrails
