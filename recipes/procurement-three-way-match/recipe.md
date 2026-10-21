@@ -106,5 +106,5 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - Never drop, double count or silently clear a source line; lines the approved scope leaves out are shown or counted with their reason as approved, and a repeated document line is never counted twice unless approved.
 - Never default a missing quantity, price or unit to a value, or convert a unit or currency without an approved factor or rate.
 - Do not approve, release, pay or write back to any purchase order, receipt, invoice or payment system; the output is evidence for a reviewer.
-- Do not hard-code a tolerance, unit factor or the review date in the models; a change to them must change the result without a code change.
+- Do not hard-code a tolerance, unit factor or the review date in the models; a change to them must change the result without a code change, within the approved rule form.
 - Stop at the match: do not build the spend cube, detect duplicate invoices or recover overpayments.
