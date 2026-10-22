@@ -5,8 +5,8 @@ trigger:
   - Sales and Finance disagree about the price a customer was promised, and someone reconciles quotes to orders and invoices by hand.
   - A quote was revised, and an order or invoice may be priced from a version the customer never accepted.
   - A quoted line was split across orders, bundled, substituted or ordered in another unit, and nobody can show that quantity and value still add back to the quote.
-description: For each accepted quote line, trace the orders and invoice lines that came from it, add quantity and value back to the quote, and publish a ledger of every price that departs from the approved price with its amount and source records.
-pitch: Show what became of each accepted quote and every price that departs from the approved one, with no approval inferred from the invoice.
+description: For each accepted quote line, trace the orders and invoice lines that came from it, add quantity and value back to the quote, and publish a ledger of each price departure the approved rules count, with its amount and source records.
+pitch: Show what became of each accepted quote and each price departing from the approved one under approved rules, with no approval inferred from invoices.
 job_category: build
 area: transformation
 readiness: supported
@@ -52,27 +52,28 @@ evidence:
 
 ## Prompt
 
-Build <lineage_model>, <reconciliation_model>, <exceptions_model> and <coverage_model> from <quote_source>, <approval_source>, <product_mapping_source>, <order_source> and <invoice_source>. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only the semantics they leave open. Identify the accepted version of each quote, take the approved price from it alone, and trace each accepted quote line to its order lines and invoice lines. Per accepted quote line, add quoted, ordered and invoiced quantity and value back to the quote with the open remainder or over-order shown, and publish a ledger of every ordered or invoiced price that departs from the approved price, with signed amount and source records. List every record that cannot be placed, with its reason. Keep sources read-only and report what the inputs cannot prove.
+Build <lineage_model>, <reconciliation_model>, <exceptions_model> and <coverage_model> from <quote_source>, <approval_source>, <product_mapping_source>, <order_source> and <invoice_source>. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only the semantics they leave open. Identify the accepted version of each quote, take the approved price from it alone, and trace each accepted quote line to its order lines and invoice lines. Per accepted quote line, add quoted, ordered and invoiced quantity and value back to the quote with the open remainder or over-order shown, and publish a ledger of each ordered or invoiced price departure the approved rules count, with signed amount and source records. List every record that cannot be placed, with its reason. Keep sources read-only and report what the inputs cannot prove.
 
 ## Verified by
 
-- On a run that completes, every quote version, quote line, order line and invoice line lands in exactly one disposition: reconciled, excepted with a reason, or out of scope with a reason, and counts foot to the inputs.
+- On a run that completes, every quote version, quote line, order line and invoice line lands in exactly one disposition (reconciled, excepted with a reason, or out of scope), counts foot to the inputs, and excluded records are shown or counted with their reason as approved.
 - Every approved price traces to the approved accepted version of its quote. Any other version never sets a price, whatever its number or date, and an order citing one follows the approved handling, shows the version it cited and is not priced from it.
-- A discount counts as approved only to the extent an approval record covers it, and the uncovered excess is shown as its own exception. A discount exactly at its cap and one with no approval record are each handled as approved.
+- A discount counts as approved only to the extent the approved approval evidence covers it, and the uncovered excess is shown as its own exception. A discount exactly at its cap and one with no approval record are each handled as approved.
 - No approval is inferred from an ordered or invoiced price. On a run that completes, each price departure is a ledger row with signed amount, approved and measured price, quantity and the source records that show it.
 - Each published price comparison (ordered or invoiced against approved, invoiced against ordered) is a separate finding, none netted, merged or summed across, and a discount the approval covers raises none.
-- Per accepted quote line, quoted quantity equals ordered plus open remainder less any over-order, and value at the approved price adds back the same way. A split line adds back exactly, and a price gap is shown as variance, never as an open remainder.
+- Per accepted quote line, quoted quantity equals ordered plus open remainder less over-order, plus any cancelled or amended quantity the approved rule shows; value at the approved price adds back within tolerance; a larger gap is reported unverified with its amount. Price variance is not remainder.
 - A bundle is counted once and its components follow the approved pricing. A substitution or unit conversion counts only through an approved mapping or factor, and a missing one is an exception that adds nothing to totals.
 - Order lines with no quote reference, a currency other than the quote's, or an unavailable factor follow the approved handling, stay visible with reason and own amount, and are never attributed to a guessed quote line. No amount converts between currencies unless approved.
 - Expected lineage and ledger rows are derived independently from the sources and approved rules, and published results equal them, including each boundary and adverse case the approved rules allow.
 - Each output is unique on its declared grain, and a rerun on unchanged inputs gives identical results.
+- Where results are as of a date, records after it are not counted for it and a later acceptance does not reprice an earlier date unless approved; restatement after back-dated changes is otherwise unproven.
 - The outcome states which exceptions and open remainders remain and what the inputs cannot prove.
 
 ## Agent guidance
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and every semantic decision its approved requirements already record; do not ask again. Profile the quote versions, approvals, product mappings, order lines and invoice lines: keys, versions, statuses, units, currencies, dates and which references the sources actually carry. Use Ask first only for semantics still open, and record each answer as the user's own decision. Keep rules such as approval caps, tolerances, unit factors and bundle or substitution mappings as editable data where the approved requirements say so. Resolve the accepted version before pricing, attribute only through stated references and mappings, and keep the lineage, reconciliation, exception and coverage outputs agreeing about every record. Write expected rows by hand from the sources and approved rules before any model, including the boundary cases, and compare published rows with them in both directions. Report every exception left open and what the inputs cannot prove.
+Inherit the Intent's repository, platform, Domain, sources and every semantic decision its approved requirements already record; do not ask again. Profile the quote versions, approvals, product mappings, order lines and invoice lines: keys, versions, statuses, units, currencies, dates and which references the sources actually carry. Use Ask first only for semantics still open, and record each answer as the user's own decision. Keep rules such as approval caps, tolerances, unit factors and bundle or substitution mappings as editable data where the approved requirements say so. Fix the lineage and reconciliation grains and resolve the accepted version before pricing, attribute only through stated references and mappings, and keep the lineage, reconciliation, exception and coverage outputs agreeing about every record. Write expected rows by hand from the sources and approved rules before any model, including the boundary cases, and compare published rows with them in both directions. Report every exception left open and what the inputs cannot prove.
 
 ### Compose
 
