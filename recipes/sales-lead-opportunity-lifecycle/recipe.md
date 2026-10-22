@@ -26,7 +26,7 @@ works_with:
     - dbt
 qualifiers:
   - Stops at the lifecycle and conversion links; stage conversion and slippage belong to revops-pipeline-snapshots.
-  - Needs timestamped lead status history and conversion links naming an account, contact and opportunity.
+  - Needs timestamped lead status history and conversion links naming the records the approved accepted test relies on.
 related:
   - revops-pipeline-snapshots
   - master-b2b-account-hierarchy
@@ -44,7 +44,7 @@ evidence:
 
 ## Prompt
 
-Build a lead lifecycle <lead_cycle_model> with one row per lead qualification cycle from <lead_status_history>, link each cycle through <conversion_link_source> to <account_source>, <contact_source> and <opportunity_source>, and publish <opportunity_link_model> and <account_customer_model>. Settle from approved requirements the cycle boundaries, outcome and unresolved-reason vocabularies, link keys and accepted test, how several leads share one opportunity, the new-customer rule, the opportunity value and the as-of basis. Each cycle ends accepted, recycled, disqualified or unresolved, every delivered row is used or listed with a reason, and missing links stay unresolved.
+Build a lead lifecycle <lead_cycle_model> with one row per lead qualification cycle from <lead_status_history>, link each cycle through <conversion_link_source> to <account_source>, <contact_source> and <opportunity_source>, and publish <opportunity_link_model> and <account_customer_model>. Settle from approved requirements the cycle boundaries, outcome and unresolved-reason vocabularies, link keys and accepted test, how several leads share one opportunity, the new-customer rule, the opportunity value and the as-of basis. Each cycle ends accepted, recycled, disqualified or unresolved, every delivered row is used, or shown or counted with its reason as approved, and missing links stay unresolved.
 
 ## Verified by
 
@@ -52,11 +52,11 @@ Build a lead lifecycle <lead_cycle_model> with one row per lead qualification cy
 - The lifecycle holds one row per lead and cycle ordinal, its row count matches the cycle count derived independently from the source rows, and each cycle carries exactly one of accepted, recycled, disqualified or unresolved.
 - Every status event the approved rules keep lands in exactly one cycle. Cycles follow the approved event time, not arrival order, so out-of-order delivery gives the same lifecycle, and a re-delivered record counts once under the approved duplicate rule.
 - A cycle is accepted only where the approved links resolve and agree. Each unresolved cycle names one reason from the approved vocabulary, and no link is inferred, reassigned or repaired from another.
-- Several leads on one opportunity keep their own cycles and links, and each opportunity's value is counted once under the approved attribution. Any value credited to leads adds up to that value once, never once per lead.
+- Several leads on one opportunity keep their own cycles and links, and each opportunity's value is counted once under the approved attribution. For an opportunity with a credited lead, the credited value adds up to its value once, never once per lead; one with none shows why.
 - Each account's new-customer status follows the approved rule and its count matches an independent derivation. A later conversion into the account, from a recycled lead or another, is classified as the approved rule says, with its reason.
 - An opportunity's value is the amount the approved rule selects at the approved time, matches an independent derivation. A correction counts as the approved rule says and a record dated after the as-of date is not used. A missing amount stays null with a reason, never zero.
-- Running with a different approved as-of basis gives verdicts that match an independent derivation for that date. Records dated after it are listed with their reason and affect no verdict or value.
-- Every delivered lead, status event, conversion link, account, contact, opportunity and version lands in a result or is listed once with a reason, and unaccounted residue is zero. Excluded records are shown or counted with their reason as approved.
+- Running with a different approved as-of basis gives verdicts that match an independent derivation for that date. Records dated after it are shown or counted with their reason as approved and affect no verdict or value.
+- Every delivered lead, status event, conversion link, account, contact, opportunity and version lands in a result or is shown or counted once with its reason as approved, and unaccounted residue is zero. The outcome states how many records were excluded and why.
 - Published results equal values derived independently from the source rows and approved rules, not from the model's own logic. A reader counting every link, every accepted cycle or every conversion as a customer gets a wrong total.
 
 ## Agent guidance
@@ -78,7 +78,7 @@ Inherit the Intent's repository, platform, Domain and sources. Confirm the statu
 
 ### Ask first
 
-- If the approved requirements do not settle it, which statuses end a cycle and map to accepted, recycled and disqualified, what opens a new cycle after one ends, and how a cycle still open at the as-of date is reported.
+- If the approved requirements do not settle it, which statuses end a cycle and map to accepted, recycled and disqualified, what opens a new cycle after one ends, and which reason a cycle still open at the as-of date carries within unresolved.
 - If evidence does not settle it, which keys link a lead's cycle to its conversion, account, contact and opportunity, and which links an accepted cycle needs to resolve and agree, such as a contact on the account or an opportunity on the account.
 - If unspecified, what each unresolved reason is called, which precedence applies when several apply to one cycle, and how a conversion recorded on a cycle that did not qualify, or naming several opportunities, is reported.
 - If several leads feed one opportunity, how its value is attributed (first, last or primary lead, an equal or weighted split, or the opportunity alone), how ties break, and what a non-credited lead carries.
