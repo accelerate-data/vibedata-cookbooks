@@ -82,13 +82,13 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 ### Ask first
 
-- If unresolved, which costing method (first-in first-out, weighted average, specific, standard), costing grain (item, location, lot) and reporting currency apply, what supplies opening stock and cost, where a standard-cost variance lands, and is another currency listed or a failure?
+- If unresolved, which costing method (first-in first-out, weighted average, specific, standard), costing grain (item, location, lot) and reporting currency apply, and is a movement in another currency listed or a failure?
 - If unresolved, which items, locations, entities and ownership types are in scope (consigned, third-party, memorandum, test), are codes no master resolves listed or failed, and which movement types count in valuation and which count as cost of goods sold (transfers, scrap, samples, adjustments)?
-- If unresolved, in which order are movements valued (event or posting time, tie-break), which time zone and period boundaries apply, and does a backdated movement restate later figures or post as a current-period adjustment; is a closed period locked?
+- If unresolved, in which order are movements valued (event or posting time, tie-break), which time zone and period boundaries apply, what supplies opening stock and its cost, and does a backdated movement restate later figures or post as a current-period adjustment; is a closed period locked?
 - If unresolved, at what cost does a return re-enter stock, which keys link it to the issue it reverses, and is an unlinked or over-returned quantity listed, valued another way or a failure?
-- If unresolved, may stock go negative, how is an issue beyond stock costed (last known cost, standard cost or left unvalued), how does a later receipt settle it, and where does the cost difference land?
-- If unresolved, what happens to a receipt with no cost or a zero cost, how is a gain costed, how far does an unvaluable movement reach (that costing grain, the item or the run), and what precision and rounding apply and where does a residue go?
-- If unresolved, how are duplicate movement ids handled when identical or conflicting, which units of measure are valid per item and is any other unit converted or listed, and what quantity precision applies?
+- If unresolved, may stock go negative, how is an issue beyond stock costed (last known cost, standard cost or left unvalued), how does a later receipt settle it, and where does a cost difference land, including a standard-cost variance?
+- If unresolved, what happens to a receipt with no cost or a zero cost, how is a gain costed, and how far does an unvaluable movement reach (that costing grain, the item or the run)?
+- If unresolved, how are duplicate movement ids handled when identical or conflicting, which units of measure are valid per item and is any other unit converted or listed, and what quantity precision and rounding apply and where does a residue go?
 - If unresolved, which periods and cuts are published, are quiet periods shown, are out-of-scope records listed or only counted, what tolerance applies to a conservation or tie-out gap, and does an unvaluable item or a gap beyond it fail the run or stay listed?
 
 ### Guardrails
