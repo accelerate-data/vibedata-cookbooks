@@ -6,13 +6,15 @@ trigger:
   - A component is used by several assemblies, and its total demand depends on every path through the bill of materials.
   - BOM revisions change over time and a past or future demand must use the revision in force on its own date.
   - Bills of materials contain loops, overlapping revisions or missing unit conversions that silently drop or distort component demand.
-description: Explode approved demand into component requirements through the BOM revisions in force under approved date, unit, scrap and yield rules, with gross beside adjusted quantities, the paths behind totals published as approved, and cycles, ambiguous revisions and missing conversions handled as approved and never dropped silently.
+description: Explode approved demand into component requirements through the BOM revisions in force under approved date, unit, scrap and yield rules, with gross beside adjusted quantities, the paths behind totals published as approved, cycles, ambiguous revisions and missing conversions handled as approved, and every input row accounted for.
 pitch: Component demand from the BOM revision in force, with every broken BOM explained.
 job_category: build
 area: transformation
 readiness: supported
 function:
   - supply-chain-ops
+industry:
+  - manufacturing
 domain_objects:
   - demand_line
   - bom_revision
@@ -52,7 +54,7 @@ evidence:
 
 ## Prompt
 
-Build <component_requirement_model> that explodes each approved line in <demand_source> through <bom_revision_source> into component requirements, <explosion_path_model> that publishes the paths behind the totals as approved, and <requirement_exception_model> for every path that cannot complete under the approved rules. Inherit the Intent's sources, platform and approved requirements, and settle any BOM semantics they leave open. At every level use the revision in force on the approved date, convert quantities with approved unit conversions, apply the approved scrap and yield rules, and publish gross beside adjusted quantities. Components reached through several paths sum across every valid path. Cycles, ambiguous or missing revisions, missing conversions and over-deep chains follow the approved handling and stay visible, never silent drops or guesses. Stop at component requirements.
+Build <component_requirement_model> that explodes each approved line in <demand_source> through <bom_revision_source> into component requirements, <explosion_path_model> that publishes the paths behind the totals as approved, and <requirement_exception_model> for every path that cannot complete under the approved rules. Inherit the Intent's sources, platform and approved requirements, and settle any BOM semantics they leave open. At every level use the revision in force on the approved date, convert quantities with approved unit conversions, apply the approved scrap and yield rules, and publish gross beside adjusted quantities. Components reached through several paths sum across every valid path. Cycles, ambiguous or missing revisions, missing conversions and over-deep chains follow the approved handling and stay visible, never silent drops or guesses. Account for every demand line, BOM line and conversion row. Stop at component requirements.
 
 ## Verified by
 
