@@ -51,7 +51,7 @@ evidence:
 
 ## Prompt
 
-Score each submitted forecast in <forecast_submission_source> against the bookings in <booking_ledger> for each approved forecast period, publishing <submission_score_model>, <horizon_cohort_model>, <deal_attribution_model> and <reconciliation_model>. Inherit the Intent's semantics and settle only what it leaves open: the submission key and cutoff, revision rule, period and horizon bucket, actuals authority, period placement and cancellation, currency, error sign, headline category, component classes, reconciliation treatment and scope. Score each submission as its cutoff snapshot so a later revision never changes it, split signed error into named components that sum to it, account for every forecast line and in-scope booked deal, set aside what cannot be scored with its reason, and report what the history cannot answer.
+Score each submitted forecast in <forecast_submission_source> against the bookings in <booking_ledger> for each approved forecast period, publishing <submission_score_model>, <horizon_cohort_model>, <deal_attribution_model> and <reconciliation_model>. Inherit the Intent's semantics and settle only what it leaves open: the submission key and cutoff, revision rule, period, horizon bucket and time basis, submitter attribution, due submissions, actuals authority, period placement and cancellation, currency, error sign, headline category, component classes, reconciliation treatment and scope. Score each submission as its cutoff snapshot so a later revision never changes it, split signed error into named components that sum to it, account for every forecast line and in-scope booked deal, set aside what cannot be scored with its reason, and report what the history cannot answer.
 
 ## Verified by
 
@@ -85,6 +85,7 @@ Inherit the Intent's repository, platform, Domain and sources. Confirm the submi
 - verifying
 
 ### Ask first
+
 - If unresolved, which forecast periods and horizon bucket (weeks before period end or another), which calendar, which as-of date makes a period closed and scorable, and which time zone and inclusivity a cutoff uses?
 - If the submissions are not settled, what identifies a submission, which revision is in force at a cutoff, which submission counts for a submitter in a horizon bucket, and how are tied revisions and a submission with no deal lines handled?
 - Which population does a submission cover, how is a deal attributed to a submitter (owner at cutoff or booking, split credit), how do roll-up and leaf submissions combine without double counting, and how are excluded deals shown?
