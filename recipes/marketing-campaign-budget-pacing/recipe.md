@@ -6,7 +6,7 @@ trigger:
   - A mid-flight budget change rewrote last month's plan, so nobody can show what was approved at the time.
   - Platform spend is restated after the day and billed credits arrive late, and marketing finance cannot tell provisional cost from settled cost.
 description: Build a campaign-day plan and actual ledger as of each approved reporting cutoff, with the approved budget revision at that cutoff, provisional and settled cost kept apart, remaining budget and eligible delivery days left, and campaign totals that reconcile to the portfolio at every cutoff.
-pitch: A point-in-time pacing ledger where earlier plans never change and every cost, credit and set-aside reconciles to the portfolio.
+pitch: A point-in-time pacing ledger where each cutoff keeps its own approved plan and every cost, credit and set-aside reconciles to the portfolio.
 job_category: build
 area: transformation
 readiness: supported
@@ -58,17 +58,17 @@ Build <campaign_day_ledger_model>, <campaign_totals_model>, <portfolio_totals_mo
 
 ## Verified by
 
-- At each cutoff the plan in force is the revision the approved as-of rule selects, and a later revision changes only later cutoffs: an earlier cutoff's plan, paced amounts and remaining budget match the expected values for that cutoff, never the latest plan.
-- Every revision, pause, restatement, bill and adjustment enters a cutoff only when the approved rule says it was known there, and an input that arrives later never changes an earlier cutoff's rows, whichever of plan and cost the approved rule freezes.
-- Paced amounts follow the approved spreading and rounding rule and sum to the plan in force across the approved eligible days, plus any approved residue; a paused day's planned amount and eligibility follow the approved pause rule.
-- Eligible delivery days left at each row equal the count of approved eligible days after it, as known at the cutoff, and a pause recorded later never changes an earlier cutoff's counts or plan.
+- At each cutoff the plan in force is the revision the approved as-of rule selects, and a revision changes only the cutoffs that rule gives it: each cutoff's plan, paced amounts and remaining budget match the expected values for that cutoff under that rule, not the latest plan.
+- Every revision, pause, restatement, bill and adjustment enters a cutoff only when the approved rule says it was known there, and an input recorded after a cutoff leaves that cutoff's rows unchanged for every input the approved rule freezes.
+- Where a flight has eligible days, paced amounts follow the approved spreading and rounding rule and sum to the plan in force, plus any approved residue; a paused day's planned amount and eligibility follow the approved pause rule.
+- Eligible delivery days left at each row equal the count of approved eligible days after it, as known at the cutoff, and a pause recorded later leaves an earlier cutoff's counts and plan unchanged under the approved as-of rule.
 - Each campaign day carries exactly one approved cost basis, and a settled day's cost comes from the approved settled source, never added to the provisional cost of the same day; the same day can be provisional at one cutoff and settled at a later one.
 - Where a platform restates a day, the restatement the approved rule selects replaces the earlier ones rather than adding to them, and a day with no reported cost shows the approved state, never a silent zero.
-- A credit or adjustment lands once on its approved basis: one that appears in several sources moves cost by one amount, and one with no approved backing, unmatched or outside the flight moves no cost and is handled as the approved exception policy says.
+- A credit lands once on its approved basis: one in several sources moves cost by one amount, and one with no approved backing, unmatched or outside the flight moves no cost and follows the approved exception policy; the credit audit shows each copy and its disposition.
 - Remaining budget equals the plan in force less cumulative cost on each day's own basis, shown as the approved rules say where no plan applies or spend exceeds the plan, never clipped or shown as a clean zero.
-- Campaign totals add to the portfolio total for plan and cost at every cutoff, recomputed from the sources; any campaign without an approved plan appears in the difference as the approved rules say, never dropped from cost.
+- Campaign plan and cost add to the portfolio's at every cutoff, recomputed from the sources; a campaign without an approved plan still contributes its cost, and any resulting gap in remaining budget is shown as the approved rules say, never dropped.
 - On a run that completes, every input record is counted in the ledger or set aside with one approved reason, the counts add up per check, and an input that cannot be placed is listed rather than lost; a run the policy fails names each offending input.
-- Published results equal values derived independently from the sources and approved rules for several cutoffs, covering one before a flight starts, one inside a pause, and one after a bill and a late credit.
+- Published results equal values derived independently from the sources and approved rules for several cutoffs, covering, where the inputs have them, a cutoff before a flight starts, one inside a pause, and one after a bill and a late credit.
 - Each output is unique on its declared grain, a rerun on unchanged inputs gives identical results, and the outcome states what the inputs cannot prove, such as costs not yet restated.
 
 ## Agent guidance
@@ -93,7 +93,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - If unresolved, how a budget is spread over delivery days (evenly or by profile), at what precision and where any remainder goes, and whether a mid-flight revision re-paces the whole flight or only the budget still unspent?
 - If unresolved, which days are eligible delivery days (weekdays, dayparts), how a pause moves planned spend (re-spread, carry or drop), and what happens to a pause recorded after spend and to spend recorded on a paused day?
 - If unresolved, which source is provisional and which settled, when a day counts as settled and whether a void or later version returns it to provisional, which platform restatement wins, and which cost lines (fees, taxes) count?
-- If unresolved, which keys link a credit or adjustment to its campaign, day and its copies in other sources, which copy applies, and how a credit with no matching bill or restatement is handled?
+- If unresolved, which keys link a restatement, bill, credit or adjustment to its campaign and day and a credit to its copies in other sources, which copy applies, and how a credit with no matching bill or restatement is handled?
 - If unresolved, what a campaign with no approved revision, a day with no reported spend, a flight not yet started or already ended, and spend above the plan each show?
 - If unresolved, which campaigns, portfolios, currencies and translation rates are in scope, how a campaign without a plan enters portfolio remaining, and how a campaign with several or overlapping flights is paced?
 - If unresolved, is an input that cannot be placed (unknown campaign, day outside the flight, missing key, bad amount) set aside with a reason, flagged, or does the run fail naming it?
