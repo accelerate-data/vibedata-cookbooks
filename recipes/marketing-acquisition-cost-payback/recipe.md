@@ -33,10 +33,9 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Needs dated cost lines, acquisition assignments, first-customer dates and contribution records.
-  - Takes contribution and assignments as given; the rules may be captured as editable data.
-  - Keeps each currency separate; currency conversion is a separate outcome.
+  - Takes contribution, assignments and customer identity as given; the rules may be captured as editable data.
+  - Keeps each currency separate unless an approved translation rule applies; rate sourcing is separate.
   - Reports attribution-based accounting to an as-of date; causal lift and forecasting are separate.
   - Stops at cohort cost and payback; touchpoint credit and lifetime value are separate outcomes.
 related:
@@ -54,28 +53,28 @@ evidence:
 
 ## Prompt
 
-Build <cost_allocation_model>, <cohort_payback_model>, <cohort_series_model>, <coverage_model> and <exceptions_model> from <cost_source>, <assignment_source>, <customer_source> and <contribution_source> for the acquisition payback questions in this Intent. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only the semantics they leave open. Allocate every cost line to one cohort cell or carry it unallocated with a reason, split any shared cost once, place each customer in one cohort and one channel under the approved assignment rule, and show customers with no qualifying assignment under the approved treatment. Publish per cohort and channel the fully loaded cost, customers acquired, cumulative contribution by month since acquisition and a payback verdict under the approved threshold and rule, with months not yet reached empty, never zero, and reconcile allocated and unallocated cost to the cost inputs. Report attribution-based accounting only: no causal claim, no touchpoint credit, no forecast.
+Build <cost_allocation_model>, <cohort_payback_model>, <cohort_series_model>, <coverage_model> and <exceptions_model> from <cost_source>, <assignment_source>, <customer_source> and <contribution_source> for the acquisition payback questions in this Intent. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only the semantics they leave open. Account for every cost line as allocated shares that add back to it or carry it unallocated with a reason, divide any shared cost once, place each customer under the approved assignment rule, and show customers with no qualifying assignment under the approved treatment. Publish per cohort and channel the fully loaded cost, customers acquired, cumulative contribution by approved period since acquisition and a payback verdict under the approved threshold and rule, with periods not yet reached empty, never zero, and reconcile allocated and unallocated cost to the cost inputs. Report attribution-based accounting only: no causal claim, no touchpoint credit, no forecast.
 
 ## Verified by
 
-- Every cost line is allocated to one cohort cell or carried unallocated with one reason, and allocated plus unallocated cost equals the cost inputs per month, per cost type and in total, with any difference shown, never hidden.
-- A shared cost line is split once under the approved basis, its shares add back to the line plus any amount the approved rule leaves unallocated, and no shared amount reaches two cells.
-- Each customer counts in one cohort and one channel under the approved assignment rule, a reassigned customer counts once, and cohort customer counts equal the customers in scope with a first-customer date.
+- Every cost line is accounted for as allocated shares that add back to the line, or carried unallocated or forward as the approved rule says, each with a reason; allocated plus unallocated equals the inputs per input month, cost type and currency, with any difference shown.
+- A shared cost line is divided once under the approved basis, its shares add back to the line plus any amount the approved rule leaves unallocated, and no shared amount reaches two cells.
+- Each customer is placed under the approved assignment rule, once or by approved shares that add to one customer; a reassigned customer is never counted twice, and cohort counts equal the customers in scope.
 - Customers with no qualifying assignment follow the approved treatment, each counted once, and are never silently added to a paid channel's customers or cost.
-- Each cell shows fully loaded cost, customers acquired and cumulative contribution by month since acquisition, each cumulative figure equals the sum of its months, and the payback verdict follows the approved threshold and crossing rule.
-- A refund lands in the month the approved rule gives it, a refund after payback can delay or reverse the verdict, and a first crossing and a sustained payback stay distinguishable where the approved rule keeps both.
-- A cohort that has not covered its cost and has not reached the approved window reads not yet recovered with the months observed, never zero, failed or recovered by extrapolation; unreached months are empty and a reached month with no activity is zero.
-- A paid cell with customers and no allocated cost reads as the approved treatment with a stated reason, never as paid back at the first month; a total row is recomputed from its own sums under its stated inclusion rule.
-- A month with no cost and no acquisition produces no cohort row and appears in coverage, and every input row is used in the answer or listed once with its reason.
-- Cost, customers, cumulative contribution and verdicts match values worked out independently of the model for each agreed case, including a cohort exactly at the threshold, a refund after payback and a shared cost line.
-- Where the approved rule fails a run, it names each offending input and the reason and publishes no figures; where it flags instead, flagged figures are marked incomplete.
-- No column or description states or implies causation, incrementality, touchpoint credit or a forecast, and the outcome states what the inputs cannot prove, such as corrections recorded after the as-of date.
+- Each cell shows fully loaded cost, customers acquired and cumulative contribution by approved period since acquisition; each cumulative figure equals the sum of its periods, and the payback verdict follows the approved threshold and rule.
+- A refund lands in the period the approved rule gives it; one after payback can delay or reverse the verdict, and a first crossing and a sustained payback stay distinguishable where the approved rule keeps both.
+- A cohort inside the approved window that has not covered its cost reads not yet recovered with its periods observed; one past the window without covering cost reads not recovered with its shortfall; neither reads zero, and unreached periods are empty.
+- A paid cell with customers and no allocated cost reads as the approved treatment with a stated reason, never as paid back at the first period; a total row is recomputed from its own sums under its stated inclusion rule.
+- A period with no cost and no acquisition produces no cohort row and appears in coverage; every input row is used or listed once with its reason, and a null or malformed amount is listed, never read as zero.
+- Results equal values worked out independently of the model for each applicable agreed case, including a cohort exactly at the threshold, a refund after payback and a shared cost line; an inapplicable case is stated as such.
+- Cost, contribution and ratios reconcile per currency, and mixed currencies read as translated under the approved rate rule or unverified, never as a ratio across currencies; totals hold before any suppression, which follows the approved hiding rule.
+- Where the approved rule fails a run it names each offending input and publishes no figures, or flags figures incomplete; no output states causation, touchpoint credit or a forecast, and it states what the inputs cannot prove.
 
 ## Agent guidance
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and every semantic decision its approved requirements already record; do not ask the user to confirm them again. Profile the cost lines (types, months, channels, shared lines, unknown channels), the assignments (approval status, effective dates, reassignments), the first-customer dates and the contribution records (months before acquisition, refunds, currencies) before modelling. Use Ask first only for semantics still open, and record each decision as the user's own answer. Keep the threshold, window, as-of date and reason lists editable as data where the approved requirements say so. Work out expected results for the agreed cases independently of the models before trusting them, check that cost reconciles to the inputs and that cohort figures recompute from the records, and say which paths the example did not exercise.
+Inherit the Intent's repository, platform, Domain, sources and every semantic decision its approved requirements already record; do not ask the user to confirm them again. Profile the cost lines (types, periods, channels, shared lines, credits, unmapped lines), the assignments (approval status, effective dates, reassignments, concurrent records), the first-customer dates and the contribution records (periods before acquisition, refunds, currencies, null amounts) before modelling. Use Ask first only for semantics still open, and record each decision as the user's own answer. Keep the threshold, window, as-of date and reason lists editable as data where the approved requirements say so. Work out expected results for the agreed cases independently of the models before trusting them, check that cost reconciles to the inputs and that cohort figures recompute from the records, and say which paths the example did not exercise.
 
 ### Compose
 
@@ -89,22 +88,23 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 ### Ask first
 
-- If unresolved, which cost types make up fully loaded cost (media, agency, creative, shared, overhead), which period each lands in (spend month, lagged or per campaign), and where does cost with no acquired customer go (unallocated, carried forward or spread)?
-- If unresolved, how is a shared cost line divided across channels or campaigns (by media spend, customers acquired, evenly or left unallocated), and what happens when no basis exists?
-- If unresolved, which date anchors a customer's cohort (first order, signup or first paid), is the period a calendar month or a fixed block, and which customers count (staff, test, those after the as-of)?
-- If unresolved, which record links a customer to a campaign or channel (approved only, effective-dated, as known or as of the run), how are rejected, superseded and reassigned records treated, and is a customer with none organic, excluded or spread?
-- If unresolved, what is contribution (revenue, gross margin or after variable cost), do refunds reduce the month they are recorded or the original month, and how are records before acquisition, beyond the window or after the as-of shown?
-- If unresolved, what threshold counts as payback (a multiple of cost, at or above), does a later refund undo it, what window applies, when does a running month count as reached, and what does a cohort with customers but no cost read as?
-- If unresolved, which rows are published (per channel, a paid total, a total with organic), what does a total include, and who may read the table, with what minimum cohort size?
-- If unresolved, where does the as-of date come from, and should a run with missing, stale or incomplete inputs fail, publish flagged results or publish nothing?
+- If unresolved, which cost lines count in fully loaded cost (media, agency, creative, shared, overhead, credits, rebates, taxes, backdated corrections, spend with no campaign key), which period each lands in, and where does cost with no acquired customer go (unallocated, carried forward or spread)?
+- If unresolved, how is a shared cost line divided (by spend, customers acquired, evenly or left unallocated), which key links a cost line to an assignment's campaign or channel, which channels are paid, and what do unmapped lines become?
+- If unresolved, which date anchors a customer's cohort (first order, signup or first paid), is the period a calendar month, a week or a fixed block, and which customers count (staff, test, those after the as-of)?
+- If unresolved, which assignment record places a customer (approved only, effective-dated, as known or as of the run), how are rejected, superseded, reassigned, concurrent and tied records placed (one placement or approved shares), and is a customer with none organic, excluded or spread?
+- If unresolved, what is contribution (revenue, gross margin or after variable cost), do refunds reduce the period they are recorded or the original one, and how are records before acquisition, beyond the window, after the as-of or null shown?
+- If unresolved, what threshold counts as payback (a multiple of cost, at or above), does a later refund undo it, what window applies, when does a running period count as reached, and what do a no-cost cohort and a cohort past the window without recovery read as?
+- If unresolved, what is the reporting basis: the currency and rate source or per-currency reporting, the time zone and day boundary for every date, and where does the as-of date come from?
+- If unresolved, which rows are published (per channel, a paid total, a total with organic), who may read the table, what minimum cohort size and complementary hiding apply, and should a run with missing, stale or incomplete inputs fail, publish flagged results or publish nothing?
 
 ### Guardrails
 
-- Do not choose the cost scope, shared-cost basis, cohort anchor, assignment rule, organic treatment, refund timing, payback threshold or window, or published rows for the user, and take none from the data or common practice; the user may ask for alternatives or a recommendation.
-- Never count a shared cost line in two cells, spread cost to customers the approved rule does not assign, or let a reassigned customer count twice.
-- Never show an uncovered cohort that has not reached the window as zero or failed, and never fill unreached months or a payback by extrapolation.
-- Never read a cell with no allocated cost as recovered, and never let organic customers or contribution without cost improve a paid payback figure unless the approved rule says so and labels it.
+- Do not choose the cost scope, shared-cost basis, link keys, cohort anchor, assignment rule, organic treatment, refund timing, payback rule, reporting basis or published rows for the user, or take them from the data or common practice; the user may ask for alternatives or a recommendation.
+- Never count a shared cost line in two cells beyond its approved shares, spread cost to customers the approved rule does not assign, or let a reassigned customer count twice.
+- Never show an uncovered cohort inside the window as zero or failed, never present one past the window as still open, and never fill unreached periods or a payback by extrapolation.
+- Never read a cell with no allocated cost as recovered unless the approved treatment says so and labels it.
+- Never let organic customers or contribution without cost improve a paid payback figure unless the approved rule says so and labels it.
 - Never drop, double count or silently net away a cost line, customer, contribution record or refund; amounts left out stay visible with their reasons.
-- Never sum or net two currencies into one figure; each currency reconciles on its own.
+- Never sum or net two currencies into one figure unless an approved translation rule and rate source say so; otherwise each currency reconciles on its own.
 - Never default the as-of date to the clock without approval, and never restate periods the approved rule keeps as known.
-- Stop at cohort cost and payback: do not assign touchpoint credit, rebuild customer lifetime value, claim causal or incremental effect, forecast, or recommend budget.
+- Stop at cohort cost and payback: do not assign touchpoint credit, rebuild customer lifetime value (contribution is taken as given), claim causal or incremental effect, forecast, or recommend budget.
