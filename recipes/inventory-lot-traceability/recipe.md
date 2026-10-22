@@ -1,12 +1,12 @@
 ---
 id: inventory-lot-traceability
-title: Trace a recalled input lot through production to affected shipments and flag lineage that cannot be traced
+title: Trace a recalled input lot to affected shipments and flag unreconciled runs and lineage that cannot be traced
 trigger:
   - A raw material lot is recalled and nobody can say which finished lots and which customer shipments contain it, or how much of it each holds.
   - Lot genealogy lives in spreadsheets or separate receipt, production and shipping systems, and a split or blend makes the same material reach a shipment by several routes.
   - A mock recall must show every affected shipment, and every shipment whose history cannot be followed, within the hour.
 description: From observed receipts, production runs that consume and make lots, and shipments, build the lot genealogy with quantities and units on each link, and for a recalled lot list every affected lot and shipment once with the recalled quantity, with unreconciled runs, cycles and untraceable shipments shown.
-pitch: Trace a recalled lot to every affected shipment once, and show every shipment whose history cannot be followed.
+pitch: Trace a recalled lot to every affected shipment once, and show unreconciled runs and shipments whose history cannot be followed.
 job_category: build
 area: transformation
 readiness: supported
@@ -29,9 +29,8 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Needs observed genealogy, the lots each run consumed and produced; a link is never inferred from dates or numbers.
-  - One process and one lot identification scheme per run; other processes or schemes are separate runs.
+  - Lots follow one identification scheme; mapping between schemes is a separate outcome.
   - Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze.
   - Stops at recall exposure evidence; notifying customers and the physical recall are separate outcomes.
   - Stock positions and product hierarchies belong to ops-inventory-reconciliation and master-product-sku-hierarchy.
@@ -60,11 +59,11 @@ Build <lot_lineage_model>, <recall_closure_model>, <affected_shipment_model>, <r
 - Each descendant of a recalled lot appears once however many routes reach it, and its recalled quantity counts the material once; the recalled lot itself is reported separately, never as its own descendant.
 - Recalled quantity follows the approved attribution rule through every split and blend, never exceeds a lot's produced quantity, and a shipment's recalled quantity follows from its shipped quantity under that rule.
 - Each affected shipment appears once at the approved grain however many lots or routes reach it, with its date, customer, recalled quantity, any share the approved rule gives, and one status; a shipment whose figure is a lower bound is labelled so and never reported as fully quantified.
-- Each run shows quantity in, quantity out, declared loss, signed residue and a verdict under the approved tolerance; a run outside it stays visible and its downstream quantities are marked provisional, or the run fails, as approved.
+- Each run shows quantity in, quantity out, declared loss, signed residue and a verdict under the approved tolerance; a run outside it stays visible and its downstream quantities are marked provisional, held back or the run fails, as approved.
 - Lots on a cycle of recorded links are detected and never traced through; where the approved rule sets them aside, each is listed once, tracing ends, and a shipment reached through one is listed as incomplete with a cycle reason and unknown recalled quantity, never unaffected and never zero.
 - On a run that completes, a shipment whose lot has no observed origin, or whose history stops at a missing quantity, a unit the approved rules do not convert or a lot with no run, is listed with the point where it stops and one reason, with unknown recalled quantity, never unaffected and never zero.
 - An unknown quantity stays unknown and a recorded zero stays zero; a recall naming a lot absent from the lot records follows the approved disposition and never returns an empty list as if nothing were affected.
-- On a run that completes, every receipt, run, run leg, shipment and shipment line is placed once, as traced, set aside with its reason or listed as a problem, per input the counts sum to the records read, and records the approved scope leaves out are counted with their reason.
+- On a run that completes, every receipt, run, run leg, shipment and shipment line is placed once, as traced, set aside with its reason or listed as a problem, and counts sum to the records read; records the approved scope leaves out are shown or counted with their reason as approved.
 - Each output is unique on its declared grain, and changing a rule the approved requirements hold as data, such as the recalled lot, tolerance or unit factors, changes the published figures without a code change within the approved rule form.
 - Published links, descendants, recalled quantities, shares and affected shipments equal values derived independently from the sources and approved rules, on cases that include a split, a blend, a lot reached by two routes, an unaffected sibling, a cycle, an unreconciled run and a lot with no origin.
 
@@ -85,7 +84,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 ### Ask first
 
 - If unresolved, which process, sites and lot identification scheme are in scope, which lot number is the key (the company's own or the supplier's), and which records link lots across sources: do the production run's own consumed and produced lines, or something else, define a link?
-- If unresolved, how is a recall named and where does it come from (an editable list of lots, a supplier lot, a range), and what happens when it names a lot absent from the lot records: does the run fail or return an empty list that states why?
+- If unresolved, how is a recall named (an editable list of lots, a supplier lot, a range), is exposure reported per recalled lot or combined, and when it names a lot absent from the lot records does the run fail or return an empty list that says why?
 - If unresolved, how is recalled material attributed through a split or blend (by mass share, by volume, only what was recorded, direct blends only), is there a minimum share below which a shipment is not called affected, and are the recalled lot's own shipments listed as affected?
 - If unresolved, which unit applies, what conversion factors and precision are approved, and what happens to a run, link or shipment line with a missing quantity or a unit with no factor: is it set aside as an exception, converted or does the run fail?
 - If unresolved, which tolerance applies to a run's quantity in against quantity out plus declared loss, where does the declared loss come from, and is an unreconciled run traced with provisional quantities, held back or a failure?
