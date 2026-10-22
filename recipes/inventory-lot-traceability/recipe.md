@@ -4,7 +4,7 @@ title: Trace a recalled input lot to affected shipments and flag unreconciled ru
 trigger:
   - A raw material lot is recalled and nobody can say which finished lots and which customer shipments contain it, or how much of it each holds.
   - Lot genealogy lives in spreadsheets or separate receipt, production and shipping systems, and a split or blend makes the same material reach a shipment by several routes.
-  - A mock recall must show every affected shipment, and every shipment whose history cannot be followed, within the hour.
+  - A mock recall must show every affected shipment, and every shipment whose history cannot be followed.
 description: From observed receipts, production runs that consume and make lots, and shipments, build the lot genealogy with quantities and units on each link, and for a recalled lot list every affected lot and shipment once with the recalled quantity, with unreconciled runs, cycles and untraceable shipments shown.
 pitch: Trace a recalled lot to every affected shipment once, and show unreconciled runs and shipments whose history cannot be followed.
 job_category: build
@@ -29,7 +29,7 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Needs observed genealogy, the lots each run consumed and produced; a link is never inferred from dates or numbers.
+  - Needs observed genealogy, such as lots consumed and produced per run; links are never inferred from dates.
   - Lots follow one identification scheme; mapping between schemes is a separate outcome.
   - Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze.
   - Stops at recall exposure evidence; notifying customers and the physical recall are separate outcomes.
@@ -38,7 +38,6 @@ related:
   - ops-inventory-reconciliation
   - master-product-sku-hierarchy
   - file-drop-to-bronze
-  - effective-dated-business-rules
 evidence:
   features:
     - capturing-requirements
@@ -51,17 +50,17 @@ evidence:
 
 ## Prompt
 
-Build <lot_lineage_model>, <recall_closure_model>, <affected_shipment_model>, <run_reconciliation_model> and <trace_exception_model> from <receipt_source>, <production_run_source>, <shipment_source> and <recall_notice_source>. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only the semantics they leave open. Hold each recorded link from a parent lot to the lot made from it once, with the run, quantities and unit, never inferring one from dates, adjacent lot numbers or equal quantities. For each recalled lot, list every descendant lot and shipment holding its material once however many routes reach it, with the recalled quantity (and share where the rule gives one) under the approved attribution rule through every split and blend. Reconcile each run's quantity in against quantity out plus declared loss under the approved tolerance and show a run that does not. Detect cycles and handle them as approved, list every shipment with incomplete lineage with the point where it stops and why, never as unaffected or zero, and place every input record. Keep sources read-only and report what the inputs cannot prove.
+Build <lot_lineage_model>, <recall_closure_model>, <affected_shipment_model>, <run_reconciliation_model> and <trace_exception_model> from <receipt_source>, <production_run_source>, <shipment_source> and <recall_notice_source>. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only the semantics they leave open. Hold each recorded link from a parent lot to the lot made from it once, with its source record, quantities and unit, never inferring one from dates, adjacent lot numbers or equal quantities. For each recalled lot, list every descendant lot and shipment holding its material once however many routes reach it, with the recalled quantity (and share where the rule gives one) under the approved attribution rule through every split and blend. Reconcile each run's quantity in against quantity out plus declared loss under the approved tolerance and show a run that does not. Detect cycles and handle them as approved, list every shipment with incomplete lineage with the point where it stops and why, never as unaffected or zero, and place every input record. Keep sources read-only and report what the inputs cannot prove.
 
 ## Verified by
 
-- Each recorded link appears once with its run, parent and child lots, quantities and units; two lots that share no run have no link, however close their dates, lot numbers or quantities, and a lot beside a recalled lot that shares no run is not listed as affected.
+- Each recorded link appears once with its source record, parent and child lots, quantities and units; lots with no link under the approved linking rule have none, however close their dates or numbers, and a lot beside a recalled lot with no such link is not affected.
 - Each descendant of a recalled lot appears once however many routes reach it, and its recalled quantity counts the material once; the recalled lot itself is reported separately, never as its own descendant.
 - Recalled quantity follows the approved attribution rule through every split and blend, never exceeds a lot's produced quantity, and a shipment's recalled quantity follows from its shipped quantity under that rule.
 - Each affected shipment appears once at the approved grain however many lots or routes reach it, with its date, customer, recalled quantity, any share the approved rule gives, and one status; a shipment whose figure is a lower bound is labelled so and never reported as fully quantified.
 - Each run shows quantity in, quantity out, declared loss, signed residue and a verdict under the approved tolerance; a run outside it stays visible and its downstream quantities are marked provisional, held back or the run fails, as approved.
 - Lots on a cycle of recorded links are detected and never traced through; where the approved rule sets them aside, each is listed once, tracing ends, and a shipment reached through one is listed as incomplete with a cycle reason and unknown recalled quantity, never unaffected and never zero.
-- On a run that completes, a shipment whose lot has no observed origin, or whose history stops at a missing quantity, a unit the approved rules do not convert or a lot with no run, is listed with the point where it stops and one reason, with unknown recalled quantity, never unaffected and never zero.
+- On a run that completes, a shipment whose lot has no origin, or whose history stops at a missing quantity, a unit the approved rules do not convert or no recorded production, is listed with the point where it stops and one reason, with unknown recalled quantity, never unaffected and never zero.
 - An unknown quantity stays unknown and a recorded zero stays zero; a recall naming a lot absent from the lot records follows the approved disposition and never returns an empty list as if nothing were affected.
 - On a run that completes, every receipt, run, run leg, shipment and shipment line is placed once, as traced, set aside with its reason or listed as a problem, and counts sum to the records read; records the approved scope leaves out are shown or counted with their reason as approved.
 - Each output is unique on its declared grain, and changing a rule the approved requirements hold as data, such as the recalled lot, tolerance or unit factors, changes the published figures without a code change within the approved rule form.
