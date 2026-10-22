@@ -6,6 +6,8 @@
   "members": [
     "dbt-full-refresh-to-incremental",
     "dbt-refactor-output-identical",
-    "cross-platform-dbt-macro"
+    "cross-platform-dbt-macro",
+    "incremental-dbt-model-with-contract",
+    "bounded-partition-backfill"
   ]
 }

@@ -10,6 +10,8 @@ pitch: Retire a hand-run notebook by rebuilding its dataframe logic in dbt and p
 job_category: re-engineer
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - notebook
   - dbt_model

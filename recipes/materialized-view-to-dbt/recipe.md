@@ -10,6 +10,8 @@ pitch: Retire a materialized view by rebuilding it in dbt and proving each compa
 job_category: re-engineer
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - materialized_view
   - refresh_policy

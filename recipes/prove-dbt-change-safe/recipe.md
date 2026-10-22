@@ -10,6 +10,8 @@ pitch: Review the business answers behind a dbt change with independent evidence
 job_category: prove
 area: data-quality
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - dbt_change
   - assurance_requirement

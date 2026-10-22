@@ -10,6 +10,8 @@ pitch: Author one Direct Lake model as code over governed gold, each approved KP
 job_category: build
 area: semantic-layer
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - semantic_model
   - governed_measure

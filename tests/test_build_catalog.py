@@ -44,7 +44,27 @@ def test_selector_collection_resolves_by_platform(cookbook):
     assert collection["website_visible"] is True
 
 
+def make_findable(cookbook: Path) -> None:
+    """Tag the sample Recipe cross-functional and add the function Collection that lists it."""
+    path = cookbook / RECIPE_REL
+    path.write_bytes(VALID_RECIPE.replace("readiness: supported\n", "readiness: supported\nfunction:\n  - cross-functional\n").encode("utf-8"))
+    collection = {**COLLECTION, "id": "any", "kind": "function", "selector": {"function": ["cross-functional"]}}
+    (cookbook / "collections/any.json").write_text(json.dumps(collection), encoding="utf-8")
+
+
+def test_recipe_in_no_function_collection_is_rejected_by_main(cookbook, capsys):
+    assert main(["--validate"], root=cookbook) == 1
+    assert "no function Collection lists this Recipe" in capsys.readouterr().err
+    make_findable(cookbook)
+    assert main(["--validate"], root=cookbook) == 0
+
+
+def test_build_catalog_does_not_require_a_function_collection(cookbook):
+    assert build_catalog(cookbook)[0]["recipes"]
+
+
 def test_check_mode_detects_a_stale_catalog(cookbook, capsys):
+    make_findable(cookbook)
     assert main(["--check"], root=cookbook) == 1
     assert main([], root=cookbook) == 0
     assert main(["--check"], root=cookbook) == 0
@@ -61,6 +81,7 @@ def test_dotfiles_are_ignored(cookbook):
 
 
 def test_validate_mode_neither_writes_nor_compares(cookbook):
+    make_findable(cookbook)
     path = cookbook / "catalog.json"
     assert not path.exists()
     assert main(["--validate"], root=cookbook) == 0
