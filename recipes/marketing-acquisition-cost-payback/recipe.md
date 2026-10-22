@@ -19,6 +19,8 @@ domain_objects:
   - acquisition_assignment
   - customer
   - cohort
+  - channel
+  - campaign
   - contribution
   - refund
   - payback_verdict
@@ -43,6 +45,7 @@ related:
   - customer-historical-ltv
   - effective-dated-business-rules
   - identity-golden-record-crosswalk
+  - shared-fx-conversion
 evidence:
   features:
     - capturing-requirements
@@ -57,13 +60,13 @@ Build <cost_allocation_model>, <cohort_payback_model>, <cohort_series_model>, <c
 
 ## Verified by
 
-- Every cost line is accounted for as allocated shares that add back to the line, or carried unallocated or forward as the approved rule says, each with a reason; allocated plus unallocated equals the inputs per input month, cost type and currency, with any difference shown.
+- Every cost line is accounted for as allocated shares that add back to the line, or carried unallocated or forward as the approved rule says, each with a reason; allocated plus unallocated plus carried forward equals the inputs per input month, cost type and currency, with any difference shown.
 - A shared cost line is divided once under the approved basis, its shares add back to the line plus any amount the approved rule leaves unallocated, and no shared amount reaches two cells.
 - Each customer is placed under the approved assignment rule, once or by approved shares that add to one customer; a reassigned customer is never counted twice, and cohort counts equal the customers in scope.
 - Customers with no qualifying assignment follow the approved treatment, each counted once, and are never silently added to a paid channel's customers or cost.
 - Each cell shows fully loaded cost, customers acquired and cumulative contribution by approved period since acquisition; each cumulative figure equals the sum of its periods, and the payback verdict follows the approved threshold and rule.
 - A refund lands in the period the approved rule gives it; one after payback can delay or reverse the verdict, and a first crossing and a sustained payback stay distinguishable where the approved rule keeps both.
-- A cohort inside the approved window that has never covered its cost reads not yet recovered with its periods observed; one past it without covering cost reads the approved verdict with its shortfall; one that covered then fell back reads as above; none reads zero, and unreached periods are empty.
+- A cohort in the approved window that never covered its cost reads not yet recovered with its periods observed; one past it without covering cost reads the approved verdict and shortfall; one that covered then fell back follows the refund rule; none reads zero, and unreached periods are empty.
 - A paid cell with customers and no allocated cost reads as the approved treatment with a stated reason, never as paid back at the first period; a total row is recomputed from its own sums under its stated inclusion rule.
 - A period with no cost and no acquisition produces no cohort row and appears in coverage; every input row is used or listed once with its reason, and a null or malformed amount is listed, never read as zero.
 - Results equal values worked out independently of the model for each applicable agreed case, including a cohort exactly at the threshold, a refund after payback and a shared cost line; an inapplicable case is stated as such.
