@@ -12,6 +12,8 @@ area: transformation
 readiness: supported
 function:
   - supply-chain-ops
+industry:
+  - manufacturing
 domain_objects:
   - lot
   - production_run
