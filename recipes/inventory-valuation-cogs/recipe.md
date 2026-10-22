@@ -53,15 +53,16 @@ Build <inventory_ledger_model>, <stock_rollforward_model>, <cogs_model> and <unv
 
 - Under one approved policy and reporting currency, each applied movement appears once in the ledger with quantity, value and running balances; every output names the policy and currency, and values under different policies are never mixed in one figure.
 - Ledger values, closing stock and cost of goods sold equal values derived independently from the movements and the approved rules, including a hand-calculated case for each approved rule at its edge, such as an issue drawing on stock bought at different costs.
-- Per approved costing grain and period, opening plus receipts, returns and gains, minus issues and losses, equals closing in quantity, and in value where known, plus any residue or variance the approved rule shows; the first opening is the approved opening and each closing is the next opening.
+- Per approved costing grain and period, opening plus receipts, returns, gains and approved transfers in, minus issues, losses and transfers out, equals closing in quantity, and in value where known, plus any residue the approved rule shows; the first opening is the approved opening.
 - Where values are known, cost of goods sold per period and in total ties to the roll-forward at the approved precision, counts only what the approved rules call cost of goods sold, counts each correction once, and keeps other consumption and adjustments visible as their own terms.
-- A movement with no usable cost, a gain with no stated cost basis, an unlinked return or an amount in another currency is never valued at zero: it is listed with its reason, and the values it affects are reported unknown, failed or unverified as approved, never as a complete total.
-- A movement dated before movements already valued follows the approved rule: later figures are restated with changed amounts and their cause identifiable, or it posts as a current-period adjustment; no published figure changes silently.
-- A return is valued and linked to what it reverses as approved; a return the approved keys cannot link, or that exceeds what it reverses, is listed with its reason and never guessed.
+- A movement with no usable cost, a gain with no stated cost basis, an unlinked return or an amount in another currency is never valued at zero: it follows the approved disposition, listed with its reason or failing the run naming it, and affected values are never a complete total.
+- A movement that arrives after later movements were valued follows the approved rule: later figures are restated with changed amounts and their cause identifiable, or it posts as a current-period adjustment; no published figure changes silently.
+- A return is valued and linked to what it reverses as approved; a return the approved keys cannot link, or that exceeds what it reverses, follows the approved disposition, listed with its reason, and no link or cost is guessed.
 - An issue beyond stock on hand follows the approved rule (blocked, costed provisionally and flagged, or left unvalued): it never silently takes zero cost, its state stays visible, and a later settling receipt shows its difference as a labelled amount where the rule provides one.
-- On a run that completes, every input movement is accounted for once as applied, set aside with a reason or listed as a problem, and counts sum to the rows read; duplicates, transfers, other units and out-of-scope items follow approved dispositions and move no other key's values.
+- On a run that completes, every input movement is accounted for once as applied, set aside with a reason or listed as a problem, counts sum to the rows read, and duplicates, transfers, other units and unknown codes follow approved dispositions without moving other keys' values.
+- Records the approved scope leaves out are shown or counted with their reason as approved, and the outcome states how many were excluded and why.
 - Each output is unique on its declared grain, nothing is summed across locations, currencies or periods the approved rules keep apart, a movement at a period edge falls in exactly one period, and quiet periods appear where the approved grain publishes them.
-- Changing a rule the approved requirements hold as data (cost basis for gains, issue reasons counted as cost of goods sold, cutoff, rounding) changes the published figures without a code change within the approved rule form, and the result still conserves.
+- A conservation or tie-out gap the approved tolerance does not allow is shown with its amount and reason and reported failed or unverified for that key, or fails the run as approved; it is never a pass.
 
 ## Agent guidance
 
@@ -82,13 +83,13 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 ### Ask first
 
 - If unresolved, which costing method (first-in first-out, weighted average, specific, standard), costing grain (item, location, lot) and reporting currency apply, what supplies opening stock and cost, where a standard-cost variance lands, and is another currency listed or a failure?
-- If unresolved, which items, locations, entities and ownership types are in scope (including consigned, third-party, memorandum or test stock), and which movement types count: transfers, scrap, samples and other non-sale issues, adjustments and which of them count as cost of goods sold?
+- If unresolved, which items, locations, entities and ownership types are in scope (consigned, third-party, memorandum, test), are codes no master resolves listed or failed, and which movement types count in valuation and which count as cost of goods sold (transfers, scrap, samples, adjustments)?
 - If unresolved, in which order are movements valued (event or posting time, tie-break), which time zone and period boundaries apply, and does a backdated movement restate later figures or post as a current-period adjustment; is a closed period locked?
 - If unresolved, at what cost does a return re-enter stock, which keys link it to the issue it reverses, and is an unlinked or over-returned quantity listed, valued another way or a failure?
 - If unresolved, may stock go negative, how is an issue beyond stock costed (last known cost, standard cost or left unvalued), how does a later receipt settle it, and where does the cost difference land?
 - If unresolved, what happens to a receipt with no cost or a zero cost, how is a gain costed, how far does an unvaluable movement reach (that costing grain, the item or the run), and what precision and rounding apply and where does a residue go?
 - If unresolved, how are duplicate movement ids handled when identical or conflicting, which units of measure are valid per item and is any other unit converted or listed, and what quantity precision applies?
-- If unresolved, which periods and cuts are published, are quiet periods shown, are out-of-scope records listed or only counted with their reason, and does an unvaluable item or a conservation gap fail the run or stay listed?
+- If unresolved, which periods and cuts are published, are quiet periods shown, are out-of-scope records listed or only counted, what tolerance applies to a conservation or tie-out gap, and does an unvaluable item or a gap beyond it fail the run or stay listed?
 
 ### Guardrails
 
