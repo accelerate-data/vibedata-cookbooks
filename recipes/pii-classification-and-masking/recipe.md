@@ -10,6 +10,8 @@ pitch: Classify personal data by column, mask it by kind for a lower-privilege a
 job_category: build
 area: governance-cost
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - personal_data_classification
   - masking_treatment

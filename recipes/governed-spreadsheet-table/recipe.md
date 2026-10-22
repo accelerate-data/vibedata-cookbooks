@@ -10,6 +10,8 @@ pitch: Turn the spreadsheet everyone depends on into a governed table that fails
 job_category: build
 area: ingestion
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - dlt_pipeline
   - bronze_table

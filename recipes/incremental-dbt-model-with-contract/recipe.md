@@ -10,6 +10,8 @@ pitch: Build an incremental dbt model with an enforced contract and show that a 
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - incremental_model
   - output_contract

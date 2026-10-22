@@ -10,6 +10,8 @@ pitch: Land call-detail batches and publish subscriber-day usage with batch comp
 job_category: build
 area: ingestion
 readiness: supported
+function:
+  - cross-functional
 industry:
   - telecom
 domain_objects:

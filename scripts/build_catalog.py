@@ -201,11 +201,24 @@ def check_functions(recipes: list[Recipe], collections: list[dict[str, Any]]) ->
                 )
 
 
-def build_catalog(root: Path = ROOT) -> tuple[dict[str, Any], str]:
+def check_findable(recipes: list[Recipe], collections: list[dict[str, Any]]) -> None:
+    """Every Recipe must appear in a function Collection, so the domain row covers the whole Cookbook."""
+    in_function = {m for c in collections if c["kind"] == "function" for m in c["resolved_members"]}
+    for recipe in recipes:
+        if recipe.meta["id"] not in in_function:
+            raise CookbookError(
+                f"{recipe.path}: no function Collection lists this Recipe; add a function tag, "
+                "or function: [cross-functional] when no single domain consumes the outcome"
+            )
+
+
+def build_catalog(root: Path = ROOT, require_findable: bool = False) -> tuple[dict[str, Any], str]:
     schemas = load_schemas(root)
     recipes = load_recipes(root, schemas["recipe"])
     collections = load_collections(root, schemas["collection"], schemas["recipe"]["x-body"]["markup"], recipes)
     check_functions(recipes, collections)
+    if require_findable:
+        check_findable(recipes, collections)
     catalog = {
         "source": REPO_URL,
         "schema_versions": {name: schemas[name]["version"] for name in SCHEMA_NAMES},
@@ -230,7 +243,7 @@ def main(argv: list[str] | None = None, root: Path = ROOT) -> int:
     )
     args = parser.parse_args(argv)
     try:
-        catalog, text = build_catalog(root)
+        catalog, text = build_catalog(root, require_findable=True)
     except CookbookError as exc:
         print(f"cookbook validation error: {exc}", file=sys.stderr)
         return 1

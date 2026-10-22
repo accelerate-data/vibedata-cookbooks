@@ -10,6 +10,8 @@ pitch: Turn a Spark ingestion notebook into a dlt pipeline you own, and prove ta
 job_category: re-engineer
 area: ingestion
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - spark_notebook
   - dlt_pipeline
