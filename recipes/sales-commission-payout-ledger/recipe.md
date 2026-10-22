@@ -64,7 +64,7 @@ Build <payout_ledger_model> and <payout_exceptions_model> from <approved_credit_
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and every semantic decision its approved requirements already record; do not ask the user to confirm them again. Profile the approved credit, plan versions and tier rules, quotas, payments, cancellations and holds first; use quota only to place deals in tiers. Use Ask first only for semantics still open, and record each decision as the user's own answer; sample data, a compensation spreadsheet or common practice cannot approve payout policy. Keep tier rates, cap and quotas as editable data where the approved design allows, and list any rule left only in model logic. Model deal pricing at deal grain with its tier pieces traceable, the ledger at one row per rep and period, and exceptions per input row with one reason. Report any approved rule the inputs cannot prove.
+Inherit the Intent's repository, platform, Domain, sources and every semantic decision its approved requirements already record; do not ask the user to confirm them again. Profile the approved credit, plan versions and tier rules, quotas, payments, cancellations and holds first; use quota only to place deals in tiers. Use Ask first only for semantics still open, and record each decision as the user's own answer; sample data, a compensation spreadsheet or common practice cannot approve payout policy. Keep tier rates, cap and quotas as editable data where the approved design allows, and list any rule left only in model logic. Model deal pricing at deal grain with its tier pieces traceable, the ledger at one row per rep and period, and exceptions per input amount, carrying the approved reason or reasons. Report any approved rule the inputs cannot prove.
 
 ### Compose
 
@@ -84,7 +84,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - If unresolved, what does a cancellation reverse and when, within what clawback window, for a leaver; does it rewind attainment or the cap; how are partial, repeated and unknown-deal cancellations handled; is paid money offset, carried as owed back or written off?
 - If unresolved, what places a hold, what releases it (a record, a date, a customer payment, a holdback percentage), and does a hold tied to a cancelled deal stand?
 - If unresolved, which keys link a payment, hold or release to rep, period and deal; how is a payment above what is owed, for no known rep or early handled; and which leaver amounts, draws, guarantees, manual adjustments or reassignments to another rep are in scope?
-- If unspecified, which time zone and period grain define the ledger, do quiet periods carry, how is money rounded, is there one exception per reason or one primary reason, and is invalid plan data, such as a tier gap or missing cap row, set aside or a failed run?
+- If unspecified, which time zone and period grain define the ledger, when a period closes and how a late or edited input posts, whether quiet periods carry, rounding, one exception per reason or a primary one, and whether invalid plan data (tier gap, missing cap row) is set aside or fails the run?
 
 ### Guardrails
 
