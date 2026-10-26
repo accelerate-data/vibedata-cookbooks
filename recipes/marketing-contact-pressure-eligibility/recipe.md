@@ -6,7 +6,7 @@ trigger:
   - One delivery reported by two tools is counted twice, or a contact exactly at the edge of the rolling window is counted differently in each report.
   - Two contacts planned for one person at the same moment are ordered by load order, so a different one wins each run.
   - A planned contact has no consent record or no identifiable person, and it is sent or silently dropped with no reason.
-description: Decide, for each planned contact at a reporting cutoff, whether it is included or suppressed under the user's approved caps, window, priority and consent rules, with one reason, the contacts already used against each cap, its rank where ranked, and every input row accounted for.
+description: Decide, for each planned contact at a reporting cutoff, whether it is included or suppressed under the user's approved caps, window, priority and consent rules, with a reason when suppressed, the contacts already used against each cap, its rank where ranked, and every input row accounted for.
 pitch: One auditable send-eligibility table that counts each delivery once, ranks competing contacts the same way every run and says why a contact was held back.
 job_category: build
 area: transformation
@@ -54,7 +54,7 @@ evidence:
 
 ## Prompt
 
-Build <eligibility_model>, <set_aside_model> and <coverage_model> from <planned_contact_source>, <contact_event_source>, <identifier_map_source> and <consent_state_source> for the send-eligibility questions in this Intent. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only the semantics they leave open. For each planned contact at the approved reporting cutoff, count the contacts the person already used under the approved rules with each delivery counted once however many tools report it, rank competing contacts for one person by the approved order, and publish included or suppressed with one reason in the approved order, the contacts used and the room left under each approved cap, the rank where ranked, and the consent verdict where it decided. Set aside every input row that counts nowhere with its reason, reconcile every count to the inputs, and report what the inputs cannot prove. Publish eligibility only: send nothing, decide no consent, resolve no identity.
+Build <eligibility_model>, <set_aside_model> and <coverage_model> from <planned_contact_source>, <contact_event_source>, <identifier_map_source> and <consent_state_source> for the send-eligibility questions in this Intent. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only the semantics they leave open. For each planned contact at the approved reporting cutoff, count the contacts the person already used under the approved rules with each delivery counted once however many tools report it, rank competing contacts for one person by the approved order, and publish included or suppressed with one reason in the approved order when suppressed, the contacts used and the room left under each approved cap, the rank where ranked, and the consent verdict where it decided. Set aside every input row that counts nowhere with its reason, reconcile every count to the inputs, and report what the inputs cannot prove. Publish eligibility only: send nothing, decide no consent, resolve no identity.
 
 ## Verified by
 
@@ -63,7 +63,7 @@ Build <eligibility_model>, <set_aside_model> and <coverage_model> from <planned_
 - Contacts used within the window equal a recount from the events under the approved window and edge rules, including a contact at the window edge and one at the planned instant, with what a planned contact or a send counts as following the approved rule.
 - A cutoff uses only what the approved time basis lets it see: a later-received report changes that cutoff only if the approved as-known or restated rule allows, a source with no received time reports restatement unproven, and unchanged inputs give the same decisions.
 - Caps and windows come from approved rules, each cap with its own window; a plan with no room under an applicable cap is suppressed, with cap reached as its reason when no earlier approved reason applies; changing an approved value changes decisions as the approved rule form allows.
-- Contacts for one person are ranked by the approved order; a same-instant tie follows the approved tie-break, rank reproduces from the stated keys regardless of input row order, and plans use up room in rank order where the approved rule lets them.
+- Contacts that compete for one person's room are ranked by the approved order; a same-instant tie follows the approved tie-break, rank reproduces from the stated keys regardless of input row order, and plans use up room in rank order where the approved rule lets them.
 - An exempt purpose is never blocked by a cap and uses room only as the approved rule says; its deliveries are accounted for as their own class, never as a set-aside error.
 - A person with no consent record, a channel without consent coverage, an opt-out, an identifier with no or several owners and an unreadable planned row each follow the approved treatment, with a named reason when suppressed or set aside; none is guessed or dropped.
 - Consent and identity are read as given: no verdict is derived, no person is merged or guessed, a person key shows only where the identifier resolves to one owner under the approved rule, and contact values follow the approved protection.
@@ -88,7 +88,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 ### Ask first
 
-- If unresolved, which people and planned contacts are in scope (internal, test, held out), what are the caps (per person across channels, per channel, per purpose, campaign, journey or brand), and which purposes count against them or are exempt?
+- If unresolved, which people and contacts are in scope (internal, test, held out), what are the caps (per person across channels, per channel, per purpose, campaign, journey or brand), do the values differ by person group or stated preference, and which purposes count against them or are exempt?
 - If unresolved, is the window rolling or a calendar period, how long is each cap's window, is the far edge inclusive, does a contact at the planned instant count, which time orders events, what time zone applies, and where does the cutoff come from?
 - If unresolved, is each cutoff as known then or restated by later reports, which inputs (caps, status meanings, identifier map, plans) are versioned, and what do rows with no received or event time become?
 - If unresolved, what counts as one planned contact (duplicate, cancelled, rescheduled, already reported), what consumes room (plan, send, delivery, attempt), how do bounced and unmapped events count, and do included or exempt plans use room?
