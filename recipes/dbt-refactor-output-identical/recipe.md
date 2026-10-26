@@ -11,6 +11,8 @@ pitch: Clean up tangled dbt models and prove that nothing your consumers read ha
 job_category: re-engineer
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - dbt_model
   - consumer_contract

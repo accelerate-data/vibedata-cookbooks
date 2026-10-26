@@ -1,0 +1,13 @@
+{
+  "id": "orchestration-and-reliability",
+  "title": "Orchestration and reliability",
+  "kind": "problem-area",
+  "description": "Recipes for scheduling, gating and monitoring pipelines so runs start when their inputs are ready and failures are visible.",
+  "members": [
+    "readiness-gated-orchestration",
+    "cross-platform-scheduled-job",
+    "fabric-data-pipeline-as-code",
+    "motherduck-flight-scheduling",
+    "source-freshness-sla"
+  ]
+}

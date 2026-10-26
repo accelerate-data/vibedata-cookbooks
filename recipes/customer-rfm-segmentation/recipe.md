@@ -10,6 +10,8 @@ pitch: Repeatable RFM segments that stay current as data arrives, equal a rebuil
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - customer
   - qualifying_transaction

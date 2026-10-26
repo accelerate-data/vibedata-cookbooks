@@ -10,6 +10,8 @@ pitch: Retire a hand-run SQL script by rebuilding it in dbt and proving the new 
 job_category: re-engineer
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - legacy_sql
   - dbt_model

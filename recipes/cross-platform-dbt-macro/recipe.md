@@ -10,6 +10,8 @@ pitch: Port one dbt macro to each approved warehouse, with the models that call 
 job_category: cross-platform
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - dbt_macro
   - dbt_model

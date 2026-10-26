@@ -10,6 +10,8 @@ pitch: Retire a stored procedure by rebuilding it in dbt and proving the table m
 job_category: re-engineer
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - stored_procedure
   - maintained_table

@@ -10,6 +10,8 @@ pitch: One date table every mart joins, so a day lands in the same fiscal period
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - calendar_date
   - fiscal_calendar

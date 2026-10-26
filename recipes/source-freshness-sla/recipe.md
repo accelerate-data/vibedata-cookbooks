@@ -10,6 +10,8 @@ pitch: Give every source a freshness limit and stop stale data before downstream
 job_category: build
 area: data-quality
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - source_freshness_sla
   - freshness_exemption

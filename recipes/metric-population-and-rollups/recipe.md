@@ -10,6 +10,8 @@ pitch: Make the metric's population and components explicit so its values and su
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - metric
   - eligible_population
