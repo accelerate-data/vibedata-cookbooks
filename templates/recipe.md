@@ -9,6 +9,8 @@ pitch: <one_sentence_for_the_hero_card>
 job_category: build  # get-running, re-engineer, build, prove, explain or cross-platform
 area: transformation  # kebab-case, for example ingestion, transformation, orchestration
 readiness: supported  # proven, supported or planned; proven needs at least one evidence.evals entry
+function:  # who consumes the outcome; use cross-functional when no single domain does
+  - cross-functional
 domain_objects:
   - <domain_object>
 works_with:

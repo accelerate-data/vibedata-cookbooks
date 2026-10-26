@@ -10,6 +10,8 @@ pitch: Restate one date range after a logic change, and prove nothing else moved
 job_category: re-engineer
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - dbt_model
   - restatement_window

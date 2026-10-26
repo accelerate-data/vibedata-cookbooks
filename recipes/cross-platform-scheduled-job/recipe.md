@@ -10,6 +10,8 @@ pitch: Move a scheduled job to a new platform and get a per-behavior answer on w
 job_category: cross-platform
 area: orchestration
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - scheduled_job
   - behavior_contract

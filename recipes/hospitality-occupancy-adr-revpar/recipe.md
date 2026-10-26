@@ -10,6 +10,8 @@ pitch: One nightly table of occupancy, ADR and RevPAR that reconciles to every r
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 industry:
   - hospitality
 domain_objects:
