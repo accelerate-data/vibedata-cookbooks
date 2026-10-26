@@ -9,6 +9,7 @@
     "event-resource-attribution",
     "dbt-snapshot-history",
     "bitemporal-business-history",
+    "retail-reservation-availability-ledger",
     "operational-state-duration",
     "product-sessionization-funnels",
     "logistics-fleet-utilization",
