@@ -14,9 +14,11 @@ readiness: supported
 function:
   - revops
 domain_objects:
+  - account
   - lead
   - lead_cycle
   - conversion_link
+  - contact
   - opportunity
   - new_customer
 works_with:
@@ -27,11 +29,14 @@ works_with:
 qualifiers:
   - Stops at the lifecycle and conversion links; stage conversion and slippage belong to revops-pipeline-snapshots.
   - Needs timestamped lead status history and conversion links naming the records the approved accepted test relies on.
+  - As-of or at-conversion values need dated opportunity amount versions; without them they are reported as unproven.
+  - Credits value across converting leads only; multi-touch marketing credit belongs to marketing-attribution-models.
 related:
   - revops-pipeline-snapshots
   - master-b2b-account-hierarchy
   - business-event-fact
   - effective-dated-business-rules
+  - marketing-attribution-models
 evidence:
   features:
     - applying-medallion-data-modelling
@@ -44,7 +49,7 @@ evidence:
 
 ## Prompt
 
-Build a lead lifecycle <lead_cycle_model> with one row per lead qualification cycle from <lead_status_history>, link each cycle through <conversion_link_source> to <account_source>, <contact_source> and <opportunity_source>, and publish <opportunity_link_model> and <account_customer_model>. Settle from approved requirements the cycle boundaries, outcome and unresolved-reason vocabularies, link keys and accepted test, how several leads share one opportunity, the new-customer rule, the opportunity value and the as-of basis. Each cycle ends accepted, recycled, disqualified or unresolved, and missing links stay unresolved. Every delivered row is used, or shown or counted with its reason as approved.
+Build a lead lifecycle <lead_cycle_model> with one row per lead qualification cycle from <lead_status_history>, link each cycle through <conversion_link_source> to <account_source>, <contact_source>, <opportunity_source> and <opportunity_history_source>, and publish <opportunity_link_model> and <account_customer_model>. Settle from approved requirements the cycle boundaries, outcome and unresolved-reason vocabularies, link keys and accepted test, how several leads share one opportunity, the new-customer rule, the opportunity value and the as-of basis. Each cycle ends accepted, recycled, disqualified or unresolved, and missing links stay unresolved. Every delivered row is used, or shown or counted with its reason as approved.
 
 ## Verified by
 
@@ -57,7 +62,7 @@ Build a lead lifecycle <lead_cycle_model> with one row per lead qualification cy
 - An opportunity's value is the amount the approved rule selects at the approved time and matches an independent derivation. A correction counts as the approved rule says and a record dated after the as-of date is not used. A missing amount stays null with a reason, never zero.
 - Running with a different approved as-of basis gives verdicts that match an independent derivation for that date. Records dated after it are shown or counted with their reason as approved and affect no verdict or value.
 - Every delivered lead, status event, conversion link, account, contact, opportunity and version lands in a result or is shown or counted once with its reason as approved, and unaccounted residue is zero. The outcome states how many records were excluded and why.
-- Published results equal values derived independently from the source rows and approved rules, not from the model's own logic. A reader counting every link, every accepted cycle or every conversion as a customer gets a wrong total.
+- Published results equal values derived independently from the source rows and approved rules. Credited value and new-customer totals come from credited links and account verdicts only; summing link, cycle or conversion rows does not reproduce them.
 
 ## Agent guidance
 
@@ -71,9 +76,7 @@ Inherit the Intent's repository, platform, Domain and sources. Confirm the statu
 - applying-medallion-data-modelling
 - authoring-dbt-project-artifact
 - generating-dbt-model
-- dbt-unit-testing
 - running-dbt-in-sandbox
-- evaluating-dbt-project
 - verifying
 
 ### Ask first
@@ -95,5 +98,5 @@ Inherit the Intent's repository, platform, Domain and sources. Confirm the statu
 - Do not use the run date as the as-of date unless approved, order cycles by arrival, or back-date a record that was delivered late. Report records dated after the as-of date instead of dropping them.
 - Do not turn a missing amount into zero, add amounts in different currencies, or let a later opportunity stage change an accepted cycle unless approved.
 - Do not build stage snapshots, conversion rates, forecasts, win rates, account hierarchies or contact identity resolution. Keep to the lifecycle, links, attribution, new-customer verdicts and accounting.
-- Keep Domain sources read-only. Use only an approved, labelled synthetic fixture or a writable fixture with a verified reset, isolated by schema in every layer, and say that it stands in for the CRM.
+- Keep Domain sources read-only. Write only to the Intent's model schemas, or to an approved, labelled synthetic fixture or writable fixture with a verified reset, isolated by schema in every layer. When results come from a fixture, label them as a stand-in for the CRM.
 - Execute on the actual supported Intent target and sandbox; support covers duckdb_local only.
