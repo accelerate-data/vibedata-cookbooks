@@ -882,6 +882,35 @@
       "website_visible": true
     },
     {
+      "description": "Recipes for procurement spend and contract compliance, purchase commitments, invoice matching and payment checks, supplier rebates, realized savings and SaaS renewal evidence.",
+      "id": "procurement-data-engineering",
+      "kind": "curated",
+      "members": [
+        "ops-procurement-spend",
+        "procurement-open-commitment-rollforward",
+        "procurement-three-way-match",
+        "finance-duplicate-invoice-detection",
+        "finance-ap-aging",
+        "procurement-supplier-rebate-accrual",
+        "procurement-savings-realization",
+        "finops-saas-license-utilization"
+      ],
+      "resolved_members": [
+        "finance-ap-aging",
+        "finance-duplicate-invoice-detection",
+        "finops-saas-license-utilization",
+        "ops-procurement-spend",
+        "procurement-open-commitment-rollforward",
+        "procurement-savings-realization",
+        "procurement-supplier-rebate-accrual",
+        "procurement-three-way-match"
+      ],
+      "supported_or_proven_count": 8,
+      "title": "Procurement data engineering",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
       "description": "Recipes for data engineers working with revenue operations-domain data and controls.",
       "id": "revenue-operations-data-engineering",
       "kind": "function",
