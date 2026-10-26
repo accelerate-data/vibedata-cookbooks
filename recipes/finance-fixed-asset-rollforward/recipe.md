@@ -5,7 +5,7 @@ trigger:
   - Every month someone rebuilds the fixed-asset register and depreciation schedule in a spreadsheet to prove that opening value plus additions less depreciation and disposals equals closing value.
   - A partial disposal, a transfer between entities or a cost adjustment leaves the register, the roll-forward and the ledger disagreeing, and nobody can say which asset moved what.
   - An auditor asks why a class's or an entity's closing net book value, or its difference from the ledger, changed between two periods.
-description: Build asset-period movements for cost and accumulated depreciation under the approved policies, roll them up to parent, class, entity and total without counting a component twice, reconcile net book value forward, set closing balances beside the ledger, and keep every unprocessable event or unpoliced asset visible or counted as approved.
+description: Build asset-period movements for cost and accumulated depreciation under the approved policies, roll them up to parent, class, entity and total without counting a component twice, reconcile net book value forward, set closing balances beside the ledger, and keep every unprocessable event or unpoliced asset visible or counted, or fail the run naming it, as approved.
 pitch: Turn asset events and approved policies into a register and net-book-value roll-forward that foot each period of a completed run and sit beside the ledger.
 job_category: build
 area: transformation
@@ -78,7 +78,6 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 ### Compose
 
 - capturing-requirements
-- profiling-source-data
 - applying-medallion-data-modelling
 - generating-dbt-model
 - running-dbt-in-sandbox
@@ -87,8 +86,8 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 ### Ask first
 
 - If unresolved, which assets (land, assets under construction, leased or expensed items), classes, entities and currencies are in scope, which roll-up levels are published, and is a foreign-currency asset converted (which rate and date), shown in its own currency or set aside?
-- If unresolved, which period calendar and window apply, where do opening balances for assets older than the window come from, which date (event or recorded) places a late or backdated event, and is it restated or applied in the period it is recorded?
-- If unresolved, which method, life, residual, start and stop rule apply to each class (no-charge classes, assets at residual), how are part-periods and rounding handled, how is a cost adjustment applied (prospectively, by catch-up or restated), and when does a life or method change apply?
+- If unresolved, which period calendar and window apply, where do openings for older assets come from and are earlier events then ignored, which date (event or recorded) places a late or backdated event, and is it restated or applied in the period it is recorded?
+- If unresolved, which method, life, residual, start and stop rule apply to each class (no-charge, at residual), how are part-periods and rounding handled, how is a cost adjustment applied (prospectively, by catch-up, restated; below accumulated depreciation), when does a life or method change apply?
 - If unresolved, is a partial disposal share taken from the original or the remaining cost, how is accumulated depreciation removed with it, what does the remainder depreciate on, and what happens to a share above what remains?
 - If unresolved, what links an event to an asset and a component to its parent, when does a transfer take effect, how is accumulated depreciation split between the owners, which policy applies when an assignment changes, and how is a class change handled?
 - If unresolved, what shows for an asset with no policy assignment (a charge-free visible state, a failure or another approved treatment)?
