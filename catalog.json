@@ -199,6 +199,7 @@
         "revops-pipeline-snapshots",
         "revops-quota-commission",
         "saas-mrr-waterfall-nrr",
+        "sales-commission-payout-ledger",
         "scalar-sql-function-to-dbt-macro",
         "scd-procedure-to-dbt-snapshot",
         "service-ticket-sla",
@@ -216,7 +217,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 86,
+      "supported_or_proven_count": 87,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -247,6 +248,7 @@
         "public-sector-grant-funds",
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
+        "sales-commission-payout-ledger",
         "shared-fx-conversion",
         "utilities-meter-to-bill"
       ],
@@ -255,7 +257,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 23,
+      "supported_or_proven_count": 24,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -597,7 +599,8 @@
         "versioned-data-contract-cutover",
         "order-return-contribution-margin",
         "procurement-three-way-match",
-        "inventory-lot-traceability"
+        "inventory-lot-traceability",
+        "sales-commission-payout-ledger"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -634,6 +637,7 @@
         "public-sector-grant-funds",
         "retail-sell-through-stockout",
         "saas-mrr-waterfall-nrr",
+        "sales-commission-payout-ledger",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "shift-unit-economics",
@@ -641,7 +645,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 40,
+      "supported_or_proven_count": 41,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -790,14 +794,15 @@
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
         "revops-quota-commission",
-        "saas-mrr-waterfall-nrr"
+        "saas-mrr-waterfall-nrr",
+        "sales-commission-payout-ledger"
       ],
       "selector": {
         "function": [
           "revops"
         ]
       },
-      "supported_or_proven_count": 8,
+      "supported_or_proven_count": 9,
       "title": "Revenue operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -5930,6 +5935,62 @@
           "fabric_lakehouse",
           "fabric_warehouse",
           "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Price each rep's approved booking credit under the plan version, tier and cap rules the user approves, apply holds, cancellations and payments, and publish an earned, held, payable, paid and clawed-back ledger per rep and period that rolls forward and keeps every unpriced input visible.",
+      "domain_objects": [
+        "compensation_plan_rule",
+        "quota",
+        "attainment_tier",
+        "commission_payout_ledger",
+        "clawback",
+        "payment"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "revops",
+        "finance"
+      ],
+      "id": "sales-commission-payout-ledger",
+      "job_category": "build",
+      "path": "recipes/sales-commission-payout-ledger/recipe.md",
+      "pitch": "Turn approved booking credit and plan rules into a rep-period payout ledger that rolls forward and shows every clawback.",
+      "qualifiers": [
+        "Prices approved credit against plan and quota data; payments, holds and cancellations are separate inputs.",
+        "Needs approved eligible credit; plan rules may be captured as data. Eligibility belongs to the quota Recipe.",
+        "Calculates obligations only; it never executes payroll or payment."
+      ],
+      "readiness": "supported",
+      "related": [
+        "revops-quota-commission",
+        "effective-dated-business-rules"
+      ],
+      "sha256": "c7fe03dec8c705245f13e4682214aa02051fc2e214e49b342209240d41bf5267",
+      "title": "Build a sales commission payout ledger with accelerator tiers, caps and clawbacks",
+      "trigger": [
+        "Finance cannot say what each rep is owed because tier rates, caps, holds, payments and cancellations are applied by hand in a spreadsheet.",
+        "A deal crossed an accelerator tier, a rep hit the cap, or a deal was cancelled after it was paid, and nobody can show how the payable balance moved.",
+        "Plan rates changed mid-year and the team cannot say which version priced which booking."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
         ],
         "tools": [
           "dbt"
