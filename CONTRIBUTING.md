@@ -78,7 +78,7 @@ The Drive folder is open to Accelerate Data accounts only.
 
 ## Frontmatter
 
-Required keys: `id`, `title`, `trigger`, `description`, `job_category`, `area`, `readiness`, `works_with.platforms`. Optional keys: `pitch`, `function`, `industry`, `domain_objects`, `works_with.tools`, `qualifiers`, `related`, `evidence.features`, `evidence.evals`. Every string is one line. [`schema/recipe.schema.json`](schema/recipe.schema.json) holds the exact rules and length caps, and [`templates/recipe.md`](templates/recipe.md) is the starting file.
+Required keys: `id`, `title`, `trigger`, `description`, `job_category`, `area`, `readiness`, `function`, `works_with.platforms`. Optional keys: `pitch`, `industry`, `domain_objects`, `works_with.tools`, `qualifiers`, `related`, `evidence.features`, `evidence.evals`. Every string is one line. [`schema/recipe.schema.json`](schema/recipe.schema.json) holds the exact rules and length caps, and [`templates/recipe.md`](templates/recipe.md) is the starting file.
 
 `works_with.platforms` uses Studio's own values: `duckdb_local`, `motherduck`, `fabric_lakehouse`, `fabric_warehouse`, `redshift`. There is no generic `fabric` value; a Recipe for both Fabric targets lists both.
 
@@ -110,7 +110,7 @@ Nothing may escape its section: no HTML tags or comments, no HTML entities, no c
 
 A Collection in `collections/<id>.json` is a discovery view over Recipes: a `members` list of existing Recipe ids, a `selector` over Recipe metadata, or both. `schema/collection.schema.json` holds the rules.
 
-Every `function` value a Recipe uses needs a `kind: function` Collection whose selector names it, and a Recipe id that starts with `finance-`, `people-`, `revops-`, `ops-` or `service-` must carry the matching function (`finance`, `people`, `revops`, `supply-chain-ops`, `service`). `build_catalog.py --validate` fails otherwise. A function Collection shows on the website once it holds three supported or proven Recipes.
+Every `function` value a Recipe uses needs a `kind: function` Collection whose selector names it, and a Recipe id that starts with `finance-`, `people-`, `revops-`, `ops-` or `service-` must carry the matching function (`finance`, `people`, `revops`, `supply-chain-ops`, `service`). `build_catalog.py --validate` fails otherwise. Every Recipe must carry at least one `function`, because the website's domain row lists Recipes by function. Use `cross-functional` (shown as Any domain) when no single business function consumes the outcome; a Recipe that serves two functions lists both. A function Collection shows on the website once it holds three supported or proven Recipes.
 
 ## Branches
 

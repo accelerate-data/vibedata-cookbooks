@@ -1,0 +1,11 @@
+{
+  "id": "cross-functional",
+  "title": "Any domain",
+  "kind": "function",
+  "description": "Recipes for data engineers whose outcome no single business function owns, such as ingestion, dbt engineering, orchestration, identity and migration.",
+  "selector": {
+    "function": [
+      "cross-functional"
+    ]
+  }
+}

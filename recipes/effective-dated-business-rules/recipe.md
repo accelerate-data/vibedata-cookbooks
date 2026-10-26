@@ -10,6 +10,8 @@ pitch: Calculate historical amounts from the rules that apply to each event, wit
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - business_event
   - effective_dated_rule

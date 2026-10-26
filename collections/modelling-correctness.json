@@ -36,6 +36,7 @@
     "telecom-cdr-usage",
     "life-sciences-enrollment",
     "saas-mrr-waterfall-nrr",
+    "usage-metering-rated-charges",
     "manufacturing-oee-downtime",
     "hospitality-occupancy-adr-revpar",
     "public-sector-grant-funds",
@@ -44,6 +45,7 @@
     "order-return-contribution-margin",
     "procurement-savings-realization",
     "procurement-three-way-match",
-    "inventory-lot-traceability"
+    "inventory-lot-traceability",
+    "sales-commission-payout-ledger"
   ]
 }
