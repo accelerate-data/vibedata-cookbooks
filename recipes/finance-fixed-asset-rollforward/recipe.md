@@ -5,8 +5,8 @@ trigger:
   - Every month someone rebuilds the fixed-asset register and depreciation schedule in a spreadsheet to prove that opening value plus additions less depreciation and disposals equals closing value.
   - A partial disposal, a transfer between entities or a cost adjustment leaves the register, the roll-forward and the ledger disagreeing, and nobody can say which asset moved what.
   - An auditor asks why a class's or an entity's closing net book value, or its difference from the ledger, changed between two periods.
-description: Build asset-period movements for cost and accumulated depreciation under the approved policies, roll them up to parent, class, entity and total without counting a component twice, reconcile net book value forward, set closing balances beside the ledger, and keep every unprocessable event or unpoliced asset visible.
-pitch: Turn asset events and approved depreciation policies into a register and a net-book-value roll-forward that foot every period and sit beside the ledger.
+description: Build asset-period movements for cost and accumulated depreciation under the approved policies, roll them up to parent, class, entity and total without counting a component twice, reconcile net book value forward, set closing balances beside the ledger, and keep every unprocessable event or unpoliced asset visible or counted as approved.
+pitch: Turn asset events and approved policies into a register and net-book-value roll-forward that foot each period of a completed run and sit beside the ledger.
 job_category: build
 area: transformation
 readiness: supported
@@ -29,8 +29,8 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Needs dated asset events, approved depreciation policies with their assignments, and ledger balances.
-  - Takes capitalisation decisions as given; the depreciation policies may be captured as editable data.
+  - Needs dated asset events and ledger balances; policies and their assignments may be captured as editable data.
+  - Takes capitalisation decisions as given; depreciation policy choices follow the approved rules.
   - Keeps each currency separate; where translation is approved it needs supplied dated rates, else it is unproven.
   - Placing late changes by recorded date needs one on the events; otherwise restatement is reported unproven.
   - One book per run; impairment, revaluation, merges, splits, lease accounting and tax books are separate and set aside.
@@ -59,12 +59,12 @@ Build <register_model>, <rollforward_model>, <ledger_comparison_model>, <movemen
 - On a completed run, for every asset and period, opening plus movements equals closing for cost, accumulated depreciation and net book value within approved rounding shown where it arises, plus any approved translation as its own movement; each later period opens from the prior closing.
 - Published results equal values derived independently from the sources and approved rules: each period's charge, accumulated balance, disposal and transfer recomputed for every kind of asset the inputs exercise.
 - Depreciation follows the approved method, life, residual, start and stop rules; an asset at its approved residual is charged as approved, and a cost adjustment changes charges only as its approved treatment says.
-- A partial disposal removes the approved share of cost and of accumulated depreciation and the remainder continues as approved; a full disposal leaves nothing and no later charge; no gain or loss is computed.
+- A partial disposal that is applied removes the approved share of cost and of accumulated depreciation and the remainder continues as approved; a full disposal leaves nothing and no later charge; no gain or loss is computed.
 - A transfer moves cost and accumulated depreciation between owners as the approved attribution says, in one period, with no addition and no net-book-value change within a currency beyond approved translation.
 - Within each entity and currency, a parent equals the sum of its components, each component counts once at every roll-up level, and rows of different levels are never summed into each other.
 - On a completed run, an asset with no policy assignment stays visible every period with its amounts and a named state as approved, and takes no charge the approved rules do not give it; under a fail policy the run names it.
 - An asset outside the approved scope or reporting currency is shown or counted with its reason as approved, converted only under an approved rate rule and never added to another currency's totals, and each total states how many assets and what amount it leaves out.
-- Closing cost and accumulated depreciation sit beside the ledger at the approved key with signed differences; a key on one side only still appears, and no difference is hidden by a tolerance, reclassified or posted away.
+- Closing cost and accumulated depreciation sit beside the ledger at the approved key with signed differences; a key on one side only still appears with its difference as approved, and no difference is hidden by a tolerance, reclassified or posted away.
 - On a completed run, every source event is applied or set aside as approved, shown or counted with its reasons; counts and amounts add up to the source by event and amount (a part-applied event shows both parts), set-aside amounts move no figure, and a fail policy names each offender.
 - Every movement traces to the event, rate or computed charge behind it, and the detail sums to each published movement column.
 - The outcome states which exceptions and ledger differences remain open and what the inputs cannot prove, such as whether a late change restates earlier periods.
