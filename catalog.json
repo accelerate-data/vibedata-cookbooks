@@ -166,6 +166,7 @@
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
         "inventory-lot-traceability",
+        "inventory-valuation-cogs",
         "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
@@ -218,7 +219,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 88,
+      "supported_or_proven_count": 89,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -240,6 +241,7 @@
         "finops-saas-license-utilization",
         "healthcare-claims-remittance",
         "insurance-loss-triangles",
+        "inventory-valuation-cogs",
         "marketing-acquisition-cost-payback",
         "master-b2b-account-hierarchy",
         "ops-procurement-spend",
@@ -259,7 +261,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 25,
+      "supported_or_proven_count": 26,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -482,6 +484,7 @@
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
         "inventory-lot-traceability",
+        "inventory-valuation-cogs",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
@@ -553,7 +556,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 76,
+      "supported_or_proven_count": 77,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -604,7 +607,8 @@
         "order-return-contribution-margin",
         "procurement-three-way-match",
         "inventory-lot-traceability",
-        "sales-commission-payout-ledger"
+        "sales-commission-payout-ledger",
+        "inventory-valuation-cogs"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -626,6 +630,7 @@
         "hospitality-occupancy-adr-revpar",
         "insurance-loss-triangles",
         "inventory-lot-traceability",
+        "inventory-valuation-cogs",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
@@ -650,7 +655,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 42,
+      "supported_or_proven_count": 43,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -695,6 +700,7 @@
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
         "inventory-lot-traceability",
+        "inventory-valuation-cogs",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
@@ -740,7 +746,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 73,
+      "supported_or_proven_count": 74,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -855,6 +861,7 @@
       "resolved_members": [
         "effective-dated-bom-requirements",
         "inventory-lot-traceability",
+        "inventory-valuation-cogs",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
@@ -871,7 +878,7 @@
           "supply-chain-ops"
         ]
       },
-      "supported_or_proven_count": 12,
+      "supported_or_proven_count": 13,
       "title": "Supply chain and operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -3659,6 +3666,77 @@
         "A raw material lot is recalled and nobody can say which finished lots and which customer shipments contain it, or how much of it each holds.",
         "Lot genealogy lives in spreadsheets or separate receipt, production and shipping systems, and a split or blend makes the same material reach a shipment by several routes.",
         "A mock recall must show every affected shipment, and every shipment whose history cannot be followed."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Under one approved costing policy and reporting currency, value each stock movement in a ledger, publish closing stock and cost of goods sold by approved period, keep quantity and value conserved, and list what cannot be valued instead of costing it at zero.",
+      "domain_objects": [
+        "inventory_valuation",
+        "stock_movement",
+        "costing_pool",
+        "cost_of_goods_sold",
+        "period_rollforward",
+        "valuation_exception",
+        "item_location"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "supply-chain-ops"
+      ],
+      "id": "inventory-valuation-cogs",
+      "job_category": "build",
+      "path": "recipes/inventory-valuation-cogs/recipe.md",
+      "pitch": "Value every stock movement and cost of goods sold under one approved costing policy, with no missing cost quietly becoming zero.",
+      "qualifiers": [
+        "Inputs are landed stock-movement tables; loading files or extracts belongs to file-drop-to-bronze.",
+        "One costing policy and one reporting currency per run; currency conversion is upstream work.",
+        "Stops at valued inventory and COGS; counts, stockout risk and ledger posting are separate outcomes.",
+        "Restating for a backdated movement needs an entry or posting time on each movement; without it restatement is unproven.",
+        "Net realisable value write-downs are a separate outcome."
+      ],
+      "readiness": "supported",
+      "related": [
+        "ops-inventory-reconciliation",
+        "procurement-three-way-match",
+        "order-return-contribution-margin",
+        "finance-gl-subledger-tieout",
+        "shared-fx-conversion",
+        "effective-dated-business-rules",
+        "bitemporal-business-history",
+        "shared-calendar-fiscal-periods",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "69f85cca59b4cad3584804a21f35d8b93aa0947f6618cb9d51e0b61247afaf7c",
+      "title": "Value inventory movements, closing stock and cost of goods sold under an approved costing policy",
+      "trigger": [
+        "Finance cannot say what closing inventory is worth or how much cost of goods sold a month carries because receipts, issues, returns and adjustments are costed by hand.",
+        "A late or backdated receipt arrives and nobody can say which issues, periods and cost figures it changes.",
+        "The books are about to close and a missing cost, a return or an issue beyond stock on hand has quietly become zero in the valuation."
       ],
       "works_with": {
         "platforms": [
