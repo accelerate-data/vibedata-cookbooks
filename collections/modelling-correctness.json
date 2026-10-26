@@ -15,6 +15,7 @@
     "logistics-lane-on-time-performance",
     "shift-unit-economics",
     "effective-dated-business-rules",
+    "effective-dated-bom-requirements",
     "prove-dbt-change-safe",
     "customer-rfm-segmentation",
     "customer-historical-ltv",
@@ -41,6 +42,7 @@
     "cost-attribution-by-model-job",
     "versioned-data-contract-cutover",
     "order-return-contribution-margin",
-    "procurement-three-way-match"
+    "procurement-three-way-match",
+    "inventory-lot-traceability"
   ]
 }
