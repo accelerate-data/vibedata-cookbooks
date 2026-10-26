@@ -42,6 +42,7 @@
     "cost-attribution-by-model-job",
     "versioned-data-contract-cutover",
     "order-return-contribution-margin",
+    "finance-gross-margin-variance-bridge",
     "procurement-three-way-match",
     "inventory-lot-traceability"
   ]
