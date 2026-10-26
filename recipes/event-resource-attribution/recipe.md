@@ -10,6 +10,8 @@ pitch: Explain who or what is responsible for each event, with evidence and tota
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - business_event
   - resource

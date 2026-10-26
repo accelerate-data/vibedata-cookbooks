@@ -10,6 +10,8 @@ pitch: Turn a clicked-together Fabric pipeline into committed code whose order, 
 job_category: build
 area: orchestration
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - fabric_data_pipeline
   - dbt_job
