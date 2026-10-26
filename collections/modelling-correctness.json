@@ -37,6 +37,7 @@
     "life-sciences-enrollment",
     "saas-mrr-waterfall-nrr",
     "finance-fixed-asset-rollforward",
+    "usage-metering-rated-charges",
     "manufacturing-oee-downtime",
     "hospitality-occupancy-adr-revpar",
     "public-sector-grant-funds",
@@ -44,6 +45,7 @@
     "versioned-data-contract-cutover",
     "order-return-contribution-margin",
     "procurement-three-way-match",
-    "inventory-lot-traceability"
+    "inventory-lot-traceability",
+    "sales-commission-payout-ledger"
   ]
 }

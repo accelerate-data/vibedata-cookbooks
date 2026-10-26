@@ -10,6 +10,8 @@ pitch: Explain how long each entity spent in a state and where, without inventin
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - operational_event
   - entity

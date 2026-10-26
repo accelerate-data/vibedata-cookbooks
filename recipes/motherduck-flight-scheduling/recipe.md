@@ -10,6 +10,8 @@ pitch: Replace the laptop cron with a committed MotherDuck Flight that loads, bu
 job_category: build
 area: orchestration
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - motherduck_flight
   - schedule
