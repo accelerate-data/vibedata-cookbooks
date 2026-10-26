@@ -98,7 +98,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 - Do not choose the method, life, residual, start or stop rule, adjustment treatment, disposal basis, transfer attribution, ledger mapping or exception handling for the user, and take none from the data or common practice; the user may ask for alternatives or a recommendation.
 - Never depreciate an asset at a policy the approved assignments do not give it, and never default a missing policy, cost or date to zero or to another value unless an approved rule says so.
-- Never net or translate distinct entities or currencies together, and never add a parent row to the components it summarises.
+- Never combine distinct entities or currencies without the approved roll-up level, mapping and rate rule; where translation is approved, retain source-currency amounts, show translation as its own movement and reconcile the translated totals. Never add a parent row to the components it summarises.
 - Never create an addition from a transfer or a cost adjustment, and never remove more than the approved share of cost and accumulated depreciation together.
 - Never drop or double count an event or an amount; every event or asset that cannot be processed stays visible or counted with its reason as approved, or in an explicit run failure.
 - Never absorb a ledger difference into a movement, a tolerance or a class; it stays visible and unclassified.
