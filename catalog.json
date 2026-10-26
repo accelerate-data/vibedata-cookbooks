@@ -153,6 +153,7 @@
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
         "finance-gl-subledger-tieout",
+        "finance-gross-margin-variance-bridge",
         "finance-revenue-recognition",
         "finance-thirteen-week-cash-plan",
         "finance-trial-balance-close",
@@ -225,7 +226,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 95,
+      "supported_or_proven_count": 96,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -242,6 +243,7 @@
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
         "finance-gl-subledger-tieout",
+        "finance-gross-margin-variance-bridge",
         "finance-revenue-recognition",
         "finance-thirteen-week-cash-plan",
         "finance-trial-balance-close",
@@ -270,7 +272,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 29,
+      "supported_or_proven_count": 30,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -503,6 +505,7 @@
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
         "finance-gl-subledger-tieout",
+        "finance-gross-margin-variance-bridge",
         "finance-revenue-recognition",
         "finance-thirteen-week-cash-plan",
         "finance-trial-balance-close",
@@ -591,7 +594,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 82,
+      "supported_or_proven_count": 83,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -649,7 +652,8 @@
         "sales-lead-opportunity-lifecycle",
         "sales-forecast-backtesting",
         "marketing-campaign-budget-pacing",
-        "finance-thirteen-week-cash-plan"
+        "finance-thirteen-week-cash-plan",
+        "finance-gross-margin-variance-bridge"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -666,6 +670,7 @@
         "effective-dated-bom-requirements",
         "effective-dated-business-rules",
         "event-resource-attribution",
+        "finance-gross-margin-variance-bridge",
         "finance-thirteen-week-cash-plan",
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
@@ -702,7 +707,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 49,
+      "supported_or_proven_count": 50,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -736,6 +741,7 @@
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
         "finance-gl-subledger-tieout",
+        "finance-gross-margin-variance-bridge",
         "finance-revenue-recognition",
         "finance-thirteen-week-cash-plan",
         "finance-trial-balance-close",
@@ -798,7 +804,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 79,
+      "supported_or_proven_count": 80,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -2893,6 +2899,76 @@
         "Month-end close stalls because control accounts do not agree with their subledgers and the difference is worked out by hand in a spreadsheet.",
         "The controller will not sign off until every control-account difference is explained, from late postings to manual journals, with nothing left unexplained.",
         "An auditor asks why a control account differed from its subledger at a past period end, and someone has to rebuild the explanation by hand."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Explain the gross-margin change between two periods under the user's approved method as price, unit cost, volume and mix components plus any new, discontinued, no-quantity, interaction, translation, period-length or late-change components the approved rules define, adding up to the observed change when the bridge closes, with any rounding shown and every line left out accounted for.",
+      "domain_objects": [
+        "gross_margin",
+        "sales_line",
+        "product",
+        "customer",
+        "margin_bridge",
+        "price_effect",
+        "unit_cost_effect",
+        "volume_effect",
+        "mix_effect",
+        "new_product",
+        "discontinued_product",
+        "rounding_remainder",
+        "bridge_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "finance-gross-margin-variance-bridge",
+      "job_category": "build",
+      "path": "recipes/finance-gross-margin-variance-bridge/recipe.md",
+      "pitch": "Show why gross margin moved between two periods, with every component adding up to the change when it closes and nothing hidden in a plug.",
+      "qualifiers": [
+        "Needs sales lines for two comparable periods; lines lacking quantity or cost follow the approved disposition.",
+        "Takes line revenue and cost as given; allocating shared charges to lines is a separate outcome.",
+        "Explains the margin amount; a margin-rate bridge is a separate outcome.",
+        "Keeps each currency and unit of measure separate unless an approved rule applies.",
+        "Explains a change between two periods; plan versus actual and forecasting are separate.",
+        "Needs dated line, rate and mapping versions to prove a restatement; without them it reads unproven.",
+        "Stops at the bridge; commentary, charts and repricing advice are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-budget-forecast-actual",
+        "order-return-contribution-margin",
+        "shift-unit-economics",
+        "shared-calendar-fiscal-periods",
+        "shared-fx-conversion"
+      ],
+      "sha256": "6ad5ad0fa1a60ee916b4d09ff51be24b1982fe257ead1232884108871e2715c8",
+      "title": "Explain gross-margin change with a reconciled price, volume, mix, and cost bridge",
+      "trigger": [
+        "Finance subtracts one period's gross margin from another and writes the explanation by hand, and the story changes with whoever builds it.",
+        "Price, volume, mix and cost effects do not add up to the margin change, or an unlabelled line absorbs the difference.",
+        "New products, discontinued products, returns or a zero base quantity distort the volume and mix effect and nobody can see by how much."
       ],
       "works_with": {
         "platforms": [
