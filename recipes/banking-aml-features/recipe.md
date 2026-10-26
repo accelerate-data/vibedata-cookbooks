@@ -10,6 +10,8 @@ pitch: One reproducible feature row per account and day under a stated time basi
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 industry:
   - banking
 domain_objects:

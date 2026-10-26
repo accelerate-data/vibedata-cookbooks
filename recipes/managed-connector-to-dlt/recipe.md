@@ -10,6 +10,8 @@ pitch: Swap a Fivetran or Airbyte connector for a dlt pipeline you own, and prov
 job_category: re-engineer
 area: ingestion
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - managed_connector
   - dlt_pipeline

@@ -10,6 +10,8 @@ pitch: Land an API into bronze incrementally, with a schema contract for changed
 job_category: build
 area: ingestion
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - dlt_pipeline
   - dlt_resource

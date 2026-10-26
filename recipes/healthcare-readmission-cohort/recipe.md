@@ -10,6 +10,8 @@ pitch: Every admission is an index, excluded for a stated reason or set aside, a
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 industry:
   - healthcare
 domain_objects:
