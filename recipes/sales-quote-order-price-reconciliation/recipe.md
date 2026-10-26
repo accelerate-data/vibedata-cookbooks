@@ -38,6 +38,7 @@ related:
   - revops-bookings-billings-cash
   - effective-dated-business-rules
   - order-return-contribution-margin
+  - procurement-three-way-match
 evidence:
   features:
     - capturing-requirements
@@ -58,16 +59,16 @@ Build <lineage_model>, <reconciliation_model>, <exceptions_model> and <coverage_
 
 - On a run that completes, every quote version, quote line, order line and invoice line lands in exactly one disposition (reconciled, excepted with a reason, or out of scope), counts foot to the inputs, and excluded records are shown or counted with their reason as approved.
 - Every approved price traces to the approved accepted version of its quote. Any other version never sets a price, whatever its number or date, and an order citing one follows the approved handling, shows the version it cited and is not priced from it.
-- A discount counts as approved only to the extent the approved approval evidence covers it, and the uncovered excess is shown as its own exception. A discount exactly at its cap and one with no approval record are each handled as approved.
+- A discount counts as approved only to the extent the approved evidence covers it, and the uncovered excess is its own exception. A discount exactly at its cap and one with no approval record follow the approved rules; a missing approval covers nothing unless an approved rule says so.
 - No approval is inferred from an ordered or invoiced price. On a run that completes, each price departure is a ledger row with signed amount, approved and measured price, quantity and the source records that show it.
 - Each published price comparison (ordered or invoiced against approved, invoiced against ordered) is a separate finding, none netted, merged or summed across, and a discount the approval covers raises none.
 - Per accepted quote line, quoted quantity equals ordered plus open remainder less over-order, plus any cancelled or amended quantity the approved rule shows; value at the approved price adds back within tolerance; a larger gap is reported unverified with its amount. Price variance is not remainder.
 - A bundle is counted once and its components follow the approved pricing. A substitution or unit conversion counts only through an approved mapping or factor, and a missing one is an exception that adds nothing to totals.
 - Order lines with no quote reference, a currency other than the quote's, or an unavailable factor follow the approved handling, stay visible with reason and own amount, and are never attributed to a guessed quote line. No amount converts between currencies unless approved.
 - Expected lineage and ledger rows are derived independently from the sources and approved rules, and published results equal them, including each boundary and adverse case the approved rules allow.
-- Each output is unique on its declared grain, and a rerun on unchanged inputs gives identical results.
+- On a run that completes, per order line, invoiced quantity adds back to ordered quantity under the approved rule; invoiced beyond what was ordered, or an invoice line on several order lines beyond the approved linking, is its own exception with amount and sources, adding nothing to totals.
 - Where results are as of a date, records after it are not counted for it and a later acceptance does not reprice an earlier date unless approved; restatement after back-dated changes is otherwise unproven.
-- The outcome states which exceptions and open remainders remain and what the inputs cannot prove.
+- Each output is unique on its declared grain, a rerun on unchanged inputs gives identical results, and the outcome states which exceptions and open remainders remain and what the inputs cannot prove.
 
 ## Agent guidance
 
@@ -90,9 +91,9 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - If unresolved, which quotes, customers, statuses, entities, order and invoice lines and dates are in scope, is the result as of a date, and are the records left out listed with their reason?
 - If unresolved, what makes a quote version the accepted one (a status, an acceptance record, an effective date), which wins when several were accepted, do quote expiry or the order date relative to acceptance matter, and what happens to an order citing another version?
 - If unresolved, what is the approved price (quoted, list less approved discount, net of what discounts), what does an approval cover and how is a cap stated, and which tolerance and rounding apply?
-- If unresolved, what ties an order line to a quote line and an invoice line to an order line, may one order span several quotes, and what happens to a missing, unknown or conflicting reference?
+- If unresolved, what ties an order line to a quote line and an invoice line to an order line, may one order span several quotes or one invoice line several order lines, and what happens to a missing, unknown or conflicting reference?
 - If unresolved, how are bundles priced and quantified, which substitutions are allowed and by what mapping, and which unit factors apply to a quantity and a price?
-- If unresolved, how are partial, split, over-ordered, cancelled and amended quantities shown, and what counts as an open remainder or an over-order?
+- If unresolved, how are partial, split, over-ordered, cancelled, amended and over-invoiced quantities shown, and what counts as an open remainder or an over-order?
 - If unresolved, which currencies are compared, is any conversion approved and under which rates, and are tax, freight and rebates inside or outside the compared price?
 - If unresolved, which price comparisons are published, in what sign and order, and does an exception stay visible or fail the run?
 
