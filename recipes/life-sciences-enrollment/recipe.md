@@ -11,6 +11,8 @@ pitch: Every screening record is enrolled, failed for a stated reason, set aside
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 industry:
   - life-sciences
 domain_objects:
