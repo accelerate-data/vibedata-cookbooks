@@ -32,7 +32,7 @@ works_with:
     - dbt
 qualifiers:
   - Needs agreements, invoice lines and approved baselines, or the price history an approved baseline basis derives from.
-  - Baselines, conversions and rates need an approval and effective dates, recorded or captured; without them, no saving.
+  - Baselines, agreements, conversions and rates need an approval and effective dates; without them, no saving.
   - Supplier identity and item specifications arrive conformed; matching suppliers is separate.
   - Stops at the savings ledger; spend cube, contract compliance, rebate accrual, rate setting and forecasting are separate.
   - States a price difference from the approved baseline, never that procurement caused it.
@@ -89,9 +89,9 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - If unresolved, which keys link an invoice line to an agreement and item (supplier, item, contract or order reference, specification), which agreement wins when several apply, and how are lines with no agreement, or outside its term, shown?
 - If unresolved, which units, pack sizes and specifications are comparable, which approved conversions apply (per item or general, dated), how is a tiered, indexed or formula price evaluated, is an index-driven change its own class, and what happens to a price that cannot be compared?
 - If unresolved, which currency reports, are others converted (rate source and date), kept apart or set aside, is a currency effect its own class and does it count toward totals, and is currency part of each row's key?
-- If unresolved, is paid price before or after discounts, rebates and fees, how is a rebate earned over a wider scope allocated to rows, which ledger holds a rebated amount so it counts once, and how is a price-only credit note treated?
-- If unresolved, what is one ledger row (month, agreement, item, supplier, currency), which date sets the period, how are several prices weighted, are months with no purchase shown, how do credit notes post, and how does a later change to an input reach a published period?
-- If unresolved, which suppliers, spend types and invoice statuses are in scope, what happens to an unplaceable or incomparable line (set aside, excluded or the run fails), what precision and tolerance apply, and which totals are published?
+- If unresolved, is paid price before or after discounts, rebates and fees, how is a rebate earned over a wider scope allocated to rows, which ledger holds a rebated amount so it counts once, and how do credit notes post (own period or the original's), including a price-only one?
+- If unresolved, what is one ledger row (month, agreement, item, supplier, currency), which date sets its period, are months with no purchase shown, how are several prices weighted, and what precision, tolerance and totals are published?
+- If unresolved, which suppliers, spend types and invoice statuses are in scope, what happens to an unplaceable or incomparable line (set aside, excluded or the run fails), and how does a later change to an input reach a published period?
 
 ### Guardrails
 
