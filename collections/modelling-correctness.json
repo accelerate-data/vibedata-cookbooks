@@ -47,6 +47,7 @@
     "inventory-lot-traceability",
     "sales-commission-payout-ledger",
     "inventory-valuation-cogs",
-    "sales-lead-opportunity-lifecycle"
+    "sales-lead-opportunity-lifecycle",
+    "sales-forecast-backtesting"
   ]
 }
