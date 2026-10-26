@@ -195,6 +195,7 @@
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
         "point-in-time-training-dataset",
+        "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
@@ -226,7 +227,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 96,
+      "supported_or_proven_count": 97,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -257,6 +258,7 @@
         "ops-procurement-spend",
         "order-return-contribution-margin",
         "people-payroll-gl-tieout",
+        "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "public-sector-grant-funds",
         "revops-bookings-billings-cash",
@@ -272,7 +274,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 30,
+      "supported_or_proven_count": 31,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -542,6 +544,7 @@
         "people-payroll-gl-tieout",
         "pii-classification-and-masking",
         "point-in-time-training-dataset",
+        "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
@@ -594,7 +597,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 83,
+      "supported_or_proven_count": 84,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -616,6 +619,7 @@
         "shift-unit-economics",
         "effective-dated-business-rules",
         "effective-dated-bom-requirements",
+        "procurement-supplier-rebate-accrual",
         "prove-dbt-change-safe",
         "customer-rfm-segmentation",
         "customer-historical-ltv",
@@ -689,6 +693,7 @@
         "operational-state-duration",
         "order-return-contribution-margin",
         "point-in-time-training-dataset",
+        "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
@@ -707,7 +712,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 50,
+      "supported_or_proven_count": 51,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -778,6 +783,7 @@
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
         "point-in-time-training-dataset",
+        "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
@@ -804,7 +810,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 80,
+      "supported_or_proven_count": 81,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -932,6 +938,7 @@
         "ops-inventory-reconciliation",
         "ops-otif",
         "ops-procurement-spend",
+        "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "retail-sell-through-stockout",
         "shift-unit-economics"
@@ -941,7 +948,7 @@
           "supply-chain-ops"
         ]
       },
-      "supported_or_proven_count": 13,
+      "supported_or_proven_count": 14,
       "title": "Supply chain and operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -5721,6 +5728,73 @@
         "A model scores well in training but worse in production because training rows used facts, corrections or labels a real prediction could not have seen.",
         "Historical facts are joined by when they happened, not by when they became known, so a late-arriving fact or correction rewrites earlier rows.",
         "A data science team wants one row per entity and prediction time with a forward label, and no proof that each feature used only what was known by then."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Place purchases under the approved agreement version, net approved returns, compute each contract period's rebate entitlement under the approved tier method, and publish an accrual and settlement ledger that rolls forward, with every in-scope record that accrues or settles nothing listed and what the scope leaves out shown or counted as approved.",
+      "domain_objects": [
+        "supplier",
+        "supplier_contract",
+        "agreement_version",
+        "rebate_tier",
+        "purchase_line",
+        "purchase_return",
+        "vendor_credit",
+        "rebate_entitlement",
+        "rebate_accrual_ledger",
+        "rebate_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "supply-chain-ops"
+      ],
+      "id": "procurement-supplier-rebate-accrual",
+      "job_category": "build",
+      "path": "recipes/procurement-supplier-rebate-accrual/recipe.md",
+      "pitch": "See what each supplier owes you under each approved contract, how it moved and what suppliers have already credited.",
+      "qualifiers": [
+        "Produces evidence for review; it does not post, collect or pay a rebate or write back to a source system.",
+        "Stops at the contract-based amount; spend cubes, invoice matching, usage charges and forecasts are separate.",
+        "Accrues the rebate earned on purchases made so far; it does not project where a contract period will end.",
+        "Returns and credits link to a purchase line or agreement by an explicit reference or an approved linking rule.",
+        "Agreement terms and credits may be captured as editable data during the run if no source holds them.",
+        "A rebate term the approved rule form cannot express is listed as unmodelled, never ignored.",
+        "Without recorded dates on versions, returns or credits, their period placement is reported unproven."
+      ],
+      "readiness": "supported",
+      "related": [
+        "ops-procurement-spend",
+        "procurement-three-way-match",
+        "finance-duplicate-invoice-detection",
+        "effective-dated-business-rules"
+      ],
+      "sha256": "0f37f28c4a20a91f2c53796c8a0ac7eab00643d851f4574da79138f6de135af8",
+      "title": "Accrue supplier rebates from purchasing contracts and reconcile settlements",
+      "trigger": [
+        "Procurement cannot say how much supplier rebate has been earned under each purchasing agreement this period, or how much of it suppliers have already credited.",
+        "Tiered agreements, returns and agreement changes are worked out by hand, so nobody can tell why an accrual moved or whether a supplier credit was counted twice.",
+        "Finance books a rebate receivable that does not tie to the agreements, because returns, restated agreements or an over-paid credit are missing from it."
       ],
       "works_with": {
         "platforms": [
