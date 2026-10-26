@@ -64,7 +64,7 @@ Build <ledger_table>, <order_line_model>, <coverage_model> and <set_aside_model>
 - A record counts at the cutoff the approved governing timestamp gives; one exactly on the boundary follows the approved rule; a rerun on unchanged inputs reproduces the same rows, and a late or corrected record changes a published cutoff only where the approved rule restates it.
 - Physical stock reconciles on its own: from the approved opening at the first cutoff, opening plus the approved movements equals closing at every cutoff, a negative closing follows the approved treatment and is never silently floored, and a unit is never in two physical balances at once.
 - The reserved quantity reconciles on its own: from the approved opening, opening plus newly reserved and any amendment or reinstatement the approved rule shows, less released and consumed, equals closing, is never negative, and is not derived from physical stock or availability.
-- No reservation releases more than its remaining quantity or releases twice: a repeated cancellation and a cancellation after expiry or full fulfilment release nothing further, and one after partial fulfilment releases only the remainder, as the approved rule gives.
+- No reservation releases more than its remaining quantity or releases the same quantity twice: a repeated cancellation and a cancellation after expiry or full fulfilment release nothing further, and one after partial fulfilment releases only the remainder, as the approved rule gives.
 - Physical stock falls once per fulfilled unit at the approved point; its reservation is consumed up to its reserved quantity and as the approved rule gives after release, never lowering available stock twice; unreserved, excess or other-location quantity is labelled and follows the approved rule.
 - An order line split across locations or shipments keeps its ordered quantity: reserved, fulfilled and released quantities foot to it, or the line carries one named reason that it does not.
 - Stock in transit and quarantined stock are published as the approved rules place them and never promised unless approved; a transfer joins its destination as approved, and a short or over receipt follows the approved treatment with its variance visible and is never silently dropped.
@@ -89,9 +89,9 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 ### Ask first
 
-- If unresolved, which SKUs, locations and sales channels are in scope, is a channel a stock location or an attribute of the order, which pairs get a row and from when, and how is a record outside scope handled?
+- If unresolved, which SKUs, locations and sales channels are in scope, is a channel a stock location or an attribute of the order, which pairs get a row, from when and from what opening balance, in which unit are quantities held, and how is a record outside scope handled?
 - If unresolved, what instant is each cutoff and in which time zone, does a record or an expiry exactly on it count, which timestamp governs, and is a late or corrected record applied at the next cutoff or does it restate a published one?
-- If unresolved, in which unit and from what opening balance are quantities held, and how is available-to-promise defined: which quantities it subtracts (reservations, quarantine, other held stock), is quarantined stock part of physical, and may it be negative or is it floored with the deficit shown?
+- If unresolved, how is available-to-promise defined: which quantities it subtracts (reservations, quarantine, other held stock), is quarantined stock part of physical, and may it be negative or is it floored with the deficit shown?
 - If unresolved, which reservation states count as valid, how is the expiry edge read, what does a cancellation release, what do a repeated cancellation and a shipment after release do, and how does an amended reservation reach the balance?
 - If unresolved, when does physical stock fall and a reservation get consumed (at pick or at shipment), what does a pick change, and how does a shipment link to its reservations (by reservation, or by order line, SKU and location)?
 - If unresolved, how are a partial shipment, a shipment without a reservation, one above the reservation's remainder, one from another location than reserved, and links that sum above the shipped quantity treated?
@@ -101,7 +101,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 ### Guardrails
 
 - Do not choose cutoff, boundary, availability formula, reservation validity, fulfilment point, linking keys, transfer timing or exception handling for the user, and take none from the data or common practice; the user may ask for alternatives or a recommendation.
-- Never release or consume a reservation twice or beyond its reserved quantity, and never let a shipment lower available stock through both the physical movement and the reservation.
+- Never release or consume the same reserved quantity twice or beyond its reserved quantity, and never let a shipment lower available stock through both the physical movement and the reservation.
 - Never derive the reserved balance from physical stock or availability, or the reverse; each reconciles from its own inputs.
 - Never hide a deficit: a floored or clipped available figure needs an approved rule and the unfloored amount stays observable.
 - Never drop or double count a record; a set-aside record changes no balance and builds no ledger row.
