@@ -1,0 +1,16 @@
+{
+  "id": "procurement-data-engineering",
+  "title": "Procurement data engineering",
+  "kind": "curated",
+  "description": "Recipes for procurement spend and contract compliance, purchase commitments, invoice matching and payment checks, supplier rebates, realized savings and SaaS renewal evidence.",
+  "members": [
+    "ops-procurement-spend",
+    "procurement-open-commitment-rollforward",
+    "procurement-three-way-match",
+    "finance-duplicate-invoice-detection",
+    "finance-ap-aging",
+    "procurement-supplier-rebate-accrual",
+    "procurement-savings-realization",
+    "finops-saas-license-utilization"
+  ]
+}

@@ -9,6 +9,7 @@
     "event-resource-attribution",
     "dbt-snapshot-history",
     "bitemporal-business-history",
+    "retail-reservation-availability-ledger",
     "operational-state-duration",
     "product-sessionization-funnels",
     "logistics-fleet-utilization",
@@ -38,6 +39,7 @@
     "telecom-cdr-usage",
     "life-sciences-enrollment",
     "saas-mrr-waterfall-nrr",
+    "finance-fixed-asset-rollforward",
     "usage-metering-rated-charges",
     "manufacturing-oee-downtime",
     "hospitality-occupancy-adr-revpar",
@@ -45,6 +47,7 @@
     "cost-attribution-by-model-job",
     "versioned-data-contract-cutover",
     "order-return-contribution-margin",
+    "procurement-savings-realization",
     "sales-quote-order-price-reconciliation",
     "procurement-three-way-match",
     "inventory-lot-traceability",
@@ -54,6 +57,7 @@
     "sales-forecast-backtesting",
     "marketing-campaign-budget-pacing",
     "finance-thirteen-week-cash-plan",
-    "finance-gross-margin-variance-bridge"
+    "finance-gross-margin-variance-bridge",
+    "procurement-open-commitment-rollforward"
   ]
 }
