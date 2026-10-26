@@ -17,12 +17,14 @@
     "shift-unit-economics",
     "effective-dated-business-rules",
     "effective-dated-bom-requirements",
+    "procurement-supplier-rebate-accrual",
     "prove-dbt-change-safe",
     "customer-rfm-segmentation",
     "customer-historical-ltv",
     "customer-retention-churn-features",
     "point-in-time-training-dataset",
     "customer-consent-preferences",
+    "marketing-contact-pressure-eligibility",
     "marketing-attribution-models",
     "banking-aml-features",
     "shared-calendar-fiscal-periods",
@@ -44,8 +46,15 @@
     "cost-attribution-by-model-job",
     "versioned-data-contract-cutover",
     "order-return-contribution-margin",
+    "sales-quote-order-price-reconciliation",
     "procurement-three-way-match",
     "inventory-lot-traceability",
-    "sales-commission-payout-ledger"
+    "sales-commission-payout-ledger",
+    "inventory-valuation-cogs",
+    "sales-lead-opportunity-lifecycle",
+    "sales-forecast-backtesting",
+    "marketing-campaign-budget-pacing",
+    "finance-thirteen-week-cash-plan",
+    "finance-gross-margin-variance-bridge"
   ]
 }
