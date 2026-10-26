@@ -60,7 +60,7 @@ Build <contract_period_entitlement_model>, <accrual_ledger_model> and <rebate_ex
 
 ## Verified by
 
-- Every in-scope purchase, return and credit is accrued or applied, or listed with its amount and the reason or reasons the approved rules give, and applied plus listed amounts add back to the record; an approved-identity repeat is never counted twice, and left-out records are shown or counted.
+- Every in-scope purchase, return and credit is accrued or applied, or listed with its amount and the approved reason or reasons, and applied plus listed amounts add back to the record; a repeat the approved identity rule names is never counted twice, and left-out records are shown or counted.
 - Published entitlements, ledger rows and exceptions equal values derived independently from the sources and the approved rules, to the approved rounding, and no purchase is accrued that the approved rules do not qualify.
 - A base that crosses a threshold, and one exactly on it, earns what the approved tier method and edge rule give, and the same base earns what each approved method gives where agreements differ.
 - An approved return lowers qualifying purchases in the approved period and can pull a base under a threshold; one set aside is listed. A closed or settled period's rows are not rewritten unless an approved rule restates them, and a late or revised record follows the same rule.
@@ -89,7 +89,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 ### Ask first
 
 - If unresolved, which suppliers, entities and purchase types are in scope, which fields place a purchase under an agreement, what one under none, several or outside its period does (set aside, accrue under each, or by priority), and are left-out records listed or counted?
-- If unresolved, how a contract period and a ledger period are defined, whether the base is spend or volume, which date, time zone and amount (order, receipt, invoice) place a purchase, the ledger grain with any entity split, and where the first opening accrual comes from?
+- If unresolved, how a contract period and a ledger period are defined (and whether quiet periods show), whether the base is spend or volume, which date, time zone and amount (order, receipt, invoice) place a purchase, the ledger grain with any entity split, and the first opening accrual's source?
 - If unresolved, which tier method each agreement uses (the rate on each slice or the reached tier's rate on the whole base), how a base on a threshold is treated, whether tiers accumulate over the contract period, and whether a baseline, cap or floor applies?
 - If unresolved, which agreement version applies (by effective or recorded date), whether a change is prospective or restates the period, how far and where its difference posts, what closes or settles a period, and what a late or revised record does after it?
 - If unresolved, which reference links a return to its purchase line, which returns reduce the base, which period they reduce, where the adjustment posts, and what a return larger than its purchase or naming no purchase does?
