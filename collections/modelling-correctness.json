@@ -45,6 +45,7 @@
     "order-return-contribution-margin",
     "procurement-three-way-match",
     "inventory-lot-traceability",
-    "sales-commission-payout-ledger"
+    "sales-commission-payout-ledger",
+    "inventory-valuation-cogs"
   ]
 }
