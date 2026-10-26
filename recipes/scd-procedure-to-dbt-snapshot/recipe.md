@@ -10,6 +10,8 @@ pitch: Retire a hand-rolled history routine by proving a dbt snapshot keeps the 
 job_category: re-engineer
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - history_routine
   - history_table

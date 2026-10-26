@@ -10,6 +10,8 @@ pitch: Rebuild visits and funnels from landed event exports so every conversion 
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - product_event
   - identity

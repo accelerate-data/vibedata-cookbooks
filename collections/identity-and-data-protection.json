@@ -1,0 +1,11 @@
+{
+  "id": "identity-and-data-protection",
+  "title": "Identity and data protection",
+  "kind": "problem-area",
+  "description": "Recipes for matching and standardising identities and for classifying and masking personal data.",
+  "members": [
+    "identity-golden-record-crosswalk",
+    "identity-standardize-names-addresses",
+    "pii-classification-and-masking"
+  ]
+}

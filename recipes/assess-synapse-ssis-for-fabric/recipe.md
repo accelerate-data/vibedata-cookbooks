@@ -11,6 +11,8 @@ pitch: Find out what a Synapse or SSIS estate would take to rebuild on Fabric, w
 job_category: cross-platform
 area: re-engineering
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - synapse_dedicated_pool
   - ssis_package
