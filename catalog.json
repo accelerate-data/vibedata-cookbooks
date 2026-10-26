@@ -209,6 +209,7 @@
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
         "telecom-cdr-usage",
+        "usage-metering-rated-charges",
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
@@ -217,7 +218,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 87,
+      "supported_or_proven_count": 88,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -250,6 +251,7 @@
         "saas-mrr-waterfall-nrr",
         "sales-commission-payout-ledger",
         "shared-fx-conversion",
+        "usage-metering-rated-charges",
         "utilities-meter-to-bill"
       ],
       "selector": {
@@ -257,7 +259,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 24,
+      "supported_or_proven_count": 25,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -517,6 +519,7 @@
         "spark-ingestion-notebook-to-dlt",
         "stored-procedure-to-dbt",
         "telecom-cdr-usage",
+        "usage-metering-rated-charges",
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
@@ -550,7 +553,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 75,
+      "supported_or_proven_count": 76,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -592,6 +595,7 @@
         "telecom-cdr-usage",
         "life-sciences-enrollment",
         "saas-mrr-waterfall-nrr",
+        "usage-metering-rated-charges",
         "manufacturing-oee-downtime",
         "hospitality-occupancy-adr-revpar",
         "public-sector-grant-funds",
@@ -642,10 +646,11 @@
         "shared-fx-conversion",
         "shift-unit-economics",
         "telecom-cdr-usage",
+        "usage-metering-rated-charges",
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 41,
+      "supported_or_proven_count": 42,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -726,6 +731,7 @@
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
         "telecom-cdr-usage",
+        "usage-metering-rated-charges",
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
@@ -734,7 +740,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 72,
+      "supported_or_proven_count": 73,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -795,14 +801,15 @@
         "revops-pipeline-snapshots",
         "revops-quota-commission",
         "saas-mrr-waterfall-nrr",
-        "sales-commission-payout-ledger"
+        "sales-commission-payout-ledger",
+        "usage-metering-rated-charges"
       ],
       "selector": {
         "function": [
           "revops"
         ]
       },
-      "supported_or_proven_count": 9,
+      "supported_or_proven_count": 10,
       "title": "Revenue operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -6603,6 +6610,77 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Turn usage events, with repeats and revisions resolved under approved rules, and approved contract terms into charge lines per customer, period, meter and currency with allowance, tier method and credits applied, every event accounted for, and corrections restated for only the affected scope.",
+      "domain_objects": [
+        "usage_event",
+        "contract_terms",
+        "billing_period",
+        "allowance",
+        "tier_schedule",
+        "prepaid_credit",
+        "rated_charge_line",
+        "event_disposition",
+        "charge_restatement"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "revops"
+      ],
+      "id": "usage-metering-rated-charges",
+      "job_category": "build",
+      "path": "recipes/usage-metering-rated-charges/recipe.md",
+      "pitch": "Rate usage under approved allowances, tiers and credits so every event is accounted for and a correction restates only what it touches.",
+      "qualifiers": [
+        "Usage events must already be landed as tables; ingesting them is a separate outcome.",
+        "Needs approved terms per customer and meter; they may be captured as editable data during the run.",
+        "Keeps each currency separate; conversion is a separate outcome.",
+        "Restating earlier results needs the figures as last reported to be kept between runs.",
+        "Stops at rated usage lines; fixed fees, minimum charges, invoices, payments, tax and revenue recognition are separate.",
+        "A flat dated rate with no period-wide allowance or tiers belongs to effective-dated-business-rules."
+      ],
+      "readiness": "supported",
+      "related": [
+        "effective-dated-business-rules",
+        "saas-mrr-waterfall-nrr",
+        "telecom-cdr-usage",
+        "utilities-meter-to-bill",
+        "revops-bookings-billings-cash",
+        "finance-revenue-recognition",
+        "shared-fx-conversion",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "5b18f3865b0e4d3585a5b9be8d72691c6c3f0a067971ffecf57e0e9624f52888",
+      "title": "Calculate rated usage charges with allowances, tiers, credits and restated corrections",
+      "trigger": [
+        "Usage charges differ by who calculated them, because graduated and volume pricing, shared allowances and credits are applied differently from one run to the next.",
+        "A redelivered event spends a shared allowance twice, or a late, revised or cancelled event forces a rerun of every customer.",
+        "Billing or finance needs each customer's charge per period and meter with every usage event rated or set aside, and a change to an earlier period shown as a restatement."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
           "dbt"
         ]
       }
