@@ -10,6 +10,8 @@ pitch: Training rows whose features see only what was known at prediction time, 
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - prediction_point
   - fact_version
