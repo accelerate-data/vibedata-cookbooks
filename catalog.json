@@ -201,6 +201,7 @@
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
+        "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
@@ -228,7 +229,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 98,
+      "supported_or_proven_count": 99,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -553,6 +554,7 @@
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
         "readiness-gated-orchestration",
+        "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
@@ -600,7 +602,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 85,
+      "supported_or_proven_count": 86,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -615,6 +617,7 @@
         "event-resource-attribution",
         "dbt-snapshot-history",
         "bitemporal-business-history",
+        "retail-reservation-availability-ledger",
         "operational-state-duration",
         "product-sessionization-funnels",
         "logistics-fleet-utilization",
@@ -703,6 +706,7 @@
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
+        "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "saas-mrr-waterfall-nrr",
         "sales-commission-payout-ledger",
@@ -717,7 +721,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 52,
+      "supported_or_proven_count": 53,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -795,6 +799,7 @@
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
         "readiness-gated-orchestration",
+        "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
@@ -816,7 +821,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 82,
+      "supported_or_proven_count": 83,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -946,6 +951,7 @@
         "ops-procurement-spend",
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
+        "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "shift-unit-economics"
       ],
@@ -954,7 +960,7 @@
           "supply-chain-ops"
         ]
       },
-      "supported_or_proven_count": 14,
+      "supported_or_proven_count": 15,
       "title": "Supply chain and operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -6169,6 +6175,74 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "At each approved nightly cutoff, publish for every SKU and location the physical, quarantined, in-transit and validly reserved quantities and the available-to-promise quantity under the approved policy, keep physical and reserved balances reconciling on their own, and place every record or list it with its reason.",
+      "domain_objects": [
+        "sku",
+        "location",
+        "stock_movement",
+        "reservation",
+        "order_line",
+        "shipment",
+        "stock_transfer",
+        "available_to_promise"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops"
+      ],
+      "id": "retail-reservation-availability-ledger",
+      "industry": [
+        "retail"
+      ],
+      "job_category": "build",
+      "path": "recipes/retail-reservation-availability-ledger/recipe.md",
+      "pitch": "A nightly ledger of what you can still promise, with every reservation released once, every shipment counted once and nothing dropped.",
+      "qualifiers": [
+        "Needs stock movements, reservations with an expiry, cancellations, shipments and order lines as landed tables.",
+        "Picks, transfers and quarantine movements are used where the inputs carry them; their absence is reported.",
+        "A batch analytical ledger; real-time promising, allocation priority, replenishment and safety-stock sizing are separate.",
+        "Reconciling systems against counts is ops-inventory-reconciliation; stockout exposure is retail-sell-through-stockout.",
+        "Reproducing a past cutoff after late or corrected records needs kept history of the sources.",
+        "Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze."
+      ],
+      "readiness": "supported",
+      "related": [
+        "ops-inventory-reconciliation",
+        "retail-sell-through-stockout",
+        "master-product-sku-hierarchy",
+        "effective-dated-business-rules",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "c24c0f52d6384bcc8d98788124caae83135ecae9041464d74aa10a57fa499731",
+      "title": "Reconstruct available-to-promise stock by SKU, location and cutoff from reservation and fulfilment events",
+      "trigger": [
+        "Customer service promises stock that is already reserved, or sells the same units twice because reservations that expired or shipped still count against availability.",
+        "Planners cannot say why the stock available to promise differs from the physical count, because units are reserved, quarantined, in transit or short-received, and nobody can show which.",
+        "A split order, a partial shipment or a cancelled and re-sent reservation leaves the reserved quantity wrong, and the error only shows up when a customer is let down."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
