@@ -166,6 +166,7 @@
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
         "inventory-lot-traceability",
+        "inventory-valuation-cogs",
         "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
@@ -174,6 +175,8 @@
         "manufacturing-oee-downtime",
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
+        "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility",
         "master-b2b-account-hierarchy",
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
@@ -200,6 +203,9 @@
         "revops-quota-commission",
         "saas-mrr-waterfall-nrr",
         "sales-commission-payout-ledger",
+        "sales-forecast-backtesting",
+        "sales-lead-opportunity-lifecycle",
+        "sales-quote-order-price-reconciliation",
         "scalar-sql-function-to-dbt-macro",
         "scd-procedure-to-dbt-snapshot",
         "service-ticket-sla",
@@ -218,7 +224,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 88,
+      "supported_or_proven_count": 94,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -240,7 +246,9 @@
         "finops-saas-license-utilization",
         "healthcare-claims-remittance",
         "insurance-loss-triangles",
+        "inventory-valuation-cogs",
         "marketing-acquisition-cost-payback",
+        "marketing-campaign-budget-pacing",
         "master-b2b-account-hierarchy",
         "ops-procurement-spend",
         "order-return-contribution-margin",
@@ -250,6 +258,7 @@
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
         "sales-commission-payout-ledger",
+        "sales-quote-order-price-reconciliation",
         "shared-fx-conversion",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill"
@@ -259,7 +268,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 25,
+      "supported_or_proven_count": 28,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -441,6 +450,27 @@
       "website_visible": true
     },
     {
+      "description": "Recipes for attribution, acquisition economics, campaign spend pacing and contact-pressure eligibility under approved business rules.",
+      "id": "marketing-data-engineering",
+      "kind": "curated",
+      "members": [
+        "marketing-attribution-models",
+        "marketing-acquisition-cost-payback",
+        "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility"
+      ],
+      "resolved_members": [
+        "marketing-acquisition-cost-payback",
+        "marketing-attribution-models",
+        "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility"
+      ],
+      "supported_or_proven_count": 4,
+      "title": "Marketing data engineering",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
       "description": "Recipes that can execute against Microsoft Fabric Lakehouse, Fabric Warehouse, or both.",
       "id": "microsoft-fabric",
       "kind": "platform",
@@ -482,12 +512,15 @@
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
         "inventory-lot-traceability",
+        "inventory-valuation-cogs",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
+        "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility",
         "master-product-sku-hierarchy",
         "materialized-view-to-dbt",
         "metric-population-and-rollups",
@@ -511,6 +544,8 @@
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
+        "sales-forecast-backtesting",
+        "sales-quote-order-price-reconciliation",
         "scd-procedure-to-dbt-snapshot",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
@@ -553,7 +588,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 76,
+      "supported_or_proven_count": 81,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -581,6 +616,7 @@
         "customer-retention-churn-features",
         "point-in-time-training-dataset",
         "customer-consent-preferences",
+        "marketing-contact-pressure-eligibility",
         "marketing-attribution-models",
         "banking-aml-features",
         "shared-calendar-fiscal-periods",
@@ -602,9 +638,14 @@
         "cost-attribution-by-model-job",
         "versioned-data-contract-cutover",
         "order-return-contribution-margin",
+        "sales-quote-order-price-reconciliation",
         "procurement-three-way-match",
         "inventory-lot-traceability",
-        "sales-commission-payout-ledger"
+        "sales-commission-payout-ledger",
+        "inventory-valuation-cogs",
+        "sales-lead-opportunity-lifecycle",
+        "sales-forecast-backtesting",
+        "marketing-campaign-budget-pacing"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -626,11 +667,14 @@
         "hospitality-occupancy-adr-revpar",
         "insurance-loss-triangles",
         "inventory-lot-traceability",
+        "inventory-valuation-cogs",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
         "marketing-attribution-models",
+        "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility",
         "metric-population-and-rollups",
         "operational-state-duration",
         "order-return-contribution-margin",
@@ -642,6 +686,9 @@
         "retail-sell-through-stockout",
         "saas-mrr-waterfall-nrr",
         "sales-commission-payout-ledger",
+        "sales-forecast-backtesting",
+        "sales-lead-opportunity-lifecycle",
+        "sales-quote-order-price-reconciliation",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "shift-unit-economics",
@@ -650,7 +697,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 42,
+      "supported_or_proven_count": 48,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -695,12 +742,15 @@
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
         "inventory-lot-traceability",
+        "inventory-valuation-cogs",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
+        "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility",
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
         "metricflow-semantic-model",
@@ -724,6 +774,8 @@
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
+        "sales-forecast-backtesting",
+        "sales-quote-order-price-reconciliation",
         "scd-procedure-to-dbt-snapshot",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
@@ -740,7 +792,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 73,
+      "supported_or_proven_count": 78,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -796,12 +848,17 @@
         "cpg-promotion-lift",
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
+        "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility",
         "master-b2b-account-hierarchy",
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
         "revops-quota-commission",
         "saas-mrr-waterfall-nrr",
         "sales-commission-payout-ledger",
+        "sales-forecast-backtesting",
+        "sales-lead-opportunity-lifecycle",
+        "sales-quote-order-price-reconciliation",
         "usage-metering-rated-charges"
       ],
       "selector": {
@@ -809,7 +866,7 @@
           "revops"
         ]
       },
-      "supported_or_proven_count": 10,
+      "supported_or_proven_count": 15,
       "title": "Revenue operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -855,6 +912,7 @@
       "resolved_members": [
         "effective-dated-bom-requirements",
         "inventory-lot-traceability",
+        "inventory-valuation-cogs",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
@@ -871,7 +929,7 @@
           "supply-chain-ops"
         ]
       },
-      "supported_or_proven_count": 12,
+      "supported_or_proven_count": 13,
       "title": "Supply chain and operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -3675,6 +3733,77 @@
     },
     {
       "area": "transformation",
+      "description": "Under one approved costing policy and reporting currency, value each stock movement in a ledger, publish closing stock and cost of goods sold by approved period, keep quantity and value conserved, and list what cannot be valued instead of costing it at zero.",
+      "domain_objects": [
+        "inventory_valuation",
+        "stock_movement",
+        "costing_pool",
+        "cost_of_goods_sold",
+        "period_rollforward",
+        "valuation_exception",
+        "item_location"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "supply-chain-ops"
+      ],
+      "id": "inventory-valuation-cogs",
+      "job_category": "build",
+      "path": "recipes/inventory-valuation-cogs/recipe.md",
+      "pitch": "Value every stock movement and cost of goods sold under one approved costing policy, with no missing cost quietly becoming zero.",
+      "qualifiers": [
+        "Inputs are landed stock-movement tables; loading files or extracts belongs to file-drop-to-bronze.",
+        "One costing policy and one reporting currency per run; currency conversion is upstream work.",
+        "Stops at valued inventory and COGS; counts, stockout risk and ledger posting are separate outcomes.",
+        "Restating for a backdated movement needs an entry or posting time on each movement; without it restatement is unproven.",
+        "Net realisable value write-downs are a separate outcome."
+      ],
+      "readiness": "supported",
+      "related": [
+        "ops-inventory-reconciliation",
+        "procurement-three-way-match",
+        "order-return-contribution-margin",
+        "finance-gl-subledger-tieout",
+        "shared-fx-conversion",
+        "effective-dated-business-rules",
+        "bitemporal-business-history",
+        "shared-calendar-fiscal-periods",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "69f85cca59b4cad3584804a21f35d8b93aa0947f6618cb9d51e0b61247afaf7c",
+      "title": "Value inventory movements, closing stock and cost of goods sold under an approved costing policy",
+      "trigger": [
+        "Finance cannot say what closing inventory is worth or how much cost of goods sold a month carries because receipts, issues, returns and adjustments are costed by hand.",
+        "A late or backdated receipt arrives and nobody can say which issues, periods and cost figures it changes.",
+        "The books are about to close and a missing cost, a return or an issue beyond stock on hand has quietly become zero in the valuation."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Bring a legacy SQL script or view into dbt as models that publish the same contract, proven against the legacy logic's own output on the same inputs, with legacy defects reproduced and reported as follow-up work.",
       "domain_objects": [
         "legacy_sql",
@@ -4151,6 +4280,138 @@
         "Marketing and Sales each have a spreadsheet crediting their channel with the same revenue, and together they claim more than was booked.",
         "Channel credit differs between tools or reports and nobody can show which rule explains the gap.",
         "A lookback, conversion or model setting is about to change and the owner must see which channels gain or lose, and why, before the numbers move."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build a campaign-day plan and actual ledger as of each approved reporting cutoff, with the approved budget revision at that cutoff, provisional and settled cost kept apart, remaining budget and eligible delivery days left, and campaign totals that reconcile to the portfolio at every cutoff.",
+      "domain_objects": [
+        "campaign",
+        "flight",
+        "budget_revision",
+        "pause",
+        "platform_spend",
+        "billed_adjustment",
+        "reporting_cutoff",
+        "pacing_ledger"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "revops"
+      ],
+      "id": "marketing-campaign-budget-pacing",
+      "job_category": "build",
+      "path": "recipes/marketing-campaign-budget-pacing/recipe.md",
+      "pitch": "A point-in-time pacing ledger where each cutoff keeps its own approved plan and every cost, credit and set-aside reconciles to the portfolio.",
+      "qualifiers": [
+        "Flights, revisions, spend and bills arrive as landed tables; ingesting them is a separate outcome.",
+        "Needs recorded times on revisions, pauses, spend, bills, adjustments, versioned flights; past knowledge is not rebuilt.",
+        "Reporting only; bid changes, forecasts and acquisition payback are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-budget-forecast-actual",
+        "bitemporal-business-history",
+        "effective-dated-business-rules",
+        "dbt-snapshot-history",
+        "marketing-attribution-models",
+        "marketing-acquisition-cost-payback"
+      ],
+      "sha256": "e1c775d02329a12fd6fc30b80f8eabe980dfb24cc4ef3140932c4f74b6746eb3",
+      "title": "Build a campaign-day budget pacing ledger against versioned flight plans",
+      "trigger": [
+        "Campaign owners ask whether a campaign is on pace and the answer changes with which budget version and which cost number someone used.",
+        "A mid-flight budget change rewrote last month's plan, so nobody can show what was approved at the time.",
+        "Platform spend is restated after the day and billed credits arrive late, and marketing finance cannot tell provisional cost from settled cost."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Decide, for each planned contact at a reporting cutoff, whether it is included or suppressed under the user's approved caps, window, priority and consent rules, with a reason when suppressed, the contacts already used against each cap, its rank where ranked, and every input row accounted for.",
+      "domain_objects": [
+        "customer",
+        "planned_contact",
+        "contact_event",
+        "channel",
+        "purpose",
+        "contact_cap",
+        "eligibility_decision",
+        "suppression_reason",
+        "contact_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "revops"
+      ],
+      "id": "marketing-contact-pressure-eligibility",
+      "job_category": "build",
+      "path": "recipes/marketing-contact-pressure-eligibility/recipe.md",
+      "pitch": "One auditable send-eligibility table that counts each delivery once, ranks competing contacts the same way every run and says why a contact was held back.",
+      "qualifiers": [
+        "Needs planned contacts, reported contact events with times, an identifier-to-person map and a published consent state.",
+        "Takes consent state and person identity as given; consent derivation and identity resolution are separate outcomes.",
+        "Publishes eligibility data only; sending, scheduling, quiet hours and journey logic are separate.",
+        "Gives no legal advice; caps and consent rules are the user's, not a compliance finding.",
+        "A source with no event-time field stops the run; a row with a missing time follows the approved rule."
+      ],
+      "readiness": "supported",
+      "related": [
+        "customer-consent-preferences",
+        "identity-golden-record-crosswalk",
+        "effective-dated-business-rules",
+        "source-freshness-sla",
+        "pii-classification-and-masking"
+      ],
+      "sha256": "c699dc5e3f4d92f420ae927206838d3f1b0ae2754388185d72222be19a58512c",
+      "title": "Build cross-channel contact-pressure and send-eligibility decisions for planned contacts",
+      "trigger": [
+        "The same person is emailed, texted and pushed by several tools in one week, and nobody can say whether the next planned contact is allowed.",
+        "One delivery reported by two tools is counted twice, or a contact exactly at the edge of the rolling window is counted differently in each report.",
+        "Two contacts planned for one person at the same moment are ordered by load order, so a different one wins each run.",
+        "A planned contact has no consent record or no identifiable person, and it is sent or silently dropped with no reason."
       ],
       "works_with": {
         "platforms": [
@@ -5998,6 +6259,192 @@
       "works_with": {
         "platforms": [
           "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For each approved forecast period, score every submission as it stood at its cutoff against the bookings that landed, with signed error by approved forecast horizon split into named components, every in-scope deal accounted for, and each submission that cannot be scored kept visible with its reason.",
+      "domain_objects": [
+        "forecast_submission",
+        "forecast_category",
+        "booking",
+        "forecast_error",
+        "forecast_horizon_cohort",
+        "forecast_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "revops"
+      ],
+      "id": "sales-forecast-backtesting",
+      "job_category": "build",
+      "path": "recipes/sales-forecast-backtesting/recipe.md",
+      "pitch": "Show how accurate each submitted forecast was and why it missed, without a later revision ever improving an earlier score.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Submissions must have been captured when made; a present-day CRM export cannot supply missing history.",
+        "Scores forecast accuracy only; capturing pipeline state and building a forecast are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "revops-pipeline-snapshots",
+        "revops-bookings-billings-cash",
+        "finance-budget-forecast-actual",
+        "metric-population-and-rollups"
+      ],
+      "sha256": "dd041b71ed8d192f835be915bb5b08aeb308d3b07e99c78630330821190e54e8",
+      "title": "Score submitted sales forecasts against realized bookings by forecast horizon",
+      "trigger": [
+        "Leaders submit a sales forecast every week, but nobody can say how close each submission came to what booked, or whether the misses run over or under.",
+        "A forecast is revised after its cutoff and the earlier submission's accuracy quietly improves.",
+        "Forecast and bookings totals disagree because deals slipped, were never forecast or were cancelled, and nobody can say how much of the gap each explains."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Derive one row per lead qualification cycle ending in an accepted, recycled, disqualified or unresolved path, link each lead to its account, contact and opportunity, and count opportunity value and new customers once under approved rules.",
+      "domain_objects": [
+        "account",
+        "lead",
+        "lead_cycle",
+        "conversion_link",
+        "contact",
+        "opportunity",
+        "new_customer"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "applying-medallion-data-modelling",
+          "authoring-dbt-project-artifact",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "revops"
+      ],
+      "id": "sales-lead-opportunity-lifecycle",
+      "job_category": "build",
+      "path": "recipes/sales-lead-opportunity-lifecycle/recipe.md",
+      "pitch": "Show how each lead cycle ended and count every deal and new customer once, with missing links left visibly unresolved.",
+      "qualifiers": [
+        "Stops at the lifecycle and conversion links; stage conversion and slippage belong to revops-pipeline-snapshots.",
+        "Needs timestamped lead status history and conversion links naming the records the approved accepted test relies on.",
+        "As-of or at-conversion values need dated opportunity amount versions; without them they are reported as unproven.",
+        "Credits value across converting leads only; multi-touch marketing credit belongs to marketing-attribution-models."
+      ],
+      "readiness": "supported",
+      "related": [
+        "revops-pipeline-snapshots",
+        "master-b2b-account-hierarchy",
+        "business-event-fact",
+        "effective-dated-business-rules",
+        "marketing-attribution-models"
+      ],
+      "sha256": "180f4f54184a3d456051dae23f58cab7f7588d6c439d80461e8467ef1fd714d8",
+      "title": "Build an auditable lead-to-account-to-opportunity lifecycle that counts deals and new customers once",
+      "trigger": [
+        "Leads, accounts, contacts and opportunities sit in separate CRM tables and the conversion links are patchy, so nobody can show which lead became which customer or deal.",
+        "Leads are disqualified, recycled and requalified several times, and counting leads, customers or pipeline value per row double counts them.",
+        "Several leads feed one opportunity and RevOps cannot say how its value is credited or why it is counted once.",
+        "Missing or conflicting conversion links are guessed or dropped, so the funnel cannot be audited back to its source rows."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For each accepted quote line, trace the orders and invoice lines that came from it, add quantity and value back to the quote, and publish a ledger of each price departure the approved rules count, with its amount and source records.",
+      "domain_objects": [
+        "sales_quote",
+        "quote_version",
+        "quote_line",
+        "price_approval",
+        "product_unit_mapping",
+        "order_line",
+        "invoice_line",
+        "price_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "revops",
+        "finance"
+      ],
+      "id": "sales-quote-order-price-reconciliation",
+      "job_category": "build",
+      "path": "recipes/sales-quote-order-price-reconciliation/recipe.md",
+      "pitch": "Show what became of each accepted quote and each price departing from the approved one under approved rules, with no approval inferred from invoices.",
+      "qualifiers": [
+        "Needs quote versions, order lines tied to quote lines and invoice lines tied to orders, or an approved linking rule.",
+        "Stops at lineage and price exceptions; it does not recommend prices or approvals, or tie bookings to cash."
+      ],
+      "readiness": "supported",
+      "related": [
+        "revops-bookings-billings-cash",
+        "effective-dated-business-rules",
+        "order-return-contribution-margin",
+        "procurement-three-way-match"
+      ],
+      "sha256": "e8576c0df65938589cd03bed53f0ad3471c6f8efbe6c02b3887d1ff4bb4553a4",
+      "title": "Reconcile accepted quote versions to orders and invoices with a price-exception ledger",
+      "trigger": [
+        "Sales and Finance disagree about the price a customer was promised, and someone reconciles quotes to orders and invoices by hand.",
+        "A quote was revised, and an order or invoice may be priced from a version the customer never accepted.",
+        "A quoted line was split across orders, bundled, substituted or ordered in another unit, and nobody can show that quantity and value still add back to the quote."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
