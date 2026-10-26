@@ -176,6 +176,7 @@
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility",
         "master-b2b-account-hierarchy",
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
@@ -223,7 +224,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 93,
+      "supported_or_proven_count": 94,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -449,6 +450,27 @@
       "website_visible": true
     },
     {
+      "description": "Recipes for attribution, acquisition economics, campaign spend pacing and contact-pressure eligibility under approved business rules.",
+      "id": "marketing-data-engineering",
+      "kind": "curated",
+      "members": [
+        "marketing-attribution-models",
+        "marketing-acquisition-cost-payback",
+        "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility"
+      ],
+      "resolved_members": [
+        "marketing-acquisition-cost-payback",
+        "marketing-attribution-models",
+        "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility"
+      ],
+      "supported_or_proven_count": 4,
+      "title": "Marketing data engineering",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
       "description": "Recipes that can execute against Microsoft Fabric Lakehouse, Fabric Warehouse, or both.",
       "id": "microsoft-fabric",
       "kind": "platform",
@@ -498,6 +520,7 @@
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility",
         "master-product-sku-hierarchy",
         "materialized-view-to-dbt",
         "metric-population-and-rollups",
@@ -565,7 +588,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 80,
+      "supported_or_proven_count": 81,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -593,6 +616,7 @@
         "customer-retention-churn-features",
         "point-in-time-training-dataset",
         "customer-consent-preferences",
+        "marketing-contact-pressure-eligibility",
         "marketing-attribution-models",
         "banking-aml-features",
         "shared-calendar-fiscal-periods",
@@ -650,6 +674,7 @@
         "manufacturing-oee-downtime",
         "marketing-attribution-models",
         "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility",
         "metric-population-and-rollups",
         "operational-state-duration",
         "order-return-contribution-margin",
@@ -672,7 +697,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 47,
+      "supported_or_proven_count": 48,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -725,6 +750,7 @@
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility",
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
         "metricflow-semantic-model",
@@ -766,7 +792,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 77,
+      "supported_or_proven_count": 78,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -823,6 +849,7 @@
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility",
         "master-b2b-account-hierarchy",
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
@@ -839,7 +866,7 @@
           "revops"
         ]
       },
-      "supported_or_proven_count": 14,
+      "supported_or_proven_count": 15,
       "title": "Revenue operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -4320,6 +4347,71 @@
         "Campaign owners ask whether a campaign is on pace and the answer changes with which budget version and which cost number someone used.",
         "A mid-flight budget change rewrote last month's plan, so nobody can show what was approved at the time.",
         "Platform spend is restated after the day and billed credits arrive late, and marketing finance cannot tell provisional cost from settled cost."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Decide, for each planned contact at a reporting cutoff, whether it is included or suppressed under the user's approved caps, window, priority and consent rules, with a reason when suppressed, the contacts already used against each cap, its rank where ranked, and every input row accounted for.",
+      "domain_objects": [
+        "customer",
+        "planned_contact",
+        "contact_event",
+        "channel",
+        "purpose",
+        "contact_cap",
+        "eligibility_decision",
+        "suppression_reason",
+        "contact_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "revops"
+      ],
+      "id": "marketing-contact-pressure-eligibility",
+      "job_category": "build",
+      "path": "recipes/marketing-contact-pressure-eligibility/recipe.md",
+      "pitch": "One auditable send-eligibility table that counts each delivery once, ranks competing contacts the same way every run and says why a contact was held back.",
+      "qualifiers": [
+        "Needs planned contacts, reported contact events with times, an identifier-to-person map and a published consent state.",
+        "Takes consent state and person identity as given; consent derivation and identity resolution are separate outcomes.",
+        "Publishes eligibility data only; sending, scheduling, quiet hours and journey logic are separate.",
+        "Gives no legal advice; caps and consent rules are the user's, not a compliance finding.",
+        "A source with no event-time field stops the run; a row with a missing time follows the approved rule."
+      ],
+      "readiness": "supported",
+      "related": [
+        "customer-consent-preferences",
+        "identity-golden-record-crosswalk",
+        "effective-dated-business-rules",
+        "source-freshness-sla",
+        "pii-classification-and-masking"
+      ],
+      "sha256": "c699dc5e3f4d92f420ae927206838d3f1b0ae2754388185d72222be19a58512c",
+      "title": "Build cross-channel contact-pressure and send-eligibility decisions for planned contacts",
+      "trigger": [
+        "The same person is emailed, texted and pushed by several tools in one week, and nobody can say whether the next planned contact is allowed.",
+        "One delivery reported by two tools is counted twice, or a contact exactly at the edge of the rolling window is counted differently in each report.",
+        "Two contacts planned for one person at the same moment are ordered by load order, so a different one wins each run.",
+        "A planned contact has no consent record or no identifiable person, and it is sent or silently dropped with no reason."
       ],
       "works_with": {
         "platforms": [
