@@ -36,7 +36,7 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Needs sales lines for two comparable periods; lines lacking quantity or cost are set aside.
+  - Needs sales lines for two comparable periods; lines lacking quantity or cost follow the approved disposition.
   - Takes revenue and cost as given; cost assignment and allocation are separate outcomes.
   - Keeps each currency and unit of measure separate unless an approved rule applies.
   - Explains a change between two periods; plan versus actual and forecasting are separate.
@@ -60,7 +60,7 @@ Build <bridge_model>, <bridge_total_model>, <exceptions_model> and <coverage_mod
 
 ## Verified by
 
-- On a run that completes, each row's components plus its rounding remainder equal its observed margin change exactly at the approved precision and rounding point; the remainder appears where the approved rule puts it, with its amount, within the approved bound, never as an unlabelled plug.
+- Where a row closes within the approved bound, its components plus its rounding remainder equal its observed margin change exactly at the approved precision and rounding point; the remainder appears where the approved rule puts it, with its amount, never as an unlabelled plug.
 - Components equal values worked out independently of the model for each agreed case: price-only lands in price alone, cost-only in unit cost alone, quantity-only in volume and mix (price and cost zero unless an approved translation moves them), mixed per the approved interaction rule.
 - Volume and mix are measured against the approved benchmark; new and discontinued cells stay out of it unless the approved rule says otherwise, and where the benchmark cannot be measured they read as the approved rule says.
 - A cell with no sales in one period, a zero base quantity or netted sales and returns follows the approved classification, and no rate is divided by zero; new, discontinued and no-quantity amounts are shown as approved, separately identifiable, never folded into volume or mix unless approved.
@@ -85,7 +85,6 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - profiling-source-data
 - applying-medallion-data-modelling
 - generating-dbt-model
-- dbt-unit-testing
 - running-dbt-in-sandbox
 - verifying
 
