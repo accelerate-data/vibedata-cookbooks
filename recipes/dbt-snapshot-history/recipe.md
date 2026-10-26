@@ -10,6 +10,8 @@ pitch: Preserve recorded dimension changes and prove that historical events sele
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - dimension
   - business_event

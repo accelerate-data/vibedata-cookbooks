@@ -1,0 +1,10 @@
+{
+  "id": "semantic-layers",
+  "title": "Semantic layers",
+  "kind": "problem-area",
+  "description": "Recipes for defining governed metrics and semantic models that downstream tools query.",
+  "members": [
+    "metricflow-semantic-model",
+    "fabric-direct-lake-semantic-model"
+  ]
+}
