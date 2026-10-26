@@ -175,6 +175,7 @@
         "manufacturing-oee-downtime",
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
+        "marketing-campaign-budget-pacing",
         "master-b2b-account-hierarchy",
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
@@ -203,6 +204,7 @@
         "sales-commission-payout-ledger",
         "sales-forecast-backtesting",
         "sales-lead-opportunity-lifecycle",
+        "sales-quote-order-price-reconciliation",
         "scalar-sql-function-to-dbt-macro",
         "scd-procedure-to-dbt-snapshot",
         "service-ticket-sla",
@@ -221,7 +223,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 91,
+      "supported_or_proven_count": 93,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -245,6 +247,7 @@
         "insurance-loss-triangles",
         "inventory-valuation-cogs",
         "marketing-acquisition-cost-payback",
+        "marketing-campaign-budget-pacing",
         "master-b2b-account-hierarchy",
         "ops-procurement-spend",
         "order-return-contribution-margin",
@@ -254,6 +257,7 @@
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
         "sales-commission-payout-ledger",
+        "sales-quote-order-price-reconciliation",
         "shared-fx-conversion",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill"
@@ -263,7 +267,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 26,
+      "supported_or_proven_count": 28,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -493,6 +497,7 @@
         "manufacturing-oee-downtime",
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
+        "marketing-campaign-budget-pacing",
         "master-product-sku-hierarchy",
         "materialized-view-to-dbt",
         "metric-population-and-rollups",
@@ -517,6 +522,7 @@
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
         "sales-forecast-backtesting",
+        "sales-quote-order-price-reconciliation",
         "scd-procedure-to-dbt-snapshot",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
@@ -559,7 +565,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 78,
+      "supported_or_proven_count": 80,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -608,12 +614,14 @@
         "cost-attribution-by-model-job",
         "versioned-data-contract-cutover",
         "order-return-contribution-margin",
+        "sales-quote-order-price-reconciliation",
         "procurement-three-way-match",
         "inventory-lot-traceability",
         "sales-commission-payout-ledger",
         "inventory-valuation-cogs",
         "sales-lead-opportunity-lifecycle",
-        "sales-forecast-backtesting"
+        "sales-forecast-backtesting",
+        "marketing-campaign-budget-pacing"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -641,6 +649,7 @@
         "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
         "marketing-attribution-models",
+        "marketing-campaign-budget-pacing",
         "metric-population-and-rollups",
         "operational-state-duration",
         "order-return-contribution-margin",
@@ -654,6 +663,7 @@
         "sales-commission-payout-ledger",
         "sales-forecast-backtesting",
         "sales-lead-opportunity-lifecycle",
+        "sales-quote-order-price-reconciliation",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "shift-unit-economics",
@@ -662,7 +672,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 45,
+      "supported_or_proven_count": 47,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -714,6 +724,7 @@
         "manufacturing-oee-downtime",
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
+        "marketing-campaign-budget-pacing",
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
         "metricflow-semantic-model",
@@ -738,6 +749,7 @@
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
         "sales-forecast-backtesting",
+        "sales-quote-order-price-reconciliation",
         "scd-procedure-to-dbt-snapshot",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
@@ -754,7 +766,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 75,
+      "supported_or_proven_count": 77,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -810,6 +822,7 @@
         "cpg-promotion-lift",
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
+        "marketing-campaign-budget-pacing",
         "master-b2b-account-hierarchy",
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
@@ -818,6 +831,7 @@
         "sales-commission-payout-ledger",
         "sales-forecast-backtesting",
         "sales-lead-opportunity-lifecycle",
+        "sales-quote-order-price-reconciliation",
         "usage-metering-rated-charges"
       ],
       "selector": {
@@ -825,7 +839,7 @@
           "revops"
         ]
       },
-      "supported_or_proven_count": 12,
+      "supported_or_proven_count": 14,
       "title": "Revenue operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -4255,6 +4269,73 @@
     },
     {
       "area": "transformation",
+      "description": "Build a campaign-day plan and actual ledger as of each approved reporting cutoff, with the approved budget revision at that cutoff, provisional and settled cost kept apart, remaining budget and eligible delivery days left, and campaign totals that reconcile to the portfolio at every cutoff.",
+      "domain_objects": [
+        "campaign",
+        "flight",
+        "budget_revision",
+        "pause",
+        "platform_spend",
+        "billed_adjustment",
+        "reporting_cutoff",
+        "pacing_ledger"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "revops"
+      ],
+      "id": "marketing-campaign-budget-pacing",
+      "job_category": "build",
+      "path": "recipes/marketing-campaign-budget-pacing/recipe.md",
+      "pitch": "A point-in-time pacing ledger where each cutoff keeps its own approved plan and every cost, credit and set-aside reconciles to the portfolio.",
+      "qualifiers": [
+        "Flights, revisions, spend and bills arrive as landed tables; ingesting them is a separate outcome.",
+        "Needs recorded times on revisions, pauses, spend, bills, adjustments, versioned flights; past knowledge is not rebuilt.",
+        "Reporting only; bid changes, forecasts and acquisition payback are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-budget-forecast-actual",
+        "bitemporal-business-history",
+        "effective-dated-business-rules",
+        "dbt-snapshot-history",
+        "marketing-attribution-models",
+        "marketing-acquisition-cost-payback"
+      ],
+      "sha256": "e1c775d02329a12fd6fc30b80f8eabe980dfb24cc4ef3140932c4f74b6746eb3",
+      "title": "Build a campaign-day budget pacing ledger against versioned flight plans",
+      "trigger": [
+        "Campaign owners ask whether a campaign is on pace and the answer changes with which budget version and which cost number someone used.",
+        "A mid-flight budget change rewrote last month's plan, so nobody can show what was approved at the time.",
+        "Platform spend is restated after the day and billed credits arrive late, and marketing finance cannot tell provisional cost from settled cost."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Resolve accounts to their parent and ultimate parent under approved precedence and parent rules, keep accounts the rules cannot place explicitly unresolved unless an approved fallback places them, roll measures up every level of each corporate family for the approved periods, and list every hierarchy anomaly with its reason, never double counting an account or inventing hierarchy.",
       "domain_objects": [
         "account",
@@ -6208,6 +6289,70 @@
       "works_with": {
         "platforms": [
           "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For each accepted quote line, trace the orders and invoice lines that came from it, add quantity and value back to the quote, and publish a ledger of each price departure the approved rules count, with its amount and source records.",
+      "domain_objects": [
+        "sales_quote",
+        "quote_version",
+        "quote_line",
+        "price_approval",
+        "product_unit_mapping",
+        "order_line",
+        "invoice_line",
+        "price_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "revops",
+        "finance"
+      ],
+      "id": "sales-quote-order-price-reconciliation",
+      "job_category": "build",
+      "path": "recipes/sales-quote-order-price-reconciliation/recipe.md",
+      "pitch": "Show what became of each accepted quote and each price departing from the approved one under approved rules, with no approval inferred from invoices.",
+      "qualifiers": [
+        "Needs quote versions, order lines tied to quote lines and invoice lines tied to orders, or an approved linking rule.",
+        "Stops at lineage and price exceptions; it does not recommend prices or approvals, or tie bookings to cash."
+      ],
+      "readiness": "supported",
+      "related": [
+        "revops-bookings-billings-cash",
+        "effective-dated-business-rules",
+        "order-return-contribution-margin",
+        "procurement-three-way-match"
+      ],
+      "sha256": "e8576c0df65938589cd03bed53f0ad3471c6f8efbe6c02b3887d1ff4bb4553a4",
+      "title": "Reconcile accepted quote versions to orders and invoices with a price-exception ledger",
+      "trigger": [
+        "Sales and Finance disagree about the price a customer was promised, and someone reconciles quotes to orders and invoices by hand.",
+        "A quote was revised, and an order or invoice may be priced from a version the customer never accepted.",
+        "A quoted line was split across orders, bundled, substituted or ordered in another unit, and nobody can show that quantity and value still add back to the quote."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
