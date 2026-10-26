@@ -10,17 +10,19 @@
         "customer-retention-churn-features",
         "product-sessionization-funnels",
         "marketing-attribution-models",
+        "marketing-acquisition-cost-payback",
         "saas-mrr-waterfall-nrr"
       ],
       "resolved_members": [
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
+        "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "product-sessionization-funnels",
         "saas-mrr-waterfall-nrr"
       ],
-      "supported_or_proven_count": 6,
+      "supported_or_proven_count": 7,
       "title": "Customer and product analytics",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -70,6 +72,7 @@
         "dbt-full-refresh-to-incremental",
         "dbt-refactor-output-identical",
         "dbt-snapshot-history",
+        "effective-dated-bom-requirements",
         "effective-dated-business-rules",
         "event-resource-attribution",
         "file-drop-to-bronze",
@@ -90,12 +93,14 @@
         "identity-standardize-names-addresses",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
+        "inventory-lot-traceability",
         "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
         "managed-connector-to-dlt",
         "manufacturing-oee-downtime",
+        "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "master-b2b-account-hierarchy",
         "master-product-sku-hierarchy",
@@ -139,7 +144,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 83,
+      "supported_or_proven_count": 86,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -161,6 +166,7 @@
         "finops-saas-license-utilization",
         "healthcare-claims-remittance",
         "insurance-loss-triangles",
+        "marketing-acquisition-cost-payback",
         "master-b2b-account-hierarchy",
         "ops-procurement-spend",
         "order-return-contribution-margin",
@@ -177,7 +183,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 22,
+      "supported_or_proven_count": 23,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -317,6 +323,25 @@
       "website_visible": true
     },
     {
+      "description": "Recipes for data engineers working with manufacturing data, such as production runs, bills of materials, material lots and equipment downtime.",
+      "id": "manufacturing-data-engineering",
+      "kind": "industry",
+      "resolved_members": [
+        "effective-dated-bom-requirements",
+        "inventory-lot-traceability",
+        "manufacturing-oee-downtime"
+      ],
+      "selector": {
+        "industry": [
+          "manufacturing"
+        ]
+      },
+      "supported_or_proven_count": 3,
+      "title": "Manufacturing data engineering",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
       "description": "Recipes that can execute against Microsoft Fabric Lakehouse, Fabric Warehouse, or both.",
       "id": "microsoft-fabric",
       "kind": "platform",
@@ -336,6 +361,7 @@
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
         "database-tables-to-bronze",
+        "effective-dated-bom-requirements",
         "effective-dated-business-rules",
         "event-resource-attribution",
         "fabric-data-pipeline-as-code",
@@ -356,10 +382,12 @@
         "hospitality-occupancy-adr-revpar",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
+        "inventory-lot-traceability",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
+        "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "master-product-sku-hierarchy",
         "materialized-view-to-dbt",
@@ -425,7 +453,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 72,
+      "supported_or_proven_count": 75,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -446,6 +474,7 @@
         "logistics-lane-on-time-performance",
         "shift-unit-economics",
         "effective-dated-business-rules",
+        "effective-dated-bom-requirements",
         "prove-dbt-change-safe",
         "customer-rfm-segmentation",
         "customer-historical-ltv",
@@ -472,7 +501,8 @@
         "cost-attribution-by-model-job",
         "versioned-data-contract-cutover",
         "order-return-contribution-margin",
-        "procurement-three-way-match"
+        "procurement-three-way-match",
+        "inventory-lot-traceability"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -486,12 +516,14 @@
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
         "dbt-snapshot-history",
+        "effective-dated-bom-requirements",
         "effective-dated-business-rules",
         "event-resource-attribution",
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
         "hospitality-occupancy-adr-revpar",
         "insurance-loss-triangles",
+        "inventory-lot-traceability",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
@@ -514,7 +546,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 38,
+      "supported_or_proven_count": 40,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -539,6 +571,7 @@
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
         "database-tables-to-bronze",
+        "effective-dated-bom-requirements",
         "effective-dated-business-rules",
         "event-resource-attribution",
         "file-drop-to-bronze",
@@ -557,10 +590,12 @@
         "hospitality-occupancy-adr-revpar",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
+        "inventory-lot-traceability",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
+        "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
@@ -600,7 +635,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 69,
+      "supported_or_proven_count": 72,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -631,6 +666,7 @@
       "kind": "function",
       "resolved_members": [
         "cpg-promotion-lift",
+        "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "master-b2b-account-hierarchy",
         "revops-bookings-billings-cash",
@@ -643,7 +679,7 @@
           "revops"
         ]
       },
-      "supported_or_proven_count": 7,
+      "supported_or_proven_count": 8,
       "title": "Revenue operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -670,6 +706,8 @@
       "id": "supply-chain-and-operations-data-engineering",
       "kind": "function",
       "resolved_members": [
+        "effective-dated-bom-requirements",
+        "inventory-lot-traceability",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
@@ -686,7 +724,7 @@
           "supply-chain-ops"
         ]
       },
-      "supported_or_proven_count": 10,
+      "supported_or_proven_count": 12,
       "title": "Supply chain and operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -1937,6 +1975,72 @@
       "works_with": {
         "platforms": [
           "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Explode approved demand into component requirements through the BOM revisions in force under approved date, unit, scrap and yield rules, with gross beside adjusted quantities, the paths behind totals published as approved, cycles, ambiguous revisions and missing conversions handled as approved, and every input row accounted for.",
+      "domain_objects": [
+        "demand_line",
+        "bom_revision",
+        "bom_line",
+        "unit_conversion",
+        "component_requirement",
+        "explosion_path",
+        "requirement_exception",
+        "input_disposition"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops"
+      ],
+      "id": "effective-dated-bom-requirements",
+      "industry": [
+        "manufacturing"
+      ],
+      "job_category": "build",
+      "path": "recipes/effective-dated-bom-requirements/recipe.md",
+      "pitch": "Component demand from the BOM revision in force, with every broken BOM explained.",
+      "qualifiers": [
+        "Past or future requirements need dated BOM revisions; without dates the revision in force cannot be chosen.",
+        "Demand quantities and dates come from approved demand; this Recipe does not forecast or schedule.",
+        "Unit conversions may be captured as editable data during the run."
+      ],
+      "readiness": "supported",
+      "related": [
+        "master-product-sku-hierarchy",
+        "effective-dated-business-rules",
+        "ops-inventory-reconciliation"
+      ],
+      "sha256": "19d5f0da79adb0e3570416d365253df9a8fa64780c4f87228a00d6bae4f47d1a",
+      "title": "Explode an effective-dated bill of materials into component requirements",
+      "trigger": [
+        "Component demand for an approved quantity of finished goods is worked out by hand or in a spreadsheet, and nobody can show which BOM revision, unit conversion or scrap rate produced a figure.",
+        "A component is used by several assemblies, and its total demand depends on every path through the bill of materials.",
+        "BOM revisions change over time and a past or future demand must use the revision in force on its own date.",
+        "Bills of materials contain loops, overlapping revisions or missing unit conversions that silently drop or distort component demand."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
@@ -3273,6 +3377,70 @@
     },
     {
       "area": "transformation",
+      "description": "From observed receipts, production runs that consume and make lots, and shipments, build the lot genealogy with quantities and units on each link, and for a recalled lot list every affected lot and shipment once with the recalled quantity, with unreconciled runs, cycles and untraceable shipments shown.",
+      "domain_objects": [
+        "lot",
+        "production_run",
+        "lot_link",
+        "shipment",
+        "recall_notice",
+        "recall_exposure"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops"
+      ],
+      "id": "inventory-lot-traceability",
+      "industry": [
+        "manufacturing"
+      ],
+      "job_category": "build",
+      "path": "recipes/inventory-lot-traceability/recipe.md",
+      "pitch": "Trace a recalled lot to every affected shipment once, and show unreconciled runs and shipments whose history cannot be followed.",
+      "qualifiers": [
+        "Needs observed genealogy, such as lots consumed and produced per run; links are never inferred from dates.",
+        "Lots follow one identification scheme; mapping between schemes is a separate outcome.",
+        "Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze.",
+        "Stops at recall exposure evidence; notifying customers and the physical recall are separate outcomes.",
+        "Stock positions and product hierarchies belong to ops-inventory-reconciliation and master-product-sku-hierarchy."
+      ],
+      "readiness": "supported",
+      "related": [
+        "ops-inventory-reconciliation",
+        "master-product-sku-hierarchy",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "292d2353c1699b1bba808960f87134bb015a8da67d160477152adb83b53510a5",
+      "title": "Trace a recalled input lot to affected shipments and flag unreconciled runs and lineage that cannot be traced",
+      "trigger": [
+        "A raw material lot is recalled and nobody can say which finished lots and which customer shipments contain it, or how much of it each holds.",
+        "Lot genealogy lives in spreadsheets or separate receipt, production and shipping systems, and a split or blend makes the same material reach a shipment by several routes.",
+        "A mock recall must show every affected shipment, and every shipment whose history cannot be followed."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Bring a legacy SQL script or view into dbt as models that publish the same contract, proven against the legacy logic's own output on the same inputs, with legacy defects reproduced and reported as follow-up work.",
       "domain_objects": [
         "legacy_sql",
@@ -3611,6 +3779,73 @@
         "Plant OEE comes from a hand-built spreadsheet and nobody can say whether stops, slow running or scrap cost a line its points.",
         "Line and plant OEE averages machine OEEs, so a small machine moves the number as much as a large one.",
         "Stops with no reason, no end or a shift-change crossing distort availability and leave the downtime ranking unable to tie back to OEE."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Compute fully loaded acquisition cost, customers acquired and cumulative contribution by acquisition cohort and channel under the user's approved rules, with a payback verdict per cohort and every cost and customer accounted for.",
+      "domain_objects": [
+        "acquisition_cost",
+        "cost_allocation",
+        "acquisition_assignment",
+        "customer",
+        "cohort",
+        "channel",
+        "campaign",
+        "contribution",
+        "refund",
+        "payback_verdict",
+        "cost_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "revops"
+      ],
+      "id": "marketing-acquisition-cost-payback",
+      "job_category": "build",
+      "path": "recipes/marketing-acquisition-cost-payback/recipe.md",
+      "pitch": "One reproducible cohort table that shows what each channel cost, what it has earned back and whether it has paid back, with shared cost counted once.",
+      "qualifiers": [
+        "Needs dated cost lines, acquisition assignments, first-customer dates and contribution records.",
+        "Takes contribution, assignments and customer identity as given; the rules may be captured as editable data.",
+        "Keeps each currency separate unless an approved translation rule applies; rate sourcing is separate.",
+        "Reports attribution-based accounting to an as-of date; causal lift and forecasting are separate.",
+        "Stops at cohort cost and payback; touchpoint credit and lifetime value are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "marketing-attribution-models",
+        "customer-historical-ltv",
+        "effective-dated-business-rules",
+        "identity-golden-record-crosswalk",
+        "shared-fx-conversion"
+      ],
+      "sha256": "98c4193c8dca064d44484cfd72192b92851a5d1f8f36e545299b75e0d01df672",
+      "title": "Build fully loaded acquisition cost and contribution payback by customer cohort",
+      "trigger": [
+        "Marketing says a channel pays back quickly and Finance says it never does, and nobody can show the sum from the spend and contribution records.",
+        "Shared campaign cost, agency and creative fees are counted in two channels or left out, so acquisition cost differs between reports.",
+        "A customer reassigned between campaigns, or a refund after payback, changes the answer and nobody can say whether the cohort has really recovered its cost."
       ],
       "works_with": {
         "platforms": [
