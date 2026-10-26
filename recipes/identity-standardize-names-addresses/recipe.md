@@ -11,6 +11,8 @@ pitch: Give every customer record a clean name, a clean address and a match key 
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - customer_record
   - party_name

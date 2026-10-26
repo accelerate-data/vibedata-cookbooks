@@ -10,6 +10,8 @@ pitch: Move a hidden warehouse function into dbt as a macro and prove the SQL it
 job_category: re-engineer
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - scalar_function
   - dbt_macro

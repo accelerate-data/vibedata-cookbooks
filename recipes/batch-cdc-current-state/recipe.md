@@ -10,6 +10,8 @@ pitch: Rebuild current state from exported change events by source position, wit
 job_category: build
 area: ingestion
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - change_event_ledger
   - current_state_table

@@ -11,6 +11,8 @@ pitch: Define each metric once, prove its numbers, and name and size every diffe
 job_category: build
 area: semantic-layer
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - semantic_model
   - governed_metric

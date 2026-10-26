@@ -10,6 +10,8 @@ pitch: Answer what applied on a date and what we knew at a cutoff, from one pres
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 related:
   - dbt-snapshot-history
   - scd-procedure-to-dbt-snapshot

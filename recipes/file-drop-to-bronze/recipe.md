@@ -10,6 +10,8 @@ pitch: Land a recurring file drop into bronze so a rerun duplicates nothing, wit
 job_category: build
 area: ingestion
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - dlt_pipeline
   - dlt_resource

@@ -10,6 +10,8 @@ pitch: One auditable answer to whether a customer may be contacted, with the dec
 job_category: build
 area: governance-cost
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - customer
   - consent_event
