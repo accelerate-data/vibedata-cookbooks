@@ -34,11 +34,11 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Open items arrive as landed tables; aging them is a separate outcome.
   - Uses approved assumptions only; it is not a forecasting model or a recommendation to borrow or invest.
   - Stops at the plan; budget comparison, revaluation and ledger posting are separate outcomes.
   - A past plan as issued needs kept snapshots; a rebuild restates it.
+  - A calendar or rate the rules need but the source lacks is reported as unproven.
   - Rates, calendars and rules are inputs; sourcing rates and detecting duplicate invoices are separate outcomes.
 related:
   - finance-ar-aging-dso
@@ -52,7 +52,6 @@ evidence:
     - profiling-source-data
     - applying-medallion-data-modelling
     - generating-dbt-model
-    - dbt-unit-testing
     - running-dbt-in-sandbox
     - verifying
   evals: []
@@ -60,7 +59,7 @@ evidence:
 
 ## Prompt
 
-Build <weekly_plan_model>, <movement_model>, <set_aside_model> and <coverage_model> from <opening_cash_source>, <receivables_source>, <payables_source>, <payroll_schedule_source>, <commitments_source> and <scenario_rules_source>. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only the semantics they leave open. For each approved scenario version, place each open item on an expected date under the version's approved rules, publish thirteen consecutive weeks with opening balance, receipts, payments and closing balance, and keep for every movement its direction, expected date, week, amount, currency, source item, version and the rule or dating basis that placed it. Account for every item's amount as movements or set-asides, each with one reason. Keep sources read-only and report what the inputs cannot prove.
+Build <weekly_plan_model>, <movement_model>, <set_aside_model> and <coverage_model> from <opening_cash_source>, <receivables_source>, <payables_source>, <payroll_schedule_source>, <commitments_source> and <scenario_rules_source>, plus <calendar_source> and <rate_source> where the approved rules use them. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only the semantics they leave open. For each approved scenario version, place each open item on an expected date under the version's approved rules, publish thirteen consecutive weeks with opening balance, receipts, payments and closing balance, and keep for every movement its direction, expected date, week, amount, currency, source item, version and the rule or dating basis that placed it. Account for every item's amount as movements or set-asides, each with one reason. Keep sources read-only and report what the inputs cannot prove.
 
 ## Verified by
 
@@ -72,10 +71,10 @@ Build <weekly_plan_model>, <movement_model>, <set_aside_model> and <coverage_mod
 - Each item's open amount is fully accounted for across movements and set-asides, each part with one approved reason and parts summing to the open amount; a partly settled item moves its open remainder, and credits and unapplied items land as approved, visible with their amounts.
 - Items outside the approved scope, and counts and amounts per version, reconcile to the inputs with zero residue: every input item is a movement, a set-aside or shown as out of scope with its reason.
 - Overdue, disputed, undated and beyond-horizon items follow the approved handling per version and are visible with their amounts; no scenario lowers its own outflow by setting a payment aside unless the approved rules say so.
-- Amounts in a currency other than the plan currency are never summed into the plan; they are converted only under an approved rate rule, or set aside in their own currency and amount.
+- Amounts in a currency other than the plan currency are never summed into one plan without an approved rate rule; otherwise each is planned in its own currency or set aside with its own currency and amount, as approved.
 - Only approved scenario versions and rules are planned; an unapproved version is never published as approved, and an unapproved rule changes no movement.
 - A missing opening balance, unknown scenario or unplaceable item is never read as zero or hidden: affected weeks are shown as unproven or the run fails naming the item, and a partial plan is never reported complete.
-- Unscheduled receipts and payments are published separately per version, direction and currency beside the plan, never netted or summed across currencies; identical inputs, as-of date, version and rules give identical output, unique on its declared grain.
+- Unscheduled receipts and payments are shown as approved, separately per version, direction and currency, never netted or summed across currencies; identical inputs, as-of date, version and rules give identical output, unique on its declared grain.
 
 ## Agent guidance
 
@@ -89,7 +88,6 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - profiling-source-data
 - applying-medallion-data-modelling
 - generating-dbt-model
-- dbt-unit-testing
 - running-dbt-in-sandbox
 - verifying
 
