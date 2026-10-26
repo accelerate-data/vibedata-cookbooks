@@ -46,6 +46,7 @@
     "procurement-three-way-match",
     "inventory-lot-traceability",
     "sales-commission-payout-ledger",
-    "inventory-valuation-cogs"
+    "inventory-valuation-cogs",
+    "sales-lead-opportunity-lifecycle"
   ]
 }
