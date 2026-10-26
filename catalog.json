@@ -201,6 +201,7 @@
         "revops-quota-commission",
         "saas-mrr-waterfall-nrr",
         "sales-commission-payout-ledger",
+        "sales-forecast-backtesting",
         "sales-lead-opportunity-lifecycle",
         "scalar-sql-function-to-dbt-macro",
         "scd-procedure-to-dbt-snapshot",
@@ -220,7 +221,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 90,
+      "supported_or_proven_count": 91,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -515,6 +516,7 @@
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
+        "sales-forecast-backtesting",
         "scd-procedure-to-dbt-snapshot",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
@@ -557,7 +559,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 77,
+      "supported_or_proven_count": 78,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -610,7 +612,8 @@
         "inventory-lot-traceability",
         "sales-commission-payout-ledger",
         "inventory-valuation-cogs",
-        "sales-lead-opportunity-lifecycle"
+        "sales-lead-opportunity-lifecycle",
+        "sales-forecast-backtesting"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -649,6 +652,7 @@
         "retail-sell-through-stockout",
         "saas-mrr-waterfall-nrr",
         "sales-commission-payout-ledger",
+        "sales-forecast-backtesting",
         "sales-lead-opportunity-lifecycle",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
@@ -658,7 +662,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 44,
+      "supported_or_proven_count": 45,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -733,6 +737,7 @@
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
+        "sales-forecast-backtesting",
         "scd-procedure-to-dbt-snapshot",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
@@ -749,7 +754,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 74,
+      "supported_or_proven_count": 75,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -811,6 +816,7 @@
         "revops-quota-commission",
         "saas-mrr-waterfall-nrr",
         "sales-commission-payout-ledger",
+        "sales-forecast-backtesting",
         "sales-lead-opportunity-lifecycle",
         "usage-metering-rated-charges"
       ],
@@ -819,7 +825,7 @@
           "revops"
         ]
       },
-      "supported_or_proven_count": 11,
+      "supported_or_proven_count": 12,
       "title": "Revenue operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -6080,6 +6086,68 @@
       "works_with": {
         "platforms": [
           "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For each approved forecast period, score every submission as it stood at its cutoff against the bookings that landed, with signed error by approved forecast horizon split into named components, every in-scope deal accounted for, and each submission that cannot be scored kept visible with its reason.",
+      "domain_objects": [
+        "forecast_submission",
+        "forecast_category",
+        "booking",
+        "forecast_error",
+        "forecast_horizon_cohort",
+        "forecast_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "revops"
+      ],
+      "id": "sales-forecast-backtesting",
+      "job_category": "build",
+      "path": "recipes/sales-forecast-backtesting/recipe.md",
+      "pitch": "Show how accurate each submitted forecast was and why it missed, without a later revision ever improving an earlier score.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Submissions must have been captured when made; a present-day CRM export cannot supply missing history.",
+        "Scores forecast accuracy only; capturing pipeline state and building a forecast are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "revops-pipeline-snapshots",
+        "revops-bookings-billings-cash",
+        "finance-budget-forecast-actual",
+        "metric-population-and-rollups"
+      ],
+      "sha256": "dd041b71ed8d192f835be915bb5b08aeb308d3b07e99c78630330821190e54e8",
+      "title": "Score submitted sales forecasts against realized bookings by forecast horizon",
+      "trigger": [
+        "Leaders submit a sales forecast every week, but nobody can say how close each submission came to what booked, or whether the misses run over or under.",
+        "A forecast is revised after its cutoff and the earlier submission's accuracy quietly improves.",
+        "Forecast and bookings totals disagree because deals slipped, were never forecast or were cancelled, and nobody can say how much of the gap each explains."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
