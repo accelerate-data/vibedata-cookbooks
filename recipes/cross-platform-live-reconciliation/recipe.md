@@ -10,6 +10,8 @@ pitch: Show that the old and the rebuilt table hold the same data, read live fro
 job_category: cross-platform
 area: data-quality
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - comparison_pair
   - business_key

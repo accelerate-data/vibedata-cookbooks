@@ -11,6 +11,8 @@ pitch: Find out whether a dbt project returns the same results on its new destin
 job_category: cross-platform
 area: transformation
 readiness: planned
+function:
+  - cross-functional
 domain_objects:
   - dbt_model
   - consumer_contract

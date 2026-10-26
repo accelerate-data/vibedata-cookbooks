@@ -11,6 +11,8 @@ pitch: One customer, one stable id, every source record traced to it and every u
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - customer
   - golden_record
