@@ -74,7 +74,7 @@ Build <charge_line_model>, <tier_model>, <event_account_model>, <credit_account_
 - Events on either side of the approved period boundary fall in different periods, and a change of terms follows the approved rule; an event with no usable term or a schedule the rule cannot price is set aside with its reason, never rated as zero.
 - A late, revised or cancelled event, or a backdated terms or credit change as approved, changes only the customer and period the approved scope names; every other published figure is identical before and after.
 - A restatement shows, as the approved rule says, each changed measure with its previous and new value and the cause of the change; a rerun with no new input changes no figure and publishes no restatement.
-- A negative quantity or net negative amount follows the approved rule: set aside with its reason, published as its own labelled adjustment, or netted with the netted events and amounts shown; never netted away silently.
+- A negative quantity or net negative amount follows the approved rule: set aside with its reason, published as its own labelled adjustment, or netted with the netted events shown; any remainder below zero is shown as its own adjustment, never netted away silently.
 - The outcome states what the inputs cannot prove, such as events not yet delivered, terms the data does not carry, or an earlier report that was not kept.
 
 ## Agent guidance
