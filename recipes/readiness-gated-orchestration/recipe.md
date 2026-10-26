@@ -10,6 +10,8 @@ pitch: Start the build when the data is ready, not when the clock says so, and f
 job_category: build
 area: orchestration
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - orchestration_pipeline
   - readiness_signal

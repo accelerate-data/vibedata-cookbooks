@@ -10,6 +10,8 @@ pitch: Land a database's tables into bronze, each the way it changes, and reconc
 job_category: build
 area: ingestion
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - dlt_pipeline
   - dlt_resource

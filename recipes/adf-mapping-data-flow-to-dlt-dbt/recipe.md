@@ -10,6 +10,8 @@ pitch: Rebuild an ADF mapping data flow as dlt and dbt code and prove sink by si
 job_category: re-engineer
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - adf_data_flow
   - dlt_pipeline

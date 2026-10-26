@@ -11,6 +11,8 @@ pitch: Build a breaking change as a new version beside the old one, with named c
 job_category: re-engineer
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - previous_version
   - new_version

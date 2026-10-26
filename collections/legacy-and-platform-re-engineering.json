@@ -12,6 +12,8 @@
     "notebook-transformation-to-dbt",
     "scalar-sql-function-to-dbt-macro",
     "spark-ingestion-notebook-to-dlt",
-    "stored-procedure-to-dbt"
+    "stored-procedure-to-dbt",
+    "scd-procedure-to-dbt-snapshot",
+    "move-dbt-project-destination"
   ]
 }

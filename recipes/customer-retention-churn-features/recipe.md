@@ -10,6 +10,8 @@ pitch: One agreed definition of active and lost, a cohort retention table, and f
 job_category: build
 area: transformation
 readiness: supported
+function:
+  - cross-functional
 domain_objects:
   - customer
   - signup_cohort

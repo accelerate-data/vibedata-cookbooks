@@ -1,6 +1,74 @@
 {
   "collections": [
     {
+      "description": "Recipes for data engineers whose outcome no single business function owns, such as ingestion, dbt engineering, orchestration, identity and migration.",
+      "id": "cross-functional",
+      "kind": "function",
+      "resolved_members": [
+        "adf-mapping-data-flow-to-dlt-dbt",
+        "api-to-bronze-incremental-contract",
+        "assess-synapse-ssis-for-fabric",
+        "banking-aml-features",
+        "batch-cdc-current-state",
+        "bitemporal-business-history",
+        "bounded-partition-backfill",
+        "business-event-fact",
+        "cross-platform-dbt-macro",
+        "cross-platform-live-reconciliation",
+        "cross-platform-scheduled-job",
+        "customer-consent-preferences",
+        "customer-retention-churn-features",
+        "customer-rfm-segmentation",
+        "database-tables-to-bronze",
+        "dbt-full-refresh-to-incremental",
+        "dbt-refactor-output-identical",
+        "dbt-snapshot-history",
+        "effective-dated-business-rules",
+        "event-resource-attribution",
+        "fabric-data-pipeline-as-code",
+        "fabric-direct-lake-semantic-model",
+        "file-drop-to-bronze",
+        "governed-spreadsheet-table",
+        "healthcare-readmission-cohort",
+        "hospitality-occupancy-adr-revpar",
+        "identity-golden-record-crosswalk",
+        "identity-standardize-names-addresses",
+        "incremental-dbt-model-with-contract",
+        "legacy-sql-to-dbt",
+        "life-sciences-enrollment",
+        "managed-connector-to-dlt",
+        "materialized-view-to-dbt",
+        "metric-population-and-rollups",
+        "metricflow-semantic-model",
+        "motherduck-flight-scheduling",
+        "move-dbt-project-destination",
+        "notebook-transformation-to-dbt",
+        "operational-state-duration",
+        "pii-classification-and-masking",
+        "point-in-time-training-dataset",
+        "product-sessionization-funnels",
+        "prove-dbt-change-safe",
+        "readiness-gated-orchestration",
+        "scalar-sql-function-to-dbt-macro",
+        "scd-procedure-to-dbt-snapshot",
+        "shared-calendar-fiscal-periods",
+        "source-freshness-sla",
+        "spark-ingestion-notebook-to-dlt",
+        "stored-procedure-to-dbt",
+        "telecom-cdr-usage",
+        "versioned-data-contract-cutover"
+      ],
+      "selector": {
+        "function": [
+          "cross-functional"
+        ]
+      },
+      "supported_or_proven_count": 51,
+      "title": "Any domain",
+      "website_publication_threshold": 3,
+      "website_visible": true
+    },
+    {
       "description": "Recipes for building customer value, retention, segmentation and product behaviour models that business teams can reproduce.",
       "id": "customer-and-product-analytics",
       "kind": "curated",
@@ -10,17 +78,19 @@
         "customer-retention-churn-features",
         "product-sessionization-funnels",
         "marketing-attribution-models",
+        "marketing-acquisition-cost-payback",
         "saas-mrr-waterfall-nrr"
       ],
       "resolved_members": [
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
+        "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "product-sessionization-funnels",
         "saas-mrr-waterfall-nrr"
       ],
-      "supported_or_proven_count": 6,
+      "supported_or_proven_count": 7,
       "title": "Customer and product analytics",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -32,14 +102,18 @@
       "members": [
         "dbt-full-refresh-to-incremental",
         "dbt-refactor-output-identical",
-        "cross-platform-dbt-macro"
+        "cross-platform-dbt-macro",
+        "incremental-dbt-model-with-contract",
+        "bounded-partition-backfill"
       ],
       "resolved_members": [
+        "bounded-partition-backfill",
         "cross-platform-dbt-macro",
         "dbt-full-refresh-to-incremental",
-        "dbt-refactor-output-identical"
+        "dbt-refactor-output-identical",
+        "incremental-dbt-model-with-contract"
       ],
-      "supported_or_proven_count": 3,
+      "supported_or_proven_count": 5,
       "title": "dbt performance and maintainability",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -70,6 +144,7 @@
         "dbt-full-refresh-to-incremental",
         "dbt-refactor-output-identical",
         "dbt-snapshot-history",
+        "effective-dated-bom-requirements",
         "effective-dated-business-rules",
         "event-resource-attribution",
         "file-drop-to-bronze",
@@ -78,7 +153,9 @@
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
         "finance-gl-subledger-tieout",
+        "finance-gross-margin-variance-bridge",
         "finance-revenue-recognition",
+        "finance-thirteen-week-cash-plan",
         "finance-trial-balance-close",
         "finops-cloud-allocation",
         "finops-saas-license-utilization",
@@ -90,13 +167,18 @@
         "identity-standardize-names-addresses",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
+        "inventory-lot-traceability",
+        "inventory-valuation-cogs",
         "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
         "managed-connector-to-dlt",
         "manufacturing-oee-downtime",
+        "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
+        "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility",
         "master-b2b-account-hierarchy",
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
@@ -113,6 +195,7 @@
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
         "point-in-time-training-dataset",
+        "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
@@ -122,6 +205,10 @@
         "revops-pipeline-snapshots",
         "revops-quota-commission",
         "saas-mrr-waterfall-nrr",
+        "sales-commission-payout-ledger",
+        "sales-forecast-backtesting",
+        "sales-lead-opportunity-lifecycle",
+        "sales-quote-order-price-reconciliation",
         "scalar-sql-function-to-dbt-macro",
         "scd-procedure-to-dbt-snapshot",
         "service-ticket-sla",
@@ -131,6 +218,7 @@
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
         "telecom-cdr-usage",
+        "usage-metering-rated-charges",
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
@@ -139,7 +227,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 83,
+      "supported_or_proven_count": 97,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -156,20 +244,29 @@
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
         "finance-gl-subledger-tieout",
+        "finance-gross-margin-variance-bridge",
         "finance-revenue-recognition",
+        "finance-thirteen-week-cash-plan",
         "finance-trial-balance-close",
         "finops-saas-license-utilization",
         "healthcare-claims-remittance",
         "insurance-loss-triangles",
+        "inventory-valuation-cogs",
+        "marketing-acquisition-cost-payback",
+        "marketing-campaign-budget-pacing",
         "master-b2b-account-hierarchy",
         "ops-procurement-spend",
         "order-return-contribution-margin",
         "people-payroll-gl-tieout",
+        "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "public-sector-grant-funds",
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
+        "sales-commission-payout-ledger",
+        "sales-quote-order-price-reconciliation",
         "shared-fx-conversion",
+        "usage-metering-rated-charges",
         "utilities-meter-to-bill"
       ],
       "selector": {
@@ -177,7 +274,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 22,
+      "supported_or_proven_count": 31,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -199,6 +296,25 @@
       },
       "supported_or_proven_count": 3,
       "title": "Healthcare and life sciences",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
+      "description": "Recipes for matching and standardising identities and for classifying and masking personal data.",
+      "id": "identity-and-data-protection",
+      "kind": "problem-area",
+      "members": [
+        "identity-golden-record-crosswalk",
+        "identity-standardize-names-addresses",
+        "pii-classification-and-masking"
+      ],
+      "resolved_members": [
+        "identity-golden-record-crosswalk",
+        "identity-standardize-names-addresses",
+        "pii-classification-and-masking"
+      ],
+      "supported_or_proven_count": 3,
+      "title": "Identity and data protection",
       "website_publication_threshold": 1,
       "website_visible": true
     },
@@ -267,7 +383,9 @@
         "notebook-transformation-to-dbt",
         "scalar-sql-function-to-dbt-macro",
         "spark-ingestion-notebook-to-dlt",
-        "stored-procedure-to-dbt"
+        "stored-procedure-to-dbt",
+        "scd-procedure-to-dbt-snapshot",
+        "move-dbt-project-destination"
       ],
       "resolved_members": [
         "adf-mapping-data-flow-to-dlt-dbt",
@@ -275,12 +393,14 @@
         "legacy-sql-to-dbt",
         "managed-connector-to-dlt",
         "materialized-view-to-dbt",
+        "move-dbt-project-destination",
         "notebook-transformation-to-dbt",
         "scalar-sql-function-to-dbt-macro",
+        "scd-procedure-to-dbt-snapshot",
         "spark-ingestion-notebook-to-dlt",
         "stored-procedure-to-dbt"
       ],
-      "supported_or_proven_count": 9,
+      "supported_or_proven_count": 10,
       "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -317,6 +437,46 @@
       "website_visible": true
     },
     {
+      "description": "Recipes for data engineers working with manufacturing data, such as production runs, bills of materials, material lots and equipment downtime.",
+      "id": "manufacturing-data-engineering",
+      "kind": "industry",
+      "resolved_members": [
+        "effective-dated-bom-requirements",
+        "inventory-lot-traceability",
+        "manufacturing-oee-downtime"
+      ],
+      "selector": {
+        "industry": [
+          "manufacturing"
+        ]
+      },
+      "supported_or_proven_count": 3,
+      "title": "Manufacturing data engineering",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
+      "description": "Recipes for attribution, acquisition economics, campaign spend pacing and contact-pressure eligibility under approved business rules.",
+      "id": "marketing-data-engineering",
+      "kind": "curated",
+      "members": [
+        "marketing-attribution-models",
+        "marketing-acquisition-cost-payback",
+        "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility"
+      ],
+      "resolved_members": [
+        "marketing-acquisition-cost-payback",
+        "marketing-attribution-models",
+        "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility"
+      ],
+      "supported_or_proven_count": 4,
+      "title": "Marketing data engineering",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
       "description": "Recipes that can execute against Microsoft Fabric Lakehouse, Fabric Warehouse, or both.",
       "id": "microsoft-fabric",
       "kind": "platform",
@@ -336,6 +496,7 @@
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
         "database-tables-to-bronze",
+        "effective-dated-bom-requirements",
         "effective-dated-business-rules",
         "event-resource-attribution",
         "fabric-data-pipeline-as-code",
@@ -346,7 +507,9 @@
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
         "finance-gl-subledger-tieout",
+        "finance-gross-margin-variance-bridge",
         "finance-revenue-recognition",
+        "finance-thirteen-week-cash-plan",
         "finance-trial-balance-close",
         "finops-cloud-allocation",
         "finops-saas-license-utilization",
@@ -356,11 +519,16 @@
         "hospitality-occupancy-adr-revpar",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
+        "inventory-lot-traceability",
+        "inventory-valuation-cogs",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
+        "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
+        "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility",
         "master-product-sku-hierarchy",
         "materialized-view-to-dbt",
         "metric-population-and-rollups",
@@ -376,6 +544,7 @@
         "people-payroll-gl-tieout",
         "pii-classification-and-masking",
         "point-in-time-training-dataset",
+        "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
@@ -384,6 +553,8 @@
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
+        "sales-forecast-backtesting",
+        "sales-quote-order-price-reconciliation",
         "scd-procedure-to-dbt-snapshot",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
@@ -392,6 +563,7 @@
         "spark-ingestion-notebook-to-dlt",
         "stored-procedure-to-dbt",
         "telecom-cdr-usage",
+        "usage-metering-rated-charges",
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
@@ -425,7 +597,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 72,
+      "supported_or_proven_count": 84,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -446,12 +618,15 @@
         "logistics-lane-on-time-performance",
         "shift-unit-economics",
         "effective-dated-business-rules",
+        "effective-dated-bom-requirements",
+        "procurement-supplier-rebate-accrual",
         "prove-dbt-change-safe",
         "customer-rfm-segmentation",
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "point-in-time-training-dataset",
         "customer-consent-preferences",
+        "marketing-contact-pressure-eligibility",
         "marketing-attribution-models",
         "banking-aml-features",
         "shared-calendar-fiscal-periods",
@@ -466,13 +641,23 @@
         "telecom-cdr-usage",
         "life-sciences-enrollment",
         "saas-mrr-waterfall-nrr",
+        "usage-metering-rated-charges",
         "manufacturing-oee-downtime",
         "hospitality-occupancy-adr-revpar",
         "public-sector-grant-funds",
         "cost-attribution-by-model-job",
         "versioned-data-contract-cutover",
         "order-return-contribution-margin",
-        "procurement-three-way-match"
+        "sales-quote-order-price-reconciliation",
+        "procurement-three-way-match",
+        "inventory-lot-traceability",
+        "sales-commission-payout-ledger",
+        "inventory-valuation-cogs",
+        "sales-lead-opportunity-lifecycle",
+        "sales-forecast-backtesting",
+        "marketing-campaign-budget-pacing",
+        "finance-thirteen-week-cash-plan",
+        "finance-gross-margin-variance-bridge"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -486,35 +671,48 @@
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
         "dbt-snapshot-history",
+        "effective-dated-bom-requirements",
         "effective-dated-business-rules",
         "event-resource-attribution",
+        "finance-gross-margin-variance-bridge",
+        "finance-thirteen-week-cash-plan",
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
         "hospitality-occupancy-adr-revpar",
         "insurance-loss-triangles",
+        "inventory-lot-traceability",
+        "inventory-valuation-cogs",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
         "marketing-attribution-models",
+        "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility",
         "metric-population-and-rollups",
         "operational-state-duration",
         "order-return-contribution-margin",
         "point-in-time-training-dataset",
+        "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
         "retail-sell-through-stockout",
         "saas-mrr-waterfall-nrr",
+        "sales-commission-payout-ledger",
+        "sales-forecast-backtesting",
+        "sales-lead-opportunity-lifecycle",
+        "sales-quote-order-price-reconciliation",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "shift-unit-economics",
         "telecom-cdr-usage",
+        "usage-metering-rated-charges",
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 38,
+      "supported_or_proven_count": 51,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -539,6 +737,7 @@
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
         "database-tables-to-bronze",
+        "effective-dated-bom-requirements",
         "effective-dated-business-rules",
         "event-resource-attribution",
         "file-drop-to-bronze",
@@ -547,7 +746,9 @@
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
         "finance-gl-subledger-tieout",
+        "finance-gross-margin-variance-bridge",
         "finance-revenue-recognition",
+        "finance-thirteen-week-cash-plan",
         "finance-trial-balance-close",
         "finops-cloud-allocation",
         "finops-saas-license-utilization",
@@ -557,11 +758,16 @@
         "hospitality-occupancy-adr-revpar",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
+        "inventory-lot-traceability",
+        "inventory-valuation-cogs",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
+        "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
+        "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility",
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
         "metricflow-semantic-model",
@@ -577,6 +783,7 @@
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
         "point-in-time-training-dataset",
+        "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
@@ -585,6 +792,8 @@
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
+        "sales-forecast-backtesting",
+        "sales-quote-order-price-reconciliation",
         "scd-procedure-to-dbt-snapshot",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
@@ -592,6 +801,7 @@
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
         "telecom-cdr-usage",
+        "usage-metering-rated-charges",
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
@@ -600,8 +810,31 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 69,
+      "supported_or_proven_count": 81,
       "title": "MotherDuck",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
+      "description": "Recipes for scheduling, gating and monitoring pipelines so runs start when their inputs are ready and failures are visible.",
+      "id": "orchestration-and-reliability",
+      "kind": "problem-area",
+      "members": [
+        "readiness-gated-orchestration",
+        "cross-platform-scheduled-job",
+        "fabric-data-pipeline-as-code",
+        "motherduck-flight-scheduling",
+        "source-freshness-sla"
+      ],
+      "resolved_members": [
+        "cross-platform-scheduled-job",
+        "fabric-data-pipeline-as-code",
+        "motherduck-flight-scheduling",
+        "readiness-gated-orchestration",
+        "source-freshness-sla"
+      ],
+      "supported_or_proven_count": 5,
+      "title": "Orchestration and reliability",
       "website_publication_threshold": 1,
       "website_visible": true
     },
@@ -631,21 +864,46 @@
       "kind": "function",
       "resolved_members": [
         "cpg-promotion-lift",
+        "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
+        "marketing-campaign-budget-pacing",
+        "marketing-contact-pressure-eligibility",
         "master-b2b-account-hierarchy",
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
         "revops-quota-commission",
-        "saas-mrr-waterfall-nrr"
+        "saas-mrr-waterfall-nrr",
+        "sales-commission-payout-ledger",
+        "sales-forecast-backtesting",
+        "sales-lead-opportunity-lifecycle",
+        "sales-quote-order-price-reconciliation",
+        "usage-metering-rated-charges"
       ],
       "selector": {
         "function": [
           "revops"
         ]
       },
-      "supported_or_proven_count": 7,
+      "supported_or_proven_count": 15,
       "title": "Revenue operations data engineering",
       "website_publication_threshold": 3,
+      "website_visible": true
+    },
+    {
+      "description": "Recipes for defining governed metrics and semantic models that downstream tools query.",
+      "id": "semantic-layers",
+      "kind": "problem-area",
+      "members": [
+        "metricflow-semantic-model",
+        "fabric-direct-lake-semantic-model"
+      ],
+      "resolved_members": [
+        "fabric-direct-lake-semantic-model",
+        "metricflow-semantic-model"
+      ],
+      "supported_or_proven_count": 2,
+      "title": "Semantic layers",
+      "website_publication_threshold": 1,
       "website_visible": true
     },
     {
@@ -670,6 +928,9 @@
       "id": "supply-chain-and-operations-data-engineering",
       "kind": "function",
       "resolved_members": [
+        "effective-dated-bom-requirements",
+        "inventory-lot-traceability",
+        "inventory-valuation-cogs",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
@@ -677,6 +938,7 @@
         "ops-inventory-reconciliation",
         "ops-otif",
         "ops-procurement-spend",
+        "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "retail-sell-through-stockout",
         "shift-unit-economics"
@@ -686,7 +948,7 @@
           "supply-chain-ops"
         ]
       },
-      "supported_or_proven_count": 10,
+      "supported_or_proven_count": 14,
       "title": "Supply chain and operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -720,6 +982,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "adf-mapping-data-flow-to-dlt-dbt",
       "job_category": "re-engineer",
       "path": "recipes/adf-mapping-data-flow-to-dlt-dbt/recipe.md",
@@ -737,7 +1002,7 @@
         "stored-procedure-to-dbt",
         "managed-connector-to-dlt"
       ],
-      "sha256": "64febb5be837ed005a9158bb1e0430abeacfac5fe46693dd70641098f0ba1adc",
+      "sha256": "37ce03828d719bac6efa29364de47ab6f90f6b4a4057ba8570debd53638ce820",
       "title": "Convert an ADF mapping data flow into dlt and dbt and prove parity",
       "trigger": [
         "Order or customer reporting still comes from an Azure Data Factory mapping data flow whose logic lives only on the ADF canvas, with no tests or review.",
@@ -777,6 +1042,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "api-to-bronze-incremental-contract",
       "job_category": "build",
       "path": "recipes/api-to-bronze-incremental-contract/recipe.md",
@@ -790,7 +1058,7 @@
       "related": [
         "managed-connector-to-dlt"
       ],
-      "sha256": "77681d731f6020b67d35f2579f0220744f3ba2a5fa5bd62d9c6251a356d6db9b",
+      "sha256": "859c1e9194af6c4a82c8222522f3a2f88f726a1bf19f1e0428404ae247e3f9d1",
       "title": "Land a SaaS or REST API into bronze with an incremental cursor and a schema contract",
       "trigger": [
         "An API source has to load into bronze incrementally instead of reloading everything on every run.",
@@ -827,6 +1095,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "assess-synapse-ssis-for-fabric",
       "job_category": "cross-platform",
       "path": "recipes/assess-synapse-ssis-for-fabric/recipe.md",
@@ -843,7 +1114,7 @@
         "stored-procedure-to-dbt",
         "fabric-data-pipeline-as-code"
       ],
-      "sha256": "363f69fde3004159495c42138a87a6a40754bd3c11dfcd0ae013345cb103e088",
+      "sha256": "53a2abe530ef0c60870824775661797a851aa391a95fb277f11ad88b0a93508f",
       "title": "Assess a Synapse dedicated pool or SSIS estate for a Fabric rebuild and recommend whether to go",
       "trigger": [
         "A Synapse dedicated SQL pool or a set of SSIS packages is due to move to Fabric, and nobody can say what is in it, what each piece would take or what stops it.",
@@ -881,6 +1152,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "banking-aml-features",
       "industry": [
         "banking"
@@ -905,7 +1179,7 @@
         "effective-dated-business-rules",
         "file-drop-to-bronze"
       ],
-      "sha256": "4e038de3898e969db0c81bb5c39499eebe79451b89c00be115830b7149e3725a",
+      "sha256": "bbb1cce859b20625e51f138b2cda6539cc149973f88f902778a88b56bf31197b",
       "title": "Build AML monitoring features at account-day grain",
       "trigger": [
         "A transaction-monitoring model is fed hand-built features nobody can reproduce, so two runs on the same data disagree.",
@@ -1010,6 +1284,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "batch-cdc-current-state",
       "job_category": "build",
       "path": "recipes/batch-cdc-current-state/recipe.md",
@@ -1027,7 +1304,7 @@
         "business-event-fact",
         "dbt-snapshot-history"
       ],
-      "sha256": "4872434f636446badc8a79bfa6511f12f0c447666832433502c2cd013bf68efa",
+      "sha256": "806a3726b2fc52bc419319703cf21f376002f9dba33deae4d461f4d22d2aed84",
       "title": "Build current-state tables from exported database change events",
       "trigger": [
         "A batch export of database change events is available and the current state of its tables has to be rebuilt without reading the source database again.",
@@ -1068,6 +1345,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "bitemporal-business-history",
       "job_category": "build",
       "path": "recipes/bitemporal-business-history/recipe.md",
@@ -1083,7 +1363,7 @@
         "scd-procedure-to-dbt-snapshot",
         "effective-dated-business-rules"
       ],
-      "sha256": "87feea4068705958e5104418fdfd2c4cea50420fedd8a613c5639f8606acf27d",
+      "sha256": "a939f79c0490860310c278663a26626ea7100285f535ca9ad426c02640b8da6c",
       "title": "Preserve business-effective history and what was known at each reporting cutoff",
       "trigger": [
         "A backdated correction must change today's reading of the past, yet a report issued earlier has to stay reproducible as it was published.",
@@ -1119,6 +1399,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "bounded-partition-backfill",
       "job_category": "re-engineer",
       "path": "recipes/bounded-partition-backfill/recipe.md",
@@ -1133,7 +1416,7 @@
         "dbt-refactor-output-identical",
         "prove-dbt-change-safe"
       ],
-      "sha256": "1178860437ed3dd7710eb276726ca6956c1272dbfab63293c7dcaedb28a435bf",
+      "sha256": "eb30f83fd1b5927365682d4554301d59ff78ff2647fc4f4f814e4060dd8e56f6",
       "title": "Backfill a bounded date range after a logic change without a full refresh",
       "trigger": [
         "A business rule in an incremental model was corrected, and only a known date range of published history should be restated.",
@@ -1168,12 +1451,15 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "business-event-fact",
       "job_category": "build",
       "path": "recipes/business-event-fact/recipe.md",
       "pitch": "Count business events with a defensible identity rule and an audit trail for every source row.",
       "readiness": "supported",
-      "sha256": "6acd7d37bb78219e6f4d7e3b5ebd51142d5b7952bc70e4d7216310a716c80ad5",
+      "sha256": "de92136fba1ecd31e2e2902fb53595dac2f85647783984d14b2516c8a7520c7e",
       "title": "Build a business-event fact with auditable duplicate handling",
       "trigger": [
         "Transaction feeds overlap, and source deliveries may be counted as separate business events.",
@@ -1349,6 +1635,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "cross-platform-dbt-macro",
       "job_category": "cross-platform",
       "path": "recipes/cross-platform-dbt-macro/recipe.md",
@@ -1366,7 +1655,7 @@
         "prove-dbt-change-safe",
         "dbt-refactor-output-identical"
       ],
-      "sha256": "b11dbfd762ffb1321a8a5374a61326d3d4c590a905341f7acd4a4daa96fb8b53",
+      "sha256": "c9a372710804323e0b51750ca8bf4021ad662641260803dd7341465df72a7b00",
       "title": "Port a dbt macro to each approved warehouse without changing its callers",
       "trigger": [
         "Part of a dbt project is moving to another warehouse, and a macro its models call only compiles, or only returns correct values, on the old one.",
@@ -1401,6 +1690,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "cross-platform-live-reconciliation",
       "job_category": "cross-platform",
       "path": "recipes/cross-platform-live-reconciliation/recipe.md",
@@ -1414,7 +1706,7 @@
         "dbt-refactor-output-identical",
         "prove-dbt-change-safe"
       ],
-      "sha256": "4f65f4fa5933fa954faca803402451922f54a661707d9f30088ffc34ca240ec2",
+      "sha256": "098c80ee121489f37b682d5c54cdcd523a233dcf28f0fc46c7e5d09d12621038",
       "title": "Reconcile equivalent data across two live systems before cutover",
       "trigger": [
         "A table or model has been rebuilt on another platform or database while the original is still running, and the owner needs evidence the two hold the same data before cutting over.",
@@ -1445,6 +1737,9 @@
           "documenting-orchestration"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "cross-platform-scheduled-job",
       "job_category": "cross-platform",
       "path": "recipes/cross-platform-scheduled-job/recipe.md",
@@ -1463,7 +1758,7 @@
         "fabric-data-pipeline-as-code",
         "readiness-gated-orchestration"
       ],
-      "sha256": "c022f45b24036e62bbe724a81ccd1416814f04eebe71151e5ef9577bb789cd52",
+      "sha256": "544e755038796c6e683f2ae105c471ae462c8ff06dbe718815bd55de09e01f87",
       "title": "Convert a scheduled data job to another platform without changing its required behavior",
       "trigger": [
         "A scheduled load-and-build job has to move to another platform, and nobody has written down what it must keep doing.",
@@ -1508,6 +1803,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "customer-consent-preferences",
       "job_category": "build",
       "path": "recipes/customer-consent-preferences/recipe.md",
@@ -1529,7 +1827,7 @@
         "source-freshness-sla",
         "file-drop-to-bronze"
       ],
-      "sha256": "e9f00bf886a6cc90f4405de6b3a27726f57d16efd0a6ac4dd36c0d7013c618e7",
+      "sha256": "5dceddc83a6b42da741a2451cb5440655123c25f9473d38361bd6045b73d8269",
       "title": "Unify consent and communication preferences with auditable latest-wins logic",
       "trigger": [
         "A customer who opted out in one system still gets messages from another, because each source says something different and whichever job ran last wins.",
@@ -1641,6 +1939,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "customer-retention-churn-features",
       "job_category": "build",
       "path": "recipes/customer-retention-churn-features/recipe.md",
@@ -1662,7 +1963,7 @@
         "customer-rfm-segmentation",
         "customer-historical-ltv"
       ],
-      "sha256": "ec2d271579d5bb6c0d4cfe3db850b505e9f61652499c4d12e74bb4b7106a67a1",
+      "sha256": "6a4a389c9193005043d631fa26caa398d6a702dc938d8e6de8d766567f468a70",
       "title": "Build retention cohorts and a churn feature table",
       "trigger": [
         "Marketing, finance and product each quote a different churn rate because each defines an active and a lost customer differently.",
@@ -1703,6 +2004,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "customer-rfm-segmentation",
       "job_category": "build",
       "path": "recipes/customer-rfm-segmentation/recipe.md",
@@ -1722,7 +2026,7 @@
         "dbt-full-refresh-to-incremental",
         "revops-pipeline-snapshots"
       ],
-      "sha256": "b8cc63e715967d6c9ecc7f33f9c8194cffdd949de16dc361c863310d6d9e328d",
+      "sha256": "a996dc813f83c3d5282d2f2c50a00e46bbd6bfa65f6de6c10123757a618a0592",
       "title": "Score customers with RFM, maintain segments incrementally and explain every move",
       "trigger": [
         "Marketing segment lists come from a spreadsheet or BI export nobody can reproduce, and the same customer lands in different segments depending on who pulled the list.",
@@ -1763,6 +2067,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "database-tables-to-bronze",
       "job_category": "build",
       "path": "recipes/database-tables-to-bronze/recipe.md",
@@ -1780,7 +2087,7 @@
         "api-to-bronze-incremental-contract",
         "managed-connector-to-dlt"
       ],
-      "sha256": "4d1e5b07a8d9eb6bde231db215a0a89392bc2f57f345423d1d93fd722a24b77f",
+      "sha256": "fa026a30911d25a751393da0d836f213fe7539900d8373378a9efea6d1204c46",
       "title": "Load a database table set into bronze with a bounded incremental strategy and landed-data proof",
       "trigger": [
         "An operational database's tables have to land in bronze, and reloading every table in full on each run is too slow or too heavy on the source.",
@@ -1821,6 +2128,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "dbt-full-refresh-to-incremental",
       "job_category": "re-engineer",
       "path": "recipes/dbt-full-refresh-to-incremental/recipe.md",
@@ -1834,7 +2144,7 @@
       "related": [
         "prove-dbt-change-safe"
       ],
-      "sha256": "dfdd58a846ccf60f7e9f86167ea56e3a01b6aa67a7b8d37d3773e1bb6abb76ea",
+      "sha256": "b28519928becbde0ee498210df3f13f79b27b8697b09fc729ebbefe30126cc08",
       "title": "Convert a full-refresh dbt model to incremental and show the runtime delta",
       "trigger": [
         "A dbt model is correct but a full refresh is too slow or too expensive to run routinely, and gets slower as history grows.",
@@ -1870,6 +2180,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "dbt-refactor-output-identical",
       "job_category": "re-engineer",
       "path": "recipes/dbt-refactor-output-identical/recipe.md",
@@ -1882,7 +2195,7 @@
         "dbt-full-refresh-to-incremental",
         "prove-dbt-change-safe"
       ],
-      "sha256": "4d8304d384ad8bfd2d18fb7dc6908f25d69c133051d7c5f17ed27b63671cc1a2",
+      "sha256": "a91b8180ee6a63a77f88181c198618a98734ab03d63f784a1c73fd8fb2b83e84",
       "title": "Refactor dbt models without changing consumer output",
       "trigger": [
         "A model has grown into one long query with logic packed inline, and nobody dares change it because dashboards and reports depend on its output.",
@@ -1918,6 +2231,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "dbt-snapshot-history",
       "job_category": "build",
       "path": "recipes/dbt-snapshot-history/recipe.md",
@@ -1927,7 +2243,7 @@
         "Records available changes; present-state snapshots cannot reconstruct unobserved history."
       ],
       "readiness": "supported",
-      "sha256": "7a53e55172c50eb51108ba02c62d6bd0783e9a501d321f3b004d9611773aa106",
+      "sha256": "2b45afa2ddc095f8e409d1b545d6efb4e4045a75fb5ca5b676214a5eabf84771",
       "title": "Add dimension history with verified historical fact classification",
       "trigger": [
         "Customer, asset or vendor attributes change, but past events need a defensible historical classification.",
@@ -1937,6 +2253,72 @@
       "works_with": {
         "platforms": [
           "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Explode approved demand into component requirements through the BOM revisions in force under approved date, unit, scrap and yield rules, with gross beside adjusted quantities, the paths behind totals published as approved, cycles, ambiguous revisions and missing conversions handled as approved, and every input row accounted for.",
+      "domain_objects": [
+        "demand_line",
+        "bom_revision",
+        "bom_line",
+        "unit_conversion",
+        "component_requirement",
+        "explosion_path",
+        "requirement_exception",
+        "input_disposition"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops"
+      ],
+      "id": "effective-dated-bom-requirements",
+      "industry": [
+        "manufacturing"
+      ],
+      "job_category": "build",
+      "path": "recipes/effective-dated-bom-requirements/recipe.md",
+      "pitch": "Component demand from the BOM revision in force, with every broken BOM explained.",
+      "qualifiers": [
+        "Past or future requirements need dated BOM revisions; without dates the revision in force cannot be chosen.",
+        "Demand quantities and dates come from approved demand; this Recipe does not forecast or schedule.",
+        "Unit conversions may be captured as editable data during the run."
+      ],
+      "readiness": "supported",
+      "related": [
+        "master-product-sku-hierarchy",
+        "effective-dated-business-rules",
+        "ops-inventory-reconciliation"
+      ],
+      "sha256": "19d5f0da79adb0e3570416d365253df9a8fa64780c4f87228a00d6bae4f47d1a",
+      "title": "Explode an effective-dated bill of materials into component requirements",
+      "trigger": [
+        "Component demand for an approved quantity of finished goods is worked out by hand or in a spreadsheet, and nobody can show which BOM revision, unit conversion or scrap rate produced a figure.",
+        "A component is used by several assemblies, and its total demand depends on every path through the bill of materials.",
+        "BOM revisions change over time and a past or future demand must use the revision in force on its own date.",
+        "Bills of materials contain loops, overlapping revisions or missing unit conversions that silently drop or distort component demand."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
@@ -1963,12 +2345,15 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "effective-dated-business-rules",
       "job_category": "build",
       "path": "recipes/effective-dated-business-rules/recipe.md",
       "pitch": "Calculate historical amounts from the rules that apply to each event, with visible exceptions and independent amount checks.",
       "readiness": "supported",
-      "sha256": "d49e093ffc38553c9c0f34b71a3ba97ab2699fd3ddd1680f828c6a76378d3e83",
+      "sha256": "6e1c939a6d179b6a5e960463895ac9fa1383b4b371fc145df8c6df45ef54b33e",
       "title": "Build historical event amounts from effective-dated business rules",
       "trigger": [
         "Historical fees or surcharges change when a current rate is applied to past events.",
@@ -2008,12 +2393,15 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "event-resource-attribution",
       "job_category": "build",
       "path": "recipes/event-resource-attribution/recipe.md",
       "pitch": "Explain who or what is responsible for each event, with evidence and totals that survive attribution joins.",
       "readiness": "supported",
-      "sha256": "6d2d568d0174149b9ca30778d8e9c0085b7f0911db3a05b08c437e92dc6aa834",
+      "sha256": "5ab05f6ba11f5725c4267fb75bf35532f247de795e2ef2cba48b6cabdf031a5d",
       "title": "Build auditable event-to-resource attribution",
       "trigger": [
         "Revenue or productivity must be reported by employee, asset or team, but responsibility for each event is unclear.",
@@ -2051,6 +2439,9 @@
           "documenting-orchestration"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "fabric-data-pipeline-as-code",
       "job_category": "build",
       "path": "recipes/fabric-data-pipeline-as-code/recipe.md",
@@ -2067,7 +2458,7 @@
         "motherduck-flight-scheduling",
         "source-freshness-sla"
       ],
-      "sha256": "a6dd50de9703eeb51d41993e71aa733745867bd9d9f2828a9d4d3afb2812dbbc",
+      "sha256": "58364fdbe9e925745b14c8547d66f0f042e876774991bb325b0c7f93b8d27080",
       "title": "Author a Fabric Data Pipeline that sequences ingestion, dbt, and downstream refresh as committed code",
       "trigger": [
         "The nightly loads, the dbt build and the report refresh are run by hand or live only as a pipeline clicked together in the workspace.",
@@ -2108,6 +2499,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "fabric-direct-lake-semantic-model",
       "job_category": "build",
       "path": "recipes/fabric-direct-lake-semantic-model/recipe.md",
@@ -2124,7 +2518,7 @@
       "related": [
         "metric-population-and-rollups"
       ],
-      "sha256": "147950117db3ef9029dd44bcf3eff71531ab7a3bc8b5b86775367e2989ba667e",
+      "sha256": "9399a11ea4ea71683185343bd9982151151da21cb67b3385c796878f1505450c",
       "title": "Author a Direct Lake semantic model as code over governed gold tables",
       "trigger": [
         "The gold marts exist and the Power BI team is about to rebuild the star schema by hand in every report.",
@@ -2164,6 +2558,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "file-drop-to-bronze",
       "job_category": "build",
       "path": "recipes/file-drop-to-bronze/recipe.md",
@@ -2181,7 +2578,7 @@
         "api-to-bronze-incremental-contract",
         "managed-connector-to-dlt"
       ],
-      "sha256": "00a45f2e9fb8dcd98e3d798bfb25c45b8e52f69bd3bc0412bceb12619c298432",
+      "sha256": "dac0f1631c077407b411ec6b6d9757a8df54d00cd3a348e453ce2d1417e37ce0",
       "title": "Load a recurring file drop into bronze with file-completeness and schema controls",
       "trigger": [
         "A partner or vendor drops files into a folder on a schedule, and bronze has to pick up each delivery without a rerun loading it twice.",
@@ -2525,6 +2922,76 @@
     },
     {
       "area": "transformation",
+      "description": "Explain the gross-margin change between two periods under the user's approved method as price, unit cost, volume and mix components plus any new, discontinued, no-quantity, interaction, translation, period-length or late-change components the approved rules define, adding up to the observed change when the bridge closes, with any rounding shown and every line left out accounted for.",
+      "domain_objects": [
+        "gross_margin",
+        "sales_line",
+        "product",
+        "customer",
+        "margin_bridge",
+        "price_effect",
+        "unit_cost_effect",
+        "volume_effect",
+        "mix_effect",
+        "new_product",
+        "discontinued_product",
+        "rounding_remainder",
+        "bridge_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "finance-gross-margin-variance-bridge",
+      "job_category": "build",
+      "path": "recipes/finance-gross-margin-variance-bridge/recipe.md",
+      "pitch": "Show why gross margin moved between two periods, with every component adding up to the change when it closes and nothing hidden in a plug.",
+      "qualifiers": [
+        "Needs sales lines for two comparable periods; lines lacking quantity or cost follow the approved disposition.",
+        "Takes line revenue and cost as given; allocating shared charges to lines is a separate outcome.",
+        "Explains the margin amount; a margin-rate bridge is a separate outcome.",
+        "Keeps each currency and unit of measure separate unless an approved rule applies.",
+        "Explains a change between two periods; plan versus actual and forecasting are separate.",
+        "Needs dated line, rate and mapping versions to prove a restatement; without them it reads unproven.",
+        "Stops at the bridge; commentary, charts and repricing advice are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-budget-forecast-actual",
+        "order-return-contribution-margin",
+        "shift-unit-economics",
+        "shared-calendar-fiscal-periods",
+        "shared-fx-conversion"
+      ],
+      "sha256": "6ad5ad0fa1a60ee916b4d09ff51be24b1982fe257ead1232884108871e2715c8",
+      "title": "Explain gross-margin change with a reconciled price, volume, mix, and cost bridge",
+      "trigger": [
+        "Finance subtracts one period's gross margin from another and writes the explanation by hand, and the story changes with whoever builds it.",
+        "Price, volume, mix and cost effects do not add up to the margin change, or an unlabelled line absorbs the difference.",
+        "New products, discontinued products, returns or a zero base quantity distort the volume and mix effect and nobody can see by how much."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Schedule each contract line's allocated price by period under the approved recognition rules, net billing against it into deferred revenue or the approved asset or receivable at the approved netting level, roll the positions forward at the approved grain, and keep every unprocessable contract or billing line visible, so no amount is lost, counted twice or recognised early.",
       "domain_objects": [
         "contract",
@@ -2575,6 +3042,76 @@
         "Revenue is spread across months by hand in a spreadsheet and never agrees with the deferred revenue balance or with what was invoiced.",
         "Every month-end someone rebuilds the deferred revenue roll-forward and cannot explain its movement contract by contract.",
         "An auditor asks how much of a contract was recognised in each period and why, including after it was upsold, repriced or cancelled part way through."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For each approved scenario version, roll cash forward over thirteen weeks from opening balances and approved open items, payroll and commitments, keeping the date and rule behind every movement and every item left out of the weeks visible with its reason and amount.",
+      "domain_objects": [
+        "cash_plan",
+        "plan_week",
+        "opening_cash_balance",
+        "receivable",
+        "payable",
+        "payroll_schedule",
+        "commitment",
+        "scenario_version",
+        "scenario_rule",
+        "expected_movement",
+        "set_aside_item"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "finance-thirteen-week-cash-plan",
+      "job_category": "build",
+      "path": "recipes/finance-thirteen-week-cash-plan/recipe.md",
+      "pitch": "Roll cash forward week by week for each approved scenario, with the date and rule behind every movement and nothing quietly dropped.",
+      "qualifiers": [
+        "Open items arrive as landed tables; aging them is a separate outcome.",
+        "Uses approved assumptions only; it is not a forecasting model or a recommendation to borrow or invest.",
+        "Stops at the plan; budget comparison, revaluation and ledger posting are separate outcomes.",
+        "A past plan as issued needs kept snapshots; a rebuild restates it.",
+        "A calendar or rate the rules need but the source lacks is reported as unproven.",
+        "Rates, calendars and rules are inputs; sourcing rates and detecting duplicate invoices are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-ar-aging-dso",
+        "finance-ap-aging",
+        "finance-budget-forecast-actual",
+        "finance-duplicate-invoice-detection",
+        "revops-bookings-billings-cash"
+      ],
+      "sha256": "3dc9b11bd84a8ea55735d18362a133b78cd47eb3ba2cdd666c41c35bd8f95add",
+      "title": "Build a thirteen-week cash plan with traceable scenario assumptions",
+      "trigger": [
+        "The weekly cash view is a spreadsheet rebuilt by hand each week, and nobody can say which receipt, payment or assumption moved a week's balance.",
+        "Treasury needs a weekly roll-forward for each approved scenario, with the date and rule behind every expected movement, before the cash review.",
+        "Overdue invoices, disputed items, undated obligations and invoices listed in two inputs are handled differently by each person who builds the plan."
       ],
       "works_with": {
         "platforms": [
@@ -2820,6 +3357,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "governed-spreadsheet-table",
       "job_category": "build",
       "path": "recipes/governed-spreadsheet-table/recipe.md",
@@ -2833,7 +3373,7 @@
         "Needs a Studio route for dlt to read the file; cloud buckets (ADLS, S3) have none today."
       ],
       "readiness": "supported",
-      "sha256": "8ec7fb57da8714e4201beae71f33bb1725a9e37900fdc9245d8aa87650c20f2f",
+      "sha256": "5b169dee0b7ce90633b0be47a358dba652f52271c85146dafca78974f3701cca",
       "title": "Promote a spreadsheet or CSV to a governed, tested table",
       "trigger": [
         "A spreadsheet that reports and models depend on is edited by hand, and a moved, renamed or retyped column keeps breaking them quietly.",
@@ -2943,6 +3483,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "healthcare-readmission-cohort",
       "industry": [
         "healthcare"
@@ -2960,7 +3503,7 @@
         "operational-state-duration",
         "business-event-fact"
       ],
-      "sha256": "fe7c1e7d8a70ce6e5f17cf06e564479121075815ebc42db49a4b962e97e80fa1",
+      "sha256": "46a6629619633074b4d04406b8e8bac36c4c92988f793e717e6fbb3c193043dc",
       "title": "Build a thirty-day readmission cohort with explicit exclusions",
       "trigger": [
         "The quality team rebuilds a readmission rate from a spreadsheet each quarter, and nobody can say who was left out of the rate or why.",
@@ -3007,6 +3550,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "hospitality-occupancy-adr-revpar",
       "industry": [
         "hospitality"
@@ -3027,7 +3573,7 @@
         "metricflow-semantic-model",
         "shared-fx-conversion"
       ],
-      "sha256": "64556cd8617a675f4cc2ddfff18bbed4aa682ffcf93c4ef5e4a0f19a77e98248",
+      "sha256": "d1752fbf56d5cdef65dcde5adf5debb1044c653e715a9eb792ac2670038b65de",
       "title": "Build nightly occupancy, ADR and RevPAR by property with closed-night restatements",
       "trigger": [
         "Occupancy, ADR and RevPAR differ between reports because each one counts stays, comps, out-of-order rooms and cancellations its own way.",
@@ -3072,6 +3618,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "identity-golden-record-crosswalk",
       "job_category": "build",
       "path": "recipes/identity-golden-record-crosswalk/recipe.md",
@@ -3087,7 +3636,7 @@
         "business-event-fact",
         "dbt-snapshot-history"
       ],
-      "sha256": "7836b7b43641d5b32249e17110ad44b5627e9008fa15ecc68f769fd6d4e3593b",
+      "sha256": "90a0a9e12ab0465fc28bce17c3065b34f175a6c688ce5a0b9939c04d6f145ec3",
       "title": "Deduplicate customers into a golden record with a source crosswalk",
       "trigger": [
         "The same customer exists in several systems under different ids, so customer counts and per-customer revenue are inflated.",
@@ -3124,6 +3673,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "identity-standardize-names-addresses",
       "job_category": "build",
       "path": "recipes/identity-standardize-names-addresses/recipe.md",
@@ -3136,7 +3688,7 @@
       "related": [
         "business-event-fact"
       ],
-      "sha256": "1ba0c75e4bcfd95568f98ca49af19af059b168bd6e83781d57da7878d4b353e7",
+      "sha256": "bdb60f01c8b0b5f0e6874d12626aec0445f677cb96b2e470c61a24c22750ea9c",
       "title": "Standardize names and addresses and mint deterministic match keys",
       "trigger": [
         "The same customer is written differently across CRM, billing and support, so joins on name or address miss.",
@@ -3173,6 +3725,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "incremental-dbt-model-with-contract",
       "job_category": "build",
       "path": "recipes/incremental-dbt-model-with-contract/recipe.md",
@@ -3183,7 +3738,7 @@
         "Converting an existing full-refresh model belongs to the dbt-full-refresh-to-incremental Recipe."
       ],
       "readiness": "supported",
-      "sha256": "2e541c5c75dd4528ee9bab9b88e5d9fff2e98150c4ed3e8835bd0b9c30138884",
+      "sha256": "2db8baeda86f1ac354cecb910c64dc2fd345f71b8e933d1c35aaecc5b2469989",
       "title": "Author an incremental dbt model with its contract and prove idempotency",
       "trigger": [
         "A new dbt model must be brought up to date incrementally on each run, and nobody can show that a rerun or a re-delivery of records already applied leaves it unchanged.",
@@ -3273,6 +3828,141 @@
     },
     {
       "area": "transformation",
+      "description": "From observed receipts, production runs that consume and make lots, and shipments, build the lot genealogy with quantities and units on each link, and for a recalled lot list every affected lot and shipment once with the recalled quantity, with unreconciled runs, cycles and untraceable shipments shown.",
+      "domain_objects": [
+        "lot",
+        "production_run",
+        "lot_link",
+        "shipment",
+        "recall_notice",
+        "recall_exposure"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops"
+      ],
+      "id": "inventory-lot-traceability",
+      "industry": [
+        "manufacturing"
+      ],
+      "job_category": "build",
+      "path": "recipes/inventory-lot-traceability/recipe.md",
+      "pitch": "Trace a recalled lot to every affected shipment once, and show unreconciled runs and shipments whose history cannot be followed.",
+      "qualifiers": [
+        "Needs observed genealogy, such as lots consumed and produced per run; links are never inferred from dates.",
+        "Lots follow one identification scheme; mapping between schemes is a separate outcome.",
+        "Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze.",
+        "Stops at recall exposure evidence; notifying customers and the physical recall are separate outcomes.",
+        "Stock positions and product hierarchies belong to ops-inventory-reconciliation and master-product-sku-hierarchy."
+      ],
+      "readiness": "supported",
+      "related": [
+        "ops-inventory-reconciliation",
+        "master-product-sku-hierarchy",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "292d2353c1699b1bba808960f87134bb015a8da67d160477152adb83b53510a5",
+      "title": "Trace a recalled input lot to affected shipments and flag unreconciled runs and lineage that cannot be traced",
+      "trigger": [
+        "A raw material lot is recalled and nobody can say which finished lots and which customer shipments contain it, or how much of it each holds.",
+        "Lot genealogy lives in spreadsheets or separate receipt, production and shipping systems, and a split or blend makes the same material reach a shipment by several routes.",
+        "A mock recall must show every affected shipment, and every shipment whose history cannot be followed."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Under one approved costing policy and reporting currency, value each stock movement in a ledger, publish closing stock and cost of goods sold by approved period, keep quantity and value conserved, and list what cannot be valued instead of costing it at zero.",
+      "domain_objects": [
+        "inventory_valuation",
+        "stock_movement",
+        "costing_pool",
+        "cost_of_goods_sold",
+        "period_rollforward",
+        "valuation_exception",
+        "item_location"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "supply-chain-ops"
+      ],
+      "id": "inventory-valuation-cogs",
+      "job_category": "build",
+      "path": "recipes/inventory-valuation-cogs/recipe.md",
+      "pitch": "Value every stock movement and cost of goods sold under one approved costing policy, with no missing cost quietly becoming zero.",
+      "qualifiers": [
+        "Inputs are landed stock-movement tables; loading files or extracts belongs to file-drop-to-bronze.",
+        "One costing policy and one reporting currency per run; currency conversion is upstream work.",
+        "Stops at valued inventory and COGS; counts, stockout risk and ledger posting are separate outcomes.",
+        "Restating for a backdated movement needs an entry or posting time on each movement; without it restatement is unproven.",
+        "Net realisable value write-downs are a separate outcome."
+      ],
+      "readiness": "supported",
+      "related": [
+        "ops-inventory-reconciliation",
+        "procurement-three-way-match",
+        "order-return-contribution-margin",
+        "finance-gl-subledger-tieout",
+        "shared-fx-conversion",
+        "effective-dated-business-rules",
+        "bitemporal-business-history",
+        "shared-calendar-fiscal-periods",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "69f85cca59b4cad3584804a21f35d8b93aa0947f6618cb9d51e0b61247afaf7c",
+      "title": "Value inventory movements, closing stock and cost of goods sold under an approved costing policy",
+      "trigger": [
+        "Finance cannot say what closing inventory is worth or how much cost of goods sold a month carries because receipts, issues, returns and adjustments are costed by hand.",
+        "A late or backdated receipt arrives and nobody can say which issues, periods and cost figures it changes.",
+        "The books are about to close and a missing cost, a return or an issue beyond stock on hand has quietly become zero in the valuation."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Bring a legacy SQL script or view into dbt as models that publish the same contract, proven against the legacy logic's own output on the same inputs, with legacy defects reproduced and reported as follow-up work.",
       "domain_objects": [
         "legacy_sql",
@@ -3294,6 +3984,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "legacy-sql-to-dbt",
       "job_category": "re-engineer",
       "path": "recipes/legacy-sql-to-dbt/recipe.md",
@@ -3307,7 +4000,7 @@
         "prove-dbt-change-safe",
         "dbt-full-refresh-to-incremental"
       ],
-      "sha256": "aa37980dc1ed255b39b74bd4dc6b6286a8a801677aa13d955470264cd700fb6b",
+      "sha256": "be198774e5f1dcf002f18cf853941742093ff0cc27ae5937640cd7a7bad0852b",
       "title": "Convert a legacy SQL script or view into a dbt model and prove parity",
       "trigger": [
         "A report or table is still produced by a hand-run SQL script or a database view outside dbt, with no tests, lineage or review.",
@@ -3347,6 +4040,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "life-sciences-enrollment",
       "industry": [
         "life-sciences"
@@ -3367,7 +4063,7 @@
         "operational-state-duration",
         "healthcare-readmission-cohort"
       ],
-      "sha256": "57028eaa1e227265ce412cfbddf4c0107520e7a3119c522164f7ca974d826031",
+      "sha256": "51fdc04240c2d6a80825100458e9ae04a28f94a7138ea5b276d5ec464f166c17",
       "title": "Build clinical-trial enrollment and site-performance models with every screened subject accounted for",
       "trigger": [
         "Clinical operations rebuilds enrollment and site performance in a spreadsheet each month, and nobody can say who was left out of the enrolled count or why a site looks slow.",
@@ -3529,6 +4225,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "managed-connector-to-dlt",
       "job_category": "re-engineer",
       "path": "recipes/managed-connector-to-dlt/recipe.md",
@@ -3544,7 +4243,7 @@
         "legacy-sql-to-dbt",
         "prove-dbt-change-safe"
       ],
-      "sha256": "ec397d7466bd6ab9dd35525120cce956772698ddd561969f7ed4a3ec36974f97",
+      "sha256": "ff3f3209dc8f352512847228f310eb22b67b3859e5f37e02f3f8571ae1deeeb1",
       "title": "Replace a Fivetran or Airbyte connector with a dlt pipeline and reconcile the result",
       "trigger": [
         "A managed connector's bill changed shape, or it broke and the vendor fix has been pending for weeks, and the team wants the load in code it owns.",
@@ -3627,6 +4326,73 @@
     },
     {
       "area": "transformation",
+      "description": "Compute fully loaded acquisition cost, customers acquired and cumulative contribution by acquisition cohort and channel under the user's approved rules, with a payback verdict per cohort and every cost and customer accounted for.",
+      "domain_objects": [
+        "acquisition_cost",
+        "cost_allocation",
+        "acquisition_assignment",
+        "customer",
+        "cohort",
+        "channel",
+        "campaign",
+        "contribution",
+        "refund",
+        "payback_verdict",
+        "cost_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "revops"
+      ],
+      "id": "marketing-acquisition-cost-payback",
+      "job_category": "build",
+      "path": "recipes/marketing-acquisition-cost-payback/recipe.md",
+      "pitch": "One reproducible cohort table that shows what each channel cost, what it has earned back and whether it has paid back, with shared cost counted once.",
+      "qualifiers": [
+        "Needs dated cost lines, acquisition assignments, first-customer dates and contribution records.",
+        "Takes contribution, assignments and customer identity as given; the rules may be captured as editable data.",
+        "Keeps each currency separate unless an approved translation rule applies; rate sourcing is separate.",
+        "Reports attribution-based accounting to an as-of date; causal lift and forecasting are separate.",
+        "Stops at cohort cost and payback; touchpoint credit and lifetime value are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "marketing-attribution-models",
+        "customer-historical-ltv",
+        "effective-dated-business-rules",
+        "identity-golden-record-crosswalk",
+        "shared-fx-conversion"
+      ],
+      "sha256": "98c4193c8dca064d44484cfd72192b92851a5d1f8f36e545299b75e0d01df672",
+      "title": "Build fully loaded acquisition cost and contribution payback by customer cohort",
+      "trigger": [
+        "Marketing says a channel pays back quickly and Finance says it never does, and nobody can show the sum from the spend and contribution records.",
+        "Shared campaign cost, agency and creative fees are counted in two channels or left out, so acquisition cost differs between reports.",
+        "A customer reassigned between campaigns, or a refund after payback, changes the answer and nobody can say whether the cohort has really recovered its cost."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Split the value of each qualifying conversion across the marketing touches before it under several approved attribution models side by side, with each model's credit adding back to the conversion value, every touch and conversion accounted for, and channels compared across models.",
       "domain_objects": [
         "touchpoint",
@@ -3673,6 +4439,138 @@
         "Marketing and Sales each have a spreadsheet crediting their channel with the same revenue, and together they claim more than was booked.",
         "Channel credit differs between tools or reports and nobody can show which rule explains the gap.",
         "A lookback, conversion or model setting is about to change and the owner must see which channels gain or lose, and why, before the numbers move."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build a campaign-day plan and actual ledger as of each approved reporting cutoff, with the approved budget revision at that cutoff, provisional and settled cost kept apart, remaining budget and eligible delivery days left, and campaign totals that reconcile to the portfolio at every cutoff.",
+      "domain_objects": [
+        "campaign",
+        "flight",
+        "budget_revision",
+        "pause",
+        "platform_spend",
+        "billed_adjustment",
+        "reporting_cutoff",
+        "pacing_ledger"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "revops"
+      ],
+      "id": "marketing-campaign-budget-pacing",
+      "job_category": "build",
+      "path": "recipes/marketing-campaign-budget-pacing/recipe.md",
+      "pitch": "A point-in-time pacing ledger where each cutoff keeps its own approved plan and every cost, credit and set-aside reconciles to the portfolio.",
+      "qualifiers": [
+        "Flights, revisions, spend and bills arrive as landed tables; ingesting them is a separate outcome.",
+        "Needs recorded times on revisions, pauses, spend, bills, adjustments, versioned flights; past knowledge is not rebuilt.",
+        "Reporting only; bid changes, forecasts and acquisition payback are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-budget-forecast-actual",
+        "bitemporal-business-history",
+        "effective-dated-business-rules",
+        "dbt-snapshot-history",
+        "marketing-attribution-models",
+        "marketing-acquisition-cost-payback"
+      ],
+      "sha256": "e1c775d02329a12fd6fc30b80f8eabe980dfb24cc4ef3140932c4f74b6746eb3",
+      "title": "Build a campaign-day budget pacing ledger against versioned flight plans",
+      "trigger": [
+        "Campaign owners ask whether a campaign is on pace and the answer changes with which budget version and which cost number someone used.",
+        "A mid-flight budget change rewrote last month's plan, so nobody can show what was approved at the time.",
+        "Platform spend is restated after the day and billed credits arrive late, and marketing finance cannot tell provisional cost from settled cost."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Decide, for each planned contact at a reporting cutoff, whether it is included or suppressed under the user's approved caps, window, priority and consent rules, with a reason when suppressed, the contacts already used against each cap, its rank where ranked, and every input row accounted for.",
+      "domain_objects": [
+        "customer",
+        "planned_contact",
+        "contact_event",
+        "channel",
+        "purpose",
+        "contact_cap",
+        "eligibility_decision",
+        "suppression_reason",
+        "contact_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "revops"
+      ],
+      "id": "marketing-contact-pressure-eligibility",
+      "job_category": "build",
+      "path": "recipes/marketing-contact-pressure-eligibility/recipe.md",
+      "pitch": "One auditable send-eligibility table that counts each delivery once, ranks competing contacts the same way every run and says why a contact was held back.",
+      "qualifiers": [
+        "Needs planned contacts, reported contact events with times, an identifier-to-person map and a published consent state.",
+        "Takes consent state and person identity as given; consent derivation and identity resolution are separate outcomes.",
+        "Publishes eligibility data only; sending, scheduling, quiet hours and journey logic are separate.",
+        "Gives no legal advice; caps and consent rules are the user's, not a compliance finding.",
+        "A source with no event-time field stops the run; a row with a missing time follows the approved rule."
+      ],
+      "readiness": "supported",
+      "related": [
+        "customer-consent-preferences",
+        "identity-golden-record-crosswalk",
+        "effective-dated-business-rules",
+        "source-freshness-sla",
+        "pii-classification-and-masking"
+      ],
+      "sha256": "c699dc5e3f4d92f420ae927206838d3f1b0ae2754388185d72222be19a58512c",
+      "title": "Build cross-channel contact-pressure and send-eligibility decisions for planned contacts",
+      "trigger": [
+        "The same person is emailed, texted and pushed by several tools in one week, and nobody can say whether the next planned contact is allowed.",
+        "One delivery reported by two tools is counted twice, or a contact exactly at the edge of the rolling window is counted differently in each report.",
+        "Two contacts planned for one person at the same moment are ordered by load order, so a different one wins each run.",
+        "A planned contact has no consent record or no identifiable person, and it is sent or silently dropped with no reason."
       ],
       "works_with": {
         "platforms": [
@@ -3830,6 +4728,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "materialized-view-to-dbt",
       "job_category": "re-engineer",
       "path": "recipes/materialized-view-to-dbt/recipe.md",
@@ -3844,7 +4745,7 @@
         "dbt-full-refresh-to-incremental",
         "prove-dbt-change-safe"
       ],
-      "sha256": "f16bcec124c7a561f62233429b688a2cf7bd87e8e34b7df5246f680b5fafc5a1",
+      "sha256": "eea6d93858cab85aef442cc6281cf97b9b50deb24f5f7bbed94a9bbd2e8726cf",
       "title": "Convert a materialized view into a dbt model and preserve its required refresh semantics",
       "trigger": [
         "Warehouse logic lives in a materialized view that nobody can test, review or trace, and the team wants it in the dbt project.",
@@ -3880,12 +4781,15 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "metric-population-and-rollups",
       "job_category": "build",
       "path": "recipes/metric-population-and-rollups/recipe.md",
       "pitch": "Make the metric's population and components explicit so its values and supported totals can be checked.",
       "readiness": "supported",
-      "sha256": "cc6ea13e2c23052935b8073afcb4a1a910ab7360f4fecb1ddf6c3469ad7d2df1",
+      "sha256": "6111ce9c29bc01fa8907d90c98a6721fa2de017eb85b9a2eef6d9749cd929f50",
       "title": "Build a metric with explicit eligibility and reconcilable rollups",
       "trigger": [
         "A new percentage, rate or average needs a defensible eligible population and missing-value policy.",
@@ -3927,6 +4831,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "metricflow-semantic-model",
       "job_category": "build",
       "path": "recipes/metricflow-semantic-model/recipe.md",
@@ -3941,7 +4848,7 @@
       "related": [
         "metric-population-and-rollups"
       ],
-      "sha256": "4a205c7c4789161e0dc93c0ba8f53f40fb01f58ec503adc03b34737f6e8a8e35",
+      "sha256": "a2380ce5bffe4db3a8781e952245f98e01848ab4e3722acd8e9b78cb8a288ea7",
       "title": "Define governed metrics as a MetricFlow semantic model over a gold mart",
       "trigger": [
         "Revenue or average order value means different things in different marts and dashboards, and nobody can say which number is right.",
@@ -3978,6 +4885,9 @@
           "documenting-orchestration"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "motherduck-flight-scheduling",
       "job_category": "build",
       "path": "recipes/motherduck-flight-scheduling/recipe.md",
@@ -3996,7 +4906,7 @@
         "readiness-gated-orchestration",
         "source-freshness-sla"
       ],
-      "sha256": "44c9988f3abc94bbc6ce8da63be2c243e268ff634928c505f5050d71c98d08d0",
+      "sha256": "ea5096332d1a1bd1024b5ca770d527c87ea3c19bda508385477007d5d822cd9e",
       "title": "Schedule a dlt load and a dbt build on MotherDuck as a committed MotherDuck Flight",
       "trigger": [
         "The MotherDuck load and the dbt build that follows it run from a cron job on someone's laptop.",
@@ -4033,6 +4943,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "move-dbt-project-destination",
       "job_category": "cross-platform",
       "path": "recipes/move-dbt-project-destination/recipe.md",
@@ -4047,7 +4960,7 @@
         "prove-dbt-change-safe",
         "database-tables-to-bronze"
       ],
-      "sha256": "b05c75c1e30f07c1bdfac629276ad7a1d741495f647566cc1d06ba7312ddef40",
+      "sha256": "ace11f1d52ac1cf7822282b6d94ef6b30f06b98dba21176072ef78c83b0085c2",
       "title": "Move a dbt project to a new destination and check parity before cutover",
       "trigger": [
         "A dbt project has to run on a different warehouse or lakehouse, and the dashboards and reports that read it cannot show a different number afterwards.",
@@ -4091,6 +5004,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "notebook-transformation-to-dbt",
       "job_category": "re-engineer",
       "path": "recipes/notebook-transformation-to-dbt/recipe.md",
@@ -4104,7 +5020,7 @@
         "legacy-sql-to-dbt",
         "prove-dbt-change-safe"
       ],
-      "sha256": "086db909e24e3912542fe5d3c8afed75de1f887541bba6bf3510d81b63972bfb",
+      "sha256": "da9e2163115ffa4b583c002fcfd383db9175e69cb65e199d6d94ba14e017358d",
       "title": "Convert a notebook transformation into a dbt model and prove parity",
       "trigger": [
         "A table or report is still produced by running a notebook by hand, pulling warehouse data into dataframes, with no tests, lineage or review.",
@@ -4141,12 +5057,15 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "operational-state-duration",
       "job_category": "build",
       "path": "recipes/operational-state-duration/recipe.md",
       "pitch": "Explain how long each entity spent in a state and where, without inventing locations or filling unknown time with activity.",
       "readiness": "supported",
-      "sha256": "8aa3088c3d9ded5751e811521819f3fa385d488bbb1951823810aabc375348c9",
+      "sha256": "61b45ef6aeeb709855ed566d66ea622a7bdd2958ba4c7b3da38ce216f199924c",
       "title": "Build state durations by entity, location and reporting period",
       "trigger": [
         "Waiting, idle, available or busy time must be measured by site or zone and hour from operational event histories.",
@@ -4719,6 +5638,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "pii-classification-and-masking",
       "job_category": "build",
       "path": "recipes/pii-classification-and-masking/recipe.md",
@@ -4737,7 +5659,7 @@
         "identity-standardize-names-addresses",
         "identity-golden-record-crosswalk"
       ],
-      "sha256": "f6bce8f88d2a8d8d645888ded954f3de84baf5951eea983263d70366bd6da19e",
+      "sha256": "c7627fd98c35315e2c836c32615af9c20fa15d7b5c3ce7c92d9ada3d8a66267b",
       "title": "Tag personal-data columns, mask them by kind for a lower-privilege audience and prove the masked outputs",
       "trigger": [
         "Analysts need tables that carry names, addresses, emails, phone numbers or ID numbers they must not see.",
@@ -4779,6 +5701,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "point-in-time-training-dataset",
       "job_category": "build",
       "path": "recipes/point-in-time-training-dataset/recipe.md",
@@ -4797,12 +5722,79 @@
         "effective-dated-business-rules",
         "identity-golden-record-crosswalk"
       ],
-      "sha256": "a61179151dbd0cab1bfa6e52ae47302bc3949ad448de818f620ea2ce4b47a018",
+      "sha256": "be9ce4734c80fad54173b372460a41aa3465f7a1167faf16afda47f9958b7636",
       "title": "Build a training dataset that uses only information available at prediction time",
       "trigger": [
         "A model scores well in training but worse in production because training rows used facts, corrections or labels a real prediction could not have seen.",
         "Historical facts are joined by when they happened, not by when they became known, so a late-arriving fact or correction rewrites earlier rows.",
         "A data science team wants one row per entity and prediction time with a forward label, and no proof that each feature used only what was known by then."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Place purchases under the approved agreement version, net approved returns, compute each contract period's rebate entitlement under the approved tier method, and publish an accrual and settlement ledger that rolls forward, with every in-scope record that accrues or settles nothing listed and what the scope leaves out shown or counted as approved.",
+      "domain_objects": [
+        "supplier",
+        "supplier_contract",
+        "agreement_version",
+        "rebate_tier",
+        "purchase_line",
+        "purchase_return",
+        "vendor_credit",
+        "rebate_entitlement",
+        "rebate_accrual_ledger",
+        "rebate_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "supply-chain-ops"
+      ],
+      "id": "procurement-supplier-rebate-accrual",
+      "job_category": "build",
+      "path": "recipes/procurement-supplier-rebate-accrual/recipe.md",
+      "pitch": "See what each supplier owes you under each approved contract, how it moved and what suppliers have already credited.",
+      "qualifiers": [
+        "Produces evidence for review; it does not post, collect or pay a rebate or write back to a source system.",
+        "Stops at the contract-based amount; spend cubes, invoice matching, usage charges and forecasts are separate.",
+        "Accrues the rebate earned on purchases made so far; it does not project where a contract period will end.",
+        "Returns and credits link to a purchase line or agreement by an explicit reference or an approved linking rule.",
+        "Agreement terms and credits may be captured as editable data during the run if no source holds them.",
+        "A rebate term the approved rule form cannot express is listed as unmodelled, never ignored.",
+        "Without recorded dates on versions, returns or credits, their period placement is reported unproven."
+      ],
+      "readiness": "supported",
+      "related": [
+        "ops-procurement-spend",
+        "procurement-three-way-match",
+        "finance-duplicate-invoice-detection",
+        "effective-dated-business-rules"
+      ],
+      "sha256": "0f37f28c4a20a91f2c53796c8a0ac7eab00643d851f4574da79138f6de135af8",
+      "title": "Accrue supplier rebates from purchasing contracts and reconcile settlements",
+      "trigger": [
+        "Procurement cannot say how much supplier rebate has been earned under each purchasing agreement this period, or how much of it suppliers have already credited.",
+        "Tiered agreements, returns and agreement changes are worked out by hand, so nobody can tell why an accrual moved or whether a supplier credit was counted twice.",
+        "Finance books a rebate receivable that does not tie to the agreements, because returns, restated agreements or an over-paid credit are missing from it."
       ],
       "works_with": {
         "platforms": [
@@ -4904,6 +5896,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "product-sessionization-funnels",
       "job_category": "build",
       "path": "recipes/product-sessionization-funnels/recipe.md",
@@ -4923,7 +5918,7 @@
         "business-event-fact",
         "identity-golden-record-crosswalk"
       ],
-      "sha256": "c69506c7e610b1f6cdf0e7c08ae22aac42959a5e57ce718107a5868adc1d84ea",
+      "sha256": "883dd7cc6aa5d7332fd7888c9c3273f0cfe02af41733a193ee4e96a1fa012683",
       "title": "Sessionize event streams and build reproducible funnels from batch exports",
       "trigger": [
         "Product analytics numbers cannot be reproduced outside the vendor's screen, and nobody can say why two conversion figures differ.",
@@ -4961,12 +5956,15 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "prove-dbt-change-safe",
       "job_category": "prove",
       "path": "recipes/prove-dbt-change-safe/recipe.md",
       "pitch": "Review the business answers behind a dbt change with independent evidence and leave its implementation unchanged.",
       "readiness": "supported",
-      "sha256": "4976eec6a7357fa915f20f67f7aaa9470f6803e2f70c57112522251c15aadf45",
+      "sha256": "458eb36a0ffffbe1982da9caa9bdbc008a530b7ba267048c0282db04b173c2ee",
       "title": "Assess an existing dbt change for safe merge without modifying it",
       "trigger": [
         "An existing dbt change builds successfully but reviewers still need evidence that its business answers remain valid.",
@@ -5071,6 +6069,9 @@
           "documenting-orchestration"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "readiness-gated-orchestration",
       "job_category": "build",
       "path": "recipes/readiness-gated-orchestration/recipe.md",
@@ -5087,7 +6088,7 @@
         "source-freshness-sla",
         "fabric-data-pipeline-as-code"
       ],
-      "sha256": "2321f0d983a7055f30ef9878bca29d20965e09778b216a53c1fc2432d2afc504",
+      "sha256": "a02b06bc26cb0de2e1d074702da4f20f9a4ca79533805ece949111ad7f8b0669",
       "title": "Gate a consumer pipeline on upstream data readiness instead of a clock",
       "trigger": [
         "A consumer build runs at a fixed time and, on runs where an upstream load is late, builds on partial data without anyone noticing.",
@@ -5436,6 +6437,248 @@
     },
     {
       "area": "transformation",
+      "description": "Price each rep's approved booking credit under the plan version, tier and cap rules the user approves, apply holds, cancellations and payments, and publish an earned, held, payable, paid and clawed-back ledger per rep and period that rolls forward and keeps every unpriced input visible.",
+      "domain_objects": [
+        "compensation_plan_rule",
+        "quota",
+        "attainment_tier",
+        "commission_payout_ledger",
+        "clawback",
+        "payment"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "revops",
+        "finance"
+      ],
+      "id": "sales-commission-payout-ledger",
+      "job_category": "build",
+      "path": "recipes/sales-commission-payout-ledger/recipe.md",
+      "pitch": "Turn approved booking credit and plan rules into a rep-period payout ledger that rolls forward and shows every clawback.",
+      "qualifiers": [
+        "Prices approved credit against plan and quota data; payments, holds and cancellations are separate inputs.",
+        "Needs approved eligible credit; plan rules may be captured as data. Eligibility belongs to the quota Recipe.",
+        "Calculates obligations only; it never executes payroll or payment."
+      ],
+      "readiness": "supported",
+      "related": [
+        "revops-quota-commission",
+        "effective-dated-business-rules"
+      ],
+      "sha256": "c7fe03dec8c705245f13e4682214aa02051fc2e214e49b342209240d41bf5267",
+      "title": "Build a sales commission payout ledger with accelerator tiers, caps and clawbacks",
+      "trigger": [
+        "Finance cannot say what each rep is owed because tier rates, caps, holds, payments and cancellations are applied by hand in a spreadsheet.",
+        "A deal crossed an accelerator tier, a rep hit the cap, or a deal was cancelled after it was paid, and nobody can show how the payable balance moved.",
+        "Plan rates changed mid-year and the team cannot say which version priced which booking."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For each approved forecast period, score every submission as it stood at its cutoff against the bookings that landed, with signed error by approved forecast horizon split into named components, every in-scope deal accounted for, and each submission that cannot be scored kept visible with its reason.",
+      "domain_objects": [
+        "forecast_submission",
+        "forecast_category",
+        "booking",
+        "forecast_error",
+        "forecast_horizon_cohort",
+        "forecast_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "revops"
+      ],
+      "id": "sales-forecast-backtesting",
+      "job_category": "build",
+      "path": "recipes/sales-forecast-backtesting/recipe.md",
+      "pitch": "Show how accurate each submitted forecast was and why it missed, without a later revision ever improving an earlier score.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Submissions must have been captured when made; a present-day CRM export cannot supply missing history.",
+        "Scores forecast accuracy only; capturing pipeline state and building a forecast are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "revops-pipeline-snapshots",
+        "revops-bookings-billings-cash",
+        "finance-budget-forecast-actual",
+        "metric-population-and-rollups"
+      ],
+      "sha256": "dd041b71ed8d192f835be915bb5b08aeb308d3b07e99c78630330821190e54e8",
+      "title": "Score submitted sales forecasts against realized bookings by forecast horizon",
+      "trigger": [
+        "Leaders submit a sales forecast every week, but nobody can say how close each submission came to what booked, or whether the misses run over or under.",
+        "A forecast is revised after its cutoff and the earlier submission's accuracy quietly improves.",
+        "Forecast and bookings totals disagree because deals slipped, were never forecast or were cancelled, and nobody can say how much of the gap each explains."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Derive one row per lead qualification cycle ending in an accepted, recycled, disqualified or unresolved path, link each lead to its account, contact and opportunity, and count opportunity value and new customers once under approved rules.",
+      "domain_objects": [
+        "account",
+        "lead",
+        "lead_cycle",
+        "conversion_link",
+        "contact",
+        "opportunity",
+        "new_customer"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "applying-medallion-data-modelling",
+          "authoring-dbt-project-artifact",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "revops"
+      ],
+      "id": "sales-lead-opportunity-lifecycle",
+      "job_category": "build",
+      "path": "recipes/sales-lead-opportunity-lifecycle/recipe.md",
+      "pitch": "Show how each lead cycle ended and count every deal and new customer once, with missing links left visibly unresolved.",
+      "qualifiers": [
+        "Stops at the lifecycle and conversion links; stage conversion and slippage belong to revops-pipeline-snapshots.",
+        "Needs timestamped lead status history and conversion links naming the records the approved accepted test relies on.",
+        "As-of or at-conversion values need dated opportunity amount versions; without them they are reported as unproven.",
+        "Credits value across converting leads only; multi-touch marketing credit belongs to marketing-attribution-models."
+      ],
+      "readiness": "supported",
+      "related": [
+        "revops-pipeline-snapshots",
+        "master-b2b-account-hierarchy",
+        "business-event-fact",
+        "effective-dated-business-rules",
+        "marketing-attribution-models"
+      ],
+      "sha256": "180f4f54184a3d456051dae23f58cab7f7588d6c439d80461e8467ef1fd714d8",
+      "title": "Build an auditable lead-to-account-to-opportunity lifecycle that counts deals and new customers once",
+      "trigger": [
+        "Leads, accounts, contacts and opportunities sit in separate CRM tables and the conversion links are patchy, so nobody can show which lead became which customer or deal.",
+        "Leads are disqualified, recycled and requalified several times, and counting leads, customers or pipeline value per row double counts them.",
+        "Several leads feed one opportunity and RevOps cannot say how its value is credited or why it is counted once.",
+        "Missing or conflicting conversion links are guessed or dropped, so the funnel cannot be audited back to its source rows."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For each accepted quote line, trace the orders and invoice lines that came from it, add quantity and value back to the quote, and publish a ledger of each price departure the approved rules count, with its amount and source records.",
+      "domain_objects": [
+        "sales_quote",
+        "quote_version",
+        "quote_line",
+        "price_approval",
+        "product_unit_mapping",
+        "order_line",
+        "invoice_line",
+        "price_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "revops",
+        "finance"
+      ],
+      "id": "sales-quote-order-price-reconciliation",
+      "job_category": "build",
+      "path": "recipes/sales-quote-order-price-reconciliation/recipe.md",
+      "pitch": "Show what became of each accepted quote and each price departing from the approved one under approved rules, with no approval inferred from invoices.",
+      "qualifiers": [
+        "Needs quote versions, order lines tied to quote lines and invoice lines tied to orders, or an approved linking rule.",
+        "Stops at lineage and price exceptions; it does not recommend prices or approvals, or tie bookings to cash."
+      ],
+      "readiness": "supported",
+      "related": [
+        "revops-bookings-billings-cash",
+        "effective-dated-business-rules",
+        "order-return-contribution-margin",
+        "procurement-three-way-match"
+      ],
+      "sha256": "e8576c0df65938589cd03bed53f0ad3471c6f8efbe6c02b3887d1ff4bb4553a4",
+      "title": "Reconcile accepted quote versions to orders and invoices with a price-exception ledger",
+      "trigger": [
+        "Sales and Finance disagree about the price a customer was promised, and someone reconciles quotes to orders and invoices by hand.",
+        "A quote was revised, and an order or invoice may be priced from a version the customer never accepted.",
+        "A quoted line was split across orders, bundled, substituted or ordered in another unit, and nobody can show that quantity and value still add back to the quote."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Bring a scalar warehouse function into the dbt project as a macro, switch the agreed callers to it, and prove that the SQL the macro generates matches the unchanged function and that each switched caller keeps its approved output, with its quirks reproduced and reported as follow-up work.",
       "domain_objects": [
         "scalar_function",
@@ -5458,6 +6701,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "scalar-sql-function-to-dbt-macro",
       "job_category": "re-engineer",
       "path": "recipes/scalar-sql-function-to-dbt-macro/recipe.md",
@@ -5473,7 +6719,7 @@
         "legacy-sql-to-dbt",
         "prove-dbt-change-safe"
       ],
-      "sha256": "9fc503b4d4251e8e99340a1a6376a9c839918c0135fdb91fe93c154424ca0ea9",
+      "sha256": "587b28a8e42a1458bdbb73ac57619019a5a35ced16bac2f2e751b2a03831e947",
       "title": "Convert a scalar SQL function into a dbt macro and prove equivalence",
       "trigger": [
         "Models or views call a scalar function created directly in the warehouse, so dbt cannot see the dependency and changes to it are not reviewed or tested.",
@@ -5513,6 +6759,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "scd-procedure-to-dbt-snapshot",
       "job_category": "re-engineer",
       "path": "recipes/scd-procedure-to-dbt-snapshot/recipe.md",
@@ -5527,7 +6776,7 @@
         "dbt-snapshot-history",
         "legacy-sql-to-dbt"
       ],
-      "sha256": "70584d73728e01253ce827fab449c5085cd573503b154dc3d3facb372ccda170",
+      "sha256": "456960f042b66e02ff44536b8d3ab194f542307fde86c73f896a9884daa55588",
       "title": "Convert a hand-written history routine into a dbt snapshot and prove history parity",
       "trigger": [
         "A Type 2 dimension is kept by a hand-written MERGE procedure or trigger that nobody wants to maintain.",
@@ -5631,6 +6880,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "shared-calendar-fiscal-periods",
       "job_category": "build",
       "path": "recipes/shared-calendar-fiscal-periods/recipe.md",
@@ -5649,7 +6901,7 @@
         "customer-retention-churn-features",
         "finance-budget-forecast-actual"
       ],
-      "sha256": "dceb55109dd97f90423d20ec27222e4b422565d60ec2a905b1ed11701091bb3f",
+      "sha256": "56296cda877b134a2932c80ec9506a20bb1f2688355f973647f58da56697900d",
       "title": "Build one shared calendar and fiscal-period date table",
       "trigger": [
         "Two reports put the same day in different weeks, months, quarters or fiscal periods because each mart builds its own date logic.",
@@ -5807,6 +7059,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "source-freshness-sla",
       "job_category": "build",
       "path": "recipes/source-freshness-sla/recipe.md",
@@ -5818,7 +7073,7 @@
         "Gating consumer pipelines on upstream readiness belongs to the readiness-gated-orchestration Recipe."
       ],
       "readiness": "supported",
-      "sha256": "d2770178fb7fbd337d8f026fa873b7c6e171e3f4cffc8f054081df71daabaaa1",
+      "sha256": "86ca921dfffe3709b0c2a7c8a7d16b98f989b7154e1a03d5282922c84a73b2b2",
       "title": "Declare source freshness SLAs and make stale data fail before downstream work",
       "trigger": [
         "A load stopped and nothing failed; downstream models rebuilt on old data and the reports still looked current.",
@@ -5862,6 +7117,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "spark-ingestion-notebook-to-dlt",
       "job_category": "re-engineer",
       "path": "recipes/spark-ingestion-notebook-to-dlt/recipe.md",
@@ -5879,7 +7137,7 @@
         "legacy-sql-to-dbt",
         "prove-dbt-change-safe"
       ],
-      "sha256": "0763c29b6b5b9d490b3f94984f01cf24d815194a986f510b2711948beb86b80e",
+      "sha256": "66dd18888c3c59eca0c966adbd6ce7c8626183c684959a0589324ce5ecfd0083",
       "title": "Convert a Spark ingestion notebook into a dlt pipeline and reconcile what it lands",
       "trigger": [
         "A Spark notebook lands raw files into bronze, and the team wants that load as tested pipeline code without keeping a cluster for it.",
@@ -5924,6 +7182,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "stored-procedure-to-dbt",
       "job_category": "re-engineer",
       "path": "recipes/stored-procedure-to-dbt/recipe.md",
@@ -5941,7 +7202,7 @@
         "dbt-full-refresh-to-incremental",
         "prove-dbt-change-safe"
       ],
-      "sha256": "bb5fd458e50c7d0a33c912f23018a600360cfbeb42da19534417983532c87895",
+      "sha256": "529bddf249c9e61d4deeb11a133b54b7d3e606d1653859ef2542a59675d53e0d",
       "title": "Convert a stored procedure into a dbt model and prove parity",
       "trigger": [
         "A nightly load is a stored procedure nobody fully understands, and it inserts, updates, deletes or merges rows in a table people depend on.",
@@ -5979,6 +7240,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "telecom-cdr-usage",
       "industry": [
         "telecom"
@@ -6002,7 +7266,7 @@
         "business-event-fact",
         "customer-retention-churn-features"
       ],
-      "sha256": "b540e4aa02fd9224a327512cb1ef37be37c7049926b8fe1678baa38208b42bea",
+      "sha256": "83b7145768dd4ce7a33faf980b32334d58aed612b92029d0a4e4baa3b1732052",
       "title": "Land call-detail batches and aggregate them into subscriber-day usage with manifest completeness",
       "trigger": [
         "Monthly subscriber usage differs by who ran it, because nobody can say which call-detail batches had landed or whether each arrived complete.",
@@ -6019,6 +7283,77 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Turn usage events, with repeats and revisions resolved under approved rules, and approved contract terms into charge lines per customer, period, meter and currency with allowance, tier method and credits applied, every event accounted for, and corrections restated for only the affected scope.",
+      "domain_objects": [
+        "usage_event",
+        "contract_terms",
+        "billing_period",
+        "allowance",
+        "tier_schedule",
+        "prepaid_credit",
+        "rated_charge_line",
+        "event_disposition",
+        "charge_restatement"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "revops"
+      ],
+      "id": "usage-metering-rated-charges",
+      "job_category": "build",
+      "path": "recipes/usage-metering-rated-charges/recipe.md",
+      "pitch": "Rate usage under approved allowances, tiers and credits so every event is accounted for and a correction restates only what it touches.",
+      "qualifiers": [
+        "Usage events must already be landed as tables; ingesting them is a separate outcome.",
+        "Needs approved terms per customer and meter; they may be captured as editable data during the run.",
+        "Keeps each currency separate; conversion is a separate outcome.",
+        "Restating earlier results needs the figures as last reported to be kept between runs.",
+        "Stops at rated usage lines; fixed fees, minimum charges, invoices, payments, tax and revenue recognition are separate.",
+        "A flat dated rate with no period-wide allowance or tiers belongs to effective-dated-business-rules."
+      ],
+      "readiness": "supported",
+      "related": [
+        "effective-dated-business-rules",
+        "saas-mrr-waterfall-nrr",
+        "telecom-cdr-usage",
+        "utilities-meter-to-bill",
+        "revops-bookings-billings-cash",
+        "finance-revenue-recognition",
+        "shared-fx-conversion",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "5b18f3865b0e4d3585a5b9be8d72691c6c3f0a067971ffecf57e0e9624f52888",
+      "title": "Calculate rated usage charges with allowances, tiers, credits and restated corrections",
+      "trigger": [
+        "Usage charges differ by who calculated them, because graduated and volume pricing, shared allowances and credits are applied differently from one run to the next.",
+        "A redelivered event spends a shared allowance twice, or a late, revised or cancelled event forces a rerun of every customer.",
+        "Billing or finance needs each customer's charge per period and meter with every usage event rated or set aside, and a change to an earlier period shown as a restatement."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
           "dbt"
         ]
       }
@@ -6110,6 +7445,9 @@
           "verifying"
         ]
       },
+      "function": [
+        "cross-functional"
+      ],
       "id": "versioned-data-contract-cutover",
       "job_category": "re-engineer",
       "path": "recipes/versioned-data-contract-cutover/recipe.md",
@@ -6124,7 +7462,7 @@
         "incremental-dbt-model-with-contract",
         "prove-dbt-change-safe"
       ],
-      "sha256": "276ddc70f3401d8b73b18e35acacf26e85be26b8037cd1eb5a9dcf882b07ffc5",
+      "sha256": "ddef8745b26eeff2b17d5dfd1754e00862f62c6cdfb839ddacf45d856d5452a3",
       "title": "Add a breaking data contract change as a new version beside the old one and revise its named consumers",
       "trigger": [
         "A required change to a published relation's grain, column meaning or shape cannot keep the old interface.",
