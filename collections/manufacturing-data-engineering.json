@@ -1,0 +1,11 @@
+{
+  "id": "manufacturing-data-engineering",
+  "title": "Manufacturing data engineering",
+  "kind": "industry",
+  "description": "Recipes for data engineers working with manufacturing data, such as production runs, bills of materials, material lots and equipment downtime.",
+  "selector": {
+    "industry": [
+      "manufacturing"
+    ]
+  }
+}

@@ -55,18 +55,18 @@ Score each submitted forecast in <forecast_submission_source> against the bookin
 
 ## Verified by
 
-- The approved contract fixes the submission key, cutoff, revision rule, period and horizon bucket, actuals authority and placement, cancellation and currency treatment, error sign, categories and component classes.
+- Every published figure traces to approved values for the submission key, cutoff, revision rule, period and horizon bucket, actuals authority and placement, cancellation and currency treatment, error sign, categories and component classes.
 - Each submission is scored as its cutoff snapshot. A revision made after the cutoff, even one that would shrink the error, leaves that submission's forecast, actual and error unchanged and appears only in its own later submission.
 - Actuals come only from the approved authority, count each booking once in its approved period under the approved cancellation rule, and equal totals derived independently from the ledger for every scored period.
 - Forecast equals the snapshot's lines and, where approved, the submitted header total within the approved tolerance; a submission that does not reconcile follows the approved disposition, and one set aside is unscored and listed with both totals.
 - Signed error splits into approved components that at least separate booked but not forecast, forecast but booked outside the period, and forecast but never booked. They sum to it on every row, and an empty one shows 0.
 - A category scores only the deals the submission placed in it. Unless the approved rule gives it a category, booked-not-forecast has none, so the total carries it and total error equals the category errors plus any uncategorised component, with no allocation invented.
-- Every in-scope booking in a scored period appears in every scored submission for it, as a line or as booked-not-forecast, with its deal named. Every line is counted once or set aside with a reason, and every submission is scored or set aside.
-- Bookings the approved scope leaves out are shown or counted with their reason as approved, and the outcome states how many were excluded and why.
+- Every in-scope booking in a scored period that falls in a scored submission's approved population appears in it, as a line or as booked-not-forecast, with its deal named. Every line is counted once or set aside with a reason, and every submission is scored or set aside.
+- A booking outside a submission's approved population enters none of its figures. Bookings the approved scope or population leaves out of every submission are shown or counted with their reason as approved, with how many were excluded and why.
 - The horizon cohort is built from deal lines, counting each deal once under the approved attribution and submitter combination, never by averaging submission scores.
 - A period not closed under the approved as-of rule is reported as not closed and never scored. A due submission with none on record is listed as a gap, never as zero error.
 - Lines and submissions the approved rules cannot place (other currency, missing deal, amount or category, tied revisions, no deal lines) follow the approved disposition, and a set-aside line carries its reason and enters no figure.
-- Published results equal values derived independently from the sources and approved rules, and a consumer reading the current CRM state instead of the snapshot gets a different, wrong score wherever a record changed after the cutoff.
+- Published results equal values derived independently from the sources and approved rules, and a consumer reading the current CRM state instead of the snapshot gets a different score for at least one submission wherever a scored amount or category changed after the cutoff.
 
 ## Agent guidance
 
