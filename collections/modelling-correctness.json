@@ -16,6 +16,7 @@
     "shift-unit-economics",
     "effective-dated-business-rules",
     "effective-dated-bom-requirements",
+    "procurement-supplier-rebate-accrual",
     "prove-dbt-change-safe",
     "customer-rfm-segmentation",
     "customer-historical-ltv",
