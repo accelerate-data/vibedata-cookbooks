@@ -152,6 +152,7 @@
         "finance-ar-aging-dso",
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
+        "finance-fixed-asset-rollforward",
         "finance-gl-subledger-tieout",
         "finance-gross-margin-variance-bridge",
         "finance-revenue-recognition",
@@ -227,7 +228,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 97,
+      "supported_or_proven_count": 98,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -243,6 +244,7 @@
         "finance-ar-aging-dso",
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
+        "finance-fixed-asset-rollforward",
         "finance-gl-subledger-tieout",
         "finance-gross-margin-variance-bridge",
         "finance-revenue-recognition",
@@ -274,7 +276,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 31,
+      "supported_or_proven_count": 32,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -506,6 +508,7 @@
         "finance-ar-aging-dso",
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
+        "finance-fixed-asset-rollforward",
         "finance-gl-subledger-tieout",
         "finance-gross-margin-variance-bridge",
         "finance-revenue-recognition",
@@ -597,7 +600,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 84,
+      "supported_or_proven_count": 85,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -641,6 +644,7 @@
         "telecom-cdr-usage",
         "life-sciences-enrollment",
         "saas-mrr-waterfall-nrr",
+        "finance-fixed-asset-rollforward",
         "usage-metering-rated-charges",
         "manufacturing-oee-downtime",
         "hospitality-occupancy-adr-revpar",
@@ -674,6 +678,7 @@
         "effective-dated-bom-requirements",
         "effective-dated-business-rules",
         "event-resource-attribution",
+        "finance-fixed-asset-rollforward",
         "finance-gross-margin-variance-bridge",
         "finance-thirteen-week-cash-plan",
         "healthcare-claims-remittance",
@@ -712,7 +717,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 51,
+      "supported_or_proven_count": 52,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -745,6 +750,7 @@
         "finance-ar-aging-dso",
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
+        "finance-fixed-asset-rollforward",
         "finance-gl-subledger-tieout",
         "finance-gross-margin-variance-bridge",
         "finance-revenue-recognition",
@@ -810,7 +816,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 81,
+      "supported_or_proven_count": 82,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -2845,6 +2851,69 @@
         "Accounts payable paid the same supplier invoice twice and only found out when the supplier returned the money.",
         "Before each payment run, accounts payable wants the suspected duplicate invoices to hold for review, with the rule that flagged each one.",
         "The payables system only catches an exact repeat of the invoice number, so re-keyed numbers and invoices entered under a second supplier record slip through."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build asset-period movements for cost and accumulated depreciation under the approved policies, roll them up to parent, class, entity and total without counting a component twice, reconcile net book value forward, set closing balances beside the ledger, and keep every unprocessable event or unpoliced asset visible or counted, or fail the run naming it, as approved.",
+      "domain_objects": [
+        "asset",
+        "asset_register",
+        "depreciation_schedule",
+        "legal_entity",
+        "general_ledger",
+        "asset_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "finance-fixed-asset-rollforward",
+      "job_category": "build",
+      "path": "recipes/finance-fixed-asset-rollforward/recipe.md",
+      "pitch": "Turn asset events and approved policies into a register and net-book-value roll-forward that foot each period of a completed run and sit beside the ledger.",
+      "qualifiers": [
+        "Needs dated asset events and ledger balances; policies and their assignments may be captured as editable data.",
+        "Takes capitalisation decisions as given; depreciation policy choices follow the approved rules.",
+        "Keeps each currency separate; where translation is approved it needs supplied dated rates, else it is unproven.",
+        "Placing late changes by recorded date needs one on the events; otherwise restatement is reported unproven.",
+        "One book per run; impairment, revaluation, merges, splits, lease accounting and tax books are separate and set aside.",
+        "Stops at the register, roll-forward and ledger comparison; break classes, close packs and postings are separate."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-gl-subledger-tieout",
+        "finance-trial-balance-close",
+        "effective-dated-business-rules",
+        "dbt-snapshot-history"
+      ],
+      "sha256": "78eed26444bd009f6ad84fcdaf1a6311bc9d9c8717da2752780ad62ea3c66ec9",
+      "title": "Build a fixed-asset register and reconcile its net-book-value roll-forward",
+      "trigger": [
+        "Every month someone rebuilds the fixed-asset register and depreciation schedule in a spreadsheet to prove that opening value plus additions less depreciation and disposals equals closing value.",
+        "A partial disposal, a transfer between entities or a cost adjustment leaves the register, the roll-forward and the ledger disagreeing, and nobody can say which asset moved what.",
+        "An auditor asks why a class's or an entity's closing net book value, or its difference from the ledger, changed between two periods."
       ],
       "works_with": {
         "platforms": [
