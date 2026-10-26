@@ -49,6 +49,7 @@
     "sales-commission-payout-ledger",
     "inventory-valuation-cogs",
     "sales-lead-opportunity-lifecycle",
-    "sales-forecast-backtesting"
+    "sales-forecast-backtesting",
+    "marketing-campaign-budget-pacing"
   ]
 }
