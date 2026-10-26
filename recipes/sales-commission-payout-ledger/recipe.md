@@ -14,7 +14,8 @@ function:
   - revops
   - finance
 domain_objects:
-  - commission_plan_version
+  - compensation_plan_rule
+  - quota
   - attainment_tier
   - commission_payout_ledger
   - clawback
@@ -44,7 +45,7 @@ evidence:
 
 ## Prompt
 
-Build <payout_ledger_model> and <payout_exceptions_model> from <approved_credit_source>, <plan_rules_source>, <quota_source>, <payment_source>, <cancellation_source> and <hold_source>. Inherit the semantics the Intent or its approved requirements already establish, and resolve with the user only what is still open: which credit is priced and in which currency, how a plan version is chosen, how attainment places a deal in a tier, the cap, what a cancellation reverses and when, holds and releases, how a payment is applied, and the period, rounding and exception rules. Price each deal under the approved rules, split a deal that crosses a tier as approved, apply the cap, holds, cancellations and payments, and publish per rep and period what was earned, held, payable, paid and clawed back, with an opening and closing payable that roll forward. Keep money owed back visible, keep every input that cannot be priced or applied as an exception with its reason, never net money across reps, and keep Domain sources read-only. Calculate obligations only: do not pay anyone or decide which bookings are eligible, and use quota only to place deals in tiers. Report what the inputs cannot prove.
+Build <payout_ledger_model> and <payout_exceptions_model> from <approved_credit_source>, <plan_rules_source>, <quota_source> where tiers use attainment, <payment_source>, <cancellation_source> and <hold_source>. Inherit what the Intent's approved requirements already establish, and resolve with the user only what is still open: which credit is priced and in which currency, how a plan version is chosen, how attainment places a deal in a tier, the cap, what a cancellation reverses and when, holds and releases, how a payment is applied, and the period, rounding and exception rules. Price each deal under the approved rules, split a deal that crosses a tier as approved, apply the cap, holds, cancellations and payments, and publish per rep and period what was earned, held, payable, paid and clawed back, with an opening and closing payable that roll forward. Keep money owed back visible, keep every input that cannot be priced or applied as an exception with its reason, never net money across reps, and keep Domain sources read-only. Calculate obligations only: do not pay anyone or decide which bookings are eligible, and use quota only to place tiers. Report what the inputs cannot prove.
 
 ## Verified by
 
@@ -55,8 +56,8 @@ Build <payout_ledger_model> and <payout_exceptions_model> from <approved_credit_
 - A cancellation reverses what the approved rule names; the same cancellation delivered twice reverses once; partial, repeated and out-of-window cancellations follow the approved handling, and periods the policy does not restate stay unchanged.
 - Clawed-back money already paid, a payment above what is owed and any negative payable show the approved owed-back treatment with its amount, and are never silently set to zero.
 - Held amounts stay visible and carried until the approved release, and are never counted as payable.
-- A payment applies as the approved linking rule and handling say; no amount is netted across reps; a payment for no known rep, an excess and any approved reassignment appear with their reason.
-- Every in-scope input amount is in the ledger or in the exceptions as the approved rule says, each exception carrying its reason and amount and adding to no ledger measure; a partly applied row is accounted per amount; rows the approved scope leaves out are shown or counted with their reason.
+- A payment applies as the approved linking rule and handling say; no amount is netted across reps; a payment for no known rep, an excess and any approved reassignment appear with their reason and amount.
+- Every in-scope input amount is in the ledger or in the exceptions as the approved rule says; an exception for an unapplied amount adds to no ledger measure, and one flagging an applied amount, such as a payment excess, names its ledger movement; out-of-scope rows are shown or counted with a reason.
 - Each output is unique on its declared grain, shows no duplicated or fanned-out amounts, and a rerun on unchanged inputs leaves the ledger and its closed periods identical.
 - The outcome states which plan rules are explicit versioned data and which, if any, live only in model logic, which exceptions remain open, what the inputs cannot prove, and that no payment was made.
 
@@ -69,6 +70,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 ### Compose
 
 - capturing-requirements
+- profiling-source-data
 - applying-medallion-data-modelling
 - generating-dbt-model
 - dbt-unit-testing
