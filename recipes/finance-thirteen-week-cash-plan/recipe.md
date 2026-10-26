@@ -66,7 +66,7 @@ Build <weekly_plan_model>, <movement_model>, <set_aside_model> and <coverage_mod
 - At the approved grain, each version publishes exactly thirteen consecutive weeks where opening plus receipts minus payments equals closing, up to any approved rounding shown where it arises; week one opens from the approved opening balance and each later week from the prior closing.
 - An expected weekly table derived independently from the sources and approved rules agrees with the published one, and receipts and payments recomputed from the movement rows equal the weekly figures, so a check never repeats the implementation's own calculation.
 - Every movement carries its expected date, week, version and the approved rule, or the approved dating basis where no rule shifts it, never an invented rule; the date follows the approved calendar rule and falls inside its own week.
-- A rule that moves an item changes only its week; a move past the last week makes it a set-aside at its full amount, so plan plus set-aside is unchanged and no cash is created or lost; cash already in the opening balance never moves again.
+- A rule that moves an item changes only its week; a move past the last week follows the approved beyond-horizon handling at the item's full amount, so plan plus set-aside is unchanged and no cash is created or lost; cash already in the opening balance never moves again.
 - An item referenced by two inputs under the approved match key moves cash once; the other copy is listed as a duplicate with its amount, never counted as cash or as an unscheduled claim, and conflicting amounts or dates resolve as approved.
 - Each item's open amount is fully accounted for across movements and set-asides, each part with one approved reason and parts summing to the open amount; a partly settled item moves its open remainder, and credits and unapplied items land as approved, visible with their amounts.
 - Items outside the approved scope, and counts and amounts per version, reconcile to the inputs with zero residue: every input item is a movement, a set-aside or shown as out of scope with its reason.
@@ -99,7 +99,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - If unresolved, what identifies an item in two inputs, including an order and its later invoice across payables and commitments, which copy and amount counts, and how partly settled items, instalments, credits, offsets and unapplied payments are treated, aligned to the opening balance date.
 - If unresolved, which commitment classes and statuses count, how recurring schedules expand inside the window, which payroll components are included, and whether non-invoice receipts such as refunds or financing enter as approved inputs.
 - If unresolved, which currency the plan uses and whether other currencies are converted (which rate, as of which date, rounded where), shown in their own plan, or set aside.
-- If unresolved, which scenario versions exist, what each changes (delays, or a share collected or paid and where the remainder goes), who approves versions and rules, which versions a default run publishes, and what an unapproved selection does.
+- If unresolved, which scenario versions exist, what each changes (delays, or a share collected or paid, rounded where, and where the remainder goes), who approves versions and rules, which versions a default run publishes, and what an unapproved selection does.
 - If unresolved, how items left out are shown beside the plan, what happens when the plan cannot be computed (fail naming it, or publish flagged as unproven), and whether a restated input restates past plans or past plans are kept.
 
 ### Guardrails
@@ -108,7 +108,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - Never show an item as moved cash without an approved date and rule or dating basis behind it, and never let a delay create or remove cash.
 - Never count one document twice because two inputs list it, never add a duplicate copy to any unscheduled figure, and never move cash already in the opening balance again.
 - Never drop, round away or silently absorb an amount: each part moves once or is listed with one reason and its amount.
-- Never net money in with money out in one figure unless an approved offset rule says so, nor sum currencies without an approved rate rule.
+- Never net money in with money out in an unscheduled or set-aside figure unless an approved offset rule says so, nor sum currencies without an approved rate rule.
 - Never run an unapproved scenario version or rule, never read a missing input as zero, and never read a clock, random value or build timestamp into a figure.
 - Do not present the plan as a forecast, a budget comparison or advice to borrow or invest.
 - Do not edit a source, post to a ledger or write the plan back to a planning tool.
