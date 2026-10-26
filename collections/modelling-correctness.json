@@ -43,6 +43,7 @@
     "versioned-data-contract-cutover",
     "order-return-contribution-margin",
     "procurement-three-way-match",
-    "inventory-lot-traceability"
+    "inventory-lot-traceability",
+    "marketing-campaign-budget-pacing"
   ]
 }
