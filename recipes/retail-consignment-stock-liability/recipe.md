@@ -30,7 +30,6 @@ works_with:
   platforms:
     - duckdb_local
     - motherduck
-    - fabric_lakehouse
     - fabric_warehouse
     - redshift
   tools:
@@ -100,14 +99,14 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 ### Ask first
 
-- If unresolved, which stores, SKUs, suppliers and legal entities are in scope (entity and currency stay keys), which ownership types count, which statuses stay out, how each source's codes resolve to one key, and which records are left out, shown or only counted?
+- If unresolved, which stores, SKUs, suppliers and legal entities are in scope, which ownership types count, which statuses stay out, how each source's codes resolve to one key, which units, pack factors and precision apply, and which records are left out, shown or only counted?
 - If unresolved, what makes a sale qualify to create the obligation and which date it carries, does the sale or the supplier's statement fix the amount, does an unpriced sale move stock, and do a shortfall or damage reduce supplier stock, create an obligation or stay held?
 - If unresolved, which amount basis applies (fixed unit cost, share of net price, tiers), what net price and tax mean, for tiers which volume counts, whether a crossed tier reprices earlier sales and how it reaches each sale line, and what rounding point and mode apply?
 - If unresolved, which contract version governs (sale, receipt or settlement date), how a gap, overlap or ambiguity is handled, does a later change in terms or a late-posted record restate priced sales, and what supplies the opening stock, open obligations and the sales they come from?
 - If unresolved, how a sale reaches an owner where own and consigned stock share a location (names it, oldest receipt first, own first, consigned first, split), is a sale beyond its owner's stock an exception, held or allowed negative, and which store transfers are in scope?
 - If unresolved, which key links a customer return to its sale, is it reversed at the original or current terms, what happens to one after settlement, beyond what was sold or naming a set-aside sale, how is a voided or cancelled sale treated, and what does a return to the supplier change?
 - If unresolved, at what level is a count taken, which owner absorbs a shortfall or surplus (own stock, pro rata, supplier or held), what tolerance applies, and which dates, grain, owner rows, cutoff, time zone and calendar publish stock, and which period a return or settlement lands in?
-- If unresolved, how is a settlement applied (named period, oldest first, reference), how are a reversal, deduction, short, excess or other-currency payment shown or converted (rate and date), which units, pack factors and precision apply, how is a bad record treated, and does a leftover fail the run?
+- If unresolved, how is a settlement applied (named period, oldest first, reference), how are a reversal, deduction, short, excess or other-currency payment shown or converted (rate and date), how is a bad record treated, and does a leftover fail the run?
 
 ### Guardrails
 
