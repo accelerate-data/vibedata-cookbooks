@@ -152,6 +152,7 @@
         "finance-ar-aging-dso",
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
+        "finance-fixed-asset-rollforward",
         "finance-gl-subledger-tieout",
         "finance-gross-margin-variance-bridge",
         "finance-revenue-recognition",
@@ -195,11 +196,13 @@
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
         "point-in-time-training-dataset",
+        "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
+        "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
@@ -227,7 +230,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 97,
+      "supported_or_proven_count": 100,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -243,6 +246,7 @@
         "finance-ar-aging-dso",
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
+        "finance-fixed-asset-rollforward",
         "finance-gl-subledger-tieout",
         "finance-gross-margin-variance-bridge",
         "finance-revenue-recognition",
@@ -258,6 +262,7 @@
         "ops-procurement-spend",
         "order-return-contribution-margin",
         "people-payroll-gl-tieout",
+        "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "public-sector-grant-funds",
@@ -274,7 +279,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 31,
+      "supported_or_proven_count": 33,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -506,6 +511,7 @@
         "finance-ar-aging-dso",
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
+        "finance-fixed-asset-rollforward",
         "finance-gl-subledger-tieout",
         "finance-gross-margin-variance-bridge",
         "finance-revenue-recognition",
@@ -544,12 +550,14 @@
         "people-payroll-gl-tieout",
         "pii-classification-and-masking",
         "point-in-time-training-dataset",
+        "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
         "readiness-gated-orchestration",
+        "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
@@ -597,7 +605,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 84,
+      "supported_or_proven_count": 87,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -612,6 +620,7 @@
         "event-resource-attribution",
         "dbt-snapshot-history",
         "bitemporal-business-history",
+        "retail-reservation-availability-ledger",
         "operational-state-duration",
         "product-sessionization-funnels",
         "logistics-fleet-utilization",
@@ -641,6 +650,7 @@
         "telecom-cdr-usage",
         "life-sciences-enrollment",
         "saas-mrr-waterfall-nrr",
+        "finance-fixed-asset-rollforward",
         "usage-metering-rated-charges",
         "manufacturing-oee-downtime",
         "hospitality-occupancy-adr-revpar",
@@ -648,6 +658,7 @@
         "cost-attribution-by-model-job",
         "versioned-data-contract-cutover",
         "order-return-contribution-margin",
+        "procurement-savings-realization",
         "sales-quote-order-price-reconciliation",
         "procurement-three-way-match",
         "inventory-lot-traceability",
@@ -674,6 +685,7 @@
         "effective-dated-bom-requirements",
         "effective-dated-business-rules",
         "event-resource-attribution",
+        "finance-fixed-asset-rollforward",
         "finance-gross-margin-variance-bridge",
         "finance-thirteen-week-cash-plan",
         "healthcare-claims-remittance",
@@ -693,11 +705,13 @@
         "operational-state-duration",
         "order-return-contribution-margin",
         "point-in-time-training-dataset",
+        "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
+        "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "saas-mrr-waterfall-nrr",
         "sales-commission-payout-ledger",
@@ -712,7 +726,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 51,
+      "supported_or_proven_count": 54,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -745,6 +759,7 @@
         "finance-ar-aging-dso",
         "finance-budget-forecast-actual",
         "finance-duplicate-invoice-detection",
+        "finance-fixed-asset-rollforward",
         "finance-gl-subledger-tieout",
         "finance-gross-margin-variance-bridge",
         "finance-revenue-recognition",
@@ -783,12 +798,14 @@
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
         "point-in-time-training-dataset",
+        "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
         "readiness-gated-orchestration",
+        "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
@@ -810,7 +827,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 81,
+      "supported_or_proven_count": 84,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -938,8 +955,10 @@
         "ops-inventory-reconciliation",
         "ops-otif",
         "ops-procurement-spend",
+        "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
+        "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "shift-unit-economics"
       ],
@@ -948,7 +967,7 @@
           "supply-chain-ops"
         ]
       },
-      "supported_or_proven_count": 14,
+      "supported_or_proven_count": 16,
       "title": "Supply chain and operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -2845,6 +2864,69 @@
         "Accounts payable paid the same supplier invoice twice and only found out when the supplier returned the money.",
         "Before each payment run, accounts payable wants the suspected duplicate invoices to hold for review, with the rule that flagged each one.",
         "The payables system only catches an exact repeat of the invoice number, so re-keyed numbers and invoices entered under a second supplier record slip through."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Build asset-period movements for cost and accumulated depreciation under the approved policies, roll them up to parent, class, entity and total without counting a component twice, reconcile net book value forward, set closing balances beside the ledger, and keep every unprocessable event or unpoliced asset visible or counted, or fail the run naming it, as approved.",
+      "domain_objects": [
+        "asset",
+        "asset_register",
+        "depreciation_schedule",
+        "legal_entity",
+        "general_ledger",
+        "asset_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "finance-fixed-asset-rollforward",
+      "job_category": "build",
+      "path": "recipes/finance-fixed-asset-rollforward/recipe.md",
+      "pitch": "Turn asset events and approved policies into a register and net-book-value roll-forward that foot each period of a completed run and sit beside the ledger.",
+      "qualifiers": [
+        "Needs dated asset events and ledger balances; policies and their assignments may be captured as editable data.",
+        "Takes capitalisation decisions as given; depreciation policy choices follow the approved rules.",
+        "Keeps each currency separate; where translation is approved it needs supplied dated rates, else it is unproven.",
+        "Placing late changes by recorded date needs one on the events; otherwise restatement is reported unproven.",
+        "One book per run; impairment, revaluation, merges, splits, lease accounting and tax books are separate and set aside.",
+        "Stops at the register, roll-forward and ledger comparison; break classes, close packs and postings are separate."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-gl-subledger-tieout",
+        "finance-trial-balance-close",
+        "effective-dated-business-rules",
+        "dbt-snapshot-history"
+      ],
+      "sha256": "78eed26444bd009f6ad84fcdaf1a6311bc9d9c8717da2752780ad62ea3c66ec9",
+      "title": "Build a fixed-asset register and reconcile its net-book-value roll-forward",
+      "trigger": [
+        "Every month someone rebuilds the fixed-asset register and depreciation schedule in a spreadsheet to prove that opening value plus additions less depreciation and disposals equals closing value.",
+        "A partial disposal, a transfer between entities or a cost adjustment leaves the register, the roll-forward and the ledger disagreeing, and nobody can say which asset moved what.",
+        "An auditor asks why a class's or an entity's closing net book value, or its difference from the ledger, changed between two periods."
       ],
       "works_with": {
         "platforms": [
@@ -5744,6 +5826,70 @@
     },
     {
       "area": "transformation",
+      "description": "For the approved period, compare approved baseline prices with the quantities and prices actually invoiced to build a ledger that classifies each claimed saving under the approved classes, such as realized, negotiated but not realized, cost avoidance, currency effect, price increase or unsupported, with every invoice line accounted for.",
+      "domain_objects": [
+        "baseline_price",
+        "supplier_contract",
+        "exchange_rate",
+        "credit_note",
+        "invoice_line",
+        "unit_conversion",
+        "savings_ledger",
+        "saving_class",
+        "savings_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "supply-chain-ops"
+      ],
+      "id": "procurement-savings-realization",
+      "job_category": "build",
+      "path": "recipes/procurement-savings-realization/recipe.md",
+      "pitch": "Show which procurement savings were actually paid, which were only negotiated, and why, line by line.",
+      "qualifiers": [
+        "Needs agreements, invoice lines and approved baselines, or the price history an approved baseline basis derives from.",
+        "Baselines, agreements, conversions and rates need an approval, and dates where versioned; else no saving.",
+        "Supplier identity and item specifications arrive conformed; matching suppliers is separate.",
+        "Stops at the savings ledger; spend cube, contract compliance, rebate accrual, rate setting and forecasting are separate.",
+        "States a price difference from the approved baseline, never that procurement caused it."
+      ],
+      "readiness": "supported",
+      "related": [
+        "ops-procurement-spend",
+        "procurement-three-way-match",
+        "shared-fx-conversion",
+        "effective-dated-business-rules"
+      ],
+      "sha256": "03f6dd3e4cdc99623482b8a1a30d5bc2d55de652f4c5cb3f747d2c75ae259c13",
+      "title": "Reconcile negotiated procurement savings to realized invoice prices in a traceable savings ledger",
+      "trigger": [
+        "Procurement reports savings from negotiated agreements and Finance cannot trace them to the prices actually paid.",
+        "A lower negotiated target, a new pack size or a different currency is reported as a saving although the price paid did not fall.",
+        "A rebated amount is counted in a savings figure and again in a rebate figure, and nobody can say which."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Place purchases under the approved agreement version, net approved returns, compute each contract period's rebate entitlement under the approved tier method, and publish an accrual and settlement ledger that rolls forward, with every in-scope record that accrues or settles nothing listed and what the scope leaves out shown or counted as approved.",
       "domain_objects": [
         "supplier",
@@ -6100,6 +6246,74 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "At each approved nightly cutoff, publish for every SKU and location the physical, quarantined, in-transit and validly reserved quantities and the available-to-promise quantity under the approved policy, keep physical and reserved balances reconciling on their own, and place every record or list it with its reason.",
+      "domain_objects": [
+        "sku",
+        "location",
+        "stock_movement",
+        "reservation",
+        "order_line",
+        "shipment",
+        "stock_transfer",
+        "available_to_promise"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops"
+      ],
+      "id": "retail-reservation-availability-ledger",
+      "industry": [
+        "retail"
+      ],
+      "job_category": "build",
+      "path": "recipes/retail-reservation-availability-ledger/recipe.md",
+      "pitch": "A nightly ledger of what you can still promise, with every reservation released once, every shipment counted once and nothing dropped.",
+      "qualifiers": [
+        "Needs stock movements, reservations with an expiry, cancellations, shipments and order lines as landed tables.",
+        "Picks, transfers and quarantine movements are used where the inputs carry them; their absence is reported.",
+        "A batch analytical ledger; real-time promising, allocation priority, replenishment and safety-stock sizing are separate.",
+        "Reconciling systems against counts is ops-inventory-reconciliation; stockout exposure is retail-sell-through-stockout.",
+        "Reproducing a past cutoff after late or corrected records needs kept history of the sources.",
+        "Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze."
+      ],
+      "readiness": "supported",
+      "related": [
+        "ops-inventory-reconciliation",
+        "retail-sell-through-stockout",
+        "master-product-sku-hierarchy",
+        "effective-dated-business-rules",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "c24c0f52d6384bcc8d98788124caae83135ecae9041464d74aa10a57fa499731",
+      "title": "Reconstruct available-to-promise stock by SKU, location and cutoff from reservation and fulfilment events",
+      "trigger": [
+        "Customer service promises stock that is already reserved, or sells the same units twice because reservations that expired or shipped still count against availability.",
+        "Planners cannot say why the stock available to promise differs from the physical count, because units are reserved, quarantined, in transit or short-received, and nobody can show which.",
+        "A split order, a partial shipment or a cancelled and re-sent reservation leaves the reserved quantity wrong, and the error only shows up when a customer is let down."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
