@@ -1,0 +1,12 @@
+{
+  "id": "marketing-data-engineering",
+  "title": "Marketing data engineering",
+  "kind": "curated",
+  "description": "Recipes for attribution, acquisition economics, campaign spend pacing and contact-pressure eligibility under approved business rules.",
+  "members": [
+    "marketing-attribution-models",
+    "marketing-acquisition-cost-payback",
+    "marketing-campaign-budget-pacing",
+    "marketing-contact-pressure-eligibility"
+  ]
+}
