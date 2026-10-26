@@ -48,7 +48,6 @@ related:
 evidence:
   features:
     - capturing-requirements
-    - applying-medallion-data-modelling
     - generating-dbt-model
     - running-dbt-in-sandbox
     - verifying
@@ -63,22 +62,22 @@ Build <ledger_table>, <order_line_model>, <coverage_model> and <set_aside_model>
 
 - On a run that completes, there is one row per approved SKU, location and cutoff from the approved first row to the last cutoff, quiet nights included, none for a pair the approved scope leaves out, and each output is unique on its declared grain.
 - A record counts at the cutoff its own time gives under the approved boundary rule; a record or an expiry exactly on the boundary follows that rule, and a later or corrected record changes a published cutoff only where the approved rule restates it.
-- Physical stock reconciles on its own: opening plus the approved movements equals closing at every cutoff, a negative closing follows the approved treatment and is never silently floored, and a unit is never in two physical balances at once.
-- The reserved quantity reconciles on its own: opening plus newly reserved, less released by expiry, released by cancellation and consumed, equals closing, is never negative, and is not derived from physical stock or availability.
-- No reservation releases more than it reserved or releases twice: a repeated cancellation, a cancellation after expiry or after fulfilment, and any later shipment follow the approved rule and release nothing further.
+- Physical stock reconciles on its own: from the approved opening at the first cutoff, opening plus the approved movements equals closing at every cutoff, a negative closing follows the approved treatment and is never silently floored, and a unit is never in two physical balances at once.
+- The reserved quantity reconciles on its own: from the approved opening at the first cutoff, opening plus newly reserved, less released by expiry, by cancellation and consumed, equals closing, is never negative, and is not derived from physical stock or availability.
+- No reservation releases more than its remaining quantity or releases twice: a repeated cancellation and a cancellation after expiry or full fulfilment release nothing further, and one after partial fulfilment releases only the remainder, as the approved rule gives.
 - Physical stock falls once per fulfilled unit at the approved point and its reservation is consumed only up to what remains, never lowering available stock twice; shipped quantity with no reservation, above what remains or from another location is labelled and follows the approved rule.
 - An order line split across locations or shipments keeps its ordered quantity: reserved, fulfilled and released quantities foot to it, or the line carries one named reason that it does not.
 - Stock in transit and quarantined stock are published as the approved rules place them and never promised unless approved; a transfer joins its destination as approved, and a short or over receipt follows the approved treatment with its variance visible and is never silently dropped.
 - Available-to-promise equals the approved formula over the row's own components, and where reservations and held stock exceed physical stock the unfloored deficit stays observable, as a shortfall or as the approved negative figure.
-- On a run that completes, every record of every input is counted in a balance, a labelled class or a listed reason; per-input counts sum to the records read, and a set-aside record changes no balance and creates no ledger row.
+- On a run that completes, every record of every input is counted in a balance, a labelled class, or listed or counted with its reason as approved; per-input counts sum to the records read, the outcome says how many were excluded and why, and a set-aside record changes no balance or ledger row.
 - A cutoff that cannot be trusted, such as an input missing for the night, follows the approved behaviour (fail naming the items, publish flagged, or publish nothing) and is never published as complete.
-- Published figures equal values derived independently from the sources and approved rules, including an expiry on the boundary, an expiry and a shipment on one day in each order, a split line and a short receipt; the outcome states what the inputs cannot prove.
+- Published figures equal values derived independently from the sources and approved rules, including an expiry on the boundary, an expiry and a fulfilment within one cutoff in each order, a split line and a short receipt; the outcome states what the inputs cannot prove.
 
 ## Agent guidance
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and every semantic decision its approved requirements already record; do not ask the user to confirm them again. Profile each input for keys, quantity signs, units, timestamps and their time zone, and for how a shipment, a pick and a cancellation link to a reservation, before modelling. Derive the expected results independently of the models, from the approved rules and the input data, and include cases at each edge: a reservation expiring on the boundary and one a moment after it, an expiry and a shipment on the same day in each order, a repeated cancellation, a cancellation after a partial shipment, a shipment after release, an unreserved shipment, a split order, a short receipt and a record that names no known SKU or location. Keep each approved rule the requirements treat as data as data that the models and tests read, never as a literal. Before declaring the outcome complete, check that each balance reconciles on its own, that every input's records are placed once, that no set-aside record builds a row, and that a changed rule moves only what it should; report what the inputs cannot prove.
+Inherit the Intent's repository, platform, Domain, sources and every semantic decision its approved requirements already record; do not ask the user to confirm them again. Profile each input for keys, quantity signs, units, timestamps and their time zone, and for how a shipment, a pick and a cancellation link to a reservation, before modelling. Derive the expected results independently of the models, from the approved rules and the input data, and include cases at each edge: a reservation expiring on the boundary and one just after it, an expiry and a fulfilment within one cutoff in each order, a repeated cancellation, a cancellation after partial fulfilment, a fulfilment after release, an unreserved shipment, a split order, a short receipt and a record whose keys do not resolve. Keep each approved rule the requirements treat as data as data that the models and tests read, never as a literal. Before declaring the outcome complete, check that each balance reconciles on its own, that every input's records are placed once, that no set-aside record builds a row, and that a changed rule moves only what it should; report what the inputs cannot prove.
 
 ### Compose
 
@@ -90,10 +89,10 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 
 ### Ask first
 
-- If unresolved, which SKUs, locations and sales channels are in scope, is a channel a stock location or an attribute of the order, which pairs get a row and from when, in which unit are quantities held and how do other units convert, and how is a record outside scope handled?
-- If unresolved, what instant is each cutoff and in which time zone, does a record or an expiry exactly on it count, which timestamp governs, and is a late or corrected record applied at the next cutoff or does it restate a published one, and what opening balance does the first cutoff start from?
-- If unresolved, how is available-to-promise defined: which quantities it subtracts (reservations, quarantine, other held stock), is quarantined stock part of physical, and may it be negative or is it floored with the deficit shown?
-- If unresolved, which reservation states count as valid, how is the expiry edge read, what does a cancellation release, and what do a repeated cancellation and a shipment after release or cancellation do?
+- If unresolved, which SKUs, locations and sales channels are in scope, is a channel a stock location or an attribute of the order, which pairs get a row and from when, and how is a record outside scope handled?
+- If unresolved, what instant is each cutoff and in which time zone, does a record or an expiry exactly on it count, which timestamp governs, and is a late or corrected record applied at the next cutoff or does it restate a published one?
+- If unresolved, in which unit and from what opening balance are quantities held, and how is available-to-promise defined: which quantities it subtracts (reservations, quarantine, other held stock), is quarantined stock part of physical, and may it be negative or is it floored with the deficit shown?
+- If unresolved, which reservation states count as valid, how is the expiry edge read, what does a cancellation release, what do a repeated cancellation and a shipment after release do, and how does an amended reservation reach the balance?
 - If unresolved, when does physical stock fall and a reservation get consumed (at pick or at shipment), what does a pick change, and how does a shipment link to its reservations (by reservation, or by order line, SKU and location)?
 - If unresolved, how are a partial shipment, a shipment without a reservation, one above the reservation's remainder, one from another location than reserved, and links that sum above the shipped quantity treated?
 - If unresolved, when does a transfer leave its source and join its destination, where is stock in transit shown and may it be promised, how is a short or over receipt treated, and how does stock enter and leave quarantine?
