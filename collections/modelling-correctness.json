@@ -43,6 +43,7 @@
     "cost-attribution-by-model-job",
     "versioned-data-contract-cutover",
     "order-return-contribution-margin",
+    "sales-quote-order-price-reconciliation",
     "procurement-three-way-match",
     "inventory-lot-traceability",
     "sales-commission-payout-ledger",
