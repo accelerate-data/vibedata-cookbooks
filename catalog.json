@@ -196,6 +196,7 @@
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
         "point-in-time-training-dataset",
+        "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
@@ -229,7 +230,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 99,
+      "supported_or_proven_count": 100,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -261,6 +262,7 @@
         "ops-procurement-spend",
         "order-return-contribution-margin",
         "people-payroll-gl-tieout",
+        "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "public-sector-grant-funds",
@@ -277,7 +279,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 32,
+      "supported_or_proven_count": 33,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -548,6 +550,7 @@
         "people-payroll-gl-tieout",
         "pii-classification-and-masking",
         "point-in-time-training-dataset",
+        "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
@@ -602,7 +605,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 86,
+      "supported_or_proven_count": 87,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -655,6 +658,7 @@
         "cost-attribution-by-model-job",
         "versioned-data-contract-cutover",
         "order-return-contribution-margin",
+        "procurement-savings-realization",
         "sales-quote-order-price-reconciliation",
         "procurement-three-way-match",
         "inventory-lot-traceability",
@@ -701,6 +705,7 @@
         "operational-state-duration",
         "order-return-contribution-margin",
         "point-in-time-training-dataset",
+        "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
@@ -721,7 +726,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 53,
+      "supported_or_proven_count": 54,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -793,6 +798,7 @@
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
         "point-in-time-training-dataset",
+        "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
@@ -821,7 +827,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 83,
+      "supported_or_proven_count": 84,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -949,6 +955,7 @@
         "ops-inventory-reconciliation",
         "ops-otif",
         "ops-procurement-spend",
+        "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "retail-reservation-availability-ledger",
@@ -960,7 +967,7 @@
           "supply-chain-ops"
         ]
       },
-      "supported_or_proven_count": 15,
+      "supported_or_proven_count": 16,
       "title": "Supply chain and operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -5803,6 +5810,70 @@
         "A model scores well in training but worse in production because training rows used facts, corrections or labels a real prediction could not have seen.",
         "Historical facts are joined by when they happened, not by when they became known, so a late-arriving fact or correction rewrites earlier rows.",
         "A data science team wants one row per entity and prediction time with a forward label, and no proof that each feature used only what was known by then."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For the approved period, compare approved baseline prices with the quantities and prices actually invoiced to build a ledger that classifies each claimed saving under the approved classes, such as realized, negotiated but not realized, cost avoidance, currency effect, price increase or unsupported, with every invoice line accounted for.",
+      "domain_objects": [
+        "baseline_price",
+        "supplier_contract",
+        "exchange_rate",
+        "credit_note",
+        "invoice_line",
+        "unit_conversion",
+        "savings_ledger",
+        "saving_class",
+        "savings_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "supply-chain-ops"
+      ],
+      "id": "procurement-savings-realization",
+      "job_category": "build",
+      "path": "recipes/procurement-savings-realization/recipe.md",
+      "pitch": "Show which procurement savings were actually paid, which were only negotiated, and why, line by line.",
+      "qualifiers": [
+        "Needs agreements, invoice lines and approved baselines, or the price history an approved baseline basis derives from.",
+        "Baselines, agreements, conversions and rates need an approval, and dates where versioned; else no saving.",
+        "Supplier identity and item specifications arrive conformed; matching suppliers is separate.",
+        "Stops at the savings ledger; spend cube, contract compliance, rebate accrual, rate setting and forecasting are separate.",
+        "States a price difference from the approved baseline, never that procurement caused it."
+      ],
+      "readiness": "supported",
+      "related": [
+        "ops-procurement-spend",
+        "procurement-three-way-match",
+        "shared-fx-conversion",
+        "effective-dated-business-rules"
+      ],
+      "sha256": "03f6dd3e4cdc99623482b8a1a30d5bc2d55de652f4c5cb3f747d2c75ae259c13",
+      "title": "Reconcile negotiated procurement savings to realized invoice prices in a traceable savings ledger",
+      "trigger": [
+        "Procurement reports savings from negotiated agreements and Finance cannot trace them to the prices actually paid.",
+        "A lower negotiated target, a new pack size or a different currency is reported as a saving although the price paid did not fall.",
+        "A rebated amount is counted in a savings figure and again in a rebate figure, and nobody can say which."
       ],
       "works_with": {
         "platforms": [
