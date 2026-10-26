@@ -57,6 +57,7 @@
     "sales-forecast-backtesting",
     "marketing-campaign-budget-pacing",
     "finance-thirteen-week-cash-plan",
-    "finance-gross-margin-variance-bridge"
+    "finance-gross-margin-variance-bridge",
+    "procurement-open-commitment-rollforward"
   ]
 }
