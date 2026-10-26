@@ -154,6 +154,7 @@
         "finance-duplicate-invoice-detection",
         "finance-gl-subledger-tieout",
         "finance-revenue-recognition",
+        "finance-thirteen-week-cash-plan",
         "finance-trial-balance-close",
         "finops-cloud-allocation",
         "finops-saas-license-utilization",
@@ -224,7 +225,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 94,
+      "supported_or_proven_count": 95,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -242,6 +243,7 @@
         "finance-duplicate-invoice-detection",
         "finance-gl-subledger-tieout",
         "finance-revenue-recognition",
+        "finance-thirteen-week-cash-plan",
         "finance-trial-balance-close",
         "finops-saas-license-utilization",
         "healthcare-claims-remittance",
@@ -268,7 +270,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 28,
+      "supported_or_proven_count": 29,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -502,6 +504,7 @@
         "finance-duplicate-invoice-detection",
         "finance-gl-subledger-tieout",
         "finance-revenue-recognition",
+        "finance-thirteen-week-cash-plan",
         "finance-trial-balance-close",
         "finops-cloud-allocation",
         "finops-saas-license-utilization",
@@ -588,7 +591,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 81,
+      "supported_or_proven_count": 82,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -645,7 +648,8 @@
         "inventory-valuation-cogs",
         "sales-lead-opportunity-lifecycle",
         "sales-forecast-backtesting",
-        "marketing-campaign-budget-pacing"
+        "marketing-campaign-budget-pacing",
+        "finance-thirteen-week-cash-plan"
       ],
       "resolved_members": [
         "banking-aml-features",
@@ -662,6 +666,7 @@
         "effective-dated-bom-requirements",
         "effective-dated-business-rules",
         "event-resource-attribution",
+        "finance-thirteen-week-cash-plan",
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
         "hospitality-occupancy-adr-revpar",
@@ -697,7 +702,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 48,
+      "supported_or_proven_count": 49,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -732,6 +737,7 @@
         "finance-duplicate-invoice-detection",
         "finance-gl-subledger-tieout",
         "finance-revenue-recognition",
+        "finance-thirteen-week-cash-plan",
         "finance-trial-balance-close",
         "finops-cloud-allocation",
         "finops-saas-license-utilization",
@@ -792,7 +798,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 78,
+      "supported_or_proven_count": 79,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -2953,6 +2959,76 @@
         "Revenue is spread across months by hand in a spreadsheet and never agrees with the deferred revenue balance or with what was invoiced.",
         "Every month-end someone rebuilds the deferred revenue roll-forward and cannot explain its movement contract by contract.",
         "An auditor asks how much of a contract was recognised in each period and why, including after it was upsold, repriced or cancelled part way through."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For each approved scenario version, roll cash forward over thirteen weeks from opening balances and approved open items, payroll and commitments, keeping the date and rule behind every movement and every item left out of the weeks visible with its reason and amount.",
+      "domain_objects": [
+        "cash_plan",
+        "plan_week",
+        "opening_cash_balance",
+        "receivable",
+        "payable",
+        "payroll_schedule",
+        "commitment",
+        "scenario_version",
+        "scenario_rule",
+        "expected_movement",
+        "set_aside_item"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "profiling-source-data",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "finance-thirteen-week-cash-plan",
+      "job_category": "build",
+      "path": "recipes/finance-thirteen-week-cash-plan/recipe.md",
+      "pitch": "Roll cash forward week by week for each approved scenario, with the date and rule behind every movement and nothing quietly dropped.",
+      "qualifiers": [
+        "Open items arrive as landed tables; aging them is a separate outcome.",
+        "Uses approved assumptions only; it is not a forecasting model or a recommendation to borrow or invest.",
+        "Stops at the plan; budget comparison, revaluation and ledger posting are separate outcomes.",
+        "A past plan as issued needs kept snapshots; a rebuild restates it.",
+        "A calendar or rate the rules need but the source lacks is reported as unproven.",
+        "Rates, calendars and rules are inputs; sourcing rates and detecting duplicate invoices are separate outcomes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "finance-ar-aging-dso",
+        "finance-ap-aging",
+        "finance-budget-forecast-actual",
+        "finance-duplicate-invoice-detection",
+        "revops-bookings-billings-cash"
+      ],
+      "sha256": "3dc9b11bd84a8ea55735d18362a133b78cd47eb3ba2cdd666c41c35bd8f95add",
+      "title": "Build a thirteen-week cash plan with traceable scenario assumptions",
+      "trigger": [
+        "The weekly cash view is a spreadsheet rebuilt by hand each week, and nobody can say which receipt, payment or assumption moved a week's balance.",
+        "Treasury needs a weekly roll-forward for each approved scenario, with the date and rule behind every expected movement, before the cash review.",
+        "Overdue invoices, disputed items, undated obligations and invoices listed in two inputs are handled differently by each person who builds the plan."
       ],
       "works_with": {
         "platforms": [
