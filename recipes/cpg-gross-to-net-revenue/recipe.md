@@ -13,6 +13,7 @@ area: transformation
 readiness: supported
 function:
   - finance
+  - revops
 industry:
   - cpg
 domain_objects:
@@ -48,6 +49,7 @@ related:
   - procurement-supplier-rebate-accrual
   - finance-revenue-recognition
   - order-return-contribution-margin
+  - finance-ar-aging-dso
   - file-drop-to-bronze
 evidence:
   features:
