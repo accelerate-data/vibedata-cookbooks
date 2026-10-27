@@ -11,6 +11,7 @@
     "bitemporal-business-history",
     "retail-reservation-availability-ledger",
     "operational-state-duration",
+    "manufacturing-production-order-flow",
     "product-sessionization-funnels",
     "logistics-fleet-utilization",
     "logistics-lane-on-time-performance",
