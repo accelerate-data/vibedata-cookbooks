@@ -78,7 +78,7 @@ Build <order_cost_model>, <cost_element_model>, <overhead_allocation_model>, <ov
 - A closed order with no good output, a negative net quantity and a posting after close are each published with their amount and flag, or named in a run failure, as approved; none is clamped, netted away at order level or divided by zero.
 - Postings are placed by the approved date; one after the cutoff is counted and excluded, and a late posting or changed cost reaching a reported cutoff is restated, entered as a labelled adjustment, or held out of a frozen cutoff and listed, as approved, never silently changing published figures.
 - Each output is unique on its approved grain, and orders, components, operations or cost centres from different plants are never merged because their identifiers match.
-- Published costs, effects, allocations and pool ties equal values derived independently from the sources and approved rules, including each edge case the approved rules define.
+- Published costs, effects, allocations and pool ties equal values derived independently from the sources and approved rules, including a standard revised after its selection point, an issue in another unit, a missing input, a shared pool that needs rounding and a zero-output order.
 
 ## Agent guidance
 
@@ -101,7 +101,7 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - If unresolved, how overhead reaches orders (actual pool allocated on a basis, or a predetermined rate leaving under- or over-absorption at the pool), whether machine time has its own rate, which pools and periods meet the cutoff, how its effects split, and what a pool no order absorbs does?
 - If unresolved, what a missing price, rate, pool or factor does (incomplete element, fallback or failure), which reason wins when several are missing, which factors are approved, whether rates and factors are dated, what rounding applies where, and do orders with an incomplete element publish totals?
 - If unresolved, which date places a posting (posting or event date), how a posting after close is treated, and whether a reported cutoff is frozen, restated or adjusted when a late posting or changed cost arrives?
-- If unresolved, what identifies a duplicate, how a correction or conflicting repeat is treated, and how an unknown order or component, a record in another currency, a negative net quantity and a missing recorded time are handled: set aside, flagged or failed?
+- If unresolved, what identifies a duplicate, how a correction or conflicting repeat is treated, and how an unknown order or component, a negative net quantity and a missing recorded time are handled (set aside, flagged or failed), and is a record in another currency set aside or failed?
 
 ### Guardrails
 
