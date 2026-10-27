@@ -35,7 +35,7 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Needs recorded movements per order and operation; movements are never inferred from plans or schedules.
+  - Needs recorded movements per order and operation; planned or scheduled quantities never stand in for them.
   - Finding unexplained loss needs an observation such as counted work in progress; without one it is reported unproven.
   - Quantities only; costing, cost variances and equipment time are separate outcomes.
   - One output item per operation; co-products and by-products are a separate outcome.
@@ -76,7 +76,7 @@ Build <movement_ledger_model>, <wip_position_model>, <order_yield_model>, <flow_
 - A position below zero, a receipt or reversal beyond the balance it meets, and a closed or cancelled order still holding work are each published, or named in a run failure, with their quantity under the approved disposition; none is clamped, netted away at a higher level or written off silently.
 - Movements, corrections, cancellations and versioned status and routing changes are placed by the approved date; on an event-date basis, one recorded after its cutoff is restated into it or entered as a labelled adjustment in the next, as approved, never dropped or silently changing a frozen cutoff.
 - Each output is unique on its approved grain, and orders, operations or units from different plants or sources are never merged because their identifiers match.
-- Published movements, positions, yields and exceptions equal values derived independently from the sources and approved rules, on cases including a rework loop that finally passes, a later-pass scrap, a split, a merge, an unconvertible quantity, an excess receipt and two cutoffs.
+- Published movements, positions, yields and exceptions equal values derived independently from the sources and approved rules, on cases including a rework loop that finally passes, a later-pass scrap, a split, a merge, an unconvertible quantity, an excess receipt, a disagreeing count and two cutoffs.
 
 ## Agent guidance
 
