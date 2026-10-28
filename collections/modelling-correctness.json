@@ -50,6 +50,7 @@
     "procurement-savings-realization",
     "sales-quote-order-price-reconciliation",
     "procurement-three-way-match",
+    "manufacturing-subcontract-production-reconciliation",
     "inventory-lot-traceability",
     "sales-commission-payout-ledger",
     "inventory-valuation-cogs",
