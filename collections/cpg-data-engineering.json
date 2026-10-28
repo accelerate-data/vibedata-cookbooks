@@ -1,0 +1,11 @@
+{
+  "id": "cpg-data-engineering",
+  "title": "CPG data engineering",
+  "kind": "industry",
+  "description": "Recipes for consumer packaged goods data engineering, including trade-promotion lift, gross-to-net revenue and distributor sell-in, sell-out and channel stock.",
+  "selector": {
+    "industry": [
+      "cpg"
+    ]
+  }
+}
