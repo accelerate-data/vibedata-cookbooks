@@ -62,9 +62,10 @@ Rebuild the <mapping_name> visual ETL mapping in the current Intent so that <con
 - Every source read is carried by a dlt pipeline, and each landed source has the row count of its source on the agreed slice under the approved filters.
 - Every output, rejects included, equals the mapping's reference run on the agreed slice under the approved equality contract, as a multiset in both directions, never by row order; a difference left is listed with its cause and parity is not claimed for it.
 - Published results equal values derived independently from the sources and the mapping's declared semantics, with a hand-derived result for each awkward input on the slice, such as a key with several lookup matches, a null key, a row in several branches or none, or a delete for a row never loaded.
-- Each input record is accounted for: it reaches each output it belongs to or an explicit drop with its reason, and per-output contributions add back to the input with no residue.
+- Each input record is accounted for: it is traceable to every output it reaches or to an explicit drop with its reason, and the outcome states how many were dropped and why.
+- Output multiplicity reconciles under the mapping's own lookup, routing and aggregate semantics: a key with several matches multiplies rows as the mapping does, a row sent to several groups reaches each, and per-output contributions add back to the inputs with no residue.
 - For lookup multiplicity, null and error treatment, branch conditions that overlap or leave rows out, update and delete disposition, and arithmetic or date handling, the mapping's construct, the code's construct and the verdict are stated, with the rows where each bites.
-- A rerun of the pipeline and models leaves each output as the approved load behaviour defines, with no record duplicated, lost or changed beyond load bookkeeping.
+- A rerun of the pipeline and models leaves each output as the approved load behaviour and incremental starting point define, with no record duplicated, lost or changed beyond load bookkeeping.
 - Each behaviour the code cannot reproduce, or reproduces differently, is listed with its trigger, the rows it affects and its cause; no defect of the mapping is corrected in the code, and each is listed as follow-up work.
 - A cutover and recovery method is specified, with the parallel-run comparison it needs, the approval it waits for and how to return to the old path; the mapping keeps running and no consumer changes in this work.
 - Anything the comparison cannot prove is stated, including where the reference run is not the mapping's own.
@@ -73,7 +74,7 @@ Rebuild the <mapping_name> visual ETL mapping in the current Intent so that <con
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and approved requirements. Read the export end to end first: its sources, lookups, expressions, branch conditions, update rules, reject outputs, parameters and runtime settings, and give each step a stable identifier the report can cite. Settle where the reference run on the agreed slice comes from, and what the awkward inputs are for each behaviour above, including null and unmatched keys, keys with several matches, rows in several branches or none, and deletes for rows never loaded. Carry each source read into the dlt pipeline and each transformation, branch and update rule into models that reproduce the mapping's declared behaviour, and trace each input record to every output it reaches or to its drop. Give every step its verdict, compare every output with the reference run, derive the awkward rows independently, list every difference with its cause, and state what the comparison cannot prove. Write the cutover and recovery method as a specification only.
+Inherit the Intent's repository, platform, Domain, sources and approved requirements. Read the export end to end first: its sources, lookups, expressions, branch conditions, update rules, reject outputs, parameters, persisted variables and runtime settings, and give each step a stable identifier the report can cite. Settle where the reference run on the agreed slice comes from, and what the awkward inputs are for each behaviour above, including null and unmatched keys, keys with several matches, rows in several branches or none, and deletes for rows never loaded. Carry each source read into the dlt pipeline and each transformation, branch and update rule into models that reproduce the mapping's declared behaviour, and trace each input record to every output it reaches or to its drop. Give every step its verdict, compare every output with the reference run, derive the awkward rows independently, list every difference with its cause, and state what the comparison cannot prove. Write the cutover and recovery method as a specification only.
 
 ### Compose
 
@@ -92,9 +93,9 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - If unresolved, which mapping is rebuilt, which resolved parameters and connections it runs with, and which input slice forms the comparison?
 - If unresolved, where does the mapping's reference run on that slice come from, a recorded run or a reference built from its declared semantics, and who approves it?
 - If unresolved, what counts as equal at each output: exact or an approved precision, which names, columns and types must hold, and which generated keys and runtime columns are reproduced, dropped or only reported?
-- If unresolved, which lookup match wins when several rows match a key, and what happens to a row whose lookup finds nothing or whose key is null?
+- If unresolved, when several rows match a lookup key, does one win (first, last or any), are all used, or is it an error, and what happens to a row whose lookup finds nothing or whose key is null?
 - If unresolved, what happens to a row that fits no branch or several: set aside, rejected or sent to each, and does each reject carry its reason?
-- If unresolved, how does a rerun treat rows already loaded (merge, append or overwrite), and are a delete for a row never loaded and an update that changes nothing reported or counted?
+- If unresolved, where does an incremental watermark or persisted variable start and how do a rerun and the cutover carry it, how does a rerun treat rows already loaded (merge, append or overwrite), and are a delete for a row never loaded and an update that changes nothing reported or counted?
 - If unresolved, what happens to a node the code cannot express: fail the conversion, set it aside and report it, or use a named substitute reported as a difference?
 - If unresolved, who approves the cutover, how long the parallel run lasts, and what returns consumers to the old path?
 
