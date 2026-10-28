@@ -41,7 +41,6 @@ qualifiers:
   - Resubmission precedence needs a submission identity and recorded time; without them, restatement is reported unproven.
   - Base-unit quantities only; retail sell-through, gross-to-net and forecasting are separate outcomes.
   - Reconciling one company's WMS, ERP and counts belongs to ops-inventory-reconciliation.
-  - Assessed end to end on duckdb_local only; other listed targets rely on dbt support and are unassessed.
   - Exported files go to file-drop-to-bronze first.
 related:
   - retail-sell-through-stockout
@@ -60,15 +59,15 @@ evidence:
 
 ## Prompt
 
-Build <ledger_model>, <market_model>, <feed_coverage_model> and <exceptions_model> from <shipment_source>, <secondary_sales_source>, <inventory_snapshot_source>, <receipt_source> where receipts are a separate feed, <return_source> where returns are a separate feed, <transfer_source> where transfers are a separate feed, <pack_mapping_source> and <code_crosswalk_source> where held or supplied. Inherit the semantics the Intent's approved requirements establish, and resolve with the user only those they leave open. Per approved distributor, product and fiscal month in the base unit, publish opening, receipts, transfers in and out, returns to the manufacturer, sell-out, outlet returns, adjustments, computed closing, the distributor's reported closing and the exact variance between them. Split manufacturer shipments into received and in transit at the approved cutoff, publish a market view with sell-in beside sell-out and channel stock, the last two each saying which distributor feeds are missing, show each distributor's feed state per month, and place every input record once or set it aside with one reason. Keep sources read-only and report what the inputs cannot prove.
+Build <ledger_model>, <market_model>, <feed_coverage_model> and <exceptions_model> from <shipment_source>, <secondary_sales_source>, <inventory_snapshot_source>, <receipt_source> where receipts are a separate feed, <return_source> where returns are a separate feed, <transfer_source> where transfers are a separate feed, <pack_mapping_source> and <code_crosswalk_source> where held or supplied. Inherit the Intent's approved semantics and resolve with the user only those left open. Per approved distributor, product and fiscal month in the base unit, publish opening, receipts, transfers in and out, returns to the manufacturer, sell-out, outlet returns, adjustments, computed closing, the distributor's reported closing and the exact variance. Split manufacturer shipments into received, in transit and any approved closed remainder at the approved cutoff, publish a market view at the approved grain with sell-in beside sell-out and channel stock, the last two each saying which distributor feeds are missing, show each distributor's feed state per month, and place every input record once or set it aside with one reason. Keep sources read-only and report what the inputs cannot prove.
 
 ## Verified by
 
-- On a run that completes, each ledger row foots exactly in the base unit: opening plus receipts and transfers in, less transfers out, returns to the manufacturer and sell-out, plus outlet returns and adjustments equals computed closing, up to any approved rounding shown beside it.
+- On a completed run, each ledger row foots in the base unit: opening plus receipts and transfers in, less transfers out, manufacturer returns and sell-out, plus outlet returns, adjustments and any other approved movement class (such as free goods), equals computed closing, up to approved rounding.
 - Variance is the distributor's reported closing less computed closing, shown and never plugged into a movement; it is blank where no snapshot was reported, and a month that opens away from the prior reported closing shows the break.
-- Each shipment line splits into received and in transit at the approved cutoff; a receipt with no shipment, one before its shipment and one beyond the shipped quantity are each flagged with the amount, and move stock only as approved.
+- Each shipment line splits at the approved cutoff into received, in transit and any remainder an approved rule closes (refused, lost, written off) with its reason; a receipt with no shipment, before it or beyond the shipped quantity is flagged with the amount and moves stock only as approved.
 - Transfers between distributors and sales to a distributor in the panel never enter market sell-out unless approved; a one-sided transfer stays visible, and in-transit quantity keeps shipments from the manufacturer apart from transfers between distributors where approved.
-- Each market row shows sell-in beside sell-out, never sell-in read as demand, and labels sell-out and channel stock complete or incomplete, naming the distributors whose feed is missing; no missing feed is imputed or carried forward unless approved.
+- Each market row shows sell-in beside sell-out, never sell-in read as demand, and labels sell-out and channel stock complete, incomplete or, where approved, imputed, naming the distributors whose feed is missing; no missing feed is imputed or carried forward unless approved.
 - Each distributor, month and feed has a state under the approved expected range and lateness rule; a month with no feed shows as missing, never as zero.
 - A resubmitted or duplicate submission follows the approved precedence, the superseded one stays visible with its count, and a restated month is counted once.
 - A computed negative stock is flagged and kept; any displayed floor follows the approved rule and the unclipped amount stays observable; a month, record or distributor the approved rules leave out is listed with its reason and moves no ledger measure.
@@ -101,11 +100,11 @@ Inherit the Intent's repository, platform, Domain, sources and every semantic de
 - If unresolved, how are returns to the manufacturer, outlet returns, adjustments, free, scheme or sample goods and cancelled or negative sale lines carried, and is market sell-out gross or net of outlet returns?
 - If unresolved, what opens the first month and each later month (prior reported or prior computed closing), what happens when they differ, which months a pair covers, what tolerance applies to variance, and is a negative computed stock flagged or floored?
 - If unresolved, which submission wins per distributor, month and feed, how are ties and duplicates handled, which cutoff and period rule decide late or restated records, how does a record date map to a fiscal month, and what are each feed's expected range, lateness and missing-time handling?
-- If unresolved, which distributors does a market row expect per product, which stock statuses, ownership and lots count in closing and channel stock, and with a feed missing does channel stock cover every holder (missing feed named) or only those reporting, or is anything imputed?
+- If unresolved, at what grain is a market row published (product, region, channel), which distributors does it expect, which stock statuses, ownership and lots count in closing and channel stock, and with a feed missing does channel stock cover every holder or only reporters, or is any imputed?
 
 ### Guardrails
 
-- Do not choose units, mappings, link keys, transfer treatment, opening basis, tolerance, precedence, cutoff or the channel stock basis for the user, and take none from the data or common practice; the user may ask for alternatives or a recommendation.
+- Do not choose units, mappings, link keys, transfer treatment, opening basis, tolerance, precedence, cutoff, market grain or the channel stock basis for the user, and take none from the data or common practice; the user may ask for alternatives or a recommendation.
 - Never read sell-in as demand, never count a transfer between distributors as sell-out unless approved, and never present a market figure as complete while a distributor feed is missing.
 - Never plug a variance into a movement, never hide a negative stock (a clipped display needs an approved rule), and keep a difference no rule explains visible.
 - Never read an absent feed or snapshot as zero, and never guess a pack size or map a code by name.
