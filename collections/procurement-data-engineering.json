@@ -11,6 +11,7 @@
     "finance-ap-aging",
     "procurement-supplier-rebate-accrual",
     "procurement-savings-realization",
-    "finops-saas-license-utilization"
+    "finops-saas-license-utilization",
+    "manufacturing-subcontract-production-reconciliation"
   ]
 }
