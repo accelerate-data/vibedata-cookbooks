@@ -6,6 +6,7 @@
   "members": [
     "adf-mapping-data-flow-to-dlt-dbt",
     "assess-synapse-ssis-for-fabric",
+    "visual-etl-mapping-to-dlt-dbt",
     "legacy-sql-to-dbt",
     "managed-connector-to-dlt",
     "materialized-view-to-dbt",

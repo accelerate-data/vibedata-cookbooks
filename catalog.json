@@ -1,6 +1,26 @@
 {
   "collections": [
     {
+      "description": "Recipes for consumer packaged goods data engineering, including trade-promotion lift, gross-to-net revenue and distributor sell-in, sell-out and channel stock.",
+      "id": "cpg-data-engineering",
+      "kind": "industry",
+      "resolved_members": [
+        "cpg-distributor-secondary-sales",
+        "cpg-gross-to-net-revenue",
+        "cpg-promotion-lift",
+        "cpg-shelf-life-fefo-eligibility"
+      ],
+      "selector": {
+        "industry": [
+          "cpg"
+        ]
+      },
+      "supported_or_proven_count": 4,
+      "title": "CPG data engineering",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
       "description": "Recipes for data engineers whose outcome no single business function owns, such as ingestion, dbt engineering, orchestration, identity and migration.",
       "id": "cross-functional",
       "kind": "function",
@@ -56,14 +76,15 @@
         "spark-ingestion-notebook-to-dlt",
         "stored-procedure-to-dbt",
         "telecom-cdr-usage",
-        "versioned-data-contract-cutover"
+        "versioned-data-contract-cutover",
+        "visual-etl-mapping-to-dlt-dbt"
       ],
       "selector": {
         "function": [
           "cross-functional"
         ]
       },
-      "supported_or_proven_count": 51,
+      "supported_or_proven_count": 52,
       "title": "Any domain",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -133,7 +154,10 @@
         "bounded-partition-backfill",
         "business-event-fact",
         "cost-attribution-by-model-job",
+        "cpg-distributor-secondary-sales",
+        "cpg-gross-to-net-revenue",
         "cpg-promotion-lift",
+        "cpg-shelf-life-fefo-eligibility",
         "cross-platform-dbt-macro",
         "cross-platform-live-reconciliation",
         "customer-consent-preferences",
@@ -176,6 +200,9 @@
         "logistics-lane-on-time-performance",
         "managed-connector-to-dlt",
         "manufacturing-oee-downtime",
+        "manufacturing-production-order-flow",
+        "manufacturing-standard-actual-cost",
+        "manufacturing-subcontract-production-reconciliation",
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "marketing-campaign-budget-pacing",
@@ -203,6 +230,9 @@
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
+        "retail-consignment-stock-liability",
+        "retail-marketplace-settlement",
+        "retail-pos-till-settlement",
         "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
@@ -224,14 +254,15 @@
         "telecom-cdr-usage",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
-        "versioned-data-contract-cutover"
+        "versioned-data-contract-cutover",
+        "visual-etl-mapping-to-dlt-dbt"
       ],
       "selector": {
         "platforms_any": [
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 101,
+      "supported_or_proven_count": 111,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -242,6 +273,7 @@
       "kind": "function",
       "resolved_members": [
         "banking-delinquency-vintages",
+        "cpg-gross-to-net-revenue",
         "customer-historical-ltv",
         "finance-ap-aging",
         "finance-ar-aging-dso",
@@ -257,6 +289,8 @@
         "healthcare-claims-remittance",
         "insurance-loss-triangles",
         "inventory-valuation-cogs",
+        "manufacturing-standard-actual-cost",
+        "manufacturing-subcontract-production-reconciliation",
         "marketing-acquisition-cost-payback",
         "marketing-campaign-budget-pacing",
         "master-b2b-account-hierarchy",
@@ -268,6 +302,9 @@
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "public-sector-grant-funds",
+        "retail-consignment-stock-liability",
+        "retail-marketplace-settlement",
+        "retail-pos-till-settlement",
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
         "sales-commission-payout-ledger",
@@ -281,7 +318,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 34,
+      "supported_or_proven_count": 40,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -291,6 +328,7 @@
       "id": "healthcare-and-life-sciences",
       "kind": "industry",
       "resolved_members": [
+        "cpg-shelf-life-fefo-eligibility",
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
         "life-sciences-enrollment"
@@ -301,7 +339,7 @@
           "life-sciences"
         ]
       },
-      "supported_or_proven_count": 3,
+      "supported_or_proven_count": 4,
       "title": "Healthcare and life sciences",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -339,7 +377,8 @@
         "governed-spreadsheet-table",
         "managed-connector-to-dlt",
         "spark-ingestion-notebook-to-dlt",
-        "telecom-cdr-usage"
+        "telecom-cdr-usage",
+        "visual-etl-mapping-to-dlt-dbt"
       ],
       "resolved_members": [
         "adf-mapping-data-flow-to-dlt-dbt",
@@ -351,9 +390,10 @@
         "governed-spreadsheet-table",
         "managed-connector-to-dlt",
         "spark-ingestion-notebook-to-dlt",
-        "telecom-cdr-usage"
+        "telecom-cdr-usage",
+        "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 10,
+      "supported_or_proven_count": 11,
       "title": "Ingest and reconcile source data",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -384,6 +424,7 @@
       "members": [
         "adf-mapping-data-flow-to-dlt-dbt",
         "assess-synapse-ssis-for-fabric",
+        "visual-etl-mapping-to-dlt-dbt",
         "legacy-sql-to-dbt",
         "managed-connector-to-dlt",
         "materialized-view-to-dbt",
@@ -405,9 +446,10 @@
         "scalar-sql-function-to-dbt-macro",
         "scd-procedure-to-dbt-snapshot",
         "spark-ingestion-notebook-to-dlt",
-        "stored-procedure-to-dbt"
+        "stored-procedure-to-dbt",
+        "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 10,
+      "supported_or_proven_count": 11,
       "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -450,14 +492,17 @@
       "resolved_members": [
         "effective-dated-bom-requirements",
         "inventory-lot-traceability",
-        "manufacturing-oee-downtime"
+        "manufacturing-oee-downtime",
+        "manufacturing-production-order-flow",
+        "manufacturing-standard-actual-cost",
+        "manufacturing-subcontract-production-reconciliation"
       ],
       "selector": {
         "industry": [
           "manufacturing"
         ]
       },
-      "supported_or_proven_count": 3,
+      "supported_or_proven_count": 6,
       "title": "Manufacturing data engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -495,7 +540,10 @@
         "batch-cdc-current-state",
         "business-event-fact",
         "cost-attribution-by-model-job",
+        "cpg-distributor-secondary-sales",
+        "cpg-gross-to-net-revenue",
         "cpg-promotion-lift",
+        "cpg-shelf-life-fefo-eligibility",
         "cross-platform-dbt-macro",
         "cross-platform-scheduled-job",
         "customer-consent-preferences",
@@ -533,6 +581,9 @@
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
+        "manufacturing-production-order-flow",
+        "manufacturing-standard-actual-cost",
+        "manufacturing-subcontract-production-reconciliation",
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "marketing-campaign-budget-pacing",
@@ -560,6 +611,8 @@
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
         "readiness-gated-orchestration",
+        "retail-marketplace-settlement",
+        "retail-pos-till-settlement",
         "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
@@ -608,7 +661,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 88,
+      "supported_or_proven_count": 96,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -623,8 +676,10 @@
         "event-resource-attribution",
         "dbt-snapshot-history",
         "bitemporal-business-history",
+        "retail-marketplace-settlement",
         "retail-reservation-availability-ledger",
         "operational-state-duration",
+        "manufacturing-production-order-flow",
         "product-sessionization-funnels",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
@@ -644,11 +699,14 @@
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "retail-sell-through-stockout",
+        "cpg-distributor-secondary-sales",
         "insurance-loss-triangles",
         "healthcare-readmission-cohort",
         "healthcare-claims-remittance",
         "banking-delinquency-vintages",
         "cpg-promotion-lift",
+        "cpg-shelf-life-fefo-eligibility",
+        "cpg-gross-to-net-revenue",
         "utilities-meter-to-bill",
         "telecom-cdr-usage",
         "life-sciences-enrollment",
@@ -656,17 +714,21 @@
         "finance-fixed-asset-rollforward",
         "usage-metering-rated-charges",
         "manufacturing-oee-downtime",
+        "manufacturing-standard-actual-cost",
         "hospitality-occupancy-adr-revpar",
         "public-sector-grant-funds",
         "cost-attribution-by-model-job",
         "versioned-data-contract-cutover",
         "order-return-contribution-margin",
+        "retail-pos-till-settlement",
         "procurement-savings-realization",
         "sales-quote-order-price-reconciliation",
         "procurement-three-way-match",
+        "manufacturing-subcontract-production-reconciliation",
         "inventory-lot-traceability",
         "sales-commission-payout-ledger",
         "inventory-valuation-cogs",
+        "retail-consignment-stock-liability",
         "sales-lead-opportunity-lifecycle",
         "sales-forecast-backtesting",
         "marketing-campaign-budget-pacing",
@@ -680,7 +742,10 @@
         "bitemporal-business-history",
         "business-event-fact",
         "cost-attribution-by-model-job",
+        "cpg-distributor-secondary-sales",
+        "cpg-gross-to-net-revenue",
         "cpg-promotion-lift",
+        "cpg-shelf-life-fefo-eligibility",
         "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
@@ -702,6 +767,9 @@
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
+        "manufacturing-production-order-flow",
+        "manufacturing-standard-actual-cost",
+        "manufacturing-subcontract-production-reconciliation",
         "marketing-attribution-models",
         "marketing-campaign-budget-pacing",
         "marketing-contact-pressure-eligibility",
@@ -716,6 +784,9 @@
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
+        "retail-consignment-stock-liability",
+        "retail-marketplace-settlement",
+        "retail-pos-till-settlement",
         "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "saas-mrr-waterfall-nrr",
@@ -731,7 +802,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 55,
+      "supported_or_proven_count": 64,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -748,7 +819,10 @@
         "batch-cdc-current-state",
         "business-event-fact",
         "cost-attribution-by-model-job",
+        "cpg-distributor-secondary-sales",
+        "cpg-gross-to-net-revenue",
         "cpg-promotion-lift",
+        "cpg-shelf-life-fefo-eligibility",
         "cross-platform-dbt-macro",
         "cross-platform-scheduled-job",
         "customer-consent-preferences",
@@ -784,6 +858,9 @@
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
+        "manufacturing-production-order-flow",
+        "manufacturing-standard-actual-cost",
+        "manufacturing-subcontract-production-reconciliation",
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "marketing-campaign-budget-pacing",
@@ -811,6 +888,9 @@
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
         "readiness-gated-orchestration",
+        "retail-consignment-stock-liability",
+        "retail-marketplace-settlement",
+        "retail-pos-till-settlement",
         "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
@@ -833,7 +913,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 85,
+      "supported_or_proven_count": 94,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -893,20 +973,45 @@
         "finance-ap-aging",
         "procurement-supplier-rebate-accrual",
         "procurement-savings-realization",
-        "finops-saas-license-utilization"
+        "finops-saas-license-utilization",
+        "manufacturing-subcontract-production-reconciliation"
       ],
       "resolved_members": [
         "finance-ap-aging",
         "finance-duplicate-invoice-detection",
         "finops-saas-license-utilization",
+        "manufacturing-subcontract-production-reconciliation",
         "ops-procurement-spend",
         "procurement-open-commitment-rollforward",
         "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match"
       ],
-      "supported_or_proven_count": 8,
+      "supported_or_proven_count": 9,
       "title": "Procurement data engineering",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
+      "description": "Recipes for retail data engineering, including stock availability and ownership, shelf-life allocation, sales margins, and marketplace and till settlement.",
+      "id": "retail-data-engineering",
+      "kind": "industry",
+      "resolved_members": [
+        "cpg-shelf-life-fefo-eligibility",
+        "order-return-contribution-margin",
+        "retail-consignment-stock-liability",
+        "retail-marketplace-settlement",
+        "retail-pos-till-settlement",
+        "retail-reservation-availability-ledger",
+        "retail-sell-through-stockout"
+      ],
+      "selector": {
+        "industry": [
+          "retail"
+        ]
+      },
+      "supported_or_proven_count": 7,
+      "title": "Retail data engineering",
       "website_publication_threshold": 1,
       "website_visible": true
     },
@@ -915,6 +1020,8 @@
       "id": "revenue-operations-data-engineering",
       "kind": "function",
       "resolved_members": [
+        "cpg-distributor-secondary-sales",
+        "cpg-gross-to-net-revenue",
         "cpg-promotion-lift",
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
@@ -936,7 +1043,7 @@
           "revops"
         ]
       },
-      "supported_or_proven_count": 15,
+      "supported_or_proven_count": 17,
       "title": "Revenue operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -980,12 +1087,17 @@
       "id": "supply-chain-and-operations-data-engineering",
       "kind": "function",
       "resolved_members": [
+        "cpg-distributor-secondary-sales",
+        "cpg-shelf-life-fefo-eligibility",
         "effective-dated-bom-requirements",
         "inventory-lot-traceability",
         "inventory-valuation-cogs",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
         "manufacturing-oee-downtime",
+        "manufacturing-production-order-flow",
+        "manufacturing-standard-actual-cost",
+        "manufacturing-subcontract-production-reconciliation",
         "master-product-sku-hierarchy",
         "ops-inventory-reconciliation",
         "ops-otif",
@@ -994,6 +1106,7 @@
         "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
+        "retail-consignment-stock-liability",
         "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "shift-unit-economics"
@@ -1003,7 +1116,7 @@
           "supply-chain-ops"
         ]
       },
-      "supported_or_proven_count": 17,
+      "supported_or_proven_count": 23,
       "title": "Supply chain and operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -1602,6 +1715,151 @@
     },
     {
       "area": "transformation",
+      "description": "Per approved distributor, product and fiscal month, publish a stock ledger in the base unit with exact variance, split sell-in into received and in transit, give a market view labelled by feed coverage, and place every input record once or set it aside with a reason.",
+      "domain_objects": [
+        "distributor",
+        "product",
+        "shipment_line",
+        "receipt_line",
+        "secondary_sale",
+        "inventory_snapshot",
+        "channel_stock",
+        "unit_of_measure",
+        "feed_coverage",
+        "channel_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops",
+        "revops"
+      ],
+      "id": "cpg-distributor-secondary-sales",
+      "industry": [
+        "cpg"
+      ],
+      "job_category": "build",
+      "path": "recipes/cpg-distributor-secondary-sales/recipe.md",
+      "pitch": "One stock ledger per distributor and product that foots to the unit, a market view that says what feed is missing, and a reason on every record set aside.",
+      "qualifiers": [
+        "Needs landed shipment, distributor sale and stock tables; other feeds and pack or code maps where held or supplied.",
+        "Resubmission precedence needs a submission identity and recorded time; without them, restatement is reported unproven.",
+        "Base-unit quantities only; retail sell-through, gross-to-net and forecasting are separate outcomes.",
+        "Reconciling one company's WMS, ERP and counts belongs to ops-inventory-reconciliation.",
+        "Exported files go to file-drop-to-bronze first."
+      ],
+      "readiness": "supported",
+      "related": [
+        "retail-sell-through-stockout",
+        "ops-inventory-reconciliation",
+        "cpg-promotion-lift",
+        "effective-dated-business-rules",
+        "master-product-sku-hierarchy",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "f6f8b35376708174febdb1d5c0c72e4cfa1b14ab8b67486257459d2fba79099e",
+      "title": "Reconcile sell-in, sell-out and channel stock in a distributor ledger and a market view labelled by feed coverage",
+      "trigger": [
+        "Sales ops, demand planning and channel finance each report a different sell-in, sell-out and channel stock figure, because distributors report in different units, codes and cutoffs.",
+        "A distributor's reported closing stock does not equal its opening stock plus receipts less sales, and nobody can say whether a movement, a late feed or a restatement explains it.",
+        "Sell-in is read as demand, although stock sits in transit, in the channel, or moves between distributors, and a missing distributor feed makes the market total look smaller than it is.",
+        "Distributor feeds arrive separately and are resubmitted, and records with unmapped codes or unconvertible packs drop out with no stated reason."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For an approved cutoff, build a gross-to-net waterfall at the approved customer, product and period grain and a trade-liability roll-forward by agreement and period, both tying under the user's approved rules and rounding, every amount traceable, every input amount placed once or set aside with one reason.",
+      "domain_objects": [
+        "customer",
+        "product",
+        "billing_line",
+        "credit_memo",
+        "trade_agreement",
+        "agreement_version",
+        "deduction",
+        "paid_claim",
+        "fiscal_calendar",
+        "disputed_deduction"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "revops"
+      ],
+      "id": "cpg-gross-to-net-revenue",
+      "industry": [
+        "cpg"
+      ],
+      "job_category": "build",
+      "path": "recipes/cpg-gross-to-net-revenue/recipe.md",
+      "pitch": "Net revenue and the trade liability that tie to the approved rounding, with every amount traced to its invoice, credit, claim and agreement.",
+      "qualifiers": [
+        "Needs billing lines, credit memos, trade agreements, deductions, claims and a fiscal calendar.",
+        "Stops at revenue reduction and trade liability; lift, margin, supplier rebates and recognition are separate.",
+        "Applies the approved accrual, matching and close rules; it does not decide them.",
+        "Tables already in the Domain; exported files go to file-drop-to-bronze first.",
+        "A source with no recorded time cannot show late changes; restatement then reads unproven."
+      ],
+      "readiness": "supported",
+      "related": [
+        "cpg-promotion-lift",
+        "effective-dated-business-rules",
+        "master-product-sku-hierarchy",
+        "procurement-supplier-rebate-accrual",
+        "finance-revenue-recognition",
+        "order-return-contribution-margin",
+        "finance-ar-aging-dso",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "26fd46aa6206f58e706b528519045dbcd62384dfeb14b66d181f4bbda1aaa5ea",
+      "title": "Build manufacturer gross-to-net revenue with trade accruals and settlements",
+      "trigger": [
+        "Revenue accounting closes the month by working gross to net in spreadsheets, nobody can audit them, and the trade accrual never ties to what customers claim.",
+        "Off-invoice discounts, returns, accrued trade spend and settlements are mixed in one number, so net revenue cannot be traced to the invoice, credit, deduction or agreement behind it.",
+        "Deductions and paid claims arrive without a clear agreement, and nobody can say which ones reduced the liability, which are disputed and which were quietly booked as promotion cost.",
+        "A trade agreement ends with a balance nobody released or expensed, or a customer is settled beyond what was accrued, and the liability no longer rolls forward."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "For each approved promotion event, compare actual sales in the event weeks with a baseline built under the user's approved method, show the method and its evidence on every row, report the post-event dip as its own figure, and give each unmeasurable event one reason or fail the run as approved.",
       "domain_objects": [
         "promotion_event",
@@ -1653,6 +1911,79 @@
         "Two promotions on one account and product overlap or run back to back, and the lift is credited to both or to neither.",
         "Cancelled events, events with bad dates and events with no sales history vanish from the results with no stated reason.",
         "The dip after a promotion is hidden inside the lift, so lifts cannot be compared from one event to the next."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "At an approved cutoff, publish each lot's shelf-life exposure and usable quantity, a first-expiry allocation of lots to open order lines under each customer's approved minimum life at receipt, a reason for every unmet quantity, and lot and line reconciliations.",
+      "domain_objects": [
+        "sku",
+        "lot",
+        "location",
+        "customer",
+        "order_line",
+        "shelf_life_rule",
+        "lane_lead_time",
+        "allocation"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops"
+      ],
+      "id": "cpg-shelf-life-fefo-eligibility",
+      "industry": [
+        "cpg",
+        "life-sciences",
+        "retail"
+      ],
+      "job_category": "build",
+      "path": "recipes/cpg-shelf-life-fefo-eligibility/recipe.md",
+      "pitch": "See which lots are ageing out, who each lot can serve and why a line stays short, with every lot and line placed once.",
+      "qualifiers": [
+        "Needs lot-location stock with expiry and status, open order lines, customer life rules and lane lead times as tables.",
+        "Life rules, lead times and band edges may be captured as editable data during the run.",
+        "A batch analytical proposal at one stated cutoff; dispatch, quality release and optimal allocation are separate.",
+        "Availability across channels is retail-reservation-availability-ledger; stockout risk is retail-sell-through-stockout.",
+        "Lot genealogy and recall tracing is inventory-lot-traceability; count reconciliation is ops-inventory-reconciliation.",
+        "Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze.",
+        "Without kept history or recorded times, a past cutoff and late corrections read unproven."
+      ],
+      "readiness": "supported",
+      "related": [
+        "retail-reservation-availability-ledger",
+        "retail-sell-through-stockout",
+        "inventory-lot-traceability",
+        "ops-inventory-reconciliation",
+        "inventory-valuation-cogs",
+        "effective-dated-business-rules",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "5e8794e538c4acff534ed33a76f72b2a294e2231c76279f4fec232af6f862a82",
+      "title": "Shelf-life exposure and first-expiry allocation eligibility by lot, location and open order line",
+      "trigger": [
+        "Planners cannot see which lots are close to expiry, how much of each is still usable, or how much will go unallocated, so stock is written off that a customer could have taken.",
+        "A customer rejects a delivery because the lot had too little shelf life left on arrival, and nobody can show which lots would have met that customer's minimum.",
+        "Customer service cannot say why an open order line is not covered when stock exists, because of held lots, short life at receipt or earlier lines taking the lot."
       ],
       "works_with": {
         "platforms": [
@@ -4444,6 +4775,228 @@
     },
     {
       "area": "transformation",
+      "description": "From production orders, material issues and returns, operation completions, scrap, rework, split and merge records and finished-goods receipts, publish a movement ledger, work in progress per order and operation at approved cutoffs that reconciles under the approved identity and tolerance, first-pass and final yield, and every quantity that cannot be placed.",
+      "domain_objects": [
+        "production_order",
+        "operation",
+        "material_issue",
+        "operation_completion",
+        "scrap_event",
+        "rework_event",
+        "goods_receipt",
+        "unit_conversion",
+        "wip_position",
+        "counted_wip"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops"
+      ],
+      "id": "manufacturing-production-order-flow",
+      "industry": [
+        "manufacturing"
+      ],
+      "job_category": "build",
+      "path": "recipes/manufacturing-production-order-flow/recipe.md",
+      "pitch": "Reconcile every production-order movement into work in progress and yield, so a reworked unit counts once and every unplaced quantity stays visible.",
+      "qualifiers": [
+        "Needs recorded movements per order and operation; planned or scheduled quantities never stand in for them.",
+        "Finding unexplained loss needs an observation such as counted work in progress; without one it is reported unproven.",
+        "Quantities only; costing, cost variances and equipment time are separate outcomes.",
+        "One output item per operation; co-products and by-products are a separate outcome.",
+        "Lot genealogy and recall exposure belong to inventory-lot-traceability.",
+        "Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze.",
+        "Holding a reported cutoff frozen, or showing what a restatement changed, needs kept source history or published rows.",
+        "A source with no recorded time cannot show late movements or status and routing changes; lateness is reported unproven."
+      ],
+      "readiness": "supported",
+      "related": [
+        "manufacturing-oee-downtime",
+        "inventory-lot-traceability",
+        "effective-dated-bom-requirements",
+        "inventory-valuation-cogs",
+        "ops-inventory-reconciliation",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "d90b2a22d875b4ed200ee8699a4b9b37230609f168e116253998a975e157c31c",
+      "title": "Reconcile production-order movements into work in progress by operation, first-pass and final yield, and exceptions",
+      "trigger": [
+        "Yield and work in progress come from a spreadsheet that counts a reworked unit as a second unit produced and cannot keep first-pass yield apart from final yield.",
+        "Opening work in progress plus what was started never equals closing work in progress, and nobody can say which operation lost the quantity.",
+        "Split, merge, scrap and finished-goods receipt records lose or double count quantity between operations of a production order."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "From production orders, standard versions with their bills of material and routings, material issues, labour and machine time, other order costs, rates, overhead pools and good receipts, publish standard and actual cost per order and element at the approved cutoff, the approved variance effects, overhead absorbed so each pool ties, and every incomplete element or set-aside record.",
+      "domain_objects": [
+        "production_order",
+        "standard_cost_version",
+        "bom_line",
+        "routing_operation",
+        "stock_movement",
+        "labour_time",
+        "machine_time",
+        "goods_receipt",
+        "unit_conversion",
+        "cost_center",
+        "cost_variance",
+        "cost_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "supply-chain-ops"
+      ],
+      "id": "manufacturing-standard-actual-cost",
+      "industry": [
+        "manufacturing"
+      ],
+      "job_category": "build",
+      "path": "recipes/manufacturing-standard-actual-cost/recipe.md",
+      "pitch": "Reconcile each production order's standard cost to actual by element, with every difference a named effect or a labelled exception and no rate made zero.",
+      "qualifiers": [
+        "Needs standard versions, dated where the approved rule selects by date, with BOM, routing, prices and rates behind each.",
+        "Needs recorded issues, hours and receipts per order, and overhead pools; planned quantities never stand in for actuals.",
+        "One currency per run; translating currencies is upstream work.",
+        "Quantity flow, yield, and reconciling or valuing work in progress are separate outcomes.",
+        "Setting or rolling up standards, purchase price variance at receipt and ledger posting are separate outcomes.",
+        "Valuing inventory, finished goods and cost of goods sold belongs to inventory-valuation-cogs.",
+        "Co-products, by-products and joint-cost splits are a separate outcome.",
+        "Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze.",
+        "A source with no recorded time on postings, rates or pools cannot show late changes; restatement then reads unproven."
+      ],
+      "readiness": "supported",
+      "related": [
+        "inventory-valuation-cogs",
+        "effective-dated-bom-requirements",
+        "finance-gross-margin-variance-bridge",
+        "manufacturing-oee-downtime",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "5db51a68dedb739c46befb63a2bfd9bae6e9eff60f6c54cbb5a27ea7c482d47b",
+      "title": "Reconcile production-order standard cost to actual by element, with variance effects, overhead absorption and exceptions",
+      "trigger": [
+        "Production-order variances are worked out in a spreadsheet nobody can audit, and nobody can say which standard version each variance was measured against.",
+        "Actual cost differs from standard on an order and nobody can split the difference into price, usage, rate, efficiency and overhead effects.",
+        "Overhead is absorbed by hand, the amounts charged to orders never tie back to the cost-centre pool, and a missing labour rate or conversion factor quietly becomes zero."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "From subcontract orders, approved components, transfers, returns, supplier reports, finished receipts and processing invoices, publish what is held at the subcontractor at the approved cutoff, the charge earned on delivered work with invoice lines matched to it, each supplier report compared with the approved quantity, and every exception.",
+      "domain_objects": [
+        "subcontract_order",
+        "supplier",
+        "bom_line",
+        "stock_transfer",
+        "goods_receipt_line",
+        "supplier_invoice_line",
+        "credit_note",
+        "unit_conversion",
+        "reconciliation_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops",
+        "finance"
+      ],
+      "id": "manufacturing-subcontract-production-reconciliation",
+      "industry": [
+        "manufacturing"
+      ],
+      "job_category": "build",
+      "path": "recipes/manufacturing-subcontract-production-reconciliation/recipe.md",
+      "pitch": "Show what sits at the subcontractor, how its reports compare with approved usage, and whether its invoices match delivered work, every input accounted for.",
+      "qualifiers": [
+        "Needs each order's approved components, quantity per finished unit, any allowance, its price basis and supplier.",
+        "Needs recorded transfers, returns, supplier reports, receipts with an accepted result, and invoice lines.",
+        "Covers components still company-owned at the subcontractor; buy-sell or consume-at-transfer is a separate outcome.",
+        "Supplier-reported figures never stand in for approved quantities unless the approved rule says so.",
+        "One subcontract process per order; chains of subcontract steps are a separate outcome.",
+        "One currency per order; translating currencies is upstream work.",
+        "Valuing components, WIP or COGS is inventory-valuation-cogs; purchased-goods matching is procurement-three-way-match.",
+        "A source with no recorded time cannot show late changes; restatement then reads unproven.",
+        "In-house production, standard cost, physical counts, supplier payment and ledger posting are separate outcomes.",
+        "Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze."
+      ],
+      "readiness": "supported",
+      "related": [
+        "procurement-three-way-match",
+        "inventory-valuation-cogs",
+        "ops-inventory-reconciliation",
+        "effective-dated-bom-requirements",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "2774180cd0494ab2d57c2c5e471c7e8dbd8ef9122f2a3dfb7ac98b173188c55a",
+      "title": "Reconcile components held at a subcontractor and processing charges to delivered work, with exceptions and coverage",
+      "trigger": [
+        "Nobody can say how much of the company's material is sitting at a subcontractor, because transfers, returns, scrap reports and finished receipts live in different places and are never netted.",
+        "A subcontractor's processing invoice is paid or disputed without checking it against what was accepted, so unbilled work, over-billing and price differences go unseen.",
+        "A subcontractor reports its own consumption or scrap and nobody can compare it with what the approved bill of material allows for the finished parts received."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Compute fully loaded acquisition cost, customers acquired and cumulative contribution by acquisition cohort and channel under the user's approved rules, with a payback verdict per cohort and every cost and customer accounted for.",
       "domain_objects": [
         "acquisition_cost",
@@ -6356,6 +6909,227 @@
     },
     {
       "area": "transformation",
+      "description": "At the approved dates and grains, publish stock by owner at each store and SKU with owned and consigned stock kept apart, the supplier obligation the approved liability event creates, reverses and settles, one movement ledger tying units and amounts to both, and every input record accounted for.",
+      "domain_objects": [
+        "supplier",
+        "supplier_contract",
+        "supplier_settlement",
+        "consignment_stock",
+        "stock_owner",
+        "consignment_obligation",
+        "stock_movement",
+        "stock_count",
+        "item_location",
+        "consignment_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "supply-chain-ops"
+      ],
+      "id": "retail-consignment-stock-liability",
+      "industry": [
+        "retail"
+      ],
+      "job_category": "build",
+      "path": "recipes/retail-consignment-stock-liability/recipe.md",
+      "pitch": "Know whose stock is on each shelf and what each supplier is owed, with nothing owed on receipt and every unit and amount tied back.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze.",
+        "A sale's owner comes from the source or an approved rule; a sale with neither follows the approved disposition.",
+        "Amounts stay in the contract currency unless approved conversion rates are supplied.",
+        "Stops at stock by owner and the supplier obligation; valuing stock, comparing systems, matching and paying are separate.",
+        "Obligations from the passage of time (aged-stock title transfer), minimum guarantees or tax postings are separate.",
+        "Repricing sales after the terms change needs dated contract versions; without them restatement is unproven.",
+        "A late or backdated record is detected only with a posted time; without one restatement is unproven."
+      ],
+      "readiness": "supported",
+      "related": [
+        "ops-inventory-reconciliation",
+        "inventory-valuation-cogs",
+        "procurement-three-way-match",
+        "procurement-supplier-rebate-accrual",
+        "retail-sell-through-stockout",
+        "effective-dated-business-rules",
+        "shared-fx-conversion",
+        "shared-calendar-fiscal-periods",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "606095c1c882352f2da21764d6cd4651eebdfdd088336e925dce3fe1c876ad68",
+      "title": "Reconcile consignment stock by owner and the amount owed to each supplier when their stock sells",
+      "trigger": [
+        "A supplier owns stock until it sells, that stock shares a store and SKU with stock we bought outright, and the stock report adds the two together.",
+        "Finance cannot say what is owed to each supplier because receipts, sales, returns, counts and settlements sit in different places and each treats consigned stock differently.",
+        "A customer return or a stock count lands against a store and SKU holding several owners' stock and nobody can say whose stock or whose obligation it changes."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "At each approved settlement cutoff, publish each order line's sale, refunds, fees, chargebacks and reserve movements, each order's and account's paid, held, adjusted, pending and outstanding amounts, and each payout batch's tie to what it carries, with every difference visible and every unplaceable record listed with its reason.",
+      "domain_objects": [
+        "order",
+        "order_line",
+        "refund",
+        "fee",
+        "chargeback",
+        "reserve_movement",
+        "payout_batch",
+        "statement_line",
+        "set_aside_record"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "retail-marketplace-settlement",
+      "industry": [
+        "retail"
+      ],
+      "job_category": "build",
+      "path": "recipes/retail-marketplace-settlement/recipe.md",
+      "pitch": "What each marketplace order settled for and what is still owed, with every payout tied to its lines and no fee or refund counted twice.",
+      "qualifiers": [
+        "Needs order lines, fees, refunds, chargebacks, reserve movements and payout batches with statement lines, landed.",
+        "A rate table, if conversion is approved, may be captured as editable data; no rate is inferred.",
+        "Stops at components, balances and the payout tie; margin, bank matching, tax and posting are separate.",
+        "Margin is order-return-contribution-margin; general bookings, billings and cash is revops-bookings-billings-cash.",
+        "Reproducing a past cutoff after later or corrected records needs kept source history; a rebuild restates it.",
+        "A rate with no effective dates is reported as unproven for past cutoffs.",
+        "Inputs are landed tables; loading statement exports belongs to file-drop-to-bronze."
+      ],
+      "readiness": "supported",
+      "related": [
+        "order-return-contribution-margin",
+        "revops-bookings-billings-cash",
+        "finance-ar-aging-dso",
+        "shared-fx-conversion",
+        "finance-gl-subledger-tieout",
+        "file-drop-to-bronze",
+        "healthcare-claims-remittance",
+        "retail-reservation-availability-ledger",
+        "sales-commission-payout-ledger"
+      ],
+      "sha256": "578806f39ced9a3dcf1cc051f8466e64c9d8266993dcaff7c1df78da4441baa0",
+      "title": "Reconcile marketplace orders to net payouts and held reserves by order line and settlement cutoff",
+      "trigger": [
+        "Finance cannot say what each marketplace order settled for or what is still owed, because fees, refunds, chargebacks and reserves are netted into payouts.",
+        "A fee or refund is deducted on the order and again in the payout, or a held reserve is treated as paid or as lost, and nobody can show which.",
+        "A payout does not equal the lines and reserve movements it carries, and no one can say which line, currency or timing difference explains the gap."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For approved store till sessions, reconcile POS sales, refunds and voids, tender lines and cash movements to the counted close, publish each session's expected cash, tender mix and over or short in the approved sign, and compare each store day's expected deposit with its slips, with every record placed, listed or counted with its reason.",
+      "domain_objects": [
+        "store",
+        "till_session",
+        "pos_event",
+        "tender_line",
+        "cash_movement",
+        "deposit_slip",
+        "till_settlement",
+        "settlement_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "retail-pos-till-settlement",
+      "industry": [
+        "retail"
+      ],
+      "job_category": "build",
+      "path": "recipes/retail-pos-till-settlement/recipe.md",
+      "pitch": "One row per till session shows expected cash, the count and the difference, with tenders apart and every deposit gap shown as in transit or a variance.",
+      "qualifiers": [
+        "Needs landed POS events, tender lines, till sessions and their counted closes, cash movements and deposit slips.",
+        "Rules, reasons, tolerance and retained float need approval; they may be captured as editable data.",
+        "A rule change restates a published day only as approved.",
+        "Without a recorded event identity, duplicate detection is unproven.",
+        "Reports the cash the records show, not why a till is short.",
+        "Settles the counted drawer; cashier attribution is separate.",
+        "Stops at the deposit slip; bank statements, processor payouts and order margin are separate.",
+        "Loading files belongs to file-drop-to-bronze; currency conversion to shared-fx-conversion."
+      ],
+      "readiness": "supported",
+      "related": [
+        "order-return-contribution-margin",
+        "finance-gl-subledger-tieout",
+        "retail-sell-through-stockout",
+        "file-drop-to-bronze",
+        "shared-fx-conversion",
+        "effective-dated-business-rules"
+      ],
+      "sha256": "6f71c922f32fdf4b99a19b68acd616e23d129f0b39b9d0c1b6095621e8076a9a",
+      "title": "Settle store till sessions to counted cash, tender mix and deposit slips with an explicit over or short",
+      "trigger": [
+        "Stores count each till at shift close and Finance cannot tell which shortages are real and which come from how the POS records voids, refunds, change and float moves.",
+        "A split-tender sale, a voided sale or a float transfer between tills is counted as revenue or cash twice, or not at all, and the till never reconciles.",
+        "A store deposit differs from what the tills dropped and nobody can say whether cash is missing or simply not yet banked."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "At each approved nightly cutoff, publish for every SKU and location the physical, quarantined, in-transit and validly reserved quantities and the available-to-promise quantity under the approved policy, keep physical and reserved balances reconciling on their own, and place every record or list it with its reason.",
       "domain_objects": [
         "sku",
@@ -7795,6 +8569,71 @@
           "redshift"
         ],
         "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Rebuild one exported visual ETL mapping as a dlt pipeline for its source reads and dbt models for its transformation graph, with a verdict for every step, every output including rejects compared with the mapping's reference run, and a specified cutover and recovery path that keeps the old path available.",
+      "domain_objects": [
+        "etl_mapping",
+        "dlt_pipeline",
+        "dbt_model",
+        "sink",
+        "reject_path",
+        "consumer_contract",
+        "reference_output",
+        "conversion_report",
+        "parity_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "add-or-update-source",
+          "generating-dlt-pipeline",
+          "ingestion-data-testing",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "documenting-dbt-models",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "visual-etl-mapping-to-dlt-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/visual-etl-mapping-to-dlt-dbt/recipe.md",
+      "pitch": "Rebuild a visual ETL mapping as dlt and dbt code, prove each output and reject path against its reference run, and specify the cutover.",
+      "qualifiers": [
+        "Needs a readable export of the mapping, its resolved parameters and read access to its sources.",
+        "Needs the mapping's own output on the agreed slice, or an approved reference built from its declared semantics.",
+        "Studio has no connection to the visual ETL tool; the mapping is read from its export and never run or edited."
+      ],
+      "readiness": "supported",
+      "related": [
+        "adf-mapping-data-flow-to-dlt-dbt",
+        "legacy-sql-to-dbt",
+        "stored-procedure-to-dbt",
+        "notebook-transformation-to-dbt",
+        "spark-ingestion-notebook-to-dlt"
+      ],
+      "sha256": "e681ad6cbce26236e2012dbd0f5a08da87b716cdea6864b67f3ab9d97bed9743",
+      "title": "Rebuild an exported visual ETL mapping as dlt and dbt and prove parity",
+      "trigger": [
+        "A load into a fact or reporting table still runs from a mapping built in a visual ETL tool, and its lookups, filters, routing and insert-update-delete rules are visible only on the tool's canvas.",
+        "The team is leaving the visual ETL tool and needs the mapping's reads, transformations, reject path and outputs as dlt and dbt code that can be reviewed and tested.",
+        "Someone has to show the rebuilt outputs match what the mapping writes, including its rejects, before consumers are moved off it."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dlt",
           "dbt"
         ]
       }
