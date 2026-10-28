@@ -76,14 +76,15 @@
         "spark-ingestion-notebook-to-dlt",
         "stored-procedure-to-dbt",
         "telecom-cdr-usage",
-        "versioned-data-contract-cutover"
+        "versioned-data-contract-cutover",
+        "visual-etl-mapping-to-dlt-dbt"
       ],
       "selector": {
         "function": [
           "cross-functional"
         ]
       },
-      "supported_or_proven_count": 51,
+      "supported_or_proven_count": 52,
       "title": "Any domain",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -253,14 +254,15 @@
         "telecom-cdr-usage",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
-        "versioned-data-contract-cutover"
+        "versioned-data-contract-cutover",
+        "visual-etl-mapping-to-dlt-dbt"
       ],
       "selector": {
         "platforms_any": [
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 110,
+      "supported_or_proven_count": 111,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -375,7 +377,8 @@
         "governed-spreadsheet-table",
         "managed-connector-to-dlt",
         "spark-ingestion-notebook-to-dlt",
-        "telecom-cdr-usage"
+        "telecom-cdr-usage",
+        "visual-etl-mapping-to-dlt-dbt"
       ],
       "resolved_members": [
         "adf-mapping-data-flow-to-dlt-dbt",
@@ -387,9 +390,10 @@
         "governed-spreadsheet-table",
         "managed-connector-to-dlt",
         "spark-ingestion-notebook-to-dlt",
-        "telecom-cdr-usage"
+        "telecom-cdr-usage",
+        "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 10,
+      "supported_or_proven_count": 11,
       "title": "Ingest and reconcile source data",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -420,6 +424,7 @@
       "members": [
         "adf-mapping-data-flow-to-dlt-dbt",
         "assess-synapse-ssis-for-fabric",
+        "visual-etl-mapping-to-dlt-dbt",
         "legacy-sql-to-dbt",
         "managed-connector-to-dlt",
         "materialized-view-to-dbt",
@@ -441,9 +446,10 @@
         "scalar-sql-function-to-dbt-macro",
         "scd-procedure-to-dbt-snapshot",
         "spark-ingestion-notebook-to-dlt",
-        "stored-procedure-to-dbt"
+        "stored-procedure-to-dbt",
+        "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 10,
+      "supported_or_proven_count": 11,
       "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -8540,6 +8546,71 @@
           "redshift"
         ],
         "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Rebuild one exported visual ETL mapping as a dlt pipeline for its source reads and dbt models for its transformation graph, with a verdict for every step, every output including rejects compared with the mapping's reference run, and a specified cutover and recovery path that keeps the old path available.",
+      "domain_objects": [
+        "etl_mapping",
+        "dlt_pipeline",
+        "dbt_model",
+        "sink",
+        "reject_path",
+        "consumer_contract",
+        "reference_output",
+        "conversion_report",
+        "parity_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "add-or-update-source",
+          "generating-dlt-pipeline",
+          "ingestion-data-testing",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "documenting-dbt-models",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "visual-etl-mapping-to-dlt-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/visual-etl-mapping-to-dlt-dbt/recipe.md",
+      "pitch": "Rebuild a visual ETL mapping as dlt and dbt code, prove each output and reject path against its reference run, and specify the cutover.",
+      "qualifiers": [
+        "Needs a readable export of the mapping, its resolved parameters and read access to its sources.",
+        "Needs the mapping's own output on the agreed slice, or an approved reference built from its declared semantics.",
+        "Studio has no connection to the visual ETL tool; the mapping is read from its export and never run or edited."
+      ],
+      "readiness": "supported",
+      "related": [
+        "adf-mapping-data-flow-to-dlt-dbt",
+        "legacy-sql-to-dbt",
+        "stored-procedure-to-dbt",
+        "notebook-transformation-to-dbt",
+        "spark-ingestion-notebook-to-dlt"
+      ],
+      "sha256": "e681ad6cbce26236e2012dbd0f5a08da87b716cdea6864b67f3ab9d97bed9743",
+      "title": "Rebuild an exported visual ETL mapping as dlt and dbt and prove parity",
+      "trigger": [
+        "A load into a fact or reporting table still runs from a mapping built in a visual ETL tool, and its lookups, filters, routing and insert-update-delete rules are visible only on the tool's canvas.",
+        "The team is leaving the visual ETL tool and needs the mapping's reads, transformations, reject path and outputs as dlt and dbt code that can be reviewed and tested.",
+        "Someone has to show the rebuilt outputs match what the mapping writes, including its rejects, before consumers are moved off it."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dlt",
           "dbt"
         ]
       }
