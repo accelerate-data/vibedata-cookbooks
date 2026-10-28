@@ -7,14 +7,15 @@
       "resolved_members": [
         "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
-        "cpg-promotion-lift"
+        "cpg-promotion-lift",
+        "cpg-shelf-life-fefo-eligibility"
       ],
       "selector": {
         "industry": [
           "cpg"
         ]
       },
-      "supported_or_proven_count": 3,
+      "supported_or_proven_count": 4,
       "title": "CPG data engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -155,6 +156,7 @@
         "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
         "cpg-promotion-lift",
+        "cpg-shelf-life-fefo-eligibility",
         "cross-platform-dbt-macro",
         "cross-platform-live-reconciliation",
         "customer-consent-preferences",
@@ -257,7 +259,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 108,
+      "supported_or_proven_count": 109,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -322,6 +324,7 @@
       "id": "healthcare-and-life-sciences",
       "kind": "industry",
       "resolved_members": [
+        "cpg-shelf-life-fefo-eligibility",
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
         "life-sciences-enrollment"
@@ -332,7 +335,7 @@
           "life-sciences"
         ]
       },
-      "supported_or_proven_count": 3,
+      "supported_or_proven_count": 4,
       "title": "Healthcare and life sciences",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -532,6 +535,7 @@
         "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
         "cpg-promotion-lift",
+        "cpg-shelf-life-fefo-eligibility",
         "cross-platform-dbt-macro",
         "cross-platform-scheduled-job",
         "customer-consent-preferences",
@@ -649,7 +653,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 95,
+      "supported_or_proven_count": 96,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -693,6 +697,7 @@
         "healthcare-claims-remittance",
         "banking-delinquency-vintages",
         "cpg-promotion-lift",
+        "cpg-shelf-life-fefo-eligibility",
         "cpg-gross-to-net-revenue",
         "utilities-meter-to-bill",
         "telecom-cdr-usage",
@@ -731,6 +736,7 @@
         "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
         "cpg-promotion-lift",
+        "cpg-shelf-life-fefo-eligibility",
         "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
@@ -786,7 +792,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 62,
+      "supported_or_proven_count": 63,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -806,6 +812,7 @@
         "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
         "cpg-promotion-lift",
+        "cpg-shelf-life-fefo-eligibility",
         "cross-platform-dbt-macro",
         "cross-platform-scheduled-job",
         "customer-consent-preferences",
@@ -895,7 +902,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 92,
+      "supported_or_proven_count": 93,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1047,6 +1054,7 @@
       "kind": "function",
       "resolved_members": [
         "cpg-distributor-secondary-sales",
+        "cpg-shelf-life-fefo-eligibility",
         "effective-dated-bom-requirements",
         "inventory-lot-traceability",
         "inventory-valuation-cogs",
@@ -1073,7 +1081,7 @@
           "supply-chain-ops"
         ]
       },
-      "supported_or_proven_count": 21,
+      "supported_or_proven_count": 22,
       "title": "Supply chain and operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -1868,6 +1876,79 @@
         "Two promotions on one account and product overlap or run back to back, and the lift is credited to both or to neither.",
         "Cancelled events, events with bad dates and events with no sales history vanish from the results with no stated reason.",
         "The dip after a promotion is hidden inside the lift, so lifts cannot be compared from one event to the next."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "At an approved cutoff, publish each lot's shelf-life exposure and usable quantity, a first-expiry allocation of lots to open order lines under each customer's approved minimum life at receipt, a reason for every unmet quantity, and lot and line reconciliations.",
+      "domain_objects": [
+        "sku",
+        "lot",
+        "location",
+        "customer",
+        "order_line",
+        "shelf_life_rule",
+        "lane_lead_time",
+        "allocation"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops"
+      ],
+      "id": "cpg-shelf-life-fefo-eligibility",
+      "industry": [
+        "cpg",
+        "life-sciences",
+        "retail"
+      ],
+      "job_category": "build",
+      "path": "recipes/cpg-shelf-life-fefo-eligibility/recipe.md",
+      "pitch": "See which lots are ageing out, who each lot can serve and why a line stays short, with every lot and line placed once.",
+      "qualifiers": [
+        "Needs lot-location stock with expiry and status, open order lines, customer life rules and lane lead times as tables.",
+        "Life rules, lead times and band edges may be captured as editable data during the run.",
+        "A batch analytical proposal at one stated cutoff; dispatch, quality release and optimal allocation are separate.",
+        "Availability across channels is retail-reservation-availability-ledger; stockout risk is retail-sell-through-stockout.",
+        "Lot genealogy and recall tracing is inventory-lot-traceability; count reconciliation is ops-inventory-reconciliation.",
+        "Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze.",
+        "Without kept history or recorded times, a past cutoff and late corrections read unproven."
+      ],
+      "readiness": "supported",
+      "related": [
+        "retail-reservation-availability-ledger",
+        "retail-sell-through-stockout",
+        "inventory-lot-traceability",
+        "ops-inventory-reconciliation",
+        "inventory-valuation-cogs",
+        "effective-dated-business-rules",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "5e8794e538c4acff534ed33a76f72b2a294e2231c76279f4fec232af6f862a82",
+      "title": "Shelf-life exposure and first-expiry allocation eligibility by lot, location and open order line",
+      "trigger": [
+        "Planners cannot see which lots are close to expiry, how much of each is still usable, or how much will go unallocated, so stock is written off that a customer could have taken.",
+        "A customer rejects a delivery because the lot had too little shelf life left on arrival, and nobody can show which lots would have met that customer's minimum.",
+        "Customer service cannot say why an open order line is not covered when stock exists, because of held lots, short life at receipt or earlier lines taking the lot."
       ],
       "works_with": {
         "platforms": [
