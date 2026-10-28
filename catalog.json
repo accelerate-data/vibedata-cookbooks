@@ -1,6 +1,25 @@
 {
   "collections": [
     {
+      "description": "Recipes for consumer packaged goods data engineering, including trade-promotion lift, gross-to-net revenue and distributor sell-in, sell-out and channel stock.",
+      "id": "cpg-data-engineering",
+      "kind": "industry",
+      "resolved_members": [
+        "cpg-distributor-secondary-sales",
+        "cpg-gross-to-net-revenue",
+        "cpg-promotion-lift"
+      ],
+      "selector": {
+        "industry": [
+          "cpg"
+        ]
+      },
+      "supported_or_proven_count": 3,
+      "title": "CPG data engineering",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
       "description": "Recipes for data engineers whose outcome no single business function owns, such as ingestion, dbt engineering, orchestration, identity and migration.",
       "id": "cross-functional",
       "kind": "function",
@@ -133,6 +152,7 @@
         "bounded-partition-backfill",
         "business-event-fact",
         "cost-attribution-by-model-job",
+        "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
         "cpg-promotion-lift",
         "cross-platform-dbt-macro",
@@ -179,6 +199,7 @@
         "manufacturing-oee-downtime",
         "manufacturing-production-order-flow",
         "manufacturing-standard-actual-cost",
+        "manufacturing-subcontract-production-reconciliation",
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "marketing-campaign-budget-pacing",
@@ -236,7 +257,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 106,
+      "supported_or_proven_count": 108,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -264,6 +285,7 @@
         "insurance-loss-triangles",
         "inventory-valuation-cogs",
         "manufacturing-standard-actual-cost",
+        "manufacturing-subcontract-production-reconciliation",
         "marketing-acquisition-cost-payback",
         "marketing-campaign-budget-pacing",
         "master-b2b-account-hierarchy",
@@ -290,7 +312,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 38,
+      "supported_or_proven_count": 39,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -461,14 +483,15 @@
         "inventory-lot-traceability",
         "manufacturing-oee-downtime",
         "manufacturing-production-order-flow",
-        "manufacturing-standard-actual-cost"
+        "manufacturing-standard-actual-cost",
+        "manufacturing-subcontract-production-reconciliation"
       ],
       "selector": {
         "industry": [
           "manufacturing"
         ]
       },
-      "supported_or_proven_count": 5,
+      "supported_or_proven_count": 6,
       "title": "Manufacturing data engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -506,6 +529,7 @@
         "batch-cdc-current-state",
         "business-event-fact",
         "cost-attribution-by-model-job",
+        "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
         "cpg-promotion-lift",
         "cross-platform-dbt-macro",
@@ -547,6 +571,7 @@
         "manufacturing-oee-downtime",
         "manufacturing-production-order-flow",
         "manufacturing-standard-actual-cost",
+        "manufacturing-subcontract-production-reconciliation",
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "marketing-campaign-budget-pacing",
@@ -624,7 +649,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 93,
+      "supported_or_proven_count": 95,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -662,6 +687,7 @@
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "retail-sell-through-stockout",
+        "cpg-distributor-secondary-sales",
         "insurance-loss-triangles",
         "healthcare-readmission-cohort",
         "healthcare-claims-remittance",
@@ -685,6 +711,7 @@
         "procurement-savings-realization",
         "sales-quote-order-price-reconciliation",
         "procurement-three-way-match",
+        "manufacturing-subcontract-production-reconciliation",
         "inventory-lot-traceability",
         "sales-commission-payout-ledger",
         "inventory-valuation-cogs",
@@ -701,6 +728,7 @@
         "bitemporal-business-history",
         "business-event-fact",
         "cost-attribution-by-model-job",
+        "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
         "cpg-promotion-lift",
         "customer-consent-preferences",
@@ -726,6 +754,7 @@
         "manufacturing-oee-downtime",
         "manufacturing-production-order-flow",
         "manufacturing-standard-actual-cost",
+        "manufacturing-subcontract-production-reconciliation",
         "marketing-attribution-models",
         "marketing-campaign-budget-pacing",
         "marketing-contact-pressure-eligibility",
@@ -757,7 +786,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 60,
+      "supported_or_proven_count": 62,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -774,6 +803,7 @@
         "batch-cdc-current-state",
         "business-event-fact",
         "cost-attribution-by-model-job",
+        "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
         "cpg-promotion-lift",
         "cross-platform-dbt-macro",
@@ -813,6 +843,7 @@
         "manufacturing-oee-downtime",
         "manufacturing-production-order-flow",
         "manufacturing-standard-actual-cost",
+        "manufacturing-subcontract-production-reconciliation",
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "marketing-campaign-budget-pacing",
@@ -864,7 +895,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 90,
+      "supported_or_proven_count": 92,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -924,19 +955,21 @@
         "finance-ap-aging",
         "procurement-supplier-rebate-accrual",
         "procurement-savings-realization",
-        "finops-saas-license-utilization"
+        "finops-saas-license-utilization",
+        "manufacturing-subcontract-production-reconciliation"
       ],
       "resolved_members": [
         "finance-ap-aging",
         "finance-duplicate-invoice-detection",
         "finops-saas-license-utilization",
+        "manufacturing-subcontract-production-reconciliation",
         "ops-procurement-spend",
         "procurement-open-commitment-rollforward",
         "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match"
       ],
-      "supported_or_proven_count": 8,
+      "supported_or_proven_count": 9,
       "title": "Procurement data engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -946,6 +979,7 @@
       "id": "revenue-operations-data-engineering",
       "kind": "function",
       "resolved_members": [
+        "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
         "cpg-promotion-lift",
         "marketing-acquisition-cost-payback",
@@ -968,7 +1002,7 @@
           "revops"
         ]
       },
-      "supported_or_proven_count": 16,
+      "supported_or_proven_count": 17,
       "title": "Revenue operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -1012,6 +1046,7 @@
       "id": "supply-chain-and-operations-data-engineering",
       "kind": "function",
       "resolved_members": [
+        "cpg-distributor-secondary-sales",
         "effective-dated-bom-requirements",
         "inventory-lot-traceability",
         "inventory-valuation-cogs",
@@ -1020,6 +1055,7 @@
         "manufacturing-oee-downtime",
         "manufacturing-production-order-flow",
         "manufacturing-standard-actual-cost",
+        "manufacturing-subcontract-production-reconciliation",
         "master-product-sku-hierarchy",
         "ops-inventory-reconciliation",
         "ops-otif",
@@ -1037,7 +1073,7 @@
           "supply-chain-ops"
         ]
       },
-      "supported_or_proven_count": 19,
+      "supported_or_proven_count": 21,
       "title": "Supply chain and operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -1620,6 +1656,77 @@
         "Billed time that nobody used, or work nobody can tie to a model or job, is spread across whoever ran last or dropped.",
         "Concurrent queries are each charged their full time, so the shares add up to more than the bill.",
         "Failed, cancelled, retried and re-sent log rows change the answer and nobody can explain how."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Per approved distributor, product and fiscal month, publish a stock ledger in the base unit with exact variance, split sell-in into received and in transit, give a market view labelled by feed coverage, and place every input record once or set it aside with a reason.",
+      "domain_objects": [
+        "distributor",
+        "product",
+        "shipment_line",
+        "receipt_line",
+        "secondary_sale",
+        "inventory_snapshot",
+        "channel_stock",
+        "unit_of_measure",
+        "feed_coverage",
+        "channel_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops",
+        "revops"
+      ],
+      "id": "cpg-distributor-secondary-sales",
+      "industry": [
+        "cpg"
+      ],
+      "job_category": "build",
+      "path": "recipes/cpg-distributor-secondary-sales/recipe.md",
+      "pitch": "One stock ledger per distributor and product that foots to the unit, a market view that says what feed is missing, and a reason on every record set aside.",
+      "qualifiers": [
+        "Needs landed shipment, distributor sale and stock tables; other feeds and pack or code maps where held or supplied.",
+        "Resubmission precedence needs a submission identity and recorded time; without them, restatement is reported unproven.",
+        "Base-unit quantities only; retail sell-through, gross-to-net and forecasting are separate outcomes.",
+        "Reconciling one company's WMS, ERP and counts belongs to ops-inventory-reconciliation.",
+        "Exported files go to file-drop-to-bronze first."
+      ],
+      "readiness": "supported",
+      "related": [
+        "retail-sell-through-stockout",
+        "ops-inventory-reconciliation",
+        "cpg-promotion-lift",
+        "effective-dated-business-rules",
+        "master-product-sku-hierarchy",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "f6f8b35376708174febdb1d5c0c72e4cfa1b14ab8b67486257459d2fba79099e",
+      "title": "Reconcile sell-in, sell-out and channel stock in a distributor ledger and a market view labelled by feed coverage",
+      "trigger": [
+        "Sales ops, demand planning and channel finance each report a different sell-in, sell-out and channel stock figure, because distributors report in different units, codes and cutoffs.",
+        "A distributor's reported closing stock does not equal its opening stock plus receipts less sales, and nobody can say whether a movement, a late feed or a restatement explains it.",
+        "Sell-in is read as demand, although stock sits in transit, in the channel, or moves between distributors, and a missing distributor feed makes the market total look smaller than it is.",
+        "Distributor feeds arrive separately and are resubmitted, and records with unmapped codes or unconvertible packs drop out with no stated reason."
       ],
       "works_with": {
         "platforms": [
@@ -4685,6 +4792,79 @@
         "Production-order variances are worked out in a spreadsheet nobody can audit, and nobody can say which standard version each variance was measured against.",
         "Actual cost differs from standard on an order and nobody can split the difference into price, usage, rate, efficiency and overhead effects.",
         "Overhead is absorbed by hand, the amounts charged to orders never tie back to the cost-centre pool, and a missing labour rate or conversion factor quietly becomes zero."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "From subcontract orders, approved components, transfers, returns, supplier reports, finished receipts and processing invoices, publish what is held at the subcontractor at the approved cutoff, the charge earned on delivered work with invoice lines matched to it, each supplier report compared with the approved quantity, and every exception.",
+      "domain_objects": [
+        "subcontract_order",
+        "supplier",
+        "bom_line",
+        "stock_transfer",
+        "goods_receipt_line",
+        "supplier_invoice_line",
+        "credit_note",
+        "unit_conversion",
+        "reconciliation_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops",
+        "finance"
+      ],
+      "id": "manufacturing-subcontract-production-reconciliation",
+      "industry": [
+        "manufacturing"
+      ],
+      "job_category": "build",
+      "path": "recipes/manufacturing-subcontract-production-reconciliation/recipe.md",
+      "pitch": "Show what sits at the subcontractor, how its reports compare with approved usage, and whether its invoices match delivered work, every input accounted for.",
+      "qualifiers": [
+        "Needs each order's approved components, quantity per finished unit, any allowance, its price basis and supplier.",
+        "Needs recorded transfers, returns, supplier reports, receipts with an accepted result, and invoice lines.",
+        "Covers components still company-owned at the subcontractor; buy-sell or consume-at-transfer is a separate outcome.",
+        "Supplier-reported figures never stand in for approved quantities unless the approved rule says so.",
+        "One subcontract process per order; chains of subcontract steps are a separate outcome.",
+        "One currency per order; translating currencies is upstream work.",
+        "Valuing components, WIP or COGS is inventory-valuation-cogs; purchased-goods matching is procurement-three-way-match.",
+        "A source with no recorded time cannot show late changes; restatement then reads unproven.",
+        "In-house production, standard cost, physical counts, supplier payment and ledger posting are separate outcomes.",
+        "Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze."
+      ],
+      "readiness": "supported",
+      "related": [
+        "procurement-three-way-match",
+        "inventory-valuation-cogs",
+        "ops-inventory-reconciliation",
+        "effective-dated-bom-requirements",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "2774180cd0494ab2d57c2c5e471c7e8dbd8ef9122f2a3dfb7ac98b173188c55a",
+      "title": "Reconcile components held at a subcontractor and processing charges to delivered work, with exceptions and coverage",
+      "trigger": [
+        "Nobody can say how much of the company's material is sitting at a subcontractor, because transfers, returns, scrap reports and finished receipts live in different places and are never netted.",
+        "A subcontractor's processing invoice is paid or disputed without checking it against what was accepted, so unbilled work, over-billing and price differences go unseen.",
+        "A subcontractor reports its own consumption or scrap and nobody can compare it with what the approved bill of material allows for the finished parts received."
       ],
       "works_with": {
         "platforms": [
