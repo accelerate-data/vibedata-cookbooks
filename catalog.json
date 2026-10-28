@@ -7,14 +7,15 @@
       "resolved_members": [
         "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
-        "cpg-promotion-lift"
+        "cpg-promotion-lift",
+        "cpg-shelf-life-fefo-eligibility"
       ],
       "selector": {
         "industry": [
           "cpg"
         ]
       },
-      "supported_or_proven_count": 3,
+      "supported_or_proven_count": 4,
       "title": "CPG data engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -155,6 +156,7 @@
         "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
         "cpg-promotion-lift",
+        "cpg-shelf-life-fefo-eligibility",
         "cross-platform-dbt-macro",
         "cross-platform-live-reconciliation",
         "customer-consent-preferences",
@@ -227,6 +229,7 @@
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
+        "retail-consignment-stock-liability",
         "retail-marketplace-settlement",
         "retail-pos-till-settlement",
         "retail-reservation-availability-ledger",
@@ -257,7 +260,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 108,
+      "supported_or_proven_count": 110,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -297,6 +300,7 @@
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "public-sector-grant-funds",
+        "retail-consignment-stock-liability",
         "retail-marketplace-settlement",
         "retail-pos-till-settlement",
         "revops-bookings-billings-cash",
@@ -312,7 +316,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 39,
+      "supported_or_proven_count": 40,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -322,6 +326,7 @@
       "id": "healthcare-and-life-sciences",
       "kind": "industry",
       "resolved_members": [
+        "cpg-shelf-life-fefo-eligibility",
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
         "life-sciences-enrollment"
@@ -332,7 +337,7 @@
           "life-sciences"
         ]
       },
-      "supported_or_proven_count": 3,
+      "supported_or_proven_count": 4,
       "title": "Healthcare and life sciences",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -532,6 +537,7 @@
         "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
         "cpg-promotion-lift",
+        "cpg-shelf-life-fefo-eligibility",
         "cross-platform-dbt-macro",
         "cross-platform-scheduled-job",
         "customer-consent-preferences",
@@ -649,7 +655,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 95,
+      "supported_or_proven_count": 96,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -693,6 +699,7 @@
         "healthcare-claims-remittance",
         "banking-delinquency-vintages",
         "cpg-promotion-lift",
+        "cpg-shelf-life-fefo-eligibility",
         "cpg-gross-to-net-revenue",
         "utilities-meter-to-bill",
         "telecom-cdr-usage",
@@ -715,6 +722,7 @@
         "inventory-lot-traceability",
         "sales-commission-payout-ledger",
         "inventory-valuation-cogs",
+        "retail-consignment-stock-liability",
         "sales-lead-opportunity-lifecycle",
         "sales-forecast-backtesting",
         "marketing-campaign-budget-pacing",
@@ -731,6 +739,7 @@
         "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
         "cpg-promotion-lift",
+        "cpg-shelf-life-fefo-eligibility",
         "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
@@ -769,6 +778,7 @@
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
+        "retail-consignment-stock-liability",
         "retail-marketplace-settlement",
         "retail-pos-till-settlement",
         "retail-reservation-availability-ledger",
@@ -786,7 +796,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 62,
+      "supported_or_proven_count": 64,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -806,6 +816,7 @@
         "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
         "cpg-promotion-lift",
+        "cpg-shelf-life-fefo-eligibility",
         "cross-platform-dbt-macro",
         "cross-platform-scheduled-job",
         "customer-consent-preferences",
@@ -871,6 +882,7 @@
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
         "readiness-gated-orchestration",
+        "retail-consignment-stock-liability",
         "retail-marketplace-settlement",
         "retail-pos-till-settlement",
         "retail-reservation-availability-ledger",
@@ -895,7 +907,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 92,
+      "supported_or_proven_count": 94,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1047,6 +1059,7 @@
       "kind": "function",
       "resolved_members": [
         "cpg-distributor-secondary-sales",
+        "cpg-shelf-life-fefo-eligibility",
         "effective-dated-bom-requirements",
         "inventory-lot-traceability",
         "inventory-valuation-cogs",
@@ -1064,6 +1077,7 @@
         "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
+        "retail-consignment-stock-liability",
         "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "shift-unit-economics"
@@ -1073,7 +1087,7 @@
           "supply-chain-ops"
         ]
       },
-      "supported_or_proven_count": 21,
+      "supported_or_proven_count": 23,
       "title": "Supply chain and operations data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -1868,6 +1882,79 @@
         "Two promotions on one account and product overlap or run back to back, and the lift is credited to both or to neither.",
         "Cancelled events, events with bad dates and events with no sales history vanish from the results with no stated reason.",
         "The dip after a promotion is hidden inside the lift, so lifts cannot be compared from one event to the next."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "At an approved cutoff, publish each lot's shelf-life exposure and usable quantity, a first-expiry allocation of lots to open order lines under each customer's approved minimum life at receipt, a reason for every unmet quantity, and lot and line reconciliations.",
+      "domain_objects": [
+        "sku",
+        "lot",
+        "location",
+        "customer",
+        "order_line",
+        "shelf_life_rule",
+        "lane_lead_time",
+        "allocation"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "supply-chain-ops"
+      ],
+      "id": "cpg-shelf-life-fefo-eligibility",
+      "industry": [
+        "cpg",
+        "life-sciences",
+        "retail"
+      ],
+      "job_category": "build",
+      "path": "recipes/cpg-shelf-life-fefo-eligibility/recipe.md",
+      "pitch": "See which lots are ageing out, who each lot can serve and why a line stays short, with every lot and line placed once.",
+      "qualifiers": [
+        "Needs lot-location stock with expiry and status, open order lines, customer life rules and lane lead times as tables.",
+        "Life rules, lead times and band edges may be captured as editable data during the run.",
+        "A batch analytical proposal at one stated cutoff; dispatch, quality release and optimal allocation are separate.",
+        "Availability across channels is retail-reservation-availability-ledger; stockout risk is retail-sell-through-stockout.",
+        "Lot genealogy and recall tracing is inventory-lot-traceability; count reconciliation is ops-inventory-reconciliation.",
+        "Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze.",
+        "Without kept history or recorded times, a past cutoff and late corrections read unproven."
+      ],
+      "readiness": "supported",
+      "related": [
+        "retail-reservation-availability-ledger",
+        "retail-sell-through-stockout",
+        "inventory-lot-traceability",
+        "ops-inventory-reconciliation",
+        "inventory-valuation-cogs",
+        "effective-dated-business-rules",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "5e8794e538c4acff534ed33a76f72b2a294e2231c76279f4fec232af6f862a82",
+      "title": "Shelf-life exposure and first-expiry allocation eligibility by lot, location and open order line",
+      "trigger": [
+        "Planners cannot see which lots are close to expiry, how much of each is still usable, or how much will go unallocated, so stock is written off that a customer could have taken.",
+        "A customer rejects a delivery because the lot had too little shelf life left on arrival, and nobody can show which lots would have met that customer's minimum.",
+        "Customer service cannot say why an open order line is not covered when stock exists, because of held lots, short life at receipt or earlier lines taking the lot."
       ],
       "works_with": {
         "platforms": [
@@ -6785,6 +6872,82 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "At the approved dates and grains, publish stock by owner at each store and SKU with owned and consigned stock kept apart, the supplier obligation the approved liability event creates, reverses and settles, one movement ledger tying units and amounts to both, and every input record accounted for.",
+      "domain_objects": [
+        "supplier",
+        "supplier_contract",
+        "supplier_settlement",
+        "consignment_stock",
+        "stock_owner",
+        "consignment_obligation",
+        "stock_movement",
+        "stock_count",
+        "item_location",
+        "consignment_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "applying-medallion-data-modelling",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance",
+        "supply-chain-ops"
+      ],
+      "id": "retail-consignment-stock-liability",
+      "industry": [
+        "retail"
+      ],
+      "job_category": "build",
+      "path": "recipes/retail-consignment-stock-liability/recipe.md",
+      "pitch": "Know whose stock is on each shelf and what each supplier is owed, with nothing owed on receipt and every unit and amount tied back.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.",
+        "Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze.",
+        "A sale's owner comes from the source or an approved rule; a sale with neither follows the approved disposition.",
+        "Amounts stay in the contract currency unless approved conversion rates are supplied.",
+        "Stops at stock by owner and the supplier obligation; valuing stock, comparing systems, matching and paying are separate.",
+        "Obligations from the passage of time (aged-stock title transfer), minimum guarantees or tax postings are separate.",
+        "Repricing sales after the terms change needs dated contract versions; without them restatement is unproven.",
+        "A late or backdated record is detected only with a posted time; without one restatement is unproven."
+      ],
+      "readiness": "supported",
+      "related": [
+        "ops-inventory-reconciliation",
+        "inventory-valuation-cogs",
+        "procurement-three-way-match",
+        "procurement-supplier-rebate-accrual",
+        "retail-sell-through-stockout",
+        "effective-dated-business-rules",
+        "shared-fx-conversion",
+        "shared-calendar-fiscal-periods",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "606095c1c882352f2da21764d6cd4651eebdfdd088336e925dce3fe1c876ad68",
+      "title": "Reconcile consignment stock by owner and the amount owed to each supplier when their stock sells",
+      "trigger": [
+        "A supplier owns stock until it sells, that stock shares a store and SKU with stock we bought outright, and the stock report adds the two together.",
+        "Finance cannot say what is owed to each supplier because receipts, sales, returns, counts and settlements sit in different places and each treats consigned stock differently.",
+        "A customer return or a stock count lands against a store and SKU holding several owners' stock and nobody can say whose stock or whose obligation it changes."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "redshift"
         ],
         "tools": [
           "dbt"
