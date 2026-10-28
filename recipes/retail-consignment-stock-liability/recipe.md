@@ -30,7 +30,6 @@ works_with:
   platforms:
     - duckdb_local
     - motherduck
-    - fabric_warehouse
     - redshift
   tools:
     - dbt
