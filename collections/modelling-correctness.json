@@ -61,6 +61,7 @@
     "inventory-lot-traceability",
     "sales-commission-payout-ledger",
     "inventory-valuation-cogs",
+    "retail-consignment-stock-liability",
     "sales-lead-opportunity-lifecycle",
     "sales-forecast-backtesting",
     "marketing-campaign-budget-pacing",
