@@ -1,0 +1,11 @@
+{
+  "id": "retail-data-engineering",
+  "title": "Retail data engineering",
+  "kind": "industry",
+  "description": "Recipes for retail data engineering, including stock availability and ownership, shelf-life allocation, sales margins, and marketplace and till settlement.",
+  "selector": {
+    "industry": [
+      "retail"
+    ]
+  }
+}
