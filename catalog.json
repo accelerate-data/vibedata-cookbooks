@@ -993,6 +993,29 @@
       "website_visible": true
     },
     {
+      "description": "Recipes for retail data engineering, including stock availability and ownership, shelf-life allocation, sales margins, and marketplace and till settlement.",
+      "id": "retail-data-engineering",
+      "kind": "industry",
+      "resolved_members": [
+        "cpg-shelf-life-fefo-eligibility",
+        "order-return-contribution-margin",
+        "retail-consignment-stock-liability",
+        "retail-marketplace-settlement",
+        "retail-pos-till-settlement",
+        "retail-reservation-availability-ledger",
+        "retail-sell-through-stockout"
+      ],
+      "selector": {
+        "industry": [
+          "retail"
+        ]
+      },
+      "supported_or_proven_count": 7,
+      "title": "Retail data engineering",
+      "website_publication_threshold": 1,
+      "website_visible": true
+    },
+    {
       "description": "Recipes for data engineers working with revenue operations-domain data and controls.",
       "id": "revenue-operations-data-engineering",
       "kind": "function",
