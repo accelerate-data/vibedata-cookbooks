@@ -203,6 +203,7 @@
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
+        "retail-pos-till-settlement",
         "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
@@ -231,7 +232,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 101,
+      "supported_or_proven_count": 102,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -268,6 +269,7 @@
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "public-sector-grant-funds",
+        "retail-pos-till-settlement",
         "revops-bookings-billings-cash",
         "saas-mrr-waterfall-nrr",
         "sales-commission-payout-ledger",
@@ -281,7 +283,7 @@
           "finance"
         ]
       },
-      "supported_or_proven_count": 34,
+      "supported_or_proven_count": 35,
       "title": "Finance data engineering",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -560,6 +562,7 @@
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
         "readiness-gated-orchestration",
+        "retail-pos-till-settlement",
         "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
@@ -608,7 +611,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 88,
+      "supported_or_proven_count": 89,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -661,6 +664,7 @@
         "cost-attribution-by-model-job",
         "versioned-data-contract-cutover",
         "order-return-contribution-margin",
+        "retail-pos-till-settlement",
         "procurement-savings-realization",
         "sales-quote-order-price-reconciliation",
         "procurement-three-way-match",
@@ -716,6 +720,7 @@
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
+        "retail-pos-till-settlement",
         "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "saas-mrr-waterfall-nrr",
@@ -731,7 +736,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 55,
+      "supported_or_proven_count": 56,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -811,6 +816,7 @@
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
         "readiness-gated-orchestration",
+        "retail-pos-till-settlement",
         "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
@@ -833,7 +839,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 85,
+      "supported_or_proven_count": 86,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -6348,6 +6354,76 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "For approved store till sessions, reconcile POS sales, refunds and voids, tender lines and cash movements to the counted close, publish each session's expected cash, tender mix and over or short in the approved sign, and compare each store day's expected deposit with its slips, with every record placed, listed or counted with its reason.",
+      "domain_objects": [
+        "store",
+        "till_session",
+        "pos_event",
+        "tender_line",
+        "cash_movement",
+        "deposit_slip",
+        "till_settlement",
+        "settlement_exception"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "finance"
+      ],
+      "id": "retail-pos-till-settlement",
+      "industry": [
+        "retail"
+      ],
+      "job_category": "build",
+      "path": "recipes/retail-pos-till-settlement/recipe.md",
+      "pitch": "One row per till session shows expected cash, the count and the difference, with tenders apart and every deposit gap shown as in transit or a variance.",
+      "qualifiers": [
+        "Needs landed POS events, tender lines, till sessions and their counted closes, cash movements and deposit slips.",
+        "Rules, reasons, tolerance and retained float need approval; they may be captured as editable data.",
+        "A rule change restates a published day only as approved.",
+        "Without a recorded event identity, duplicate detection is unproven.",
+        "Reports the cash the records show, not why a till is short.",
+        "Settles the counted drawer; cashier attribution is separate.",
+        "Stops at the deposit slip; bank statements, processor payouts and order margin are separate.",
+        "Loading files belongs to file-drop-to-bronze; currency conversion to shared-fx-conversion."
+      ],
+      "readiness": "supported",
+      "related": [
+        "order-return-contribution-margin",
+        "finance-gl-subledger-tieout",
+        "retail-sell-through-stockout",
+        "file-drop-to-bronze",
+        "shared-fx-conversion",
+        "effective-dated-business-rules"
+      ],
+      "sha256": "6f71c922f32fdf4b99a19b68acd616e23d129f0b39b9d0c1b6095621e8076a9a",
+      "title": "Settle store till sessions to counted cash, tender mix and deposit slips with an explicit over or short",
+      "trigger": [
+        "Stores count each till at shift close and Finance cannot tell which shortages are real and which come from how the POS records voids, refunds, change and float moves.",
+        "A split-tender sale, a voided sale or a float transfer between tills is counted as revenue or cash twice, or not at all, and the till never reconciles.",
+        "A store deposit differs from what the tills dropped and nobody can say whether cash is missing or simply not yet banked."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
         ],
         "tools": [
           "dbt"
