@@ -56,7 +56,7 @@ Rebuild <bi_measures> from <bi_report_export> as governed metrics in the Domain'
 
 - Every in-scope measure has a record of what is preserved, what changes with the approval it rests on, and what is unsupported; each governed measure is defined once, no measure the model cannot carry has a stand-in metric, and an existing governed metric changes only by a listed approved change.
 - For each governed metric the compiler can run, in every approved filter context and slice, a query's value equals the reference output and an independent computation from the approved relations and the measure's semantics, at the approved precision; each difference is an approved change or a gap.
-- The reference's origin and capture context are stated; where that context cannot be fixed, or a Domain relation differs from the data the report reads, parity is reported unproven, never passed.
+- The reference's origin and capture context are stated; where that context cannot be fixed, or a Domain relation differs from the data the report reads, parity is reported unproven, never passed, and a reconstructed reference proves no parity with the live report.
 - Parity is judged at every approved slice member, not only the grand total: a result that ties the total but differs at a named member fails unless the difference is an approved change.
 - A distinct count is recomputed at each level and never summed from lower levels, a balance-style measure follows its approved time rule and is never summed across time, and a ratio follows the source measure's approved aggregation order and is never a stored value that a rollup adds up.
 - An empty group and a zero denominator show what the approved rule says for every metric, and the comparison never treats a blank as equal to zero.
@@ -87,7 +87,7 @@ Inherit the Intent's repository, platform, Domain and approved requirements, and
 - If unresolved, which measures, from which report and model, are in scope, which Domain relation stands for each report table, which records each counts, in which currency and unit, and which filter contexts and slices must match?
 - If unresolved, is the reference captured from the live report or reconstructed independently, under which viewer role, refresh time, parameters and versions, and to what precision must values match?
 - If unresolved, is each measure that overrides the report filter, uses another relationship or direction, several facts, a currency conversion, a parameter or another measure reproduced, changed with approval where the model can represent it, or unsupported?
-- If unresolved, what may change with approval, such as rounding, naming or expression form, what must stay identical, and does a measure reuse, rename or extend an existing governed metric, settling a conflicting definition how?
+- If unresolved, what may change with approval, such as rounding, naming or expression form, what must stay identical, does a measure reuse, rename or extend an existing governed metric, and how is a conflicting definition settled?
 - If unresolved, what does an empty group or a zero denominator show, and are empty groups kept?
 - If unresolved, which calendar, fiscal year, period edges and time-intelligence variants apply, how is a cut-short final period treated, and does a balance take its last, first or average value?
 - If unresolved, which member holds a null or unmatched dimension key, and is a blank amount skipped or counted as zero?
@@ -97,7 +97,7 @@ Inherit the Intent's repository, platform, Domain and approved requirements, and
 
 - Do not choose or apply any Ask first answer without approval, such as scope, table mapping, reference, evaluation context, relationship, blank, period, key disposition or rounding; explain the alternatives if asked.
 - Do not carry a report expression over unchanged; a metric reproduces the measure's semantics, changes them only as approved and recorded, or the measure is listed as unsupported.
-- Do not approximate a measure the model cannot carry, or redefine a refused shape into one the compiler runs; list the gap, or declare the correct shape as non-executable.
+- Do not approximate a measure the model cannot carry, or redefine a refused shape into one the compiler runs; list the gap, or declare the correct shape as not yet queryable.
 - Do not accept a runnable substitute whose figures match at the grand total but differ by a dimension, unless the difference is an approved change recorded for that measure; report it as a failed comparison.
 - Do not let a relationship's cardinality or filter direction inflate, hide or double count a population; a slice that counts a row under more members than the source relationship does is a failed comparison.
 - Do not store a precomputed distinct count, balance or ratio and let a rollup add it up.
