@@ -31,6 +31,7 @@ works_with:
     - dbt
 qualifiers:
   - Needs the workbook file and a recalculation of its formulas by an evaluator that shares no code with the dbt models.
+  - An evaluator the sandbox does not ship must be installable there, which may need network access.
   - Stops at models, a cell comparison, a register and a written cutover plan; the workbook is neither edited nor retired.
   - Ongoing spreadsheet landing belongs to governed-spreadsheet-table; notebook and SQL sources to their own Recipes.
 related:
