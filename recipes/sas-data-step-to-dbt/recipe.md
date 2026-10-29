@@ -27,11 +27,13 @@ works_with:
 qualifiers:
   - Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
   - Needs the resolved SAS program and formats; the job's output may come from a run or an approved reference.
-  - Covers tabular DATA-step preparation only; statistical procedures, model fitting and report layouts are out of scope.
+  - Covers tabular preparation in DATA steps and approved PROC steps; statistics, modelling and reports are out of scope.
+  - Inputs are landed tables; loading SAS datasets or extracts belongs to file-drop-to-bronze.
 related:
   - legacy-sql-to-dbt
   - notebook-transformation-to-dbt
   - prove-dbt-change-safe
+  - file-drop-to-bronze
 evidence:
   features:
     - capturing-requirements
@@ -80,7 +82,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - If unresolved, which behaviours, if any, may change on purpose, with approval and kept apart from the parity baseline, and which stay reproduced as the job has them?
 - If unresolved, how is the job's output on the agreed inputs obtained (a run of the job, its current table or an approved hand-worked reference), which parameters, macro variables, run date and inputs apply, and is the match exact or within an approved precision?
 - If unresolved, are the rows the job does not write listed with their reason or only counted with it, and which of the datasets the job writes are in scope?
-- If unresolved, how is a step handled that calls a macro, routine or include whose code is not available: left out as unsupported, or supplied as an approved input?
+- If unresolved, how is a step handled that is not a DATA step (such as PROC SQL, SUMMARY or TRANSPOSE) or calls a macro, routine or include whose code is not available: converted, classed unsupported, supplied as an approved input, or left to separate work?
 - If unresolved, do the published models take over the job's output relation, or do consumers move later as separate work?
 - If unresolved, once the proof is accepted and any cutover is complete, is the SAS job kept and marked retired, or removed?
 
