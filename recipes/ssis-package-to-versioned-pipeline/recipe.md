@@ -44,6 +44,7 @@ related:
   - assess-synapse-ssis-for-fabric
   - stored-procedure-to-dbt
   - legacy-sql-to-dbt
+  - cross-platform-scheduled-job
 evidence:
   features:
     - capturing-requirements
@@ -61,13 +62,13 @@ Rebuild the <package_name> SSIS package so <consumers> can review it as code and
 
 ## Verified by
 
-- Every region of the exported package, including parameters, connections, sources, steps, data-flow components, precedence constraints, containers, checkpoint settings and script and mail tasks, has one verdict with its reason and evidence, and the verdict counts add up to the regions.
+- Every region of the exported package, including parameters, connections, sources, steps, data-flow components, precedence constraints, containers, event handlers, checkpoint settings and script and mail tasks, has one verdict with its reason and evidence, and the counts add up to the regions.
 - A region or task body the export does not hold is shown as blocked or not in the package with its reason, never rebuilt from a guess; a step that cannot act records what it would have done and that nothing was done, and where approved handling stops the run, parity is unproven for what it blocks.
 - Every external read is carried by a dlt pipeline into the intended destination, and each landed source has the row count of its source on the agreed window under the approved filters.
 - Each approved sink equals the package's approved reference output on the agreed window under the approved equality contract, as a multiset in both directions and never by row order; a remaining difference is listed with its cause and parity is not claimed for it.
 - Published results equal values derived independently from the sources and the package's declared semantics, with a hand-worked case for each awkward input in the window, such as a null or unmatched key, a row reaching no output or several, a key with several matches, a duplicate and a rounding tie.
 - Each input record is traceable to all of its output contributions or to an approved disposition shown or counted with its reason, and per-sink contributions add back to the inputs under the package's own join, split and aggregate semantics with no residue.
-- Each conditional branch follows its approved expression and population, each state the approved rule requires shown is shown to change what the branch governs, and the decision with its inputs is recorded per run.
+- Each conditional branch follows its approved expression and population, each branch state the approved rule requires is shown to change what the branch governs, and the decision with its inputs is recorded per run.
 - Where the approved rule groups writes, a failure inside the group leaves every sink in it as it was; a failure after the group commits and before its record, then restarted, leaves the sinks equal to a clean run with nothing doubled and no committed effect lost.
 - A rerun after success leaves each landed source and sink as the approved rule defines, with no row duplicated, and writes nothing where it skips a completed batch; under a write rule keyed per batch, a run for a second key leaves the first key's rows unchanged.
 - While a run is in flight or after it fails, a reader of each sink sees only what the approved rule allows, such as the last complete state, never a partial publish the rule forbids.
@@ -98,7 +99,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - If unresolved, how are rows with a null or unmatched lookup key, a row matching no split output or several, and duplicates handled: which rule wins when a row has several defects, what makes two rows duplicates and which is kept, are they listed or only counted, and where does each go?
 - If unresolved, which rows and which threshold decide each conditional branch, and must both its on and off states be shown?
 - If unresolved, which steps must succeed or fail together, what may a reader see while a run is in flight or after it fails, and what marks a step complete for restart?
-- If unresolved, how does a restart or rerun behave: resume at the failed step or rerun whole, what does a rerun after success do, how is each landed source and sink written on a repeat, and which key identifies a batch?
+- If unresolved, how does a restart or rerun behave: resume at the failed step or rerun whole, what does a rerun after success do, how is each landed source and sink written on a repeat, which key identifies a batch, and where does any incremental state, such as a watermark, start and advance?
 - If unresolved, what is the cutover: how long do the package and the code run side by side, who approves the per-sink reconciliation, and how is data recovered after a bad run?
 
 ### Guardrails
