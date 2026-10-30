@@ -66,6 +66,7 @@
         "operational-state-duration",
         "pii-classification-and-masking",
         "point-in-time-training-dataset",
+        "power-query-preparation-to-dbt",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "readiness-gated-orchestration",
@@ -86,7 +87,7 @@
           "cross-functional"
         ]
       },
-      "supported_or_proven_count": 54,
+      "supported_or_proven_count": 55,
       "title": "Any domain",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -225,6 +226,7 @@
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
         "point-in-time-training-dataset",
+        "power-query-preparation-to-dbt",
         "procurement-open-commitment-rollforward",
         "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
@@ -266,7 +268,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 113,
+      "supported_or_proven_count": 114,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -429,6 +431,7 @@
         "adf-mapping-data-flow-to-dlt-dbt",
         "assess-synapse-ssis-for-fabric",
         "visual-etl-mapping-to-dlt-dbt",
+        "power-query-preparation-to-dbt",
         "legacy-sql-to-dbt",
         "managed-connector-to-dlt",
         "materialized-view-to-dbt",
@@ -449,6 +452,7 @@
         "materialized-view-to-dbt",
         "move-dbt-project-destination",
         "notebook-transformation-to-dbt",
+        "power-query-preparation-to-dbt",
         "sas-data-step-to-dbt",
         "scalar-sql-function-to-dbt-macro",
         "scd-procedure-to-dbt-snapshot",
@@ -457,7 +461,7 @@
         "stored-procedure-to-dbt",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 13,
+      "supported_or_proven_count": 14,
       "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -6417,6 +6421,68 @@
           "fabric_lakehouse",
           "fabric_warehouse",
           "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Move the preparation of selected Power Query outputs into dbt models over landed source tables, with a verdict for every step, each output compared with a reference refresh on an agreed window, the points where M and SQL part ways reported, and a cutover and recovery plan that keeps the workbook untouched.",
+      "domain_objects": [
+        "power_query_query",
+        "dbt_model",
+        "consumer_contract",
+        "reference_refresh",
+        "conversion_report",
+        "parity_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "add-or-update-source",
+          "generating-dlt-pipeline",
+          "ingestion-data-testing",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "documenting-dbt-models",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "power-query-preparation-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/power-query-preparation-to-dbt/recipe.md",
+      "pitch": "Move a Power Query preparation into tested dbt models, prove each output against a reference refresh, and plan the cutover without touching the workbook.",
+      "qualifiers": [
+        "Needs the exported M of the selected queries, the parameter values they run with and the project locale.",
+        "Needs the queries' own refresh output on the agreed window, or an approved reference built from their semantics.",
+        "Reads landed source tables; Studio has no Power Query engine, so the queries are read from their export.",
+        "Incremental-refresh partitions, fuzzy merges and privacy-level behaviour are out of scope and reported as not converted."
+      ],
+      "readiness": "supported",
+      "related": [
+        "file-drop-to-bronze",
+        "visual-etl-mapping-to-dlt-dbt",
+        "adf-mapping-data-flow-to-dlt-dbt",
+        "legacy-sql-to-dbt",
+        "notebook-transformation-to-dbt"
+      ],
+      "sha256": "461f383ab26a1a7fb7688218d19b9b83a4891f86f4ff8e65d51103ae06a52361",
+      "title": "Move a Power Query data preparation into tested dbt models and prove parity",
+      "trigger": [
+        "A workbook or report prepares its data in Power Query, and the M code is the only place that logic lives, with no tests and nobody able to review it.",
+        "Dates, numbers, merges or error cells in the preparation have behaved differently after a refresh, and the team wants the logic as models it can test and review.",
+        "Someone has to show the preparation, rebuilt in the warehouse, returns the same rows as the queries on an agreed window before the workbook is pointed at it."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
         ],
         "tools": [
           "dbt"
