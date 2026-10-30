@@ -16,6 +16,7 @@ domain_objects:
   - shared_landed_feed
   - team_projection
   - approved_baseline
+  - consumer_contract
   - behaviour_register
   - read_saving_report
   - cutover_plan
@@ -71,7 +72,7 @@ Consolidate the overlapping extracts <extract_list> of <source_table> into one s
 - Every behaviour of each extract is classed as kept, changed on purpose with named approval, or not supported; an inherited quirk stays in its baseline and is listed, and one that cannot be determined stays visible as unknown.
 - A run that fails part-way and is replayed leaves every record once in the feed and in every projection, equal to an independent uninterrupted reference; a rerun with no source change adds, changes or duplicates no feed or projection row.
 - Each completed run accounts for every source row read as inserted, updated, unchanged, marked deleted or set aside with its reason, footing to keys counted independently; a failed attempt's reads and delete marks are recorded by it or its recovery, or reported unaccounted, never lost.
-- Source reads before and after, failed attempts included, are reported as rows and key-level reads separately, signed, so no saving or an increase can show; before reads come from observed extract runs or, where unavailable, their definitions, labelled derived; other readings never feed the result.
+- Source reads before and after are reported as rows and key-level reads separately, signed, so no saving or an increase can show; a failed attempt's reads are included or stated as uncounted; before reads come from observed runs or else definitions, labelled derived, and other readings never feed it.
 - Each team's plan states preconditions, dual-run, switch order and rollback as approved, and how data is restored as approved, with what that restore cannot recover; a code revert alone is never offered as data recovery.
 - The existing extracts stay in place and unchanged and no team is repointed; a team whose approved difference or freshness expectation is unmet is shown as not ready to cut over.
 
