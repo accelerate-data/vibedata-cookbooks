@@ -13,6 +13,7 @@
     "governed-spreadsheet-table",
     "managed-connector-to-dlt",
     "spark-ingestion-notebook-to-dlt",
+    "ssis-package-to-versioned-pipeline",
     "telecom-cdr-usage",
     "visual-etl-mapping-to-dlt-dbt"
   ]
