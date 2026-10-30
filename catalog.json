@@ -77,6 +77,7 @@
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
         "spreadsheet-calculation-workbook-to-dbt",
+        "ssis-package-to-versioned-pipeline",
         "stored-procedure-to-dbt",
         "telecom-cdr-usage",
         "versioned-data-contract-cutover",
@@ -87,7 +88,7 @@
           "cross-functional"
         ]
       },
-      "supported_or_proven_count": 55,
+      "supported_or_proven_count": 56,
       "title": "Any domain",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -257,6 +258,7 @@
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
         "spreadsheet-calculation-workbook-to-dbt",
+        "ssis-package-to-versioned-pipeline",
         "telecom-cdr-usage",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
@@ -268,7 +270,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 114,
+      "supported_or_proven_count": 115,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -383,6 +385,7 @@
         "governed-spreadsheet-table",
         "managed-connector-to-dlt",
         "spark-ingestion-notebook-to-dlt",
+        "ssis-package-to-versioned-pipeline",
         "telecom-cdr-usage",
         "visual-etl-mapping-to-dlt-dbt"
       ],
@@ -396,10 +399,11 @@
         "governed-spreadsheet-table",
         "managed-connector-to-dlt",
         "spark-ingestion-notebook-to-dlt",
+        "ssis-package-to-versioned-pipeline",
         "telecom-cdr-usage",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 11,
+      "supported_or_proven_count": 12,
       "title": "Ingest and reconcile source data",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -430,6 +434,7 @@
       "members": [
         "adf-mapping-data-flow-to-dlt-dbt",
         "assess-synapse-ssis-for-fabric",
+        "ssis-package-to-versioned-pipeline",
         "visual-etl-mapping-to-dlt-dbt",
         "power-query-preparation-to-dbt",
         "legacy-sql-to-dbt",
@@ -458,10 +463,11 @@
         "scd-procedure-to-dbt-snapshot",
         "spark-ingestion-notebook-to-dlt",
         "spreadsheet-calculation-workbook-to-dbt",
+        "ssis-package-to-versioned-pipeline",
         "stored-procedure-to-dbt",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 14,
+      "supported_or_proven_count": 15,
       "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -917,6 +923,7 @@
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
         "spreadsheet-calculation-workbook-to-dbt",
+        "ssis-package-to-versioned-pipeline",
         "telecom-cdr-usage",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
@@ -927,7 +934,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 95,
+      "supported_or_proven_count": 96,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -8436,6 +8443,75 @@
           "redshift"
         ],
         "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Rebuild one exported SSIS package as a dlt pipeline for its external reads, dbt models for its data flow and committed control-flow code that publishes, restarts and reruns as approved, with a verdict for every package region, each sink proven against the package's approved reference output and recovery proven by injected failure.",
+      "domain_objects": [
+        "ssis_package",
+        "dlt_pipeline",
+        "dbt_model",
+        "control_flow",
+        "sink",
+        "reject_path",
+        "consumer_contract",
+        "reference_output",
+        "conversion_report",
+        "parity_report",
+        "recovery_proof"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dlt-pipeline",
+          "ingestion-data-testing",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "ssis-package-to-versioned-pipeline",
+      "job_category": "re-engineer",
+      "path": "recipes/ssis-package-to-versioned-pipeline/recipe.md",
+      "pitch": "Rebuild an SSIS package as dlt, dbt and runnable control-flow code, then prove each sink matches the package and that a failed run restarts cleanly.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; motherduck and redshift are unassessed.",
+        "Needs the exported package, its parameter values and connection references, and read access to its sources.",
+        "Needs the package's own output on the agreed window, or an approved reference built from its declared semantics.",
+        "Studio has no SSIS runtime; the package is read from its export and never run, edited or retired.",
+        "A task body or setting the export lacks stays visible as blocked or not in the package, never guessed."
+      ],
+      "readiness": "supported",
+      "related": [
+        "adf-mapping-data-flow-to-dlt-dbt",
+        "visual-etl-mapping-to-dlt-dbt",
+        "assess-synapse-ssis-for-fabric",
+        "stored-procedure-to-dbt",
+        "legacy-sql-to-dbt",
+        "cross-platform-scheduled-job"
+      ],
+      "sha256": "7929dadf032c30b5ad40207cdfbc6055efb401a421adf389d683c52873dc2baa",
+      "title": "Rebuild an SSIS package as dlt, dbt and restartable control-flow code and prove parity and recovery",
+      "trigger": [
+        "A nightly load still runs as an SSIS package whose data flow, precedence constraints and restart behaviour live only in a .dtsx file, with no tests, and the person who understood it has left.",
+        "The team is leaving SSIS and needs the package's reads, transformation, sinks and control flow as versioned dlt, dbt and runnable code that can be reviewed as a pull request.",
+        "Someone has to show the rebuilt sinks match what the package writes, and that a failed run restarted, or a successful run repeated, never writes a row twice or loses a committed effect."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "redshift"
+        ],
+        "tools": [
+          "dlt",
           "dbt"
         ]
       }
