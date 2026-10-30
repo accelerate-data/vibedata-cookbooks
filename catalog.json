@@ -66,14 +66,18 @@
         "operational-state-duration",
         "pii-classification-and-masking",
         "point-in-time-training-dataset",
+        "power-query-preparation-to-dbt",
         "product-sessionization-funnels",
         "prove-dbt-change-safe",
         "readiness-gated-orchestration",
+        "sas-data-step-to-dbt",
         "scalar-sql-function-to-dbt-macro",
         "scd-procedure-to-dbt-snapshot",
         "shared-calendar-fiscal-periods",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
+        "spreadsheet-calculation-workbook-to-dbt",
+        "ssis-package-to-versioned-pipeline",
         "stored-procedure-to-dbt",
         "telecom-cdr-usage",
         "versioned-data-contract-cutover",
@@ -84,7 +88,7 @@
           "cross-functional"
         ]
       },
-      "supported_or_proven_count": 52,
+      "supported_or_proven_count": 56,
       "title": "Any domain",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -223,6 +227,7 @@
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
         "point-in-time-training-dataset",
+        "power-query-preparation-to-dbt",
         "procurement-open-commitment-rollforward",
         "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
@@ -243,6 +248,7 @@
         "sales-forecast-backtesting",
         "sales-lead-opportunity-lifecycle",
         "sales-quote-order-price-reconciliation",
+        "sas-data-step-to-dbt",
         "scalar-sql-function-to-dbt-macro",
         "scd-procedure-to-dbt-snapshot",
         "service-ticket-sla",
@@ -251,6 +257,8 @@
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
+        "spreadsheet-calculation-workbook-to-dbt",
+        "ssis-package-to-versioned-pipeline",
         "telecom-cdr-usage",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
@@ -262,7 +270,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 111,
+      "supported_or_proven_count": 115,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -377,6 +385,7 @@
         "governed-spreadsheet-table",
         "managed-connector-to-dlt",
         "spark-ingestion-notebook-to-dlt",
+        "ssis-package-to-versioned-pipeline",
         "telecom-cdr-usage",
         "visual-etl-mapping-to-dlt-dbt"
       ],
@@ -390,10 +399,11 @@
         "governed-spreadsheet-table",
         "managed-connector-to-dlt",
         "spark-ingestion-notebook-to-dlt",
+        "ssis-package-to-versioned-pipeline",
         "telecom-cdr-usage",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 11,
+      "supported_or_proven_count": 12,
       "title": "Ingest and reconcile source data",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -424,11 +434,15 @@
       "members": [
         "adf-mapping-data-flow-to-dlt-dbt",
         "assess-synapse-ssis-for-fabric",
+        "ssis-package-to-versioned-pipeline",
         "visual-etl-mapping-to-dlt-dbt",
+        "power-query-preparation-to-dbt",
         "legacy-sql-to-dbt",
         "managed-connector-to-dlt",
         "materialized-view-to-dbt",
         "notebook-transformation-to-dbt",
+        "sas-data-step-to-dbt",
+        "spreadsheet-calculation-workbook-to-dbt",
         "scalar-sql-function-to-dbt-macro",
         "spark-ingestion-notebook-to-dlt",
         "stored-procedure-to-dbt",
@@ -443,13 +457,17 @@
         "materialized-view-to-dbt",
         "move-dbt-project-destination",
         "notebook-transformation-to-dbt",
+        "power-query-preparation-to-dbt",
+        "sas-data-step-to-dbt",
         "scalar-sql-function-to-dbt-macro",
         "scd-procedure-to-dbt-snapshot",
         "spark-ingestion-notebook-to-dlt",
+        "spreadsheet-calculation-workbook-to-dbt",
+        "ssis-package-to-versioned-pipeline",
         "stored-procedure-to-dbt",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 11,
+      "supported_or_proven_count": 15,
       "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -625,6 +643,7 @@
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
+        "spreadsheet-calculation-workbook-to-dbt",
         "stored-procedure-to-dbt",
         "telecom-cdr-usage",
         "usage-metering-rated-charges",
@@ -661,7 +680,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 96,
+      "supported_or_proven_count": 97,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -903,6 +922,8 @@
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
+        "spreadsheet-calculation-workbook-to-dbt",
+        "ssis-package-to-versioned-pipeline",
         "telecom-cdr-usage",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
@@ -913,7 +934,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 94,
+      "supported_or_proven_count": 96,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -6415,6 +6436,68 @@
     },
     {
       "area": "transformation",
+      "description": "Move the preparation of selected Power Query outputs into dbt models over landed source tables, with a verdict for every step, each output compared with a reference refresh on an agreed window, the points where M and SQL part ways reported, and a cutover and recovery plan that keeps the workbook untouched.",
+      "domain_objects": [
+        "power_query_query",
+        "dbt_model",
+        "consumer_contract",
+        "reference_refresh",
+        "conversion_report",
+        "parity_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "add-or-update-source",
+          "generating-dlt-pipeline",
+          "ingestion-data-testing",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "documenting-dbt-models",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "power-query-preparation-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/power-query-preparation-to-dbt/recipe.md",
+      "pitch": "Move a Power Query preparation into tested dbt models, prove each output against a reference refresh, and plan the cutover without touching the workbook.",
+      "qualifiers": [
+        "Needs the exported M of the selected queries, the parameter values they run with and the project locale.",
+        "Needs the queries' own refresh output on the agreed window, or an approved reference built from their semantics.",
+        "Reads landed source tables; Studio has no Power Query engine, so the queries are read from their export.",
+        "Incremental-refresh partitions, fuzzy merges and privacy-level behaviour are out of scope and reported as not converted."
+      ],
+      "readiness": "supported",
+      "related": [
+        "file-drop-to-bronze",
+        "visual-etl-mapping-to-dlt-dbt",
+        "adf-mapping-data-flow-to-dlt-dbt",
+        "legacy-sql-to-dbt",
+        "notebook-transformation-to-dbt"
+      ],
+      "sha256": "461f383ab26a1a7fb7688218d19b9b83a4891f86f4ff8e65d51103ae06a52361",
+      "title": "Move a Power Query data preparation into tested dbt models and prove parity",
+      "trigger": [
+        "A workbook or report prepares its data in Power Query, and the M code is the only place that logic lives, with no tests and nobody able to review it.",
+        "Dates, numbers, merges or error cells in the preparation have behaved differently after a refresh, and the team wants the logic as models it can test and review.",
+        "Someone has to show the preparation, rebuilt in the warehouse, returns the same rows as the queries on an agreed window before the workbook is pointed at it."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "From purchase order line history, build each line's outstanding quantity and value at each approved reporting cutoff under the approved discharge rule, explain every movement from the previous cutoff, show received-not-invoiced goods as approved, and account for every record that moves nothing, shown or counted with its reason as approved.",
       "domain_objects": [
         "purchase_order_line",
@@ -7769,6 +7852,61 @@
     },
     {
       "area": "transformation",
+      "description": "Rebuild a bounded tabular SAS DATA-step job as dbt models that publish the same contract, proven against the job's output, or an approved reference, on the same inputs, with each behaviour classed preserved, changed with approval or unsupported and each defect reported as follow-up work.",
+      "domain_objects": [
+        "sas_program",
+        "dbt_model",
+        "consumer_contract",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "sas-data-step-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/sas-data-step-to-dbt/recipe.md",
+      "pitch": "Retire a SAS batch job by rebuilding it in dbt and proving the models return what it returned, row by row, bar approved changes.",
+      "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Needs the resolved SAS program and formats; the job's output may come from a run or an approved reference.",
+        "Covers tabular preparation in DATA steps and approved PROC steps; statistics, modelling and reports are out of scope.",
+        "Inputs are landed tables; loading SAS datasets or extracts belongs to file-drop-to-bronze."
+      ],
+      "readiness": "supported",
+      "related": [
+        "legacy-sql-to-dbt",
+        "notebook-transformation-to-dbt",
+        "prove-dbt-change-safe",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "2975c700c6e6138aa6575cb7cdd3fbfda2bfc3f668fef91b7ecd4a1332a4b4d0",
+      "title": "Rebuild a SAS DATA-step batch job in dbt and prove the rows match",
+      "trigger": [
+        "A monthly or nightly table is still produced by a SAS batch job whose DATA steps keep running totals, merge by key or write only some rows, and nobody left can explain it.",
+        "The team wants the job's logic in the dbt project, but its consumers need proof the new models return the same rows, keys, types and amounts.",
+        "A plain join and group-by would look like a faithful translation of the SAS code, but the job's retained state, merge behaviour or output conditions say otherwise."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Bring a scalar warehouse function into the dbt project as a macro, switch the agreed callers to it, and prove that the SQL the macro generates matches the unchanged function and that each switched caller keeps its approved output, with its quirks reproduced and reported as follow-up work.",
       "domain_objects": [
         "scalar_function",
@@ -8244,6 +8382,137 @@
         ],
         "tools": [
           "dlt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Rebuild one frozen workbook version's calculation as governed input tables and dbt models that publish its output range, keep every manual override as its own record, register what was not carried over, and compare it cell by cell with a fresh recalculation, with a written cutover plan.",
+      "domain_objects": [
+        "workbook",
+        "dbt_model",
+        "consumer_contract",
+        "manual_override",
+        "conversion_register",
+        "parity_report",
+        "cutover_plan"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "designing",
+          "planning",
+          "executing-the-plan",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "spreadsheet-calculation-workbook-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/spreadsheet-calculation-workbook-to-dbt/recipe.md",
+      "pitch": "Rebuild a hand-edited calculation workbook as governed inputs and models, compared cell by cell with its own recalculation.",
+      "qualifiers": [
+        "Needs the workbook file and a recalculation of its formulas by an evaluator that shares no code with the dbt models.",
+        "An evaluator the sandbox does not ship must be installable there, which may need network access.",
+        "Stops at models, a cell comparison, a register and a written cutover plan; the workbook is neither edited nor retired.",
+        "Ongoing spreadsheet landing belongs to governed-spreadsheet-table; notebook and SQL sources to their own Recipes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "governed-spreadsheet-table",
+        "legacy-sql-to-dbt",
+        "notebook-transformation-to-dbt"
+      ],
+      "sha256": "de57d3b63263a9411e9f34c9689839dedb7878768278e9eb1205d72533bd461b",
+      "title": "Rebuild a calculation workbook as governed inputs and dbt models compared cell by cell",
+      "trigger": [
+        "A calculation is run in a hand-edited workbook every period, and nobody can prove what it does or why a number came out as it did.",
+        "The team wants the workbook's lookups, formulas and manual adjustments in governed tables and dbt models, but its consumers need proof of the same results.",
+        "Manual overrides are typed into the workbook with no record of who changed a number, when or why."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Rebuild one exported SSIS package as a dlt pipeline for its external reads, dbt models for its data flow and committed control-flow code that publishes, restarts and reruns as approved, with a verdict for every package region, each sink proven against the package's approved reference output and recovery proven by injected failure.",
+      "domain_objects": [
+        "ssis_package",
+        "dlt_pipeline",
+        "dbt_model",
+        "control_flow",
+        "sink",
+        "reject_path",
+        "consumer_contract",
+        "reference_output",
+        "conversion_report",
+        "parity_report",
+        "recovery_proof"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dlt-pipeline",
+          "ingestion-data-testing",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "ssis-package-to-versioned-pipeline",
+      "job_category": "re-engineer",
+      "path": "recipes/ssis-package-to-versioned-pipeline/recipe.md",
+      "pitch": "Rebuild an SSIS package as dlt, dbt and runnable control-flow code, then prove each sink matches the package and that a failed run restarts cleanly.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; motherduck and redshift are unassessed.",
+        "Needs the exported package, its parameter values and connection references, and read access to its sources.",
+        "Needs the package's own output on the agreed window, or an approved reference built from its declared semantics.",
+        "Studio has no SSIS runtime; the package is read from its export and never run, edited or retired.",
+        "A task body or setting the export lacks stays visible as blocked or not in the package, never guessed."
+      ],
+      "readiness": "supported",
+      "related": [
+        "adf-mapping-data-flow-to-dlt-dbt",
+        "visual-etl-mapping-to-dlt-dbt",
+        "assess-synapse-ssis-for-fabric",
+        "stored-procedure-to-dbt",
+        "legacy-sql-to-dbt",
+        "cross-platform-scheduled-job"
+      ],
+      "sha256": "7929dadf032c30b5ad40207cdfbc6055efb401a421adf389d683c52873dc2baa",
+      "title": "Rebuild an SSIS package as dlt, dbt and restartable control-flow code and prove parity and recovery",
+      "trigger": [
+        "A nightly load still runs as an SSIS package whose data flow, precedence constraints and restart behaviour live only in a .dtsx file, with no tests, and the person who understood it has left.",
+        "The team is leaving SSIS and needs the package's reads, transformation, sinks and control flow as versioned dlt, dbt and runnable code that can be reviewed as a pull request.",
+        "Someone has to show the rebuilt sinks match what the package writes, and that a failed run restarted, or a successful run repeated, never writes a row twice or loses a committed effect."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "redshift"
+        ],
+        "tools": [
+          "dlt",
+          "dbt"
         ]
       }
     },

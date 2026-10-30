@@ -62,8 +62,8 @@ Rebuild <bi_measures> from <bi_report_export> as governed metrics in the Domain'
 - An empty group and a zero denominator show what the approved rule says for every metric, and the comparison never treats a blank as equal to zero.
 - A measure that reads its population through a relationship other than the default follows the approved rule, and the comparison includes a period where the two relationships give different figures, or reports that the data has none.
 - A time-intelligence measure follows the approved rule at the first, last and cut-short period; the comparison marks a cut-short period incomplete, and if it is excluded, the exclusion and its reason are recorded.
-- A null or unmatched dimension key follows the approved disposition and stays in every total, and blank amounts skipped or counted as zero are reported; an additive measure's members sum to its total where each row reaches one member, otherwise the total is recomputed.
-- Records outside each measure's approved population are shown or counted with their reason, never silently dropped.
+- Null or unmatched dimension keys and records outside a measure's population are included, excluded and counted, or flagged as the source measure's approved rules require, with their reason, and none is silently lost; blank amounts skipped or counted as zero are reported.
+- An additive measure's members sum to its total where each row reaches one member, otherwise the total is recomputed.
 - A metric shape the compiler cannot run is declared with its correct semantics, its refusal recorded and reported not yet queryable; its independent computation equals the reference output in every approved context, and a structural check that did not run is reported unrun.
 - Cutover and recovery are separate written paths, each with the proof the approved gates need, naming any row-level security the report applies; a metric that cannot be queried has no switch path; nothing is executed, and the report, its layout and access rules are unchanged.
 
@@ -90,7 +90,7 @@ Inherit the Intent's repository, platform, Domain and approved requirements, and
 - If unresolved, what may change with approval, such as rounding, naming or expression form, what must stay identical, does a measure reuse, rename or extend an existing governed metric, and how is a conflicting definition settled?
 - If unresolved, what does an empty group or a zero denominator show, and are empty groups kept?
 - If unresolved, which calendar, fiscal year, period edges and time-intelligence variants apply, how is a cut-short final period treated, and does a balance take its last, first or average value?
-- If unresolved, which member holds a null or unmatched dimension key, and is a blank amount skipped or counted as zero?
+- If unresolved, is a null or unmatched dimension key included under an explicit member, excluded and counted, or flagged, as the source population rules require, and is a blank amount skipped or counted as zero?
 - If unresolved, which proof gates, including access matching any row-level security, must pass before the report switches, who repoints consumers, and do the old measures stay until a separate retirement decision?
 
 ### Guardrails
