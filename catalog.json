@@ -75,6 +75,7 @@
         "shared-calendar-fiscal-periods",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
+        "spreadsheet-calculation-workbook-to-dbt",
         "stored-procedure-to-dbt",
         "telecom-cdr-usage",
         "versioned-data-contract-cutover",
@@ -85,7 +86,7 @@
           "cross-functional"
         ]
       },
-      "supported_or_proven_count": 53,
+      "supported_or_proven_count": 54,
       "title": "Any domain",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -253,6 +254,7 @@
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
+        "spreadsheet-calculation-workbook-to-dbt",
         "telecom-cdr-usage",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
@@ -264,7 +266,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 112,
+      "supported_or_proven_count": 113,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -432,6 +434,7 @@
         "materialized-view-to-dbt",
         "notebook-transformation-to-dbt",
         "sas-data-step-to-dbt",
+        "spreadsheet-calculation-workbook-to-dbt",
         "scalar-sql-function-to-dbt-macro",
         "spark-ingestion-notebook-to-dlt",
         "stored-procedure-to-dbt",
@@ -450,10 +453,11 @@
         "scalar-sql-function-to-dbt-macro",
         "scd-procedure-to-dbt-snapshot",
         "spark-ingestion-notebook-to-dlt",
+        "spreadsheet-calculation-workbook-to-dbt",
         "stored-procedure-to-dbt",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 12,
+      "supported_or_proven_count": 13,
       "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -629,6 +633,7 @@
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
+        "spreadsheet-calculation-workbook-to-dbt",
         "stored-procedure-to-dbt",
         "telecom-cdr-usage",
         "usage-metering-rated-charges",
@@ -665,7 +670,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 96,
+      "supported_or_proven_count": 97,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -907,6 +912,7 @@
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
+        "spreadsheet-calculation-workbook-to-dbt",
         "telecom-cdr-usage",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
@@ -917,7 +923,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 94,
+      "supported_or_proven_count": 95,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -8303,6 +8309,68 @@
         ],
         "tools": [
           "dlt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Rebuild one frozen workbook version's calculation as governed input tables and dbt models that publish its output range, keep every manual override as its own record, register what was not carried over, and compare it cell by cell with a fresh recalculation, with a written cutover plan.",
+      "domain_objects": [
+        "workbook",
+        "dbt_model",
+        "consumer_contract",
+        "manual_override",
+        "conversion_register",
+        "parity_report",
+        "cutover_plan"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "designing",
+          "planning",
+          "executing-the-plan",
+          "generating-dbt-model",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "spreadsheet-calculation-workbook-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/spreadsheet-calculation-workbook-to-dbt/recipe.md",
+      "pitch": "Rebuild a hand-edited calculation workbook as governed inputs and models, compared cell by cell with its own recalculation.",
+      "qualifiers": [
+        "Needs the workbook file and a recalculation of its formulas by an evaluator that shares no code with the dbt models.",
+        "An evaluator the sandbox does not ship must be installable there, which may need network access.",
+        "Stops at models, a cell comparison, a register and a written cutover plan; the workbook is neither edited nor retired.",
+        "Ongoing spreadsheet landing belongs to governed-spreadsheet-table; notebook and SQL sources to their own Recipes."
+      ],
+      "readiness": "supported",
+      "related": [
+        "governed-spreadsheet-table",
+        "legacy-sql-to-dbt",
+        "notebook-transformation-to-dbt"
+      ],
+      "sha256": "de57d3b63263a9411e9f34c9689839dedb7878768278e9eb1205d72533bd461b",
+      "title": "Rebuild a calculation workbook as governed inputs and dbt models compared cell by cell",
+      "trigger": [
+        "A calculation is run in a hand-edited workbook every period, and nobody can prove what it does or why a number came out as it did.",
+        "The team wants the workbook's lookups, formulas and manual adjustments in governed tables and dbt models, but its consumers need proof of the same results.",
+        "Manual overrides are typed into the workbook with no record of who changed a number, when or why."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dbt"
         ]
       }
     },
