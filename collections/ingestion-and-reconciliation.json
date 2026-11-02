@@ -7,6 +7,7 @@
     "adf-mapping-data-flow-to-dlt-dbt",
     "api-to-bronze-incremental-contract",
     "batch-cdc-current-state",
+    "consolidate-duplicate-source-extracts",
     "cross-platform-live-reconciliation",
     "database-tables-to-bronze",
     "file-drop-to-bronze",
