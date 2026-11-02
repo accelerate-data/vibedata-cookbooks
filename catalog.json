@@ -30,6 +30,7 @@
         "assess-synapse-ssis-for-fabric",
         "banking-aml-features",
         "batch-cdc-current-state",
+        "bi-calculations-to-governed-metrics",
         "bitemporal-business-history",
         "bounded-partition-backfill",
         "business-event-fact",
@@ -88,7 +89,7 @@
           "cross-functional"
         ]
       },
-      "supported_or_proven_count": 56,
+      "supported_or_proven_count": 57,
       "title": "Any domain",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -154,6 +155,7 @@
         "banking-aml-features",
         "banking-delinquency-vintages",
         "batch-cdc-current-state",
+        "bi-calculations-to-governed-metrics",
         "bitemporal-business-history",
         "bounded-partition-backfill",
         "business-event-fact",
@@ -270,7 +272,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 115,
+      "supported_or_proven_count": 116,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -439,6 +441,7 @@
         "power-query-preparation-to-dbt",
         "legacy-sql-to-dbt",
         "managed-connector-to-dlt",
+        "bi-calculations-to-governed-metrics",
         "materialized-view-to-dbt",
         "notebook-transformation-to-dbt",
         "sas-data-step-to-dbt",
@@ -452,6 +455,7 @@
       "resolved_members": [
         "adf-mapping-data-flow-to-dlt-dbt",
         "assess-synapse-ssis-for-fabric",
+        "bi-calculations-to-governed-metrics",
         "legacy-sql-to-dbt",
         "managed-connector-to-dlt",
         "materialized-view-to-dbt",
@@ -467,7 +471,7 @@
         "stored-procedure-to-dbt",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 15,
+      "supported_or_proven_count": 16,
       "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1074,14 +1078,16 @@
       "id": "semantic-layers",
       "kind": "problem-area",
       "members": [
+        "bi-calculations-to-governed-metrics",
         "metricflow-semantic-model",
         "fabric-direct-lake-semantic-model"
       ],
       "resolved_members": [
+        "bi-calculations-to-governed-metrics",
         "fabric-direct-lake-semantic-model",
         "metricflow-semantic-model"
       ],
-      "supported_or_proven_count": 2,
+      "supported_or_proven_count": 3,
       "title": "Semantic layers",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1510,6 +1516,67 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "semantic-layer",
+      "description": "Rebuild a bounded set of existing BI measures, such as Power BI DAX, as governed metrics in the Domain's canonical semantic model, prove each one the model can query matches the source report in every agreed filter context and slice, declare a shape it cannot yet query with independent proof, list gaps, and write cutover and recovery down without running them.",
+      "domain_objects": [
+        "semantic_model",
+        "governed_metric",
+        "bi_measure",
+        "filter_context",
+        "metric_reconciliation"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "semantic-model",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "bi-calculations-to-governed-metrics",
+      "job_category": "re-engineer",
+      "path": "recipes/bi-calculations-to-governed-metrics/recipe.md",
+      "pitch": "Move report-local measures into governed metrics, prove each queryable number in every filter context, and list what cannot move.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; other platforms are unassessed.",
+        "Defines metrics in the Domain's canonical semantic model, creating it where the Domain has none.",
+        "A metric shape the model's compiler refuses is declared, proven independently and not queryable until it compiles.",
+        "The source measures and relationships must be readable as text, such as a TMDL or BIM export.",
+        "The report's tables must already be Domain relations; loading exported files belongs to file-drop-to-bronze.",
+        "Rebuilding the report's data preparation, such as Power Query steps, is a separate outcome.",
+        "Does not author MetricFlow models or publish Direct Lake models; sources are existing BI measures.",
+        "Code and documents only; the report, its row-level security and access rules are not switched, edited or retired."
+      ],
+      "readiness": "supported",
+      "related": [
+        "metricflow-semantic-model",
+        "fabric-direct-lake-semantic-model",
+        "metric-population-and-rollups",
+        "file-drop-to-bronze"
+      ],
+      "sha256": "14e7f2511ae3ae899aa52ee7ee0aacfa75735379fab5dcdbe50f52938072a028",
+      "title": "Rebuild selected BI calculations as governed metrics in the canonical semantic model",
+      "trigger": [
+        "Key numbers live as measures inside BI reports, so each report page defines the same number its own way and nobody can review it.",
+        "A report total matches the agreed figure but a slice by region, month or channel does not, and the measure behind it cannot be inspected.",
+        "A measure that overrides the report filter, uses a second date relationship or accumulates year to date has to move to a governed layer, and nobody knows whether its numbers survive the move.",
+        "A BI migration needs to know which measures can be governed, which change, and which cannot be expressed in the semantic model at all."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local"
+        ],
+        "tools": [
           "dbt"
         ]
       }
