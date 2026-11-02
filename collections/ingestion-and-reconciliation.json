@@ -6,6 +6,7 @@
   "members": [
     "adf-mapping-data-flow-to-dlt-dbt",
     "api-to-bronze-incremental-contract",
+    "profile-api-source-from-docs",
     "batch-cdc-current-state",
     "consolidate-duplicate-source-extracts",
     "cross-platform-live-reconciliation",
