@@ -34,6 +34,7 @@
         "bitemporal-business-history",
         "bounded-partition-backfill",
         "business-event-fact",
+        "consolidate-duplicate-source-extracts",
         "cross-platform-dbt-macro",
         "cross-platform-live-reconciliation",
         "cross-platform-scheduled-job",
@@ -89,7 +90,7 @@
           "cross-functional"
         ]
       },
-      "supported_or_proven_count": 57,
+      "supported_or_proven_count": 58,
       "title": "Any domain",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -159,6 +160,7 @@
         "bitemporal-business-history",
         "bounded-partition-backfill",
         "business-event-fact",
+        "consolidate-duplicate-source-extracts",
         "cost-attribution-by-model-job",
         "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
@@ -272,7 +274,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 116,
+      "supported_or_proven_count": 117,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -381,6 +383,7 @@
         "adf-mapping-data-flow-to-dlt-dbt",
         "api-to-bronze-incremental-contract",
         "batch-cdc-current-state",
+        "consolidate-duplicate-source-extracts",
         "cross-platform-live-reconciliation",
         "database-tables-to-bronze",
         "file-drop-to-bronze",
@@ -395,6 +398,7 @@
         "adf-mapping-data-flow-to-dlt-dbt",
         "api-to-bronze-incremental-contract",
         "batch-cdc-current-state",
+        "consolidate-duplicate-source-extracts",
         "cross-platform-live-reconciliation",
         "database-tables-to-bronze",
         "file-drop-to-bronze",
@@ -405,7 +409,7 @@
         "telecom-cdr-usage",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 12,
+      "supported_or_proven_count": 13,
       "title": "Ingest and reconcile source data",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -436,6 +440,7 @@
       "members": [
         "adf-mapping-data-flow-to-dlt-dbt",
         "assess-synapse-ssis-for-fabric",
+        "consolidate-duplicate-source-extracts",
         "ssis-package-to-versioned-pipeline",
         "visual-etl-mapping-to-dlt-dbt",
         "power-query-preparation-to-dbt",
@@ -456,6 +461,7 @@
         "adf-mapping-data-flow-to-dlt-dbt",
         "assess-synapse-ssis-for-fabric",
         "bi-calculations-to-governed-metrics",
+        "consolidate-duplicate-source-extracts",
         "legacy-sql-to-dbt",
         "managed-connector-to-dlt",
         "materialized-view-to-dbt",
@@ -471,7 +477,7 @@
         "stored-procedure-to-dbt",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 16,
+      "supported_or_proven_count": 17,
       "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -561,6 +567,7 @@
         "banking-delinquency-vintages",
         "batch-cdc-current-state",
         "business-event-fact",
+        "consolidate-duplicate-source-extracts",
         "cost-attribution-by-model-job",
         "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
@@ -684,7 +691,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 97,
+      "supported_or_proven_count": 98,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -841,6 +848,7 @@
         "banking-delinquency-vintages",
         "batch-cdc-current-state",
         "business-event-fact",
+        "consolidate-duplicate-source-extracts",
         "cost-attribution-by-model-job",
         "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
@@ -938,7 +946,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 96,
+      "supported_or_proven_count": 97,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1731,6 +1739,76 @@
           "redshift"
         ],
         "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "ingestion",
+      "description": "Land one shared feed of the source table through one row pass per run, build one explicit projection per team that reproduces that team's approved baseline per key and column, prove replay, measure the source reads before and after, and plan each team's cutover and recovery in writing.",
+      "domain_objects": [
+        "shared_landed_feed",
+        "team_projection",
+        "approved_baseline",
+        "consumer_contract",
+        "behaviour_register",
+        "read_saving_report",
+        "cutover_plan"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dlt-pipeline",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "ingestion-data-testing",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "consolidate-duplicate-source-extracts",
+      "job_category": "re-engineer",
+      "path": "recipes/consolidate-duplicate-source-extracts/recipe.md",
+      "pitch": "Consolidate overlapping extracts into one shared feed and per-team projections that match each baseline, with reads counted and cutover planned.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.",
+        "Needs read access to the source table, a stable key, and a change signal or an approved full read.",
+        "Studio's source setup cannot register a sql_database connection; it is declared with approval.",
+        "Stops at the feed, projections, proof and a written plan; switching off or repointing extracts is out of scope.",
+        "Replacing a managed connector belongs to managed-connector-to-dlt.",
+        "Landing a table with no team extracts to reproduce belongs to database-tables-to-bronze.",
+        "Extracts that are models over an already-landed table belong to dbt-refactor-output-identical.",
+        "Log-based CDC replication is out of scope; each run reads the source table."
+      ],
+      "readiness": "supported",
+      "related": [
+        "database-tables-to-bronze",
+        "managed-connector-to-dlt",
+        "dbt-refactor-output-identical",
+        "versioned-data-contract-cutover",
+        "cross-platform-live-reconciliation",
+        "batch-cdc-current-state"
+      ],
+      "sha256": "60ba6f208ceae8c60fff6b5c6579bb6235dc19d43512dd066201737d9524ad59",
+      "title": "Consolidate overlapping extracts of one source table into a shared feed and per-team projections",
+      "trigger": [
+        "Several downstream teams each pull their own extract of the same source table, each with its own filter, cursor, delete handling and cutoff, so the source is read repeatedly.",
+        "When an extract drifts nobody can say whose output is right, and the old extracts have to stay in place until each team has proof.",
+        "A measured number is needed for how many source reads one shared feed saves, and a written, bounded plan for moving each team over."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift"
+        ],
+        "tools": [
+          "dlt",
           "dbt"
         ]
       }
