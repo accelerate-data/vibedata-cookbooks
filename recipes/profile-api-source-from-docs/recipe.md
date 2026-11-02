@@ -15,6 +15,7 @@ function:
 domain_objects:
   - api_source
   - source_connection
+  - dlt_pipeline
   - sample_table
   - source_profile
 works_with:
@@ -49,7 +50,7 @@ Read the current documentation for <api_name> through Context7, or the approved 
 
 ## Verified by
 
-- The documentation is read from Context7, or from the approved alternative where Context7 lacks it, and the result states what the API offers, what a request needs and which of these a live response confirmed rather than the documentation alone, including the paging and rate limits met.
+- The documentation is read from Context7, or from the approved alternative where Context7 lacks it, and the result states what the API offers, what a request needs and which of these a live response confirmed rather than the documentation alone, including any paging and rate limits the run met.
 - The source is a named connection whose files and outputs hold no secret value, and any credential it needs is referenced by name from the approved store.
 - The sample covers exactly the approved scope: landed rows reconcile element for element to an independent read of the same request, and records the API shows beyond it are counted with their reason, or the result says it cannot see them.
 - Each landed row carries the approved key; keys are checked at the approved grain, any missing or duplicate key is counted and reported in the profile, never dropped or merged silently, and re-running the load follows the approved re-run rule.
