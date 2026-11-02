@@ -24,10 +24,11 @@ works_with:
   platforms:
     - fabric_lakehouse
     - redshift
+    - databricks
   tools:
     - dbt
 qualifiers:
-  - Not yet assessed end to end on fabric_lakehouse or redshift.
+  - Not yet assessed end to end on fabric_lakehouse, redshift or databricks.
   - Needs the view's definition (Studio can't yet read it on these targets), refresh rule and output at refresh points.
 related:
   - legacy-sql-to-dbt

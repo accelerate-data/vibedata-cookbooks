@@ -25,6 +25,7 @@ works_with:
     - fabric_lakehouse
     - fabric_warehouse
     - redshift
+    - databricks
   tools:
     - dbt
 qualifiers:
@@ -34,7 +35,7 @@ qualifiers:
   - Consumes an approved identity map; person resolution across systems belongs to identity-golden-record-crosswalk.
   - Event identity beyond delivered copies belongs to business-event-fact.
   - Edge handling needs each batch's covered range; without it, export-edge completeness is unproven.
-  - Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
+  - Complete outcome assessed for duckdb_local only; the other Studio targets remain unassessed.
 related:
   - file-drop-to-bronze
   - business-event-fact

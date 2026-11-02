@@ -25,11 +25,12 @@ works_with:
     - duckdb_local
     - motherduck
     - redshift
+    - databricks
   tools:
     - dbt
     - metricflow
 qualifiers:
-  - Assessed end to end on duckdb_local only; motherduck and redshift rely on MetricFlow support and are unassessed.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on MetricFlow support and are unassessed.
   - Needs MetricFlow installed where metrics are queried; Studio's managed runtime does not include it today.
   - Needs a gold fact mart with a declared grain; changing existing marts or building new fact marts is outside this Recipe.
   - Code only; publishing to a semantic-layer service or BI tool is outside this Recipe.
