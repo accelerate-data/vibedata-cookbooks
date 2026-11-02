@@ -20,14 +20,20 @@ domain_objects:
 works_with:
   platforms:
     - duckdb_local
+    - motherduck
+    - fabric_lakehouse
+    - fabric_warehouse
+    - redshift
+    - databricks
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - History starts at the first snapshot; earlier pipeline cannot be reconstructed from present state.
   - Capture cannot see changes that happen and revert between two captures; longer periods hide more.
   - Assessed with a labelled synthetic fixture standing in for the CRM; no live opportunity source was captured.
   - Assessed at a daily period only; rules for other periods, capture moments, late runs and empty reads are unassessed.
+  - On Spark-based targets a period is replaced with the adapter's own strategy, not delete+insert.
 related:
   - dbt-snapshot-history
   - metric-population-and-rollups
@@ -104,4 +110,4 @@ Inherit the Intent's repository, platform, Domain and sources. Confirm source re
 - Keep Domain sources read-only. Mutate only an approved, labelled synthetic fixture or writable fixture with verified reset. Isolate fixture-derived relations by schema in every layer, not by name alone.
 - Do not treat open deals as lost or exclude them silently. Show won, lost and open counts separately under the agreed definition.
 - Do not assume stage order, currency conversion or amount fields. Report mixed currencies or missing amounts as gaps, and never add close-date shifts and amount changes into one total.
-- Execute on the actual supported Intent target and sandbox; support covers duckdb_local only. Keep to the snapshot, log, transitions, conversion and slippage; build no forecast, quota or bookings model.
+- Execute on the actual supported Intent target and sandbox; the complete outcome is assessed on duckdb_local only. Keep to the snapshot, log, transitions, conversion and slippage; build no forecast, quota or bookings model.

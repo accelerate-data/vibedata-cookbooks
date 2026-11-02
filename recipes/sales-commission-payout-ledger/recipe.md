@@ -23,9 +23,15 @@ domain_objects:
 works_with:
   platforms:
     - duckdb_local
+    - motherduck
+    - fabric_lakehouse
+    - fabric_warehouse
+    - redshift
+    - databricks
   tools:
     - dbt
 qualifiers:
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Prices approved credit against plan and quota data; payments, holds and cancellations are separate inputs.
   - Needs approved eligible credit; plan rules may be captured as data. Eligibility belongs to the quota Recipe.
   - Calculates obligations only; it never executes payroll or payment.

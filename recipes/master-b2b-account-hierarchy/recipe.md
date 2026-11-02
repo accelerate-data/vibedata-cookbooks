@@ -24,10 +24,15 @@ domain_objects:
 works_with:
   platforms:
     - duckdb_local
+    - motherduck
+    - fabric_lakehouse
+    - fabric_warehouse
+    - redshift
+    - databricks
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Families as they stood in past periods need dated parent-link history; without it they cannot be rebuilt.
   - Accounts must already be one record per company; this Recipe does not deduplicate accounts.
 related:

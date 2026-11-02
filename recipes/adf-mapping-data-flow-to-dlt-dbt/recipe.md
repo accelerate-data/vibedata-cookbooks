@@ -24,10 +24,16 @@ domain_objects:
 works_with:
   platforms:
     - duckdb_local
+    - motherduck
+    - fabric_lakehouse
+    - fabric_warehouse
+    - redshift
+    - databricks
   tools:
     - dlt
     - dbt
 qualifiers:
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Needs the exported data flow definition and read access to the sources its reads and sinks name.
   - Needs the flow's own output on the agreed slice, or an approved reference built from its declared semantics.
   - Studio has no ADF connection; the flow is read from its exported definition and never run or edited.

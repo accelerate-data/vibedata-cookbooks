@@ -22,10 +22,15 @@ domain_objects:
 works_with:
   platforms:
     - duckdb_local
+    - motherduck
+    - fabric_lakehouse
+    - fabric_warehouse
+    - redshift
+    - databricks
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Downstream incremental models may still miss late, changed or deleted rows; fixing them is separate work.
   - Structural refactors with no materialization change belong to the dbt-refactor-output-identical Recipe.
 related:
