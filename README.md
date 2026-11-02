@@ -58,7 +58,7 @@ Pull requests do not edit `catalog.json`. The `Catalog` workflow (`.github/workf
 
 ## Platforms
 
-Exact execution-target values, shared with Studio: `duckdb_local`, `motherduck`, `fabric_lakehouse`, `fabric_warehouse`, `redshift`. There is no generic `fabric` value; the website may group the two Fabric targets under one Microsoft Fabric Collection with All, Lakehouse and Warehouse views.
+Exact execution-target values, shared with Studio: `duckdb_local`, `motherduck`, `fabric_lakehouse`, `fabric_warehouse`, `redshift`, `databricks`. There is no generic `fabric` value; the website may group the two Fabric targets under one Microsoft Fabric Collection with All, Lakehouse and Warehouse views.
 
 ## Readiness
 
