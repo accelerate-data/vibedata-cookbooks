@@ -27,7 +27,7 @@ works_with:
   tools:
     - dlt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets are unassessed.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
   - Stops at a profiled sample; loading, cursors and schema contracts belong to the API ingestion Recipe.
   - Needs the API's documentation in Context7 or supplied by the user; unreadable docs stop the run.
   - An API with no mounted connector is declared by hand; add-or-update-source cannot configure it.
@@ -45,20 +45,20 @@ evidence:
 
 ## Prompt
 
-Read the current documentation for <api_name> through Context7, add it as a source in the current Intent, pull a sample of <resource_list> within the approved scope, and profile the landed sample so the team knows what the source offers and what to watch before building on it. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Keep the API's own values, time labels and units unless approval says otherwise, record every place a live response differs from the documentation, and report what the sample cannot show. Build nothing beyond the sample and its profile.
+Read the current documentation for <api_name> through Context7, or the approved documentation where Context7 lacks it, add it as a source in the current Intent, pull a sample of <resource_list> within the approved scope, and profile the landed sample so the team knows what the source offers and what to watch before building on it. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Keep the API's own values, time labels and units unless approval says otherwise, record every place a live response differs from the documentation, and report what the sample cannot show. Build nothing beyond the sample and its profile.
 
 ## Verified by
 
-- The documentation is read from Context7, or from the approved alternative where Context7 lacks it, and the result states what the API offers, what a request needs and which of these a live response confirmed rather than the documentation alone.
+- The documentation is read from Context7, or from the approved alternative where Context7 lacks it, and the result states what the API offers, what a request needs and which of these a live response confirmed rather than the documentation alone, including the paging and rate limits met.
 - The source is a named connection whose files and outputs hold no secret value, and any credential it needs is referenced by name from the approved store.
 - The sample covers exactly the approved scope: landed rows reconcile element for element to an independent read of the same request, and records the API shows beyond it are counted with their reason, or the result says it cannot see them.
-- Each landed row carries the approved key, keys are distinct at the approved grain, and re-running the load follows the approved re-run rule.
+- Each landed row carries the approved key; keys are checked at the approved grain, any missing or duplicate key is counted and reported in the profile, never dropped or merged silently, and re-running the load follows the approved re-run rule.
 - Landed time labels, time zone, units and value representations are as approved, and without an approved conversion each value equals the source's own value.
 - The profile reports row count, null count, distinct count and range or common values per landed column, and these equal values computed independently from the sample.
 - The profile names constant columns, categorical codes held as numbers and any summary value that misleads, so no code or constant is read as a measure.
 - Every difference between the documentation and a live response, such as the place or time answered versus requested, units, or how recent values behave, is listed with evidence and none is resolved silently.
 - The result states what the sample cannot show, such as other windows, entities or volumes and how recent values settle, and claims no understanding beyond the sample.
-- A failed request, unreadable documentation or unusable response stops at that step with the reason, and no partial sample is presented as the profile.
+- A failed request or unusable response stops the run or is recorded, as the approved rule says, with its reason; documentation no approved source supplies stops the run; no partial sample is presented as the complete profile.
 - The result states whether the sample is adequate to build on under the approved adequacy rule, naming the fields that are not, with the evidence.
 - Nothing beyond the sample and its profile is built or changed: no transformation, contract, schedule or existing table.
 
@@ -74,13 +74,14 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - add-or-update-source
 - configuring-dlt-destination
 - generating-dlt-pipeline
+- profiling-source-data
 - verifying
 
 ### Ask first
 
 - If unresolved, which resources, entities, places or filters of the API are in scope, and which request parameters they use?
 - If unresolved, which version of the data the sample takes when the API serves settled and current or forecast values, and which it must exclude?
-- If unresolved, how large the sample is, which window or slice it covers and how that slice is chosen?
+- If unresolved, how large the sample is, which window or slice it covers, how that slice is chosen, and within what request or cost budget?
 - If unresolved, which fields are landed, at what row grain and under what key?
 - If unresolved, how time labels, time zone, units and value representations are stored: as the API returns them or converted?
 - If unresolved, where the sample lands and what a re-run does to an existing sample: replace, merge or refuse?
@@ -89,9 +90,10 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 
 ### Guardrails
 
-- Do not choose the data version, sample slice, key, time zone, unit treatment or adequacy rule without approval.
+- Do not choose or apply any Ask first answer without approval, such as scope, data version, sample slice, budget, key, time zone, units, re-run, documentation source, failure or adequacy rule.
 - Do not put a secret value in any file, config or output, or ask for one in chat.
 - Do not present documentation as confirmed behaviour, or a live response as documented behaviour, without evidence.
 - Do not read a categorical code or a constant column as a measure.
 - Do not extend the sample into a load, transformation, contract or schedule, or change an existing table.
 - Do not claim the sample shows behaviour outside the slice it covers.
+- Do not exceed the approved request or cost budget, including on retries.
