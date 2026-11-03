@@ -22,11 +22,12 @@ works_with:
   platforms:
     - fabric_warehouse
     - redshift
+    - databricks
   tools:
     - dbt
 qualifiers:
-  - Not yet assessed end to end on fabric_warehouse or redshift.
-  - Needs database roles and per-object grants on the target; DuckDB and MotherDuck have neither.
+  - Not yet assessed end to end on fabric_warehouse, redshift or databricks.
+  - Needs database roles or groups and per-object grants on the target; DuckDB and MotherDuck have neither.
   - Applying the roles and grants and running the role checks need a live warehouse and approval to change access.
   - Fabric Lakehouse is excluded because its SQL endpoint grants do not govern OneLake or Spark reads.
   - Assumes the lower-privilege audience has no storage-level read path that bypasses database grants.

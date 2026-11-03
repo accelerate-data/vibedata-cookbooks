@@ -14,7 +14,7 @@ function:  # who consumes the outcome; use cross-functional when no single domai
 domain_objects:
   - <domain_object>
 works_with:
-  platforms:  # one or more of duckdb_local, motherduck, fabric_lakehouse, fabric_warehouse, redshift
+  platforms:  # one or more of duckdb_local, motherduck, fabric_lakehouse, fabric_warehouse, redshift, databricks
     - duckdb_local
   tools:
     - dbt
