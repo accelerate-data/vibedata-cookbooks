@@ -5,7 +5,7 @@ trigger:
   - A new API source is being considered and the team has to understand it before building a pipeline on it.
   - The API's documentation is current in Context7 but nobody has seen real data from the source yet.
   - A build is blocked because nobody knows the API's grain, field behaviour or data quirks.
-description: Read an API's current documentation through Context7, add it as a source, land a bounded sample and profile it, so the team knows what the source offers, how it behaves and what to watch before any build. Stops before loading, modelling or scheduling.
+description: Read an API's current documentation through Context7 or the approved documentation, add it as a source, land a bounded sample and profile it, so the team knows what the source offers, how it behaves and what to watch before any build. Stops before loading, modelling or scheduling.
 pitch: Read a new API's docs, sample it and profile the sample before you build on it.
 job_category: explain
 area: ingestion
@@ -53,7 +53,7 @@ Read the current documentation for <api_name> through Context7, or the approved 
 
 - The documentation is read from Context7, or from the approved alternative where Context7 lacks it, and the result states what the API offers, what a request needs and which of these a live response confirmed rather than the documentation alone, including any paging and rate limits the run met.
 - The source is a named connection whose files and outputs hold no secret value, and any credential it needs is referenced by name from the approved store.
-- The sample covers exactly the approved scope: landed rows reconcile element for element to the response the load received, so values that change between reads cannot fail a correct load, and records the API shows beyond it are counted with their reason, or the result says it cannot see them.
+- The sample covers exactly the approved scope: landed rows reconcile element for element to the response the load received, and records the API shows beyond it are counted with their reason, or the result says it cannot see them.
 - Each landed row carries the approved key; keys are checked at the approved grain, any missing or duplicate key is counted and reported in the profile, never dropped or merged silently, and re-running the load follows the approved re-run rule.
 - Landed time labels, time zone, units and value representations are as approved, and without an approved conversion each value equals the source's own value in the response the load received.
 - The profile reports row count, null count, distinct count and range or common values per landed column, and these equal values computed independently from the sample.
