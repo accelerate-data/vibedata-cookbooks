@@ -53,9 +53,9 @@ Read the current documentation for <api_name> through Context7, or the approved 
 
 - The documentation is read from Context7, or from the approved alternative where Context7 lacks it, and the result states what the API offers, what a request needs and which of these a live response confirmed rather than the documentation alone, including any paging and rate limits the run met.
 - The source is a named connection whose files and outputs hold no secret value, and any credential it needs is referenced by name from the approved store.
-- The sample covers exactly the approved scope: landed rows reconcile element for element to an independent read of the same request, and records the API shows beyond it are counted with their reason, or the result says it cannot see them.
+- The sample covers exactly the approved scope: landed rows reconcile element for element to the response the load received, so values that change between reads cannot fail a correct load, and records the API shows beyond it are counted with their reason, or the result says it cannot see them.
 - Each landed row carries the approved key; keys are checked at the approved grain, any missing or duplicate key is counted and reported in the profile, never dropped or merged silently, and re-running the load follows the approved re-run rule.
-- Landed time labels, time zone, units and value representations are as approved, and without an approved conversion each value equals the source's own value.
+- Landed time labels, time zone, units and value representations are as approved, and without an approved conversion each value equals the source's own value in the response the load received.
 - The profile reports row count, null count, distinct count and range or common values per landed column, and these equal values computed independently from the sample.
 - The profile names constant columns, categorical codes held as numbers and any summary value that misleads, so no code or constant is read as a measure.
 - Every difference between the documentation and a live response, such as the place or time answered versus requested, units, or how recent values behave, is listed with evidence and none is resolved silently.
@@ -68,7 +68,7 @@ Read the current documentation for <api_name> through Context7, or the approved 
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and approved requirements. Read the documentation first and note what each claim relies on, then add the source through the connector route the runtime offers, declaring the connection by hand where no connector can be configured, and never handling a secret value. Request only the approved scope, land it as approved, and compare the landed rows to an independent read of the same request before profiling. Profile every landed column, check each documentation claim against the live response, and record every difference, constant column, coded value and misleading summary. Finish with what the sample cannot show and an adequacy verdict with its evidence.
+Inherit the Intent's repository, platform, Domain, sources and approved requirements. Read the documentation first and note what each claim relies on, then add the source through the connector route the runtime offers, declaring the connection by hand where no connector can be configured, and never handling a secret value. Request only the approved scope, land it as approved, and compare the landed rows to the response the load received, kept as evidence, before profiling; a later read can confirm only values that the approved data version treats as settled. Profile every landed column, check each documentation claim against the live response, and record every difference, constant column, coded value and misleading summary. Finish with what the sample cannot show and an adequacy verdict with its evidence.
 
 ### Compose
 
