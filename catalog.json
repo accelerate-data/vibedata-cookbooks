@@ -56,6 +56,7 @@
         "identity-golden-record-crosswalk",
         "identity-standardize-names-addresses",
         "incremental-dbt-model-with-contract",
+        "inventory-legacy-database-over-mcp",
         "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "managed-connector-to-dlt",
@@ -67,9 +68,11 @@
         "notebook-transformation-to-dbt",
         "operational-state-duration",
         "pii-classification-and-masking",
+        "plan-legacy-procedure-package-intents",
         "point-in-time-training-dataset",
         "power-query-preparation-to-dbt",
         "product-sessionization-funnels",
+        "profile-api-source-from-docs",
         "prove-dbt-change-safe",
         "readiness-gated-orchestration",
         "sas-data-step-to-dbt",
@@ -90,7 +93,7 @@
           "cross-functional"
         ]
       },
-      "supported_or_proven_count": 58,
+      "supported_or_proven_count": 59,
       "title": "Any domain",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -200,6 +203,7 @@
         "identity-standardize-names-addresses",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
+        "inventory-legacy-database-over-mcp",
         "inventory-lot-traceability",
         "inventory-valuation-cogs",
         "legacy-sql-to-dbt",
@@ -230,6 +234,7 @@
         "people-headcount-rollforward",
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
+        "plan-legacy-procedure-package-intents",
         "point-in-time-training-dataset",
         "power-query-preparation-to-dbt",
         "procurement-open-commitment-rollforward",
@@ -237,6 +242,7 @@
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
+        "profile-api-source-from-docs",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
         "retail-consignment-stock-liability",
@@ -274,7 +280,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 117,
+      "supported_or_proven_count": 118,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -382,6 +388,7 @@
       "members": [
         "adf-mapping-data-flow-to-dlt-dbt",
         "api-to-bronze-incremental-contract",
+        "profile-api-source-from-docs",
         "batch-cdc-current-state",
         "consolidate-duplicate-source-extracts",
         "cross-platform-live-reconciliation",
@@ -404,12 +411,13 @@
         "file-drop-to-bronze",
         "governed-spreadsheet-table",
         "managed-connector-to-dlt",
+        "profile-api-source-from-docs",
         "spark-ingestion-notebook-to-dlt",
         "ssis-package-to-versioned-pipeline",
         "telecom-cdr-usage",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 13,
+      "supported_or_proven_count": 14,
       "title": "Ingest and reconcile source data",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -440,6 +448,8 @@
       "members": [
         "adf-mapping-data-flow-to-dlt-dbt",
         "assess-synapse-ssis-for-fabric",
+        "inventory-legacy-database-over-mcp",
+        "plan-legacy-procedure-package-intents",
         "consolidate-duplicate-source-extracts",
         "ssis-package-to-versioned-pipeline",
         "visual-etl-mapping-to-dlt-dbt",
@@ -462,11 +472,13 @@
         "assess-synapse-ssis-for-fabric",
         "bi-calculations-to-governed-metrics",
         "consolidate-duplicate-source-extracts",
+        "inventory-legacy-database-over-mcp",
         "legacy-sql-to-dbt",
         "managed-connector-to-dlt",
         "materialized-view-to-dbt",
         "move-dbt-project-destination",
         "notebook-transformation-to-dbt",
+        "plan-legacy-procedure-package-intents",
         "power-query-preparation-to-dbt",
         "sas-data-step-to-dbt",
         "scalar-sql-function-to-dbt-macro",
@@ -612,6 +624,7 @@
         "identity-standardize-names-addresses",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
+        "inventory-legacy-database-over-mcp",
         "inventory-lot-traceability",
         "inventory-valuation-cogs",
         "legacy-sql-to-dbt",
@@ -643,6 +656,7 @@
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
         "pii-classification-and-masking",
+        "plan-legacy-procedure-package-intents",
         "point-in-time-training-dataset",
         "power-query-preparation-to-dbt",
         "procurement-open-commitment-rollforward",
@@ -650,6 +664,7 @@
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
+        "profile-api-source-from-docs",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
         "readiness-gated-orchestration",
@@ -712,7 +727,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 119,
+      "supported_or_proven_count": 120,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -913,6 +928,7 @@
         "identity-standardize-names-addresses",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
+        "inventory-legacy-database-over-mcp",
         "inventory-lot-traceability",
         "inventory-valuation-cogs",
         "legacy-sql-to-dbt",
@@ -944,6 +960,7 @@
         "people-headcount-rollforward",
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
+        "plan-legacy-procedure-package-intents",
         "point-in-time-training-dataset",
         "power-query-preparation-to-dbt",
         "procurement-open-commitment-rollforward",
@@ -951,6 +968,7 @@
         "procurement-supplier-rebate-accrual",
         "procurement-three-way-match",
         "product-sessionization-funnels",
+        "profile-api-source-from-docs",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
         "readiness-gated-orchestration",
@@ -989,7 +1007,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 119,
+      "supported_or_proven_count": 120,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -4570,6 +4588,73 @@
       }
     },
     {
+      "area": "re-engineering",
+      "description": "Read a legacy SQL Server, Oracle or PostgreSQL database through its connected MCP, report its objects, call graph, table writers and profile without changing the source, then plan its migration by units, order and what each object becomes.",
+      "domain_objects": [
+        "legacy_database",
+        "database_object",
+        "stored_procedure",
+        "legacy_sql",
+        "procedure_call_graph",
+        "table_writer_map",
+        "table_profile",
+        "inventory_report",
+        "migration_plan",
+        "migration_unit"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "inventory-legacy-database-over-mcp",
+      "job_category": "re-engineer",
+      "path": "recipes/inventory-legacy-database-over-mcp/recipe.md",
+      "pitch": "Find out what a legacy database holds, who calls and writes what, and what its data looks like, then get a saved plan for migrating it.",
+      "qualifiers": [
+        "Reads over a connected MCP server only, such as Toolbox for SQL Server and Oracle or postgres-mcp for PostgreSQL.",
+        "A login that can write or run routines is reported; whether the run proceeds on it is approved.",
+        "Exported definition files are out of scope; a Synapse or SSIS estate bound for Fabric is assess-synapse-ssis-for-fabric.",
+        "It profiles tables to understand them, not to reconcile a load, which database-tables-to-bronze covers.",
+        "Planning stops at an approved plan; converting objects and loading are other Recipes.",
+        "Writers outside the database, and objects the login cannot read, are named unassessed."
+      ],
+      "readiness": "planned",
+      "related": [
+        "stored-procedure-to-dbt",
+        "legacy-sql-to-dbt",
+        "assess-synapse-ssis-for-fabric",
+        "database-tables-to-bronze"
+      ],
+      "sha256": "d071999d396041e8cd71a45e7fbcdc15b40bf224d0f33b38f6ad58d2d46fd61b",
+      "title": "Inventory a legacy SQL Server, Oracle or PostgreSQL database over MCP and plan its migration",
+      "trigger": [
+        "A legacy SQL Server, Oracle or PostgreSQL database is due to be re-engineered and nobody can say which routines call which, or which objects write each table.",
+        "A set of stored routines has to be planned object by object, and the plan needs the objects, callers, writers and the shape of the data first.",
+        "The estate has dynamic SQL, nested calls, tables with two writers or objects nothing calls, and the team needs them found before any conversion starts."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "sql_server",
+          "oracle",
+          "postgresql"
+        ]
+      }
+    },
+    {
       "area": "transformation",
       "description": "From observed receipts, production runs that consume and make lots, and shipments, build the lot genealogy with quantities and units on each link, and for a recalled lot list every affected lot and shipment once with the recalled quantity, with unreconciled runs, cycles and untraceable shipments shown.",
       "domain_objects": [
@@ -6690,6 +6775,73 @@
       }
     },
     {
+      "area": "re-engineering",
+      "description": "Plan the procedures, views, materialized views and other objects that one legacy routine runs, read over MCP without changing anything, with each object's type, the writers of each table, its callers and what it becomes in dbt, then open, or reuse where approved, one Intent per object that stops at approved requirements naming the dbt models and the agreed tests.",
+      "domain_objects": [
+        "stored_procedure",
+        "legacy_sql",
+        "materialized_view",
+        "migration_plan",
+        "requirements_document",
+        "dbt_model",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "designing",
+          "planning",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "plan-legacy-procedure-package-intents",
+      "job_category": "re-engineer",
+      "path": "recipes/plan-legacy-procedure-package-intents/recipe.md",
+      "pitch": "Turn a legacy procedure package into a measured plan and one requirements-only Intent per object, before anyone converts a line.",
+      "qualifiers": [
+        "Reads SQL Server and Oracle through Google MCP Toolbox for Databases and PostgreSQL through postgres-mcp.",
+        "None of these MCP servers enforces read-only access as shipped; a login that can write needs the owner's approval.",
+        "A package here is the set of objects one entry routine runs, not an Oracle PL/SQL package.",
+        "Stops at approved requirements; building and proving parity belong to the conversion Recipes."
+      ],
+      "readiness": "planned",
+      "related": [
+        "stored-procedure-to-dbt",
+        "legacy-sql-to-dbt",
+        "materialized-view-to-dbt",
+        "scd-procedure-to-dbt-snapshot",
+        "scalar-sql-function-to-dbt-macro",
+        "assess-synapse-ssis-for-fabric"
+      ],
+      "sha256": "b10a7fcf635f03b2ec0a96a538cdada0b72748436ec27a767530a8af446b7df9",
+      "title": "Plan a legacy procedure package and open one requirements-only Intent per object",
+      "trigger": [
+        "A legacy SQL Server, Oracle or PostgreSQL warehouse is moving to dbt, and its loads run as packages of procedures that one routine calls in order.",
+        "The team wants to convert a package object by object, but first needs to know every object in it, what writes each table and what each object becomes.",
+        "Each object needs agreed requirements, the dbt model and the tests, before anyone builds it."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt",
+          "sql_server",
+          "oracle",
+          "postgresql"
+        ]
+      }
+    },
+    {
       "area": "transformation",
       "description": "Build one batch table with one row per approved entity and prediction time, features from only the fact versions known by then, a forward label whose unfinished windows are marked or excluded as approved, and every entity-time and fact version accounted for.",
       "domain_objects": [
@@ -7152,6 +7304,64 @@
         ],
         "tools": [
           "dbt"
+        ]
+      }
+    },
+    {
+      "area": "ingestion",
+      "description": "Read an API's current documentation through Context7 or the approved documentation, add it as a source, land a bounded sample and profile it, so the team knows what the source offers, how it behaves and what to watch before any build. Stops before loading, modelling or scheduling.",
+      "domain_objects": [
+        "api_source",
+        "source_connection",
+        "dlt_pipeline",
+        "sample_table",
+        "source_profile"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "configuring-dlt-destination",
+          "generating-dlt-pipeline",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "profile-api-source-from-docs",
+      "job_category": "explain",
+      "path": "recipes/profile-api-source-from-docs/recipe.md",
+      "pitch": "Read a new API's docs, sample it and profile the sample before you build on it.",
+      "qualifiers": [
+        "Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.",
+        "Stops at a profiled sample; loading, cursors and schema contracts belong to the API ingestion Recipe.",
+        "Needs the API's documentation in Context7 or supplied by the user; unreadable docs stop the run.",
+        "An API with no mounted connector is declared by hand; add-or-update-source cannot configure it.",
+        "A sample shows only its own slice; behaviour outside it stays unproven."
+      ],
+      "readiness": "supported",
+      "related": [
+        "api-to-bronze-incremental-contract"
+      ],
+      "sha256": "fac314922be704e5d277b7cfe5ae14a7769bfe21752206624baa3d44ec8b7de1",
+      "title": "Read a new API's docs, add it as a source and profile a sample before you build on it",
+      "trigger": [
+        "A new API source is being considered and the team has to understand it before building a pipeline on it.",
+        "The API's documentation is current in Context7 but nobody has seen real data from the source yet.",
+        "A build is blocked because nobody knows the API's grain, field behaviour or data quirks."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dlt"
         ]
       }
     },

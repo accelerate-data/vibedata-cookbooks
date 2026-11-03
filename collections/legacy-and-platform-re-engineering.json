@@ -6,6 +6,8 @@
   "members": [
     "adf-mapping-data-flow-to-dlt-dbt",
     "assess-synapse-ssis-for-fabric",
+    "inventory-legacy-database-over-mcp",
+    "plan-legacy-procedure-package-intents",
     "consolidate-duplicate-source-extracts",
     "ssis-package-to-versioned-pipeline",
     "visual-etl-mapping-to-dlt-dbt",
