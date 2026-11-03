@@ -22,9 +22,15 @@ domain_objects:
 works_with:
   platforms:
     - duckdb_local
+    - motherduck
+    - fabric_lakehouse
+    - fabric_warehouse
+    - redshift
+    - databricks
   tools:
     - dbt
 qualifiers:
+  - Assessed on duckdb_local only; date, number and type handling on other platforms is unassessed.
   - Needs the exported M of the selected queries, the parameter values they run with and the project locale.
   - Needs the queries' own refresh output on the agreed window, or an approved reference built from their semantics.
   - Reads landed source tables; Studio has no Power Query engine, so the queries are read from their export.

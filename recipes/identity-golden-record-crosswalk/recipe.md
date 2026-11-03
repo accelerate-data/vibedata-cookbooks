@@ -25,10 +25,15 @@ domain_objects:
 works_with:
   platforms:
     - duckdb_local
+    - motherduck
+    - fabric_lakehouse
+    - fabric_warehouse
+    - redshift
+    - databricks
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Expects names and addresses already standardized, with a match key, by an earlier standardization step.
   - Stable golden ids need the id register to persist between runs; a rebuild from scratch reissues them.
   - Without retained crosswalk history, the crosswalk as it stood on a past run cannot be reconstructed.

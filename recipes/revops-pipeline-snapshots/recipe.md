@@ -20,10 +20,15 @@ domain_objects:
 works_with:
   platforms:
     - duckdb_local
+    - motherduck
+    - fabric_lakehouse
+    - fabric_warehouse
+    - redshift
+    - databricks
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - History starts at the first snapshot; earlier pipeline cannot be reconstructed from present state.
   - Capture cannot see changes that happen and revert between two captures; longer periods hide more.
   - Assessed with a labelled synthetic fixture standing in for the CRM; no live opportunity source was captured.
@@ -69,7 +74,7 @@ Build a periodic snapshot <pipeline_snapshot> of <opportunity_source> at the use
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain and sources. Confirm source references resolve on the target and profile keys, duplicates, stages, dates, amounts and currencies. The user confirms the period; never infer it from a refresh or schedule. Use Ask first only for unresolved semantics, then record the contract and a fixed scenario with expected outputs before SQL. Check dbt and adapter versions. Put the period rule in one macro the snapshot and the log both call: from a supplied capture instant or the run start, return the start of the period it files under, a UTC timestamp when sub-daily. Build a staging view of the source, then the snapshot as an incremental model using delete+insert keyed on period start, full refresh disabled, reading only that period's rows and storing the capture instant. Build the capture log as an append-only incremental model with full refresh disabled, counting rows captured from the snapshot. Derive transitions, conversion and slippage from the snapshot only, comparing consecutive captured periods and keying deals on the stable identity. Add grain tests to every model and unit tests for the classifications and period boundaries. Replay the periods in order, skipping one, reading back after each run, then run the immutability, rerun, restore, full-refresh, reconciliation and both wrong-consumer checks. Isolate fixture-derived relations in every layer, restore and verify the fixture, and report unexecuted cases as incomplete verification.
+Inherit the Intent's repository, platform, Domain and sources. Confirm source references resolve on the target and profile keys, duplicates, stages, dates, amounts and currencies. The user confirms the period; never infer it from a refresh or schedule. Use Ask first only for unresolved semantics, then record the contract and a fixed scenario with expected outputs before SQL. Check dbt and adapter versions. Put the period rule in one macro the snapshot and the log both call: from a supplied capture instant or the run start, return the start of the period it files under, a UTC timestamp when sub-daily. Build a staging view of the source, then the snapshot as an incremental model that replaces the whole period keyed on period start with an adapter-supported strategy, full refresh disabled, reading only that period's rows and storing the capture instant. Build the capture log as an append-only incremental model with full refresh disabled, counting rows captured from the snapshot. Derive transitions, conversion and slippage from the snapshot only, comparing consecutive captured periods and keying deals on the stable identity. Add grain tests to every model and unit tests for the classifications and period boundaries. Replay the periods in order, skipping one, reading back after each run, then run the immutability, rerun, restore, full-refresh, reconciliation and both wrong-consumer checks. Restore and verify the fixture, and report unexecuted cases as incomplete verification.
 
 ### Compose
 
@@ -104,4 +109,4 @@ Inherit the Intent's repository, platform, Domain and sources. Confirm source re
 - Keep Domain sources read-only. Mutate only an approved, labelled synthetic fixture or writable fixture with verified reset. Isolate fixture-derived relations by schema in every layer, not by name alone.
 - Do not treat open deals as lost or exclude them silently. Show won, lost and open counts separately under the agreed definition.
 - Do not assume stage order, currency conversion or amount fields. Report mixed currencies or missing amounts as gaps, and never add close-date shifts and amount changes into one total.
-- Execute on the actual supported Intent target and sandbox; support covers duckdb_local only. Keep to the snapshot, log, transitions, conversion and slippage; build no forecast, quota or bookings model.
+- Execute on the actual supported Intent target and sandbox; the complete outcome is assessed on duckdb_local only. Keep to the snapshot, log, transitions, conversion and slippage; build no forecast, quota or bookings model.
