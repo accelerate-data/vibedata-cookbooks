@@ -38,7 +38,7 @@ qualifiers:
   - A login that can write or run routines is reported; whether the run proceeds on it is approved.
   - Exported definition files are out of scope; a Synapse or SSIS estate bound for Fabric is assess-synapse-ssis-for-fabric.
   - It profiles tables to understand them, not to reconcile a load, which database-tables-to-bronze covers.
-  - Planning, conversion and loading belong to other Recipes.
+  - Choosing what to migrate, converting and loading are other Recipes; this saves the inventory planning reads.
   - Writers outside the database, and objects the login cannot read, are named unassessed.
 related:
   - stored-procedure-to-dbt
@@ -54,7 +54,7 @@ evidence:
 
 ## Prompt
 
-Inventory and profile <legacy_database> through its connected MCP before it is re-engineered: list its objects, the call graph from each <entry_routine>, the objects that write each table, then sample and profile the tables the entry routines touch. Read the database through the MCP only and issue no statement that changes it. Inherit the Intent's repository, Domain and connected sources, resolve only the semantics they leave open, and deliver an inventory that cites the query or definition text behind every figure and states what it cannot prove.
+Inventory and profile <legacy_database> through its connected MCP before it is re-engineered: list its objects, the call graph from each <entry_routine>, the objects that write each table, then sample and profile the tables the entry routines touch. Read the database through the MCP only and issue no statement that changes it. Inherit the Intent's repository, Domain and connected sources, resolve only the semantics they leave open, and commit the inventory to the repository as a report that cites the query or definition text behind every figure and states what it cannot prove.
 
 ## Verified by
 
@@ -69,7 +69,7 @@ Inventory and profile <legacy_database> through its connected MCP before it is r
 - Only reads reached the source, shown by a statement record listing every statement sent: no statement changing data, schema or settings was issued and no user routine that could was called; any change between reads, or one the reads themselves cause, is reported as source activity.
 - Anything the profile shows that would change a rebuild, such as join coverage, duplicate grain or empty tables, is reported with its measurement and left uncorrected.
 - In-scope objects with no caller found in the readable definitions are listed as such with the evidence read, and are not reported as unused.
-- The inventory is delivered where approved, states when the source was read, and names what it cannot prove, such as runtime behaviour, objects the login cannot read, encrypted or wrapped definitions and writers outside the database.
+- The inventory is committed to the repository as a report a later planning step can read, states when the source was read, and names what it cannot prove, such as runtime behaviour, unreadable objects, wrapped definitions and writers outside the database.
 
 ## Agent guidance
 
@@ -91,7 +91,7 @@ Inherit the Intent's repository, Domain and connected sources, and resolve only 
 - If unresolved, which columns are sensitive: the agent proposes candidates by name and shape and reads no values until the owner answers; are they excluded, masked or shape only, and are personal literals in definition text redacted?
 - If unresolved, how deep is the profile, are rows counted exactly or by catalog estimate, and what row, time or load limit and run window apply, including tables backed by another system?
 - If unresolved, may the run proceed on a login that can write, or stop until a read-only login is supplied?
-- If unresolved, where does the inventory land, in the conversation only or also as a report in the repository, and may definition text be quoted or committed, or only referenced by object and line?
+- If unresolved, where in the repository does the inventory report go, and may definition text be quoted or committed in it, or only referenced by object and line?
 
 ### Guardrails
 
