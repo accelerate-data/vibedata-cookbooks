@@ -9,7 +9,7 @@ description: Plan the procedures, views, materialized views and other objects th
 pitch: Turn a legacy procedure package into a measured plan and one requirements-only Intent per object, before anyone converts a line.
 job_category: re-engineer
 area: re-engineering
-readiness: supported
+readiness: planned
 function:
   - cross-functional
 domain_objects:
@@ -27,7 +27,6 @@ works_with:
     - fabric_lakehouse
     - fabric_warehouse
     - redshift
-    - databricks
   tools:
     - dbt
     - sql_server
@@ -37,7 +36,7 @@ qualifiers:
   - Reads SQL Server and Oracle through Google MCP Toolbox for Databases and PostgreSQL through postgres-mcp.
   - None of these MCP servers enforces read-only access as shipped; a login that can write needs the owner's approval.
   - A package here is the set of objects one entry routine runs, not an Oracle PL/SQL package.
-  - Databricks support has not shipped, so a plan that targets Databricks cannot yet be built there.
+  - A plan may target Databricks, but its models cannot be built there until Databricks support ships.
   - Stops at approved requirements; building and proving parity belong to the conversion Recipes.
 related:
   - stored-procedure-to-dbt
