@@ -68,6 +68,7 @@
         "notebook-transformation-to-dbt",
         "operational-state-duration",
         "pii-classification-and-masking",
+        "plan-legacy-procedure-package-intents",
         "point-in-time-training-dataset",
         "power-query-preparation-to-dbt",
         "product-sessionization-funnels",
@@ -233,6 +234,7 @@
         "people-headcount-rollforward",
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
+        "plan-legacy-procedure-package-intents",
         "point-in-time-training-dataset",
         "power-query-preparation-to-dbt",
         "procurement-open-commitment-rollforward",
@@ -447,6 +449,7 @@
         "adf-mapping-data-flow-to-dlt-dbt",
         "assess-synapse-ssis-for-fabric",
         "inventory-legacy-database-over-mcp",
+        "plan-legacy-procedure-package-intents",
         "consolidate-duplicate-source-extracts",
         "ssis-package-to-versioned-pipeline",
         "visual-etl-mapping-to-dlt-dbt",
@@ -475,6 +478,7 @@
         "materialized-view-to-dbt",
         "move-dbt-project-destination",
         "notebook-transformation-to-dbt",
+        "plan-legacy-procedure-package-intents",
         "power-query-preparation-to-dbt",
         "sas-data-step-to-dbt",
         "scalar-sql-function-to-dbt-macro",
@@ -652,6 +656,7 @@
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
         "pii-classification-and-masking",
+        "plan-legacy-procedure-package-intents",
         "point-in-time-training-dataset",
         "power-query-preparation-to-dbt",
         "procurement-open-commitment-rollforward",
@@ -955,6 +960,7 @@
         "people-headcount-rollforward",
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
+        "plan-legacy-procedure-package-intents",
         "point-in-time-training-dataset",
         "power-query-preparation-to-dbt",
         "procurement-open-commitment-rollforward",
@@ -6765,6 +6771,73 @@
         ],
         "tools": [
           "dbt"
+        ]
+      }
+    },
+    {
+      "area": "re-engineering",
+      "description": "Plan the procedures, views, materialized views and other objects that one legacy routine runs, read over MCP without changing anything, with each object's type, the writers of each table, its callers and what it becomes in dbt, then open, or reuse where approved, one Intent per object that stops at approved requirements naming the dbt models and the agreed tests.",
+      "domain_objects": [
+        "stored_procedure",
+        "legacy_sql",
+        "materialized_view",
+        "migration_plan",
+        "requirements_document",
+        "dbt_model",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "designing",
+          "planning",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "plan-legacy-procedure-package-intents",
+      "job_category": "re-engineer",
+      "path": "recipes/plan-legacy-procedure-package-intents/recipe.md",
+      "pitch": "Turn a legacy procedure package into a measured plan and one requirements-only Intent per object, before anyone converts a line.",
+      "qualifiers": [
+        "Reads SQL Server and Oracle through Google MCP Toolbox for Databases and PostgreSQL through postgres-mcp.",
+        "None of these MCP servers enforces read-only access as shipped; a login that can write needs the owner's approval.",
+        "A package here is the set of objects one entry routine runs, not an Oracle PL/SQL package.",
+        "Stops at approved requirements; building and proving parity belong to the conversion Recipes."
+      ],
+      "readiness": "planned",
+      "related": [
+        "stored-procedure-to-dbt",
+        "legacy-sql-to-dbt",
+        "materialized-view-to-dbt",
+        "scd-procedure-to-dbt-snapshot",
+        "scalar-sql-function-to-dbt-macro",
+        "assess-synapse-ssis-for-fabric"
+      ],
+      "sha256": "b10a7fcf635f03b2ec0a96a538cdada0b72748436ec27a767530a8af446b7df9",
+      "title": "Plan a legacy procedure package and open one requirements-only Intent per object",
+      "trigger": [
+        "A legacy SQL Server, Oracle or PostgreSQL warehouse is moving to dbt, and its loads run as packages of procedures that one routine calls in order.",
+        "The team wants to convert a package object by object, but first needs to know every object in it, what writes each table and what each object becomes.",
+        "Each object needs agreed requirements, the dbt model and the tests, before anyone builds it."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt",
+          "sql_server",
+          "oracle",
+          "postgresql"
         ]
       }
     },
