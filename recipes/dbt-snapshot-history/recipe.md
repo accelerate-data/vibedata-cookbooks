@@ -19,10 +19,15 @@ domain_objects:
 works_with:
   platforms:
     - duckdb_local
+    - motherduck
+    - fabric_lakehouse
+    - fabric_warehouse
+    - redshift
+    - databricks
   tools:
     - dbt
 qualifiers:
-  - Complete snapshot outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
+  - Complete snapshot outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Records available changes; present-state snapshots cannot reconstruct unobserved history.
 evidence:
   features:
@@ -81,7 +86,7 @@ Inherit the Intent's repository, platform, Domain and sources. Inspect approved 
 - Snapshots of present-state data cannot reconstruct unobserved past versions. State the earliest defensible coverage and leave earlier classifications unresolved unless authoritative history supports an approved backfill.
 - Source effective time and observation time are distinct. A check snapshot's observation boundary does not establish when a business change took effect; unsupported restatement or late-change requirements remain explicit gaps.
 - Keep Domain sources read-only. Mutate only an independently authored synthetic fixture or an approved writable fixture with a verified reset; never seed a missing production source or mix synthetic rows into observed totals.
-- Execute on the actual supported Intent target and supplied sandbox. Do not switch engines or synthesize an absent sandbox; support here covers duckdb_local, while the other four targets remain unassessed for the complete outcome.
+- Execute on the actual supported Intent target and supplied sandbox. Do not switch engines or synthesize an absent sandbox; the complete outcome is assessed on duckdb_local only; the other listed platforms remain unassessed.
 - Apply only installed-version snapshot options and supported deletion behavior. Do not infer identical snapshot capabilities across dbt adapters or promise complete change capture between source observations.
 - Preserve materially distinct versions and facts. Do not suppress fan-out with arbitrary row selection, erase overlaps by deduplication or discard unmatched facts through inner joins to make checks pass.
 - Keep the deliverable to dimension history and its necessary consumer and checks. Add only attributes required by agreed questions; do not build an unrelated fact warehouse or require a second Recipe to prove history.

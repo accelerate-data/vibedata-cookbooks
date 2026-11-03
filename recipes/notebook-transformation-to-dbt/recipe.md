@@ -22,10 +22,15 @@ domain_objects:
 works_with:
   platforms:
     - duckdb_local
+    - motherduck
+    - fabric_lakehouse
+    - fabric_warehouse
+    - redshift
+    - databricks
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Needs the notebook's output on the same inputs, from a run of the unchanged notebook or its current table.
 related:
   - legacy-sql-to-dbt
