@@ -24,9 +24,15 @@ domain_objects:
 works_with:
   platforms:
     - duckdb_local
+    - motherduck
+    - fabric_lakehouse
+    - fabric_warehouse
+    - redshift
+    - databricks
   tools:
     - dbt
 qualifiers:
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Stops at the lifecycle and conversion links; stage conversion and slippage belong to revops-pipeline-snapshots.
   - Needs timestamped lead status history and conversion links naming the records the approved accepted test relies on.
   - As-of or at-conversion values need dated opportunity amount versions; without them they are reported as unproven.
@@ -99,4 +105,4 @@ Inherit the Intent's repository, platform, Domain and sources. Confirm the statu
 - Do not turn a missing amount into zero, add amounts in different currencies, or let a later opportunity stage change an accepted cycle unless approved.
 - Do not build stage snapshots, conversion rates, forecasts, win rates, account hierarchies or contact identity resolution. Keep to the lifecycle, links, attribution, new-customer verdicts and accounting.
 - Keep Domain sources read-only. Write only to the Intent's model schemas, or to an approved, labelled synthetic fixture or writable fixture with a verified reset, isolated by schema in every layer. When results come from a fixture, label them as a stand-in for the CRM.
-- Execute on the actual supported Intent target and sandbox; support covers duckdb_local only.
+- Execute on the actual supported Intent target and sandbox; the complete outcome is assessed on duckdb_local only.

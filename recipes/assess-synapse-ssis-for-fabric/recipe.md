@@ -26,6 +26,7 @@ works_with:
     - fabric_lakehouse
     - fabric_warehouse
     - redshift
+    - databricks
 qualifiers:
   - Reads exported definition files and any usage evidence; it never connects to a live pool, SSISDB or Fabric workspace.
   - Fabric support claims come from cited documentation with an as-of date, never from a Fabric run.
