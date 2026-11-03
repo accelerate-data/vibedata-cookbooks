@@ -27,6 +27,7 @@ works_with:
     - fabric_lakehouse
     - fabric_warehouse
     - redshift
+    - databricks
   tools:
     - dbt
     - sql_server
@@ -36,7 +37,6 @@ qualifiers:
   - Reads SQL Server and Oracle through Google MCP Toolbox for Databases and PostgreSQL through postgres-mcp.
   - None of these MCP servers enforces read-only access as shipped; a login that can write needs the owner's approval.
   - A package here is the set of objects one entry routine runs, not an Oracle PL/SQL package.
-  - A plan may target Databricks, but its models cannot be built there until Databricks support ships.
   - Stops at approved requirements; building and proving parity belong to the conversion Recipes.
 related:
   - stored-procedure-to-dbt
