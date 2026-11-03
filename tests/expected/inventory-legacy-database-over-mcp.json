@@ -1,5 +1,5 @@
 {
-  "readiness": "supported",
+  "readiness": "planned",
   "platforms": [
     "duckdb_local",
     "motherduck",

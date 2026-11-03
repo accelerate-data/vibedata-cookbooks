@@ -9,7 +9,7 @@ description: Read a legacy SQL Server, Oracle or PostgreSQL database through its
 pitch: Find out what a legacy database holds, who calls and writes what, and what its data looks like, then get a saved plan for migrating it.
 job_category: re-engineer
 area: re-engineering
-readiness: supported
+readiness: planned
 function:
   - cross-functional
 domain_objects:
@@ -69,8 +69,8 @@ Inventory and profile <legacy_database> through its connected MCP before it is r
 - No value of a column marked sensitive appears in the inventory or its citations, ranges and frequent values included, and the statement record shows no candidate column's values read before the owner answered; credentials in definition text appear only by location, personal literals as approved.
 - Only reads reached the source, shown by a statement record listing every statement sent: no statement changing data, schema or settings was issued and no user routine that could was called; any change between reads, or one the reads themselves cause, is reported as source activity.
 - Anything the profile shows that would change a rebuild is reported with its measurement and left uncorrected in the source; objects with no caller found in the readable definitions are listed with the evidence read, never called unused.
-- Each in-scope object is in exactly one migration unit under the approved grouping rule, none unassigned or duplicated; each unit lists its objects and the units it depends on, and objects no caller reaches or the login cannot read are placed or named unassessed, not dropped.
-- Each unit follows every unit it depends on unless a stated reason says otherwise, with an entry and exit criterion per step; each object has an approved disposition and target form with its reason, and a defect found is carried or fixed as approved, never silently.
+- Each object in the approved plan scope is in exactly one migration unit, none unassigned or duplicated; each unit lists its objects and dependencies. Objects outside that scope are labelled outside the approved scope with its rule; unreachable or unreadable ones are placed or unassessed.
+- Each unit follows every unit it depends on unless a stated reason says otherwise, with an entry and exit criterion per step; each in-scope object has an approved disposition and target form with its reason, and a defect found is carried or fixed as approved, never silently.
 - The inventory and the plan are committed to the repository as reports a later step can read, each stating when the source was read, any read beyond the inventory, the plan's open owner questions, and what it cannot prove, such as runtime behaviour and writers outside the database.
 
 ## Agent guidance
@@ -93,7 +93,7 @@ Inherit the Intent's repository, Domain and connected sources, and resolve only 
 - If unresolved, may the run proceed on a login that can write, or stop until a read-only login is supplied?
 - If unresolved, where in the repository does the inventory report go, and may definition text be quoted or committed in it, or only referenced by object and line?
 - If unresolved, how are objects grouped into migration units (load path, layer, subject area or one per object), in what order do they migrate (dependency, call-graph or value or risk first), and which dispositions may an object take (model kind, orchestration only, out of scope, retire)?
-- If unresolved, is a defect the inventory finds, such as row loss or colliding keys, reproduced, fixed or flagged for a separate decision, and does the plan cover the whole estate or only what the entry routines reach?
+- If unresolved, is a defect the inventory finds, such as row loss or colliding keys, reproduced, fixed or flagged for a separate decision, and does the plan cover the whole estate or only part, the rest being labelled outside the approved scope?
 
 ### Guardrails
 
