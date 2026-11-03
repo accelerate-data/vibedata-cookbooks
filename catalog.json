@@ -561,11 +561,14 @@
       "id": "microsoft-fabric",
       "kind": "platform",
       "resolved_members": [
+        "adf-mapping-data-flow-to-dlt-dbt",
         "api-to-bronze-incremental-contract",
         "assess-synapse-ssis-for-fabric",
         "banking-aml-features",
         "banking-delinquency-vintages",
         "batch-cdc-current-state",
+        "bitemporal-business-history",
+        "bounded-partition-backfill",
         "business-event-fact",
         "consolidate-duplicate-source-extracts",
         "cost-attribution-by-model-job",
@@ -580,6 +583,9 @@
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
         "database-tables-to-bronze",
+        "dbt-full-refresh-to-incremental",
+        "dbt-refactor-output-identical",
+        "dbt-snapshot-history",
         "effective-dated-bom-requirements",
         "effective-dated-business-rules",
         "event-resource-attribution",
@@ -602,13 +608,17 @@
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
         "hospitality-occupancy-adr-revpar",
+        "identity-golden-record-crosswalk",
+        "identity-standardize-names-addresses",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
         "inventory-lot-traceability",
         "inventory-valuation-cogs",
+        "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
+        "managed-connector-to-dlt",
         "manufacturing-oee-downtime",
         "manufacturing-production-order-flow",
         "manufacturing-standard-actual-cost",
@@ -617,10 +627,12 @@
         "marketing-attribution-models",
         "marketing-campaign-budget-pacing",
         "marketing-contact-pressure-eligibility",
+        "master-b2b-account-hierarchy",
         "master-product-sku-hierarchy",
         "materialized-view-to-dbt",
         "metric-population-and-rollups",
         "move-dbt-project-destination",
+        "notebook-transformation-to-dbt",
         "operational-state-duration",
         "ops-inventory-reconciliation",
         "ops-otif",
@@ -632,6 +644,7 @@
         "people-payroll-gl-tieout",
         "pii-classification-and-masking",
         "point-in-time-training-dataset",
+        "power-query-preparation-to-dbt",
         "procurement-open-commitment-rollforward",
         "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
@@ -645,10 +658,17 @@
         "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
+        "revops-pipeline-snapshots",
+        "revops-quota-commission",
         "saas-mrr-waterfall-nrr",
+        "sales-commission-payout-ledger",
         "sales-forecast-backtesting",
+        "sales-lead-opportunity-lifecycle",
         "sales-quote-order-price-reconciliation",
+        "sas-data-step-to-dbt",
+        "scalar-sql-function-to-dbt-macro",
         "scd-procedure-to-dbt-snapshot",
+        "service-ticket-sla",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "shift-unit-economics",
@@ -659,7 +679,8 @@
         "telecom-cdr-usage",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
-        "versioned-data-contract-cutover"
+        "versioned-data-contract-cutover",
+        "visual-etl-mapping-to-dlt-dbt"
       ],
       "selector": {
         "platforms_any": [
@@ -691,7 +712,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 98,
+      "supported_or_proven_count": 119,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -842,11 +863,14 @@
       "id": "motherduck",
       "kind": "platform",
       "resolved_members": [
+        "adf-mapping-data-flow-to-dlt-dbt",
         "api-to-bronze-incremental-contract",
         "assess-synapse-ssis-for-fabric",
         "banking-aml-features",
         "banking-delinquency-vintages",
         "batch-cdc-current-state",
+        "bitemporal-business-history",
+        "bounded-partition-backfill",
         "business-event-fact",
         "consolidate-duplicate-source-extracts",
         "cost-attribution-by-model-job",
@@ -855,12 +879,16 @@
         "cpg-promotion-lift",
         "cpg-shelf-life-fefo-eligibility",
         "cross-platform-dbt-macro",
+        "cross-platform-live-reconciliation",
         "cross-platform-scheduled-job",
         "customer-consent-preferences",
         "customer-historical-ltv",
         "customer-retention-churn-features",
         "customer-rfm-segmentation",
         "database-tables-to-bronze",
+        "dbt-full-refresh-to-incremental",
+        "dbt-refactor-output-identical",
+        "dbt-snapshot-history",
         "effective-dated-bom-requirements",
         "effective-dated-business-rules",
         "event-resource-attribution",
@@ -881,13 +909,17 @@
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
         "hospitality-occupancy-adr-revpar",
+        "identity-golden-record-crosswalk",
+        "identity-standardize-names-addresses",
         "incremental-dbt-model-with-contract",
         "insurance-loss-triangles",
         "inventory-lot-traceability",
         "inventory-valuation-cogs",
+        "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
+        "managed-connector-to-dlt",
         "manufacturing-oee-downtime",
         "manufacturing-production-order-flow",
         "manufacturing-standard-actual-cost",
@@ -896,11 +928,13 @@
         "marketing-attribution-models",
         "marketing-campaign-budget-pacing",
         "marketing-contact-pressure-eligibility",
+        "master-b2b-account-hierarchy",
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
         "metricflow-semantic-model",
         "motherduck-flight-scheduling",
         "move-dbt-project-destination",
+        "notebook-transformation-to-dbt",
         "operational-state-duration",
         "ops-inventory-reconciliation",
         "ops-otif",
@@ -911,6 +945,7 @@
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
         "point-in-time-training-dataset",
+        "power-query-preparation-to-dbt",
         "procurement-open-commitment-rollforward",
         "procurement-savings-realization",
         "procurement-supplier-rebate-accrual",
@@ -925,10 +960,17 @@
         "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
         "revops-bookings-billings-cash",
+        "revops-pipeline-snapshots",
+        "revops-quota-commission",
         "saas-mrr-waterfall-nrr",
+        "sales-commission-payout-ledger",
         "sales-forecast-backtesting",
+        "sales-lead-opportunity-lifecycle",
         "sales-quote-order-price-reconciliation",
+        "sas-data-step-to-dbt",
+        "scalar-sql-function-to-dbt-macro",
         "scd-procedure-to-dbt-snapshot",
+        "service-ticket-sla",
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion",
         "shift-unit-economics",
@@ -939,14 +981,15 @@
         "telecom-cdr-usage",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
-        "versioned-data-contract-cutover"
+        "versioned-data-contract-cutover",
+        "visual-etl-mapping-to-dlt-dbt"
       ],
       "selector": {
         "platforms_any": [
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 97,
+      "supported_or_proven_count": 119,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1193,6 +1236,7 @@
       "path": "recipes/adf-mapping-data-flow-to-dlt-dbt/recipe.md",
       "pitch": "Rebuild an ADF mapping data flow as dlt and dbt code and prove sink by sink that it returns what the flow wrote.",
       "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "Needs the exported data flow definition and read access to the sources its reads and sinks name.",
         "Needs the flow's own output on the agreed slice, or an approved reference built from its declared semantics.",
         "Studio has no ADF connection; the flow is read from its exported definition and never run or edited."
@@ -1205,7 +1249,7 @@
         "stored-procedure-to-dbt",
         "managed-connector-to-dlt"
       ],
-      "sha256": "37ce03828d719bac6efa29364de47ab6f90f6b4a4057ba8570debd53638ce820",
+      "sha256": "a916ddf1967ef6fdce6a7cdeb01a4564ed19ab1becbaaf34b4f73b2331e4ebd4",
       "title": "Convert an ADF mapping data flow into dlt and dbt and prove parity",
       "trigger": [
         "Order or customer reporting still comes from an Azure Data Factory mapping data flow whose logic lives only on the ADF canvas, with no tests or review.",
@@ -1214,7 +1258,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dlt",
@@ -1261,7 +1310,7 @@
       "related": [
         "managed-connector-to-dlt"
       ],
-      "sha256": "859c1e9194af6c4a82c8222522f3a2f88f726a1bf19f1e0428404ae247e3f9d1",
+      "sha256": "24e85a1a00935c91c6fe2a5f91cf79f4d585948941394641de22886b0acd3dc6",
       "title": "Land a SaaS or REST API into bronze with an incremental cursor and a schema contract",
       "trigger": [
         "An API source has to load into bronze incrementally instead of reloading everything on every run.",
@@ -1274,7 +1323,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dlt"
@@ -1317,7 +1367,7 @@
         "stored-procedure-to-dbt",
         "fabric-data-pipeline-as-code"
       ],
-      "sha256": "53a2abe530ef0c60870824775661797a851aa391a95fb277f11ad88b0a93508f",
+      "sha256": "7e485ee5426118a1c0386507459e3f77d02f3fde460b2ca4db9668d6db5e5e21",
       "title": "Assess a Synapse dedicated pool or SSIS estate for a Fabric rebuild and recommend whether to go",
       "trigger": [
         "A Synapse dedicated SQL pool or a set of SSIS packages is due to move to Fabric, and nobody can say what is in it, what each piece would take or what stops it.",
@@ -1331,7 +1381,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ]
       }
     },
@@ -1382,7 +1433,7 @@
         "effective-dated-business-rules",
         "file-drop-to-bronze"
       ],
-      "sha256": "bbb1cce859b20625e51f138b2cda6539cc149973f88f902778a88b56bf31197b",
+      "sha256": "eef82ba8f7b0c5e535baeee7c7566a599aa6deb885a6c5e51880a55815d46013",
       "title": "Build AML monitoring features at account-day grain",
       "trigger": [
         "A transaction-monitoring model is fed hand-built features nobody can reproduce, so two runs on the same data disagree.",
@@ -1395,7 +1446,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -1448,7 +1500,7 @@
         "dbt-snapshot-history",
         "effective-dated-business-rules"
       ],
-      "sha256": "e3f75e16338fb225e924c4eb889ccdb31f6f4e1d6fae29ce7b92b5f5a69a0f54",
+      "sha256": "0b00bd3026e1721c4bda94f64c77e9b98a8996c23777456d27ab0c36833d089a",
       "title": "Build loan delinquency roll rates and vintage curves from loan, schedule, payment and event records",
       "trigger": [
         "Credit risk reads delinquency off a servicer status field that each system refreshes on its own day, so bucket counts and roll rates differ from report to report.",
@@ -1462,7 +1514,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -1507,7 +1560,7 @@
         "business-event-fact",
         "dbt-snapshot-history"
       ],
-      "sha256": "806a3726b2fc52bc419319703cf21f376002f9dba33deae4d461f4d22d2aed84",
+      "sha256": "064c439c1527319ddca30fd2cbea60213872eaf706f371a691b48ee70b706623",
       "title": "Build current-state tables from exported database change events",
       "trigger": [
         "A batch export of database change events is available and the current state of its tables has to be rebuilt without reading the source database again.",
@@ -1520,7 +1573,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dlt",
@@ -1617,7 +1671,7 @@
       "path": "recipes/bitemporal-business-history/recipe.md",
       "pitch": "Answer what applied on a date and what we knew at a cutoff, from one preserved version ledger.",
       "qualifiers": [
-        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "Needs a source recording when each change was captured; knowledge is never rebuilt from a snapshot.",
         "Both time axes at once; business-axis history alone belongs to the dimension history Recipe."
       ],
@@ -1627,7 +1681,7 @@
         "scd-procedure-to-dbt-snapshot",
         "effective-dated-business-rules"
       ],
-      "sha256": "a939f79c0490860310c278663a26626ea7100285f535ca9ad426c02640b8da6c",
+      "sha256": "80f43566aaf9da7422cc2b6521c18e50c16ed970382c19a750785d25b6ba928c",
       "title": "Preserve business-effective history and what was known at each reporting cutoff",
       "trigger": [
         "A backdated correction must change today's reading of the past, yet a report issued earlier has to stay reproducible as it was published.",
@@ -1636,7 +1690,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -1671,7 +1730,7 @@
       "path": "recipes/bounded-partition-backfill/recipe.md",
       "pitch": "Restate one date range after a logic change, and prove nothing else moved because of it.",
       "qualifiers": [
-        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "Converting a model to incremental for routine runs belongs to the dbt-full-refresh-to-incremental Recipe."
       ],
       "readiness": "supported",
@@ -1680,7 +1739,7 @@
         "dbt-refactor-output-identical",
         "prove-dbt-change-safe"
       ],
-      "sha256": "eb30f83fd1b5927365682d4554301d59ff78ff2647fc4f4f814e4060dd8e56f6",
+      "sha256": "6258f6d73549fc2390cb6046fb0967ec93639fb9d57a4ed4f7dc26242b2aaf16",
       "title": "Backfill a bounded date range after a logic change without a full refresh",
       "trigger": [
         "A business rule in an incremental model was corrected, and only a known date range of published history should be restated.",
@@ -1689,7 +1748,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -1723,7 +1787,7 @@
       "path": "recipes/business-event-fact/recipe.md",
       "pitch": "Count business events with a defensible identity rule and an audit trail for every source row.",
       "readiness": "supported",
-      "sha256": "de92136fba1ecd31e2e2902fb53595dac2f85647783984d14b2516c8a7520c7e",
+      "sha256": "cbe9b3a4ad1ecb952fab325ef1027fa2fa34cf57fc97c10cbbcccf7415fdd03e",
       "title": "Build a business-event fact with auditable duplicate handling",
       "trigger": [
         "Transaction feeds overlap, and source deliveries may be counted as separate business events.",
@@ -1736,7 +1800,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -1792,7 +1857,7 @@
         "cross-platform-live-reconciliation",
         "batch-cdc-current-state"
       ],
-      "sha256": "60ba6f208ceae8c60fff6b5c6579bb6235dc19d43512dd066201737d9524ad59",
+      "sha256": "49b18594c1a550b356340626bf2b18f287e9f1466d7535a80a2030b8adb974d7",
       "title": "Consolidate overlapping extracts of one source table into a shared feed and per-team projections",
       "trigger": [
         "Several downstream teams each pull their own extract of the same source table, each with its own filter, cursor, delete handling and cutoff, so the source is read repeatedly.",
@@ -1805,7 +1870,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dlt",
@@ -1858,7 +1924,7 @@
         "file-drop-to-bronze",
         "database-tables-to-bronze"
       ],
-      "sha256": "aece3ff033d78fba3e4c385b9395afc66d0f546925998009b80024c04a6739a3",
+      "sha256": "6ec2ca505fefa3d179ef56d7ae20e99081c5c2307f072c083bf0de87ce1484c8",
       "title": "Attribute warehouse spend to the models and job runs behind it, keeping idle and untied cost visible",
       "trigger": [
         "The warehouse bill keeps growing and nobody can say which models or jobs are behind it.",
@@ -1872,7 +1938,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -1929,7 +1996,7 @@
         "master-product-sku-hierarchy",
         "file-drop-to-bronze"
       ],
-      "sha256": "f6f8b35376708174febdb1d5c0c72e4cfa1b14ab8b67486257459d2fba79099e",
+      "sha256": "19af1ec0cad1749bd4386c4636ac48273962142c51bf915a93b08a6eba7b5b82",
       "title": "Reconcile sell-in, sell-out and channel stock in a distributor ledger and a market view labelled by feed coverage",
       "trigger": [
         "Sales ops, demand planning and channel finance each report a different sell-in, sell-out and channel stock figure, because distributors report in different units, codes and cutoffs.",
@@ -1943,7 +2010,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -2003,7 +2071,7 @@
         "finance-ar-aging-dso",
         "file-drop-to-bronze"
       ],
-      "sha256": "26fd46aa6206f58e706b528519045dbcd62384dfeb14b66d181f4bbda1aaa5ea",
+      "sha256": "17049ce5d87acf09973b903ae2b2a0673b6c7a7b1798ef96ca5a7da1406605ff",
       "title": "Build manufacturer gross-to-net revenue with trade accruals and settlements",
       "trigger": [
         "Revenue accounting closes the month by working gross to net in spreadsheets, nobody can audit them, and the trade accrual never ties to what customers claim.",
@@ -2017,7 +2085,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -2069,7 +2138,7 @@
         "effective-dated-business-rules",
         "metric-population-and-rollups"
       ],
-      "sha256": "28f074e9dd15ba16b5383b3e7a29690c10a92feba47a6bb526e02b37f6060096",
+      "sha256": "35a84dd8a8c87f8983534a7ebcdf1aa04567fea3a8fb2513e419c2ee28467f0a",
       "title": "Measure trade-promotion lift and the post-promotion dip against an explicit baseline",
       "trigger": [
         "Trade marketing reports promotion results with whatever comparison each analyst chose, and nobody can say what \"without the promotion\" meant for a given event.",
@@ -2084,7 +2153,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -2144,7 +2214,7 @@
         "effective-dated-business-rules",
         "file-drop-to-bronze"
       ],
-      "sha256": "5e8794e538c4acff534ed33a76f72b2a294e2231c76279f4fec232af6f862a82",
+      "sha256": "d6ff66622f019083527dfbcd39303cfb541474003408e205e0014df809bb78e3",
       "title": "Shelf-life exposure and first-expiry allocation eligibility by lot, location and open order line",
       "trigger": [
         "Planners cannot see which lots are close to expiry, how much of each is still usable, or how much will go unallocated, so stock is written off that a customer could have taken.",
@@ -2157,7 +2227,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -2207,7 +2278,7 @@
         "prove-dbt-change-safe",
         "dbt-refactor-output-identical"
       ],
-      "sha256": "c9a372710804323e0b51750ca8bf4021ad662641260803dd7341465df72a7b00",
+      "sha256": "31468bb538e68fb2a62fa1b13512e55a01f5c50009dcbdfd7e1eb7577b651a49",
       "title": "Port a dbt macro to each approved warehouse without changing its callers",
       "trigger": [
         "Part of a dbt project is moving to another warehouse, and a macro its models call only compiles, or only returns correct values, on the old one.",
@@ -2220,7 +2291,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -2250,6 +2322,7 @@
       "path": "recipes/cross-platform-live-reconciliation/recipe.md",
       "pitch": "Show that the old and the rebuilt table hold the same data, read live from both, before you cut over.",
       "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "Each side must be readable live and read-only from the Intent; a side that is not stays unproven.",
         "A baseline of the same project's unchanged dbt code belongs to dbt-refactor-output-identical."
       ],
@@ -2258,7 +2331,7 @@
         "dbt-refactor-output-identical",
         "prove-dbt-change-safe"
       ],
-      "sha256": "098c80ee121489f37b682d5c54cdcd523a233dcf28f0fc46c7e5d09d12621038",
+      "sha256": "df95033c7714ff7d3b045c6968834f803bbcb20f75cc2948b25e90b77148c2c3",
       "title": "Reconcile equivalent data across two live systems before cutover",
       "trigger": [
         "A table or model has been rebuilt on another platform or database while the original is still running, and the owner needs evidence the two hold the same data before cutting over.",
@@ -2267,7 +2340,10 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "redshift",
+          "databricks"
         ]
       }
     },
@@ -2379,7 +2455,7 @@
         "source-freshness-sla",
         "file-drop-to-bronze"
       ],
-      "sha256": "5dceddc83a6b42da741a2451cb5440655123c25f9473d38361bd6045b73d8269",
+      "sha256": "c330b434ffe496fd8bd44a5bbc9aaf9e2993a1307b5c3aff2e65af19c28c2206",
       "title": "Unify consent and communication preferences with auditable latest-wins logic",
       "trigger": [
         "A customer who opted out in one system still gets messages from another, because each source says something different and whichever job ran last wins.",
@@ -2392,7 +2468,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -2446,7 +2523,7 @@
         "identity-golden-record-crosswalk",
         "finance-revenue-recognition"
       ],
-      "sha256": "aa4377cad5393e64b019f1902d1674138beb0580bbef132310f1268ce15c3323",
+      "sha256": "bcecdf01507db138b9b31fc0008c4349243dd3dd0b30308ff4db42a11324d0cd",
       "title": "Compute historical customer lifetime value with margin",
       "trigger": [
         "The payback conversation uses a customer value from a spreadsheet nobody can reproduce, and it counts order revenue only, with no refunds and no cost of serving the orders.",
@@ -2459,7 +2536,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -2515,7 +2593,7 @@
         "customer-rfm-segmentation",
         "customer-historical-ltv"
       ],
-      "sha256": "6a4a389c9193005043d631fa26caa398d6a702dc938d8e6de8d766567f468a70",
+      "sha256": "caa88f6a0b9fd005dfc3d978719e21c7f40e2d24953b0404fb47dfc599aab028",
       "title": "Build retention cohorts and a churn feature table",
       "trigger": [
         "Marketing, finance and product each quote a different churn rate because each defines an active and a lost customer differently.",
@@ -2528,7 +2606,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -2578,7 +2657,7 @@
         "dbt-full-refresh-to-incremental",
         "revops-pipeline-snapshots"
       ],
-      "sha256": "a996dc813f83c3d5282d2f2c50a00e46bbd6bfa65f6de6c10123757a618a0592",
+      "sha256": "b5ef501a8b9172470b539cb54ff949409e4b9d95bf67dabb880cdb089d11dbe0",
       "title": "Score customers with RFM, maintain segments incrementally and explain every move",
       "trigger": [
         "Marketing segment lists come from a spreadsheet or BI export nobody can reproduce, and the same customer lands in different segments depending on who pulled the list.",
@@ -2591,7 +2670,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -2639,7 +2719,7 @@
         "api-to-bronze-incremental-contract",
         "managed-connector-to-dlt"
       ],
-      "sha256": "fa026a30911d25a751393da0d836f213fe7539900d8373378a9efea6d1204c46",
+      "sha256": "9c1d7f9d9001a147f1ab1962e215d5a0b86af5bf8c6be98b52d74267b9fe590a",
       "title": "Load a database table set into bronze with a bounded incremental strategy and landed-data proof",
       "trigger": [
         "An operational database's tables have to land in bronze, and reloading every table in full on each run is too slow or too heavy on the source.",
@@ -2652,7 +2732,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dlt"
@@ -2688,7 +2769,7 @@
       "path": "recipes/dbt-full-refresh-to-incremental/recipe.md",
       "pitch": "Make a slow full-refresh dbt model incremental, prove its output still matches, and measure the runtime change.",
       "qualifiers": [
-        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "Downstream incremental models may still miss late, changed or deleted rows; fixing them is separate work.",
         "Structural refactors with no materialization change belong to the dbt-refactor-output-identical Recipe."
       ],
@@ -2696,7 +2777,7 @@
       "related": [
         "prove-dbt-change-safe"
       ],
-      "sha256": "b28519928becbde0ee498210df3f13f79b27b8697b09fc729ebbefe30126cc08",
+      "sha256": "2e6d2deecd5153645a267850742064362965bb04090cd65bc09912490a934ac4",
       "title": "Convert a full-refresh dbt model to incremental and show the runtime delta",
       "trigger": [
         "A dbt model is correct but a full refresh is too slow or too expensive to run routinely, and gets slower as history grows.",
@@ -2705,7 +2786,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -2740,14 +2826,14 @@
       "path": "recipes/dbt-refactor-output-identical/recipe.md",
       "pitch": "Clean up tangled dbt models and prove that nothing your consumers read has changed.",
       "qualifiers": [
-        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed."
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed."
       ],
       "readiness": "supported",
       "related": [
         "dbt-full-refresh-to-incremental",
         "prove-dbt-change-safe"
       ],
-      "sha256": "a91b8180ee6a63a77f88181c198618a98734ab03d63f784a1c73fd8fb2b83e84",
+      "sha256": "eca5a6986b94e94d1391c67d9ad7dc26c8069ccd74153af36cd9d094b31f10ae",
       "title": "Refactor dbt models without changing consumer output",
       "trigger": [
         "A model has grown into one long query with logic packed inline, and nobody dares change it because dashboards and reports depend on its output.",
@@ -2757,7 +2843,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -2791,11 +2882,11 @@
       "path": "recipes/dbt-snapshot-history/recipe.md",
       "pitch": "Preserve recorded dimension changes and prove that historical events select the right version.",
       "qualifiers": [
-        "Complete snapshot outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Complete snapshot outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "Records available changes; present-state snapshots cannot reconstruct unobserved history."
       ],
       "readiness": "supported",
-      "sha256": "2b45afa2ddc095f8e409d1b545d6efb4e4045a75fb5ca5b676214a5eabf84771",
+      "sha256": "86a5eadd77767f9c700fc1d164f7d24504fcf737905a5f9f1decef66876a35d6",
       "title": "Add dimension history with verified historical fact classification",
       "trigger": [
         "Customer, asset or vendor attributes change, but past events need a defensible historical classification.",
@@ -2804,7 +2895,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -2856,7 +2952,7 @@
         "effective-dated-business-rules",
         "ops-inventory-reconciliation"
       ],
-      "sha256": "19d5f0da79adb0e3570416d365253df9a8fa64780c4f87228a00d6bae4f47d1a",
+      "sha256": "132bd1fa87fcede3823e9b44dd822906cd8775602c3972df95cb5991fbdd91b9",
       "title": "Explode an effective-dated bill of materials into component requirements",
       "trigger": [
         "Component demand for an approved quantity of finished goods is worked out by hand or in a spreadsheet, and nobody can show which BOM revision, unit conversion or scrap rate produced a figure.",
@@ -2870,7 +2966,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -2905,7 +3002,7 @@
       "path": "recipes/effective-dated-business-rules/recipe.md",
       "pitch": "Calculate historical amounts from the rules that apply to each event, with visible exceptions and independent amount checks.",
       "readiness": "supported",
-      "sha256": "6e1c939a6d179b6a5e960463895ac9fa1383b4b371fc145df8c6df45ef54b33e",
+      "sha256": "795f11972106b56ac380b45379fd49763946058e13d38ed15c995f4e6173bc11",
       "title": "Build historical event amounts from effective-dated business rules",
       "trigger": [
         "Historical fees or surcharges change when a current rate is applied to past events.",
@@ -2918,7 +3015,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -2953,7 +3051,7 @@
       "path": "recipes/event-resource-attribution/recipe.md",
       "pitch": "Explain who or what is responsible for each event, with evidence and totals that survive attribution joins.",
       "readiness": "supported",
-      "sha256": "5ab05f6ba11f5725c4267fb75bf35532f247de795e2ef2cba48b6cabdf031a5d",
+      "sha256": "a8ca0e7c4cdc02a1c1fbc44511f618193e4dc7a65123802ffb6b1f42ec5310c7",
       "title": "Build auditable event-to-resource attribution",
       "trigger": [
         "Revenue or productivity must be reported by employee, asset or team, but responsibility for each event is unclear.",
@@ -2966,7 +3064,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -3130,7 +3229,7 @@
         "api-to-bronze-incremental-contract",
         "managed-connector-to-dlt"
       ],
-      "sha256": "dac0f1631c077407b411ec6b6d9757a8df54d00cd3a348e453ce2d1417e37ce0",
+      "sha256": "4fbfd557392acca7431ef140b37adfb906f7c88ec7785e4f1413058f827c1c22",
       "title": "Load a recurring file drop into bronze with file-completeness and schema controls",
       "trigger": [
         "A partner or vendor drops files into a folder on a schedule, and bronze has to pick up each delivery without a rerun loading it twice.",
@@ -3143,7 +3242,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dlt"
@@ -3195,7 +3295,7 @@
         "finance-gl-subledger-tieout",
         "dbt-snapshot-history"
       ],
-      "sha256": "617a94378a395b9472f6fbb4133f58176cfa91ed1341ffef3480e186fffdf6ce",
+      "sha256": "41d1a0e7903f6a9123e8f0ffbaabda802059de448bd0826c147a8c08cc6454a9",
       "title": "Age payables from open items as of any chosen date and reconcile the total",
       "trigger": [
         "Finance needs the aged payables for a past month or quarter end, but the payables system only shows what is owed today.",
@@ -3208,7 +3308,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -3257,7 +3358,7 @@
       "related": [
         "dbt-snapshot-history"
       ],
-      "sha256": "d1a4f5a341cef0e528198e415480fe6983eafd8b6e8f3f3245ff9b5884060ffb",
+      "sha256": "44791511df98ec2eb0e12a84675797faeca6cdd52a35ccdde3ba7e62d422ba5d",
       "title": "Age receivables and compute DSO from open invoices as of any chosen date",
       "trigger": [
         "Finance needs the aged receivables report and DSO for a past month or quarter end, but the receivables system only shows what is open today.",
@@ -3270,7 +3371,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -3325,7 +3427,7 @@
         "metric-population-and-rollups",
         "dbt-snapshot-history"
       ],
-      "sha256": "91abf1a7de23d34dca6fc90ea9de3ae1fc131ee8b75ea27bdda73ef8759c055b",
+      "sha256": "7e752f392548ca625f327f15cfa6d20ec278a7c89d3a08a612c4eb088e3af6b8",
       "title": "Compare budget and forecast to actuals at cost-center grain",
       "trigger": [
         "Budget-versus-actual is a monthly copy-paste from the general ledger into the budget spreadsheet, and the variances change depending on who built them.",
@@ -3338,7 +3440,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -3391,7 +3494,7 @@
         "identity-golden-record-crosswalk",
         "identity-standardize-names-addresses"
       ],
-      "sha256": "40c003232d80d66f46a6c0adbdb7b2d31cd3f5ddf6ccd6d1a59d0be981afa6d9",
+      "sha256": "32d511236da08b6402f215ea637fe40f91c73440ac3f10d3f6bfe876f4534328",
       "title": "Detect duplicate invoice candidates from explicit matching rules before payment",
       "trigger": [
         "Accounts payable paid the same supplier invoice twice and only found out when the supplier returned the money.",
@@ -3404,7 +3507,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -3454,7 +3558,7 @@
         "effective-dated-business-rules",
         "dbt-snapshot-history"
       ],
-      "sha256": "78eed26444bd009f6ad84fcdaf1a6311bc9d9c8717da2752780ad62ea3c66ec9",
+      "sha256": "a2f165225d506028d18f22496a0f32785d8fe533a411ab14b1c3642fca80a1dc",
       "title": "Build a fixed-asset register and reconcile its net-book-value roll-forward",
       "trigger": [
         "Every month someone rebuilds the fixed-asset register and depreciation schedule in a spreadsheet to prove that opening value plus additions less depreciation and disposals equals closing value.",
@@ -3467,7 +3571,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -3515,7 +3620,7 @@
         "effective-dated-business-rules",
         "dbt-snapshot-history"
       ],
-      "sha256": "f10cb188d4cccfcc15f5fa4a087254c5b79f646880e672c75bb8af7005b60fcc",
+      "sha256": "b13a6d05b5e0c721a149c76ed543daf986ab80c8afccce0c1a33fb4d289c6a79",
       "title": "Tie the general ledger to its subledgers and classify every break",
       "trigger": [
         "Month-end close stalls because control accounts do not agree with their subledgers and the difference is worked out by hand in a spreadsheet.",
@@ -3528,7 +3633,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -3585,7 +3691,7 @@
         "shared-calendar-fiscal-periods",
         "shared-fx-conversion"
       ],
-      "sha256": "6ad5ad0fa1a60ee916b4d09ff51be24b1982fe257ead1232884108871e2715c8",
+      "sha256": "2f6ea8ea7603f7ded38a6261bac7f3f8f5391d5d612a27669be79e951e3794bf",
       "title": "Explain gross-margin change with a reconciled price, volume, mix, and cost bridge",
       "trigger": [
         "Finance subtracts one period's gross margin from another and writes the explanation by hand, and the story changes with whoever builds it.",
@@ -3598,7 +3704,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -3651,7 +3758,7 @@
         "effective-dated-business-rules",
         "dbt-snapshot-history"
       ],
-      "sha256": "c6e82ab474d84cc1a163184a0722dd141191b40f65252b77d11a2cd1fb127be9",
+      "sha256": "49949d92f063060c698c8a2daf256583ce2ac333df718efc00cb2e511dd2f425",
       "title": "Generate the revenue-recognition schedule and deferred-revenue roll-forward from contracts",
       "trigger": [
         "Revenue is spread across months by hand in a spreadsheet and never agrees with the deferred revenue balance or with what was invoiced.",
@@ -3664,7 +3771,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -3721,7 +3829,7 @@
         "finance-duplicate-invoice-detection",
         "revops-bookings-billings-cash"
       ],
-      "sha256": "3dc9b11bd84a8ea55735d18362a133b78cd47eb3ba2cdd666c41c35bd8f95add",
+      "sha256": "6f8168ec20c041f90cca0faa76f8af4c6d21fc2523cb1aae71f19935dbb0c313",
       "title": "Build a thirteen-week cash plan with traceable scenario assumptions",
       "trigger": [
         "The weekly cash view is a spreadsheet rebuilt by hand each week, and nobody can say which receipt, payment or assumption moved a week's balance.",
@@ -3734,7 +3842,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -3783,7 +3892,7 @@
         "dbt-snapshot-history",
         "effective-dated-business-rules"
       ],
-      "sha256": "36745a863cd506d6cfb194ec586ba71b66ad8049e1bb9dd5aad271f785c3ebcc",
+      "sha256": "9e8877a7bd1b59bdf06046d48258d6698a32fcf3f7734c54f2181c4920a1680e",
       "title": "Produce the trial balance and close pack as code",
       "trigger": [
         "The close pack is rebuilt by hand every period and last quarter's trial balance cannot be reproduced as it was when the period closed.",
@@ -3796,7 +3905,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -3848,7 +3958,7 @@
         "database-tables-to-bronze",
         "managed-connector-to-dlt"
       ],
-      "sha256": "0ded5f7dcd68e42459b1b77d7b1062d49e3321ae7762fc4f6fc30a4b6ddb746c",
+      "sha256": "91f415098c7ddfb363e4b661e114511a3c3ff9c1fc6d995d14e0960153fa2725",
       "title": "Allocate cloud and platform spend to teams and flag untagged cost and daily spikes",
       "trigger": [
         "The cloud bill grew and nobody can say which team or product drove the increase.",
@@ -3862,7 +3972,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -3927,7 +4038,7 @@
         "database-tables-to-bronze",
         "managed-connector-to-dlt"
       ],
-      "sha256": "ae029b76555a095a248bc4667ae592ade758b891ace0a4255934cea02a94abc8",
+      "sha256": "1dbb1a9603cda476e94b080ac1fd36f1f36df2efbe80128c30666acde314cac8",
       "title": "Measure SaaS licence utilisation and shelfware against contracts and invoices",
       "trigger": [
         "A SaaS renewal is due and nobody can say how many of the paid seats are actually used.",
@@ -3940,7 +4051,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -3988,7 +4100,7 @@
         "Needs a Studio route for dlt to read the file; cloud buckets (ADLS, S3) have none today."
       ],
       "readiness": "supported",
-      "sha256": "5b169dee0b7ce90633b0be47a358dba652f52271c85146dafca78974f3701cca",
+      "sha256": "6861cc1f17b49a2630819f4464d99456eb12575a84c6af948822f257e8cee843",
       "title": "Promote a spreadsheet or CSV to a governed, tested table",
       "trigger": [
         "A spreadsheet that reports and models depend on is edited by hand, and a moved, renamed or retyped column keeps breaking them quietly.",
@@ -4001,7 +4113,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dlt",
@@ -4055,7 +4168,7 @@
         "finance-duplicate-invoice-detection",
         "finance-ar-aging-dso"
       ],
-      "sha256": "b80217e79dea5076a426df075ff3d2aa940bf5be21d07f97c5fc1504bf22d000",
+      "sha256": "23d5ed1c6f24c863540df83e3681234125aaa8af0c6c659e11278f2892f06fbe",
       "title": "Reconcile billed claims to payer remittances, denials and batch payments by payer",
       "trigger": [
         "The revenue cycle team matches payer remittances to billed claims by hand, and nobody can say, payer by payer, how much of what was billed was paid, adjusted, denied or is still open.",
@@ -4068,7 +4181,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -4118,7 +4232,7 @@
         "operational-state-duration",
         "business-event-fact"
       ],
-      "sha256": "46a6629619633074b4d04406b8e8bac36c4c92988f793e717e6fbb3c193043dc",
+      "sha256": "1dcb547154205f8f506c7960f2d50269a5ae49edb798dc97eb8c5252791bc07a",
       "title": "Build a thirty-day readmission cohort with explicit exclusions",
       "trigger": [
         "The quality team rebuilds a readmission rate from a spreadsheet each quarter, and nobody can say who was left out of the rate or why.",
@@ -4131,7 +4245,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -4188,7 +4303,7 @@
         "metricflow-semantic-model",
         "shared-fx-conversion"
       ],
-      "sha256": "d1752fbf56d5cdef65dcde5adf5debb1044c653e715a9eb792ac2670038b65de",
+      "sha256": "50f0815bee2c570bade4a7bae8b45dd7a208236e68ff0d59139efe0203c5130d",
       "title": "Build nightly occupancy, ADR and RevPAR by property with closed-night restatements",
       "trigger": [
         "Occupancy, ADR and RevPAR differ between reports because each one counts stays, comps, out-of-order rooms and cancellations its own way.",
@@ -4201,7 +4316,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -4241,7 +4357,7 @@
       "path": "recipes/identity-golden-record-crosswalk/recipe.md",
       "pitch": "One customer, one stable id, every source record traced to it and every unresolved one explained.",
       "qualifiers": [
-        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "Expects names and addresses already standardized, with a match key, by an earlier standardization step.",
         "Stable golden ids need the id register to persist between runs; a rebuild from scratch reissues them.",
         "Without retained crosswalk history, the crosswalk as it stood on a past run cannot be reconstructed."
@@ -4251,7 +4367,7 @@
         "business-event-fact",
         "dbt-snapshot-history"
       ],
-      "sha256": "90a0a9e12ab0465fc28bce17c3065b34f175a6c688ce5a0b9939c04d6f145ec3",
+      "sha256": "8fbc20c7b48df8a0da251810d756ea1dde79e377d2c4b03086c51f232559a2aa",
       "title": "Deduplicate customers into a golden record with a source crosswalk",
       "trigger": [
         "The same customer exists in several systems under different ids, so customer counts and per-customer revenue are inflated.",
@@ -4261,7 +4377,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -4296,14 +4417,14 @@
       "path": "recipes/identity-standardize-names-addresses/recipe.md",
       "pitch": "Give every customer record a clean name, a clean address and a match key you can explain.",
       "qualifiers": [
-        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "Addresses are standardized by rule, not verified against a postal service, so deliverability is not checked."
       ],
       "readiness": "supported",
       "related": [
         "business-event-fact"
       ],
-      "sha256": "bdb60f01c8b0b5f0e6874d12626aec0445f677cb96b2e470c61a24c22750ea9c",
+      "sha256": "bdc64541fbc7b9f9df9b266c3e698767ab944b1d1345d938ef37f0788143e714",
       "title": "Standardize names and addresses and mint deterministic match keys",
       "trigger": [
         "The same customer is written differently across CRM, billing and support, so joins on name or address miss.",
@@ -4313,7 +4434,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -4353,7 +4479,7 @@
         "Converting an existing full-refresh model belongs to the dbt-full-refresh-to-incremental Recipe."
       ],
       "readiness": "supported",
-      "sha256": "2db8baeda86f1ac354cecb910c64dc2fd345f71b8e933d1c35aaecc5b2469989",
+      "sha256": "1c00287b1aaffd8bc21560f64f92aa9bd5d65bddb7f14022725902db3050a004",
       "title": "Author an incremental dbt model with its contract and prove idempotency",
       "trigger": [
         "A new dbt model must be brought up to date incrementally on each run, and nobody can show that a rerun or a re-delivery of records already applied leaves it unchanged.",
@@ -4366,7 +4492,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -4421,7 +4548,7 @@
         "business-event-fact",
         "metric-population-and-rollups"
       ],
-      "sha256": "d57fe8fc82dfb2904aa68aea36223f259944944ac88e01594a3932076e82d9ea",
+      "sha256": "7f245938ee1687f09099c73455bb97dacd91013c3fe55b6d1d66d216dd46a91c",
       "title": "Build paid and incurred claims loss triangles by accident and development period",
       "trigger": [
         "Reserving analysts rebuild loss triangles by hand in spreadsheets, and a late payment or reserve change pushes back into cells that were already reported.",
@@ -4434,7 +4561,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -4485,7 +4613,7 @@
         "master-product-sku-hierarchy",
         "file-drop-to-bronze"
       ],
-      "sha256": "292d2353c1699b1bba808960f87134bb015a8da67d160477152adb83b53510a5",
+      "sha256": "07a90f27842b18b027be4b3a00ee0816770fa88423e49699dfef2c736a43a9e7",
       "title": "Trace a recalled input lot to affected shipments and flag unreconciled runs and lineage that cannot be traced",
       "trigger": [
         "A raw material lot is recalled and nobody can say which finished lots and which customer shipments contain it, or how much of it each holds.",
@@ -4498,7 +4626,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -4556,7 +4685,7 @@
         "shared-calendar-fiscal-periods",
         "file-drop-to-bronze"
       ],
-      "sha256": "69f85cca59b4cad3584804a21f35d8b93aa0947f6618cb9d51e0b61247afaf7c",
+      "sha256": "fd0afa8f5250c7dea5c648e4ac1dc47091bc5209480adb8eefd9785c3b127960",
       "title": "Value inventory movements, closing stock and cost of goods sold under an approved costing policy",
       "trigger": [
         "Finance cannot say what closing inventory is worth or how much cost of goods sold a month carries because receipts, issues, returns and adjustments are costed by hand.",
@@ -4569,7 +4698,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -4607,7 +4737,7 @@
       "path": "recipes/legacy-sql-to-dbt/recipe.md",
       "pitch": "Retire a hand-run SQL script by rebuilding it in dbt and proving the new models return exactly what the old one did.",
       "qualifiers": [
-        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "Needs the legacy output on the same inputs, from the legacy SQL or its current table."
       ],
       "readiness": "supported",
@@ -4615,7 +4745,7 @@
         "prove-dbt-change-safe",
         "dbt-full-refresh-to-incremental"
       ],
-      "sha256": "be198774e5f1dcf002f18cf853941742093ff0cc27ae5937640cd7a7bad0852b",
+      "sha256": "98492a53e6f34adcb0ed282b4489a5d0bcb7708fc50b7a19b312884dd51506b8",
       "title": "Convert a legacy SQL script or view into a dbt model and prove parity",
       "trigger": [
         "A report or table is still produced by a hand-run SQL script or a database view outside dbt, with no tests, lineage or review.",
@@ -4624,7 +4754,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -4678,7 +4813,7 @@
         "operational-state-duration",
         "healthcare-readmission-cohort"
       ],
-      "sha256": "51fdc04240c2d6a80825100458e9ae04a28f94a7138ea5b276d5ec464f166c17",
+      "sha256": "541daa870962eefe082bb2b6861c0a4a8907718820087e17708aea5c27615407",
       "title": "Build clinical-trial enrollment and site-performance models with every screened subject accounted for",
       "trigger": [
         "Clinical operations rebuilds enrollment and site performance in a spreadsheet each month, and nobody can say who was left out of the enrolled count or why a site looks slow.",
@@ -4692,7 +4827,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -4731,7 +4867,7 @@
       "path": "recipes/logistics-fleet-utilization/recipe.md",
       "pitch": "Measure fleet use against defensible available asset time while keeping missing observations and maintenance evidence visible.",
       "readiness": "supported",
-      "sha256": "735ae108d49d7149ffcdbcbf99aea878eab56ca7c6dd2091c59310d8fbffe22d",
+      "sha256": "3325b4d7e9cdc2e4e9fed7b7a50028310d872d75b203f75d770eab96063a7e16",
       "title": "Build fleet utilisation against explicit asset availability",
       "trigger": [
         "A fleet dashboard labels observed vehicle occupancy as utilisation without an authoritative available-time denominator.",
@@ -4744,7 +4880,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -4795,7 +4932,7 @@
         "business-event-fact",
         "effective-dated-business-rules"
       ],
-      "sha256": "a59687fc179f9506ca46cfab496b677affcb0facb08d394b89341aacca95e3c5",
+      "sha256": "7b2089406855a87a8644c6211d6f3a2321e4aea75c4e3a3de4103213507dbe8d",
       "title": "Build lane-day on-time transport performance with open trips and exceptions shown as approved",
       "trigger": [
         "A TMS dashboard reports on-time performance by lane, but nobody can inspect how it is calculated or reproduce its figure.",
@@ -4809,7 +4946,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -4848,7 +4986,7 @@
       "path": "recipes/managed-connector-to-dlt/recipe.md",
       "pitch": "Swap a Fivetran or Airbyte connector for a dlt pipeline you own, and prove table by table that it lands what the connector did before you cut over.",
       "qualifiers": [
-        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "Needs read access to the connector's landed tables and to the source the connector reads.",
         "Database sources need a dlt route Studio supports; its sql_database route is not supported today."
       ],
@@ -4858,7 +4996,7 @@
         "legacy-sql-to-dbt",
         "prove-dbt-change-safe"
       ],
-      "sha256": "ff3f3209dc8f352512847228f310eb22b67b3859e5f37e02f3f8571ae1deeeb1",
+      "sha256": "29cc1d02fa3bbdad3d2e4aa64dda56e08936c6b9c8a573935c2afff9c1ca139e",
       "title": "Replace a Fivetran or Airbyte connector with a dlt pipeline and reconcile the result",
       "trigger": [
         "A managed connector's bill changed shape, or it broke and the vendor fix has been pending for weeks, and the team wants the load in code it owns.",
@@ -4867,7 +5005,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dlt",
@@ -4919,7 +5062,7 @@
         "metric-population-and-rollups",
         "effective-dated-business-rules"
       ],
-      "sha256": "82d587d9e21ed8b95370525bdbcedd960b6e59455abcb961b0c01dcc212b24ba",
+      "sha256": "ee09bd7f16dbcd86dd737a54c773232f98fd392ef506529729b2b9f9d57962b6",
       "title": "Build overall equipment effectiveness and a downtime Pareto",
       "trigger": [
         "Plant OEE comes from a hand-built spreadsheet and nobody can say whether stops, slow running or scrap cost a line its points.",
@@ -4932,7 +5075,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -4993,7 +5137,7 @@
         "ops-inventory-reconciliation",
         "file-drop-to-bronze"
       ],
-      "sha256": "d90b2a22d875b4ed200ee8699a4b9b37230609f168e116253998a975e157c31c",
+      "sha256": "bdfd265202a0e6438dffd470a3b1a4885d388179981dcd33197ed82a46becf88",
       "title": "Reconcile production-order movements into work in progress by operation, first-pass and final yield, and exceptions",
       "trigger": [
         "Yield and work in progress come from a spreadsheet that counts a reworked unit as a second unit produced and cannot keep first-pass yield apart from final yield.",
@@ -5006,7 +5150,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -5068,7 +5213,7 @@
         "manufacturing-oee-downtime",
         "file-drop-to-bronze"
       ],
-      "sha256": "5db51a68dedb739c46befb63a2bfd9bae6e9eff60f6c54cbb5a27ea7c482d47b",
+      "sha256": "f8f0dbd618699273b28205a659a9a448b122410bac72f64b81cb158a3053d69c",
       "title": "Reconcile production-order standard cost to actual by element, with variance effects, overhead absorption and exceptions",
       "trigger": [
         "Production-order variances are worked out in a spreadsheet nobody can audit, and nobody can say which standard version each variance was measured against.",
@@ -5081,7 +5226,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -5141,7 +5287,7 @@
         "effective-dated-bom-requirements",
         "file-drop-to-bronze"
       ],
-      "sha256": "2774180cd0494ab2d57c2c5e471c7e8dbd8ef9122f2a3dfb7ac98b173188c55a",
+      "sha256": "63b6fd4f3299e41457996758eab84ed462f9d2ddb8aef5d96968682178c0316a",
       "title": "Reconcile components held at a subcontractor and processing charges to delivered work, with exceptions and coverage",
       "trigger": [
         "Nobody can say how much of the company's material is sitting at a subcontractor, because transfers, returns, scrap reports and finished receipts live in different places and are never netted.",
@@ -5154,7 +5300,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -5208,7 +5355,7 @@
         "identity-golden-record-crosswalk",
         "shared-fx-conversion"
       ],
-      "sha256": "98c4193c8dca064d44484cfd72192b92851a5d1f8f36e545299b75e0d01df672",
+      "sha256": "e53c85900ff97a953d7a7fa64772b6581e28616c4c00d373cf67eb91ecdf040b",
       "title": "Build fully loaded acquisition cost and contribution payback by customer cohort",
       "trigger": [
         "Marketing says a channel pays back quickly and Finance says it never does, and nobody can show the sum from the spend and contribution records.",
@@ -5221,7 +5368,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -5270,7 +5418,7 @@
         "effective-dated-business-rules",
         "metric-population-and-rollups"
       ],
-      "sha256": "a4a75eff774507003ecf9a346c44df6a686d54df5a828dc51d5bd3532f0d55bb",
+      "sha256": "01f27741adc47291a0b5f7259ce8443ca6b6cfdfc044966ee3b9211cd7b9ec68",
       "title": "Attribute conversions to touchpoints under several models side by side",
       "trigger": [
         "Marketing and Sales each have a spreadsheet crediting their channel with the same revenue, and together they claim more than was booked.",
@@ -5283,7 +5431,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -5337,7 +5486,7 @@
         "marketing-attribution-models",
         "marketing-acquisition-cost-payback"
       ],
-      "sha256": "e1c775d02329a12fd6fc30b80f8eabe980dfb24cc4ef3140932c4f74b6746eb3",
+      "sha256": "fc39afb1b2cf2b1e99159842e0fd0b6d372e3e5b3f01f6db481a0a16d825fa47",
       "title": "Build a campaign-day budget pacing ledger against versioned flight plans",
       "trigger": [
         "Campaign owners ask whether a campaign is on pace and the answer changes with which budget version and which cost number someone used.",
@@ -5350,7 +5499,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -5401,7 +5551,7 @@
         "source-freshness-sla",
         "pii-classification-and-masking"
       ],
-      "sha256": "c699dc5e3f4d92f420ae927206838d3f1b0ae2754388185d72222be19a58512c",
+      "sha256": "3bb1c6d945e4eed078a85ce84a50aa07bbfd5997a01ab0343cd2c3a7ff48778e",
       "title": "Build cross-channel contact-pressure and send-eligibility decisions for planned contacts",
       "trigger": [
         "The same person is emailed, texted and pushed by several tools in one week, and nobody can say whether the next planned contact is allowed.",
@@ -5415,7 +5565,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -5451,7 +5602,7 @@
       "path": "recipes/master-b2b-account-hierarchy/recipe.md",
       "pitch": "See every corporate family's total, with every account placed or explicitly unresolved and every broken parent link explained.",
       "qualifiers": [
-        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "Families as they stood in past periods need dated parent-link history; without it they cannot be rebuilt.",
         "Accounts must already be one record per company; this Recipe does not deduplicate accounts."
       ],
@@ -5462,7 +5613,7 @@
         "dbt-snapshot-history",
         "identity-golden-record-crosswalk"
       ],
-      "sha256": "928435a2a4d647eb2e7f6509a29d19fef73d7ee234deee6fcf28ce9078206d97",
+      "sha256": "bc03a5107c6d86de3fb469607ca4503040ce072db3e0a4d9cbc6f87e379fab3a",
       "title": "Resolve B2B account hierarchies and roll measures to the ultimate parent",
       "trigger": [
         "Sales and finance cannot see total revenue or pipeline for a whole corporate family because subsidiaries sit as separate accounts.",
@@ -5472,7 +5623,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -5521,7 +5677,7 @@
         "effective-dated-business-rules",
         "file-drop-to-bronze"
       ],
-      "sha256": "c64143db39492b719cc554683135e2ce58f1b804bba6fe69a4d1742a7962ef4c",
+      "sha256": "583fe1a2517a5852e514115ab0a8459fa79997397645d0c156e98cde3af3eaff",
       "title": "Conform product and SKU hierarchies across systems",
       "trigger": [
         "The same product carries different SKUs and category trees in the ERP, the web shop and the point of sale, so sales by category disagree between reports.",
@@ -5534,7 +5690,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -5573,7 +5730,7 @@
       "path": "recipes/materialized-view-to-dbt/recipe.md",
       "pitch": "Retire a materialized view by rebuilding it in dbt and proving each compared refresh matches the view's.",
       "qualifiers": [
-        "Not yet assessed end to end on fabric_lakehouse or redshift.",
+        "Not yet assessed end to end on fabric_lakehouse, redshift or databricks.",
         "Needs the view's definition (Studio can't yet read it on these targets), refresh rule and output at refresh points."
       ],
       "readiness": "supported",
@@ -5582,7 +5739,7 @@
         "dbt-full-refresh-to-incremental",
         "prove-dbt-change-safe"
       ],
-      "sha256": "eea6d93858cab85aef442cc6281cf97b9b50deb24f5f7bbed94a9bbd2e8726cf",
+      "sha256": "9763d68fa05f4db2460624e1fc4792cc63d2ca323861ba0b00dcc916566460b1",
       "title": "Convert a materialized view into a dbt model and preserve its required refresh semantics",
       "trigger": [
         "Warehouse logic lives in a materialized view that nobody can test, review or trace, and the team wants it in the dbt project.",
@@ -5592,7 +5749,8 @@
       "works_with": {
         "platforms": [
           "fabric_lakehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -5626,7 +5784,7 @@
       "path": "recipes/metric-population-and-rollups/recipe.md",
       "pitch": "Make the metric's population and components explicit so its values and supported totals can be checked.",
       "readiness": "supported",
-      "sha256": "6111ce9c29bc01fa8907d90c98a6721fa2de017eb85b9a2eef6d9749cd929f50",
+      "sha256": "8eb1a6b39f17ed14eab9914aadf6fd12b6a767c3d7e4367016d332d8dc9b6bb9",
       "title": "Build a metric with explicit eligibility and reconcilable rollups",
       "trigger": [
         "A new percentage, rate or average needs a defensible eligible population and missing-value policy.",
@@ -5639,7 +5797,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -5676,7 +5835,7 @@
       "path": "recipes/metricflow-semantic-model/recipe.md",
       "pitch": "Define each metric once, prove its numbers, and name and size every difference from the agreed reference figures.",
       "qualifiers": [
-        "Assessed end to end on duckdb_local only; motherduck and redshift rely on MetricFlow support and are unassessed.",
+        "Assessed end to end on duckdb_local only; the other listed targets rely on MetricFlow support and are unassessed.",
         "Needs MetricFlow installed where metrics are queried; Studio's managed runtime does not include it today.",
         "Needs a gold fact mart with a declared grain; changing existing marts or building new fact marts is outside this Recipe.",
         "Code only; publishing to a semantic-layer service or BI tool is outside this Recipe."
@@ -5685,7 +5844,7 @@
       "related": [
         "metric-population-and-rollups"
       ],
-      "sha256": "a2380ce5bffe4db3a8781e952245f98e01848ab4e3722acd8e9b78cb8a288ea7",
+      "sha256": "367683a8cd3f355487502c6fcbfceae74339d1ce2dd447716a598e0530552af3",
       "title": "Define governed metrics as a MetricFlow semantic model over a gold mart",
       "trigger": [
         "Revenue or average order value means different things in different marts and dashboards, and nobody can say which number is right.",
@@ -5697,7 +5856,8 @@
         "platforms": [
           "duckdb_local",
           "motherduck",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt",
@@ -5797,7 +5957,7 @@
         "prove-dbt-change-safe",
         "database-tables-to-bronze"
       ],
-      "sha256": "ace11f1d52ac1cf7822282b6d94ef6b30f06b98dba21176072ef78c83b0085c2",
+      "sha256": "60a44cd3fed247e39dc1529fd33eb7917a0443d6b390471e1128b1711f5c8f0e",
       "title": "Move a dbt project to a new destination and check parity before cutover",
       "trigger": [
         "A dbt project has to run on a different warehouse or lakehouse, and the dashboards and reports that read it cannot show a different number afterwards.",
@@ -5811,7 +5971,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -5849,7 +6010,7 @@
       "path": "recipes/notebook-transformation-to-dbt/recipe.md",
       "pitch": "Retire a hand-run notebook by rebuilding its dataframe logic in dbt and proving the new models publish what the notebook did.",
       "qualifiers": [
-        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "Needs the notebook's output on the same inputs, from a run of the unchanged notebook or its current table."
       ],
       "readiness": "supported",
@@ -5857,7 +6018,7 @@
         "legacy-sql-to-dbt",
         "prove-dbt-change-safe"
       ],
-      "sha256": "da9e2163115ffa4b583c002fcfd383db9175e69cb65e199d6d94ba14e017358d",
+      "sha256": "c063c189227b1d74e0f713de2976c65746f3a714f844e566dd6478e650511a1b",
       "title": "Convert a notebook transformation into a dbt model and prove parity",
       "trigger": [
         "A table or report is still produced by running a notebook by hand, pulling warehouse data into dataframes, with no tests, lineage or review.",
@@ -5866,7 +6027,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -5902,7 +6068,7 @@
       "path": "recipes/operational-state-duration/recipe.md",
       "pitch": "Explain how long each entity spent in a state and where, without inventing locations or filling unknown time with activity.",
       "readiness": "supported",
-      "sha256": "61b45ef6aeeb709855ed566d66ea622a7bdd2958ba4c7b3da38ce216f199924c",
+      "sha256": "f26f1e2d31042011c68de39908ba31cfaf806b29f742ad3f08c99c5fef624c54",
       "title": "Build state durations by entity, location and reporting period",
       "trigger": [
         "Waiting, idle, available or busy time must be measured by site or zone and hour from operational event histories.",
@@ -5915,7 +6081,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -5968,7 +6135,7 @@
         "file-drop-to-bronze",
         "governed-spreadsheet-table"
       ],
-      "sha256": "70cba340900e84ea32eb03573bd29af20ad937601e461b474fbe269a5cc0316f",
+      "sha256": "87d5b9327b419ddfd78fc54194a4735f4e9c05cd4f6bc86b93fdccf3a05ce927",
       "title": "Reconcile inventory positions across warehouse, ERP and physical counts and give every difference a reason",
       "trigger": [
         "The warehouse system, the ERP and the last stock count report different quantities for the same item and nobody can say which is right or why.",
@@ -5981,7 +6148,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -6032,7 +6200,7 @@
         "metric-population-and-rollups",
         "effective-dated-business-rules"
       ],
-      "sha256": "5672ac214be9769ef0a320e7483af754b19c3fe14f63a9fd5b01a7dd9b5ffb8c",
+      "sha256": "f6fecf3f036210cd98aeef4ae14af2d38c64c3ed3326dce7186fa63e7f3214c9",
       "title": "Measure on-time-in-full delivery by customer, carrier and plant",
       "trigger": [
         "Customers report late deliveries, and Sales, Supply Chain and the carriers each quote a different on-time-in-full figure because each applies its own promise date, tolerance and partial-shipment rule.",
@@ -6046,7 +6214,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -6101,7 +6270,7 @@
         "effective-dated-business-rules",
         "metric-population-and-rollups"
       ],
-      "sha256": "f3a6197079772b947cd0873b8ae9b342f47f323f9599895efcfa40ebb06025b8",
+      "sha256": "751423d62cdf47c68cba9645a561953661005fa83ad29cb83566859a89b98b5d",
       "title": "Build the procurement spend cube and flag invoice lines on or off contract",
       "trigger": [
         "Procurement, Finance and the business units each quote a different spend total, and nobody can say how much was bought outside a contract.",
@@ -6114,7 +6283,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -6165,7 +6335,7 @@
         "customer-historical-ltv",
         "retail-sell-through-stockout"
       ],
-      "sha256": "e838c2f824a9999a1de3352ba658243c1b230e1f0bb39040230ed80970f9c407",
+      "sha256": "9a3ac60b0d0566333bd62001ca3f5a184c65635ef4c253180898283c60d12fa3",
       "title": "Build order-line contribution margin with order and period rollups after refunds and returns",
       "trigger": [
         "Gross sales minus original item cost overstates order margin because refunds and returns arrive after the order.",
@@ -6178,7 +6348,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -6232,7 +6403,7 @@
         "pii-classification-and-masking",
         "dbt-snapshot-history"
       ],
-      "sha256": "00df919e10ae6e0c89596a2006fd132586cc974b027483777d22a3e944b2906f",
+      "sha256": "5b00da7d426550db1b94e85371a5ac44d7344ad62970d99df6e63f685ad95753",
       "title": "Measure attrition, tenure and hire-cohort retention from the headcount outputs",
       "trigger": [
         "Leadership asks whether attrition is rising and where, and nobody can answer from one consistent set of figures.",
@@ -6245,7 +6416,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -6300,7 +6472,7 @@
         "metric-population-and-rollups",
         "master-b2b-account-hierarchy"
       ],
-      "sha256": "854a927c9d787ef02d3ecdf1b25d290b8c509f69fa7868a11d7abf1bf8a93eb2",
+      "sha256": "1e1ec3e77c25268a335305d60dc7fbc6d5b7396a1749de884a8cbfd42d943204",
       "title": "Build period-end headcount and FTE by org and a roll-forward that ties every period",
       "trigger": [
         "HR, finance and the board deck each report a different headcount for the same month-end, and nobody can say why.",
@@ -6313,7 +6485,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -6368,7 +6541,7 @@
         "effective-dated-business-rules",
         "dbt-snapshot-history"
       ],
-      "sha256": "2dff4eaa3d5ae20c9eaafaa11866ddb998eaaab439c445506a8ae5326b90e294",
+      "sha256": "f4e5605f482680ebdb84c3dd51d58143c2a7e21bad4a6e0ab2060d787ca4c94e",
       "title": "Check pay against salary bands and report pay gaps at an aggregate grain",
       "trigger": [
         "A pay-equity review is due and worker-level compensation cannot be shared widely.",
@@ -6381,7 +6554,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -6434,7 +6608,7 @@
         "finance-gl-subledger-tieout",
         "effective-dated-business-rules"
       ],
-      "sha256": "5158e00212f5425ebd438bb855ad057843658bd68b716625bc95de282d8f69cc",
+      "sha256": "a2d5abf8996c3afd200c8e098e85a52bf57285da4f1f9eb625a8213d6507f918",
       "title": "Tie payroll to the general ledger at every cut-off and classify every break",
       "trigger": [
         "Payroll expense in the general ledger does not match the payroll register at close, and the gap is worked out by hand.",
@@ -6447,7 +6621,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -6483,8 +6658,8 @@
       "path": "recipes/pii-classification-and-masking/recipe.md",
       "pitch": "Classify personal data by column, mask it by kind for a lower-privilege audience, and verify that audience's access where grants are applied.",
       "qualifiers": [
-        "Not yet assessed end to end on fabric_warehouse or redshift.",
-        "Needs database roles and per-object grants on the target; DuckDB and MotherDuck have neither.",
+        "Not yet assessed end to end on fabric_warehouse, redshift or databricks.",
+        "Needs database roles or groups and per-object grants on the target; DuckDB and MotherDuck have neither.",
         "Applying the roles and grants and running the role checks need a live warehouse and approval to change access.",
         "Fabric Lakehouse is excluded because its SQL endpoint grants do not govern OneLake or Spark reads.",
         "Assumes the lower-privilege audience has no storage-level read path that bypasses database grants.",
@@ -6496,7 +6671,7 @@
         "identity-standardize-names-addresses",
         "identity-golden-record-crosswalk"
       ],
-      "sha256": "c7627fd98c35315e2c836c32615af9c20fa15d7b5c3ce7c92d9ada3d8a66267b",
+      "sha256": "2dc689db7d21b4be825dca875158fb1be7808282c3b4311e8be3feabd12ee0b9",
       "title": "Tag personal-data columns, mask them by kind for a lower-privilege audience and prove the masked outputs",
       "trigger": [
         "Analysts need tables that carry names, addresses, emails, phone numbers or ID numbers they must not see.",
@@ -6506,7 +6681,8 @@
       "works_with": {
         "platforms": [
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -6559,7 +6735,7 @@
         "effective-dated-business-rules",
         "identity-golden-record-crosswalk"
       ],
-      "sha256": "be9ce4734c80fad54173b372460a41aa3465f7a1167faf16afda47f9958b7636",
+      "sha256": "2571a6337ce08152bcd93c61dc1c77bdb6650fb8a4363b86262e93f80c640186",
       "title": "Build a training dataset that uses only information available at prediction time",
       "trigger": [
         "A model scores well in training but worse in production because training rows used facts, corrections or labels a real prediction could not have seen.",
@@ -6572,7 +6748,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -6612,6 +6789,7 @@
       "path": "recipes/power-query-preparation-to-dbt/recipe.md",
       "pitch": "Move a Power Query preparation into tested dbt models, prove each output against a reference refresh, and plan the cutover without touching the workbook.",
       "qualifiers": [
+        "Assessed on duckdb_local only; date, number and type handling on other platforms is unassessed.",
         "Needs the exported M of the selected queries, the parameter values they run with and the project locale.",
         "Needs the queries' own refresh output on the agreed window, or an approved reference built from their semantics.",
         "Reads landed source tables; Studio has no Power Query engine, so the queries are read from their export.",
@@ -6625,7 +6803,7 @@
         "legacy-sql-to-dbt",
         "notebook-transformation-to-dbt"
       ],
-      "sha256": "461f383ab26a1a7fb7688218d19b9b83a4891f86f4ff8e65d51103ae06a52361",
+      "sha256": "0edbeeba24220bcb3d2fd607dde2c644822c17163a60ec330b9b867ccdaffed1",
       "title": "Move a Power Query data preparation into tested dbt models and prove parity",
       "trigger": [
         "A workbook or report prepares its data in Power Query, and the M code is the only place that logic lives, with no tests and nobody able to review it.",
@@ -6634,7 +6812,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -6687,7 +6870,7 @@
         "effective-dated-business-rules",
         "shared-fx-conversion"
       ],
-      "sha256": "a4260805656fbeeadd233fcc3823af9b80bb9152eb5b908561d6e8353e1126ff",
+      "sha256": "c6193379c617e90208f82a0d130fe33552773823657a4a2da0dfaafb3bbe0642",
       "title": "Build the open purchase commitment balance and a roll-forward that explains every cutoff",
       "trigger": [
         "Procurement and finance are asked what is still owed to suppliers on open orders at a month-end, and each answer comes from a different spreadsheet.",
@@ -6700,7 +6883,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -6751,7 +6935,7 @@
         "shared-fx-conversion",
         "effective-dated-business-rules"
       ],
-      "sha256": "03f6dd3e4cdc99623482b8a1a30d5bc2d55de652f4c5cb3f747d2c75ae259c13",
+      "sha256": "697f4404bc1e8f910fa8c6e0212e452ca2b099bc755904ed2efe139d7032a80a",
       "title": "Reconcile negotiated procurement savings to realized invoice prices in a traceable savings ledger",
       "trigger": [
         "Procurement reports savings from negotiated agreements and Finance cannot trace them to the prices actually paid.",
@@ -6764,7 +6948,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -6818,7 +7003,7 @@
         "finance-duplicate-invoice-detection",
         "effective-dated-business-rules"
       ],
-      "sha256": "0f37f28c4a20a91f2c53796c8a0ac7eab00643d851f4574da79138f6de135af8",
+      "sha256": "8e3a8ee8a731d66645d89fed35247e4874baad5c435cc0b0054d5bca7f0676d6",
       "title": "Accrue supplier rebates from purchasing contracts and reconcile settlements",
       "trigger": [
         "Procurement cannot say how much supplier rebate has been earned under each purchasing agreement this period, or how much of it suppliers have already credited.",
@@ -6831,7 +7016,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -6884,7 +7070,7 @@
         "finance-ap-aging",
         "effective-dated-business-rules"
       ],
-      "sha256": "91c9a93e17c96c7fc81218ea80b4ddf2cc843fbd25c8fc1e7455ce4e8bc5c577",
+      "sha256": "fc232533c69be9bb3168bb69278c7ce3f8df1e5f3a3f7c85f2b56bfff424c56a",
       "title": "Match purchase orders, receipts and invoices line by line with an exception ledger",
       "trigger": [
         "Accounts payable is asked to release payment and cannot say how much of an invoice is covered by the goods actually received.",
@@ -6897,7 +7083,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -6939,7 +7126,7 @@
         "Consumes an approved identity map; person resolution across systems belongs to identity-golden-record-crosswalk.",
         "Event identity beyond delivered copies belongs to business-event-fact.",
         "Edge handling needs each batch's covered range; without it, export-edge completeness is unproven.",
-        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed."
+        "Complete outcome assessed for duckdb_local only; the other Studio targets remain unassessed."
       ],
       "readiness": "supported",
       "related": [
@@ -6947,7 +7134,7 @@
         "business-event-fact",
         "identity-golden-record-crosswalk"
       ],
-      "sha256": "883dd7cc6aa5d7332fd7888c9c3273f0cfe02af41733a193ee4e96a1fa012683",
+      "sha256": "cdac694b1105b84ee9626a6bba309da41cdefd1fc4d733682042395c48fa2eb6",
       "title": "Sessionize event streams and build reproducible funnels from batch exports",
       "trigger": [
         "Product analytics numbers cannot be reproduced outside the vendor's screen, and nobody can say why two conversion figures differ.",
@@ -6960,7 +7147,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -6993,7 +7181,7 @@
       "path": "recipes/prove-dbt-change-safe/recipe.md",
       "pitch": "Review the business answers behind a dbt change with independent evidence and leave its implementation unchanged.",
       "readiness": "supported",
-      "sha256": "458eb36a0ffffbe1982da9caa9bdbc008a530b7ba267048c0282db04b173c2ee",
+      "sha256": "5380ef2f516bf2547e7bc6fb8a47205ac04b5be17625b9749f9a0400514c82f6",
       "title": "Assess an existing dbt change for safe merge without modifying it",
       "trigger": [
         "An existing dbt change builds successfully but reviewers still need evidence that its business answers remain valid.",
@@ -7006,7 +7194,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -7061,7 +7250,7 @@
         "ops-procurement-spend",
         "file-drop-to-bronze"
       ],
-      "sha256": "00ca8df5745689fd11ce7c960f5d758f1861bdb05b9b3ffc1129e9bede1f1ae3",
+      "sha256": "ad1a5596365e1f45c662cff12fe9caff81247819c2dfa4e23e4b31924ad3ac2f",
       "title": "Track grant funds per award from authorization to drawdown and flag exceptions",
       "trigger": [
         "Grants accountants cannot say per award how much is authorized, obligated, spent and drawn, and each report gives a different answer.",
@@ -7074,7 +7263,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -7193,7 +7383,7 @@
         "shared-calendar-fiscal-periods",
         "file-drop-to-bronze"
       ],
-      "sha256": "606095c1c882352f2da21764d6cd4651eebdfdd088336e925dce3fe1c876ad68",
+      "sha256": "4df3b16d499980f292c2e3d2e26431edf6e3c836ef73e0f03bee70e1d230b886",
       "title": "Reconcile consignment stock by owner and the amount owed to each supplier when their stock sells",
       "trigger": [
         "A supplier owns stock until it sells, that stock shares a store and SKU with stock we bought outright, and the stock report adds the two together.",
@@ -7204,7 +7394,8 @@
         "platforms": [
           "duckdb_local",
           "motherduck",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -7266,7 +7457,7 @@
         "retail-reservation-availability-ledger",
         "sales-commission-payout-ledger"
       ],
-      "sha256": "578806f39ced9a3dcf1cc051f8466e64c9d8266993dcaff7c1df78da4441baa0",
+      "sha256": "8a69115645624bd0d203d95b0d639480a4f4910f486e6f224537fe923010c079",
       "title": "Reconcile marketplace orders to net payouts and held reserves by order line and settlement cutoff",
       "trigger": [
         "Finance cannot say what each marketplace order settled for or what is still owed, because fees, refunds, chargebacks and reserves are netted into payouts.",
@@ -7279,7 +7470,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -7336,7 +7528,7 @@
         "shared-fx-conversion",
         "effective-dated-business-rules"
       ],
-      "sha256": "6f71c922f32fdf4b99a19b68acd616e23d129f0b39b9d0c1b6095621e8076a9a",
+      "sha256": "8a280fea47dba3a33a54afae946a4e2bdcd9ab3dda4eaaf4daae3cf3efc600d8",
       "title": "Settle store till sessions to counted cash, tender mix and deposit slips with an explicit over or short",
       "trigger": [
         "Stores count each till at shift close and Finance cannot tell which shortages are real and which come from how the POS records voids, refunds, change and float moves.",
@@ -7349,7 +7541,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -7404,7 +7597,7 @@
         "effective-dated-business-rules",
         "file-drop-to-bronze"
       ],
-      "sha256": "c24c0f52d6384bcc8d98788124caae83135ecae9041464d74aa10a57fa499731",
+      "sha256": "119d799a88e40cbbff80085223e000f858f5c60662330c880db7482dbd2e1a94",
       "title": "Reconstruct available-to-promise stock by SKU, location and cutoff from reservation and fulfilment events",
       "trigger": [
         "Customer service promises stock that is already reserved, or sells the same units twice because reservations that expired or shipped still count against availability.",
@@ -7417,7 +7610,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -7475,7 +7669,7 @@
         "effective-dated-business-rules",
         "metric-population-and-rollups"
       ],
-      "sha256": "ab7d03b4d0e83f9dbad2c9536f14fd4b6454880d9ea3a0dc6d085b70d783f6dc",
+      "sha256": "a2fee69702b68ed821a01aed560cbc11d5b591e7014fb206ca916e3a0524b1cb",
       "title": "Build sell-through and stockout risk by store, SKU, and day",
       "trigger": [
         "Planners cannot tell which items are about to run out because sell-through and stock-outs live in spreadsheets, and each one counts a day with no stock differently.",
@@ -7489,7 +7683,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -7543,7 +7738,7 @@
         "finance-revenue-recognition",
         "effective-dated-business-rules"
       ],
-      "sha256": "4c1d581f86ee030bc15cca669dbee0c102370afcf8cfee91b5fa6dd01eded3ec",
+      "sha256": "50498ab3b4ceee337a9968abcc092f4b58bafa7684e604e4c40346423a5103bf",
       "title": "Tie bookings to billings to cash and classify every break",
       "trigger": [
         "RevOps and Finance each quote booked, billed and collected, and the three numbers never agree because every team ties them together with its own spreadsheet.",
@@ -7556,7 +7751,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -7593,7 +7789,7 @@
       "path": "recipes/revops-pipeline-snapshots/recipe.md",
       "pitch": "Reproduce the pipeline as it stood at each captured snapshot period and measure how deals move, convert and slip.",
       "qualifiers": [
-        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "History starts at the first snapshot; earlier pipeline cannot be reconstructed from present state.",
         "Capture cannot see changes that happen and revert between two captures; longer periods hide more.",
         "Assessed with a labelled synthetic fixture standing in for the CRM; no live opportunity source was captured.",
@@ -7606,7 +7802,7 @@
         "operational-state-duration",
         "business-event-fact"
       ],
-      "sha256": "3d20661a48486a7c6857c6823c74412b4ba8dbf7de6bb9b36989899a6f3e3e10",
+      "sha256": "3877b3744a26ec2ec1742410715f6378b8bab04e5702f85c58a9e89938b627ed",
       "title": "Build a periodic opportunity pipeline snapshot with stage conversion and slippage",
       "trigger": [
         "The CRM overwrites opportunity stage, amount and close date, so past pipeline cannot be reproduced as it stood at an earlier point.",
@@ -7615,7 +7811,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -7652,7 +7853,7 @@
       "path": "recipes/revops-quota-commission/recipe.md",
       "pitch": "Turn written compensation plan rules into tested, traceable commission-eligible bookings and quota attainment.",
       "qualifiers": [
-        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "Stops at commission-eligible bookings and attainment; payout amounts are a separate outcome.",
         "Assessed with a labelled synthetic fixture standing in for CRM bookings, rep assignments, quotas and plan rules.",
         "Credit ignoring today's owner needs owner history in the source; the assessed fixture had none."
@@ -7663,7 +7864,7 @@
         "metric-population-and-rollups",
         "business-event-fact"
       ],
-      "sha256": "56f5b17e57c5492b39dff0ff96660e279f99faa339d4dc44f81e5dc43a619f80",
+      "sha256": "c3da8fdc8b96ad8b49a4cc6a1f3120a77f25d996683f5b20ba8beb57ccb66348",
       "title": "Build commission-eligible bookings and quota attainment from explicit plan rules",
       "trigger": [
         "Reps, managers and finance disagree on attainment because each team credits bookings with its own spreadsheet logic.",
@@ -7672,7 +7873,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -7733,7 +7939,7 @@
         "effective-dated-business-rules",
         "database-tables-to-bronze"
       ],
-      "sha256": "06622cfc4e2b74345ecdfd56c4ae3b8dbb462df2dd175b54f33db591d4d6c3c8",
+      "sha256": "a6cff784b548b85014656a519975829113d98e62ade0211aeff60f336ddd3d0c",
       "title": "Build the MRR waterfall with net and gross revenue retention",
       "trigger": [
         "Finance, RevOps and the board each quote a different net revenue retention because each turns subscriptions into monthly recurring revenue its own way.",
@@ -7746,7 +7952,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -7784,6 +7991,7 @@
       "path": "recipes/sales-commission-payout-ledger/recipe.md",
       "pitch": "Turn approved booking credit and plan rules into a rep-period payout ledger that rolls forward and shows every clawback.",
       "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "Prices approved credit against plan and quota data; payments, holds and cancellations are separate inputs.",
         "Needs approved eligible credit; plan rules may be captured as data. Eligibility belongs to the quota Recipe.",
         "Calculates obligations only; it never executes payroll or payment."
@@ -7793,7 +8001,7 @@
         "revops-quota-commission",
         "effective-dated-business-rules"
       ],
-      "sha256": "c7fe03dec8c705245f13e4682214aa02051fc2e214e49b342209240d41bf5267",
+      "sha256": "5af701ae3d292fe4838a1d0e4a606e430797d7d2118d118ea4dc15e93aeb6f82",
       "title": "Build a sales commission payout ledger with accelerator tiers, caps and clawbacks",
       "trigger": [
         "Finance cannot say what each rep is owed because tier rates, caps, holds, payments and cancellations are applied by hand in a spreadsheet.",
@@ -7802,7 +8010,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -7851,7 +8064,7 @@
         "finance-budget-forecast-actual",
         "metric-population-and-rollups"
       ],
-      "sha256": "dd041b71ed8d192f835be915bb5b08aeb308d3b07e99c78630330821190e54e8",
+      "sha256": "acb1a9c377ef81876a19c566db14447b3b1cfd8d942c828c376de6e3995b72e5",
       "title": "Score submitted sales forecasts against realized bookings by forecast horizon",
       "trigger": [
         "Leaders submit a sales forecast every week, but nobody can say how close each submission came to what booked, or whether the misses run over or under.",
@@ -7864,7 +8077,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -7901,6 +8115,7 @@
       "path": "recipes/sales-lead-opportunity-lifecycle/recipe.md",
       "pitch": "Show how each lead cycle ended and count every deal and new customer once, with missing links left visibly unresolved.",
       "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "Stops at the lifecycle and conversion links; stage conversion and slippage belong to revops-pipeline-snapshots.",
         "Needs timestamped lead status history and conversion links naming the records the approved accepted test relies on.",
         "As-of or at-conversion values need dated opportunity amount versions; without them they are reported as unproven.",
@@ -7914,7 +8129,7 @@
         "effective-dated-business-rules",
         "marketing-attribution-models"
       ],
-      "sha256": "180f4f54184a3d456051dae23f58cab7f7588d6c439d80461e8467ef1fd714d8",
+      "sha256": "334118b617a255b2dbd5c33d7ae7cc8ed8579718c78dc967b6effe934a1261be",
       "title": "Build an auditable lead-to-account-to-opportunity lifecycle that counts deals and new customers once",
       "trigger": [
         "Leads, accounts, contacts and opportunities sit in separate CRM tables and the conversion links are patchy, so nobody can show which lead became which customer or deal.",
@@ -7924,7 +8139,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -7975,7 +8195,7 @@
         "order-return-contribution-margin",
         "procurement-three-way-match"
       ],
-      "sha256": "e8576c0df65938589cd03bed53f0ad3471c6f8efbe6c02b3887d1ff4bb4553a4",
+      "sha256": "4ad5fbc90a201168a1350cab409301f9e3741c45386c61fca7fc243309e6046c",
       "title": "Reconcile accepted quote versions to orders and invoices with a price-exception ledger",
       "trigger": [
         "Sales and Finance disagree about the price a customer was promised, and someone reconciles quotes to orders and invoices by hand.",
@@ -7988,7 +8208,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -8022,7 +8243,7 @@
       "path": "recipes/sas-data-step-to-dbt/recipe.md",
       "pitch": "Retire a SAS batch job by rebuilding it in dbt and proving the models return what it returned, row by row, bar approved changes.",
       "qualifiers": [
-        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Assessed on duckdb_local only; date, number and type handling on other platforms is unassessed.",
         "Needs the resolved SAS program and formats; the job's output may come from a run or an approved reference.",
         "Covers tabular preparation in DATA steps and approved PROC steps; statistics, modelling and reports are out of scope.",
         "Inputs are landed tables; loading SAS datasets or extracts belongs to file-drop-to-bronze."
@@ -8034,7 +8255,7 @@
         "prove-dbt-change-safe",
         "file-drop-to-bronze"
       ],
-      "sha256": "2975c700c6e6138aa6575cb7cdd3fbfda2bfc3f668fef91b7ecd4a1332a4b4d0",
+      "sha256": "fb8fa00eb0e78bbe820c1bd8ef09db9d3175b0c6cb7a42a1bbd57d715c8b6d73",
       "title": "Rebuild a SAS DATA-step batch job in dbt and prove the rows match",
       "trigger": [
         "A monthly or nightly table is still produced by a SAS batch job whose DATA steps keep running totals, merge by key or write only some rows, and nobody left can explain it.",
@@ -8043,7 +8264,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -8082,7 +8308,7 @@
       "path": "recipes/scalar-sql-function-to-dbt-macro/recipe.md",
       "pitch": "Move a hidden warehouse function into dbt as a macro and prove the SQL it generates gives what the function did.",
       "qualifiers": [
-        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "Needs the unchanged function runnable on the same inputs, or its outputs captured on them.",
         "Scalar functions only; rewriting a caller's own logic belongs to legacy-sql-to-dbt.",
         "Excludes nondeterministic functions and those whose semantics need side effects, privileges or unreproducible state."
@@ -8092,7 +8318,7 @@
         "legacy-sql-to-dbt",
         "prove-dbt-change-safe"
       ],
-      "sha256": "587b28a8e42a1458bdbb73ac57619019a5a35ced16bac2f2e751b2a03831e947",
+      "sha256": "119dda5b9c7d6aba9a9c214b78e57e25bc57ce54c8aeeff1fdd756787b433c40",
       "title": "Convert a scalar SQL function into a dbt macro and prove equivalence",
       "trigger": [
         "Models or views call a scalar function created directly in the warehouse, so dbt cannot see the dependency and changes to it are not reviewed or tested.",
@@ -8101,7 +8327,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -8149,7 +8380,7 @@
         "dbt-snapshot-history",
         "legacy-sql-to-dbt"
       ],
-      "sha256": "456960f042b66e02ff44536b8d3ab194f542307fde86c73f896a9884daa55588",
+      "sha256": "67756beada55cb78b043e49ac5a3c61e3286279ab1b361dd24880b60b8472ce4",
       "title": "Convert a hand-written history routine into a dbt snapshot and prove history parity",
       "trigger": [
         "A Type 2 dimension is kept by a hand-written MERGE procedure or trigger that nobody wants to maintain.",
@@ -8162,7 +8393,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -8199,7 +8431,7 @@
       "path": "recipes/service-ticket-sla/recipe.md",
       "pitch": "See how every SLA number is computed and how old the open backlog was on any past day.",
       "qualifiers": [
-        "Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.",
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "Past backlog needs retained status, priority and team history; without it, backlog starts at the first captured day.",
         "The vendor comparison needs the vendor's per-ticket, per-clock result; without that export it is left out."
       ],
@@ -8211,7 +8443,7 @@
         "business-event-fact",
         "dbt-snapshot-history"
       ],
-      "sha256": "47aba1697703854eecdc1148123a14539d5b826d62853d9a1b310a6ffada9d55",
+      "sha256": "dfca50f1ed68d1cd730fc2a5349fa170c3e7a92fee68b0e506bd2ea50347fda0",
       "title": "Track ticket SLA attainment and backlog aging outside the vendor dashboard",
       "trigger": [
         "The ticketing vendor's dashboard reports SLA met or breached, but nobody can check how its numbers are calculated.",
@@ -8221,7 +8453,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -8274,7 +8511,7 @@
         "customer-retention-churn-features",
         "finance-budget-forecast-actual"
       ],
-      "sha256": "56296cda877b134a2932c80ec9506a20bb1f2688355f973647f58da56697900d",
+      "sha256": "b19b7d5ceaab5033ed29f6a92ebce825dd4f298d97a3d19476351b7907bae443",
       "title": "Build one shared calendar and fiscal-period date table",
       "trigger": [
         "Two reports put the same day in different weeks, months, quarters or fiscal periods because each mart builds its own date logic.",
@@ -8287,7 +8524,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -8337,7 +8575,7 @@
         "ops-procurement-spend",
         "revops-quota-commission"
       ],
-      "sha256": "6325c18093dd43416a553ade64ea91ebed2e5ad44d22bd74d303280b07a3e067",
+      "sha256": "50fa2a7eb36cfbd8bdd4c221d03c47799b54c153daffa14f820dfd7fe29bb1b6",
       "title": "Normalize multi-currency amounts to a reporting currency with as-of rates",
       "trigger": [
         "Finance adds amounts held in several currencies as if they were one, or restates old transactions at today's rate, and the total changes every time someone reruns it.",
@@ -8350,7 +8588,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -8390,7 +8629,7 @@
       "path": "recipes/shift-unit-economics/recipe.md",
       "pitch": "Explain shift economics with traceable revenue, complete cost status and allocations that conserve source amounts.",
       "readiness": "supported",
-      "sha256": "52360011db28a7d102a130ec20dbd1f7ba52ff04102597ddac420c044e0b9429",
+      "sha256": "4e56341efcc926cf7f828d212a3d4d38b7dd5077d5816442f967f5aa0f09b87f",
       "title": "Build shift revenue, cost and margin with reconciled rollups",
       "trigger": [
         "A fleet dashboard reports revenue per shift but cannot establish whether a shift covers its applicable costs.",
@@ -8403,7 +8642,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -8446,7 +8686,7 @@
         "Gating consumer pipelines on upstream readiness belongs to the readiness-gated-orchestration Recipe."
       ],
       "readiness": "supported",
-      "sha256": "86ca921dfffe3709b0c2a7c8a7d16b98f989b7154e1a03d5282922c84a73b2b2",
+      "sha256": "f449299c084e7ee1b4e2e39e47d6aa9929533e49b64c8b73f9d75fd1ae8bd380",
       "title": "Declare source freshness SLAs and make stale data fail before downstream work",
       "trigger": [
         "A load stopped and nothing failed; downstream models rebuilt on old data and the reports still looked current.",
@@ -8459,7 +8699,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -8510,7 +8751,7 @@
         "legacy-sql-to-dbt",
         "prove-dbt-change-safe"
       ],
-      "sha256": "66dd18888c3c59eca0c966adbd6ce7c8626183c684959a0589324ce5ecfd0083",
+      "sha256": "d684681f573edd66dc6d4008393c1f2986ca83c3c175128c6b18d2d10d423c87",
       "title": "Convert a Spark ingestion notebook into a dlt pipeline and reconcile what it lands",
       "trigger": [
         "A Spark notebook lands raw files into bronze, and the team wants that load as tested pipeline code without keeping a cluster for it.",
@@ -8523,7 +8764,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dlt"
@@ -8572,7 +8814,7 @@
         "legacy-sql-to-dbt",
         "notebook-transformation-to-dbt"
       ],
-      "sha256": "de57d3b63263a9411e9f34c9689839dedb7878768278e9eb1205d72533bd461b",
+      "sha256": "8ed71b8f334136ee7b99ddd21442e79f07f82fec0d17b8ad0e5651252a0bd40f",
       "title": "Rebuild a calculation workbook as governed inputs and dbt models compared cell by cell",
       "trigger": [
         "A calculation is run in a hand-edited workbook every period, and nobody can prove what it does or why a number came out as it did.",
@@ -8585,7 +8827,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -8627,7 +8870,8 @@
       "path": "recipes/ssis-package-to-versioned-pipeline/recipe.md",
       "pitch": "Rebuild an SSIS package as dlt, dbt and runnable control-flow code, then prove each sink matches the package and that a failed run restarts cleanly.",
       "qualifiers": [
-        "Assessed end to end on duckdb_local only; motherduck and redshift are unassessed.",
+        "Assessed end to end on duckdb_local only; motherduck, redshift and databricks are unassessed.",
+        "On databricks the grouped publish needs catalog-commit managed tables, written by DML with no DDL in the transaction.",
         "Needs the exported package, its parameter values and connection references, and read access to its sources.",
         "Needs the package's own output on the agreed window, or an approved reference built from its declared semantics.",
         "Studio has no SSIS runtime; the package is read from its export and never run, edited or retired.",
@@ -8642,7 +8886,7 @@
         "legacy-sql-to-dbt",
         "cross-platform-scheduled-job"
       ],
-      "sha256": "7929dadf032c30b5ad40207cdfbc6055efb401a421adf389d683c52873dc2baa",
+      "sha256": "c0782962872a2f59331d903cc19f9ad26ecbe98abf82ce2f5e60246266d63f9a",
       "title": "Rebuild an SSIS package as dlt, dbt and restartable control-flow code and prove parity and recovery",
       "trigger": [
         "A nightly load still runs as an SSIS package whose data flow, precedence constraints and restart behaviour live only in a .dtsx file, with no tests, and the person who understood it has left.",
@@ -8653,7 +8897,8 @@
         "platforms": [
           "duckdb_local",
           "motherduck",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dlt",
@@ -8694,7 +8939,7 @@
       "path": "recipes/stored-procedure-to-dbt/recipe.md",
       "pitch": "Retire a stored procedure by rebuilding it in dbt and proving the table matches after every compared run, not only at the end.",
       "qualifiers": [
-        "Not yet assessed end to end on fabric_warehouse or redshift.",
+        "Not yet assessed end to end on fabric_warehouse, redshift or databricks.",
         "Needs the procedure's table after each compared run, from the unchanged procedure or approved snapshots.",
         "Views and one-shot scripts that rebuild their whole output each run belong to the legacy-sql-to-dbt Recipe.",
         "Procedures that keep row history, such as hand-rolled slowly changing dimensions, are out of scope.",
@@ -8706,7 +8951,7 @@
         "dbt-full-refresh-to-incremental",
         "prove-dbt-change-safe"
       ],
-      "sha256": "529bddf249c9e61d4deeb11a133b54b7d3e606d1653859ef2542a59675d53e0d",
+      "sha256": "35abcec3bab8ce1f651cb08f8a0cd93213bdbdb90027155c158f41dc0be8dde7",
       "title": "Convert a stored procedure into a dbt model and prove parity",
       "trigger": [
         "A nightly load is a stored procedure nobody fully understands, and it inserts, updates, deletes or merges rows in a table people depend on.",
@@ -8716,7 +8961,8 @@
       "works_with": {
         "platforms": [
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -8770,7 +9016,7 @@
         "business-event-fact",
         "customer-retention-churn-features"
       ],
-      "sha256": "83b7145768dd4ce7a33faf980b32334d58aed612b92029d0a4e4baa3b1732052",
+      "sha256": "9f8d3c93836b7f6858f6ae82e31fa123a614e490d5ca3f47dec524f25a7b913f",
       "title": "Land call-detail batches and aggregate them into subscriber-day usage with manifest completeness",
       "trigger": [
         "Monthly subscriber usage differs by who ran it, because nobody can say which call-detail batches had landed or whether each arrived complete.",
@@ -8783,7 +9029,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dlt",
@@ -8842,7 +9089,7 @@
         "shared-fx-conversion",
         "file-drop-to-bronze"
       ],
-      "sha256": "5b18f3865b0e4d3585a5b9be8d72691c6c3f0a067971ffecf57e0e9624f52888",
+      "sha256": "494acaf26673083cb75a0468ed9e9ce65ab51a661a2da6f88bebbfd33f1b748b",
       "title": "Calculate rated usage charges with allowances, tiers, credits and restated corrections",
       "trigger": [
         "Usage charges differ by who calculated them, because graduated and volume pricing, shared allowances and credits are applied differently from one run to the next.",
@@ -8855,7 +9102,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -8910,7 +9158,7 @@
         "effective-dated-business-rules",
         "shared-calendar-fiscal-periods"
       ],
-      "sha256": "72534c55160bd11eeabb965a6841a9427ac8196a796532d9cb4aceaddb8bfbbd",
+      "sha256": "e66fbe9ef2545be36c3f33d0619a11e8d22d81bc12b0082626f1b56eeb0175c6",
       "title": "Reconcile meter reads to bills and quantify unbilled energy",
       "trigger": [
         "Revenue assurance compares metered usage with billed usage in a spreadsheet each month, and nobody can say which differences are real and which are timing, estimates or a meter swap.",
@@ -8923,7 +9171,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -8966,7 +9215,7 @@
         "incremental-dbt-model-with-contract",
         "prove-dbt-change-safe"
       ],
-      "sha256": "ddef8745b26eeff2b17d5dfd1754e00862f62c6cdfb839ddacf45d856d5452a3",
+      "sha256": "26073fa158651c7fd0990c7e55590d9f9feb57bfa5d3daeb39523ef03825c3d7",
       "title": "Add a breaking data contract change as a new version beside the old one and revise its named consumers",
       "trigger": [
         "A required change to a published relation's grain, column meaning or shape cannot keep the old interface.",
@@ -8980,7 +9229,8 @@
           "motherduck",
           "fabric_lakehouse",
           "fabric_warehouse",
-          "redshift"
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dbt"
@@ -9023,6 +9273,7 @@
       "path": "recipes/visual-etl-mapping-to-dlt-dbt/recipe.md",
       "pitch": "Rebuild a visual ETL mapping as dlt and dbt code, prove each output and reject path against its reference run, and specify the cutover.",
       "qualifiers": [
+        "Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.",
         "Needs a readable export of the mapping, its resolved parameters and read access to its sources.",
         "Needs the mapping's own output on the agreed slice, or an approved reference built from its declared semantics.",
         "Studio has no connection to the visual ETL tool; the mapping is read from its export and never run or edited."
@@ -9035,7 +9286,7 @@
         "notebook-transformation-to-dbt",
         "spark-ingestion-notebook-to-dlt"
       ],
-      "sha256": "e681ad6cbce26236e2012dbd0f5a08da87b716cdea6864b67f3ab9d97bed9743",
+      "sha256": "1303a2c5b3a01c634ff5bc3f43598392fed1ab56af0b874760cfb94512599756",
       "title": "Rebuild an exported visual ETL mapping as dlt and dbt and prove parity",
       "trigger": [
         "A load into a fact or reporting table still runs from a mapping built in a visual ETL tool, and its lookups, filters, routing and insert-update-delete rules are visible only on the tool's canvas.",
@@ -9044,7 +9295,12 @@
       ],
       "works_with": {
         "platforms": [
-          "duckdb_local"
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
         ],
         "tools": [
           "dlt",

@@ -33,7 +33,8 @@
         "motherduck",
         "fabric_lakehouse",
         "fabric_warehouse",
-        "redshift"
+        "redshift",
+        "databricks"
       ]
     },
     "recipe_entry": {

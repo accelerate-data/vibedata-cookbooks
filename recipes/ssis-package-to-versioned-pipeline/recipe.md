@@ -29,11 +29,13 @@ works_with:
     - duckdb_local
     - motherduck
     - redshift
+    - databricks
   tools:
     - dlt
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; motherduck and redshift are unassessed.
+  - Assessed end to end on duckdb_local only; motherduck, redshift and databricks are unassessed.
+  - On databricks the grouped publish needs catalog-commit managed tables, written by DML with no DDL in the transaction.
   - Needs the exported package, its parameter values and connection references, and read access to its sources.
   - Needs the package's own output on the agreed window, or an approved reference built from its declared semantics.
   - Studio has no SSIS runtime; the package is read from its export and never run, edited or retired.

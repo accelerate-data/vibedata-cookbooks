@@ -24,10 +24,15 @@ domain_objects:
 works_with:
   platforms:
     - duckdb_local
+    - motherduck
+    - fabric_lakehouse
+    - fabric_warehouse
+    - redshift
+    - databricks
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other four Studio targets remain unassessed.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Needs a source recording when each change was captured; knowledge is never rebuilt from a snapshot.
   - Both time axes at once; business-axis history alone belongs to the dimension history Recipe.
 evidence:
@@ -89,6 +94,6 @@ Inherit the Intent's repository, platform, Domain and sources. Inspect approved 
 - Never overwrite, merge or delete a version to apply a correction. Do not infer a correction from equal periods or recording order unless that rule was approved.
 - Do not pick a winner for an unresolvable overlap, deduplicate it away or drop the contested rows through an inner join.
 - Keep Domain sources read-only. Mutate only an independently authored synthetic fixture or an approved writable fixture with a verified reset, and never mix synthetic rows into observed results.
-- Execute on the actual supported Intent target and supplied sandbox without switching engines; support here covers duckdb_local only.
+- Execute on the actual supported Intent target and supplied sandbox without switching engines; the complete outcome is assessed on duckdb_local only.
 - Keep the deliverable to the version ledger, its two consumers and necessary checks. Single-axis dimension history, converting an existing slowly changing procedure and source ingestion belong to their own Recipes.
 - A build that compiles or reruns cleanly does not prove the outcome; the changed case, boundary results, wrong-consumer failures and reconciliation are required execution evidence.

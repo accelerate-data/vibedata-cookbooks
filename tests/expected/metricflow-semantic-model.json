@@ -3,6 +3,7 @@
   "platforms": [
     "duckdb_local",
     "motherduck",
-    "redshift"
+    "redshift",
+    "databricks"
   ]
 }

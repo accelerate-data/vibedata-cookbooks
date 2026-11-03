@@ -31,6 +31,7 @@ works_with:
     - duckdb_local
     - motherduck
     - redshift
+    - databricks
   tools:
     - dbt
 qualifiers:

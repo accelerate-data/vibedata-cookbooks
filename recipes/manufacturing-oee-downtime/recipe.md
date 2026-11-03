@@ -32,6 +32,7 @@ works_with:
     - fabric_lakehouse
     - fabric_warehouse
     - redshift
+    - databricks
   tools:
     - dbt
 related:

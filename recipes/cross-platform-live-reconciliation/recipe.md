@@ -20,7 +20,11 @@ domain_objects:
 works_with:
   platforms:
     - duckdb_local
+    - motherduck
+    - redshift
+    - databricks
 qualifiers:
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Each side must be readable live and read-only from the Intent; a side that is not stays unproven.
   - A baseline of the same project's unchanged dbt code belongs to dbt-refactor-output-identical.
 related:

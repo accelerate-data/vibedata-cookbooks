@@ -80,7 +80,7 @@ The Drive folder is open to Accelerate Data accounts only.
 
 Required keys: `id`, `title`, `trigger`, `description`, `job_category`, `area`, `readiness`, `function`, `works_with.platforms`. Optional keys: `pitch`, `industry`, `domain_objects`, `works_with.tools`, `qualifiers`, `related`, `evidence.features`, `evidence.evals`. Every string is one line. [`schema/recipe.schema.json`](schema/recipe.schema.json) holds the exact rules and length caps, and [`templates/recipe.md`](templates/recipe.md) is the starting file.
 
-`works_with.platforms` uses Studio's own values: `duckdb_local`, `motherduck`, `fabric_lakehouse`, `fabric_warehouse`, `redshift`. There is no generic `fabric` value; a Recipe for both Fabric targets lists both.
+`works_with.platforms` uses Studio's own values: `duckdb_local`, `motherduck`, `fabric_lakehouse`, `fabric_warehouse`, `redshift`, `databricks`. There is no generic `fabric` value; a Recipe for both Fabric targets lists both.
 
 `readiness` has three values:
 

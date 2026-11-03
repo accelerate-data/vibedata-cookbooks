@@ -11,7 +11,7 @@
     "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 64 },
     "line": { "type": "string", "pattern": "^[^\\r\\n]*\\S[^\\r\\n]*$" },
     "token": { "type": "string", "pattern": "^[a-z0-9]+(?:[_-][a-z0-9]+)*$", "maxLength": 64 },
-    "platform": { "enum": ["duckdb_local", "motherduck", "fabric_lakehouse", "fabric_warehouse", "redshift"] }
+    "platform": { "enum": ["duckdb_local", "motherduck", "fabric_lakehouse", "fabric_warehouse", "redshift", "databricks"] }
   },
   "properties": {
     "id": { "$ref": "#/$defs/id" },
