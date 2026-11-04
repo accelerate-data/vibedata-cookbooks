@@ -9,7 +9,7 @@ description: Rebuild the pivots, subtotals, recursive hierarchies and generated 
 pitch: Rebuild a legacy report's pivots, subtotals, hierarchies and keys in dbt and prove each matches the legacy query or differs only as approved.
 job_category: re-engineer
 area: transformation
-readiness: planned
+readiness: supported
 function:
   - cross-functional
 domain_objects:
@@ -35,8 +35,8 @@ works_with:
 qualifiers:
   - Reads the legacy source over a connected MCP server only, such as Toolbox or postgres-mcp.
   - Needs the tables the construct reads landed in the target; landing them belongs to an ingestion Recipe.
-  - A login that can write or run routines is reported; whether the run proceeds on it is an Ask first item.
-  - Owns the construct occurrences; the whole view, script or routine, its writes and cutover stay with related Recipes.
+  - A login that can write or run routines is reported; whether the run proceeds on it is approved.
+  - Compares each construct's own statement; the routine, the table it writes and cutover stay with related Recipes.
   - Constructs in statements the source will not show, such as unreadable dynamic SQL, are named unassessed.
   - Behaviour outside the output rows, such as other writes or logging, is reported, not reproduced.
 related:
@@ -51,6 +51,8 @@ related:
 evidence:
   features:
     - capturing-requirements
+    - designing
+    - planning
     - generating-dbt-model
     - dbt-unit-testing
     - running-dbt-in-sandbox
@@ -60,12 +62,12 @@ evidence:
 
 ## Prompt
 
-Translate the engine-specific constructs in <legacy_routine_or_query> into dbt in the current Intent: each pivot, unpivot, subtotal (grouping sets, CUBE or ROLLUP), recursive hierarchy and generated key in the approved scope. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Read the legacy source over MCP only and change nothing in it. Deliver a map from each construct occurrence to its target form, the dbt models, and evidence that each model returns the same rows as the legacy logic for those occurrences run on the same inputs, or differs only as approved, including inputs that reach every branch and the exceptional ones the legacy query tolerates or fails on. Reproduce legacy behaviour that looks like a mistake and report each defect as follow-up work; a wanted output change belongs in a separate change. State what the comparison cannot prove.
+Translate the engine-specific constructs in <legacy_routine_or_query> into dbt in the current Intent: each pivot, unpivot, subtotal (grouping sets, CUBE or ROLLUP), recursive hierarchy and generated key in the approved scope. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Read the legacy source over MCP only and change nothing in it. Deliver a map from each construct occurrence to its target form, the dbt models, built from the inputs as landed in the target, and evidence that each model returns the same rows as the legacy statement holding those occurrences, run on the same inputs, or differs only as approved, including inputs that reach every branch and the exceptional ones the legacy query tolerates or fails on. Reproduce legacy behaviour that looks like a mistake and report each defect as follow-up work; a wanted output change belongs in a separate change. State what the comparison cannot prove.
 
 ## Verified by
 
-- Every occurrence of an engine-specific construct in the approved scope maps to a target form or a stated reason none is needed; one the source does not show is named unassessed, and one with no equivalent is reported as a gap, never approximated.
-- Each model returns the rows the legacy logic for its construct occurrences returns on the same inputs, compared in both directions as multisets at the approved precision; each difference an approved choice makes is listed with the rows it affects, and nothing else differs.
+- Every occurrence of an engine-specific construct in the approved scope maps to a target form or a stated reason none is needed; one the source does not show is named unassessed, and one with no equivalent is reported as a gap with the target limit that rules it out, never approximated.
+- Each model reads its inputs as landed in the target and returns the rows the legacy statement holding its occurrences returns on the same inputs, compared both ways as multisets at the approved precision; each difference an approved choice makes is listed with its rows, and nothing else differs.
 - The compared inputs reach every branch of each mapped construct that the legacy logic can be run on, including the exceptional states it tolerates or fails on; expected rows come from the legacy engine, and any other branch is proven by an approved oracle or stated unproven.
 - Subtotal and rollup rows carry the approved level encoding; where the legacy labels cannot tell two grouping levels, or a real null, from a rolled-up value, the affected rows are reported; input with no rows gives the approved result.
 - Pivoted and unpivoted output has the approved column set and null-row handling; values outside it and spelling variants follow the approved rule, and none creates a column or drops a row silently.
@@ -73,7 +75,7 @@ Translate the engine-specific constructs in <legacy_routine_or_query> into dbt i
 - Where the legacy logic raises an error on an input, the model fails the same way or follows the approved treatment, which is reported; a bound the translation adds raises an error, or truncates only as approved with the cut rows flagged and counted.
 - A generated key follows the approved stability rule, is distinct per output row at the approved grain, and is never claimed to equal a legacy identity value; tables or consumers holding legacy key values are mapped or reported.
 - Text, number, ordering and rounding behaviour, such as null handling, declared widths, case and space matching, null order, ties and exact decimals, matches at the approved precision, and each difference is reported.
-- Each legacy defect is listed with its evidence, affected rows and what correcting it would change; one that shapes rows is reproduced, not fixed; where the legacy logic cannot compile, plan or load as written, parity is claimed only against the approved adjusted logic shown beside the original.
+- Each legacy defect is listed with its evidence, affected rows and what fixing it would change; one shaping the statement's rows is reproduced, not fixed, one only the routine's write shows is reported; where the logic cannot run as written, parity is only against approved adjusted logic beside it.
 - Every statement sent to the legacy source is recorded in order with its outcome, and none changes it.
 - Anything the comparison cannot prove is stated, including constructs the inputs never exercise, results the legacy logic does not determine, and inputs not shown identical on both sides.
 
@@ -87,6 +89,8 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 
 - capturing-requirements
 - profiling-source-data
+- designing
+- planning
 - generating-dbt-model
 - dbt-unit-testing
 - running-dbt-in-sandbox
@@ -94,7 +98,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 
 ### Ask first
 
-- If unresolved, which occurrences of the pivot, unpivot, subtotal, recursion and generated-key families are in scope; other constructs go to the routine's conversion Recipe, and each one left out is listed with its reason.
+- If unresolved, which occurrences of the pivot, unpivot, subtotal, recursion and generated-key families are in scope, and which statement holding each is compared; other constructs go to the routine's conversion Recipe, and each one left out is listed with its reason.
 - If unresolved, what replaces a legacy identity, sequence or rowversion key: carried, replaced or dropped, at what grain, what happens when rows at that grain are not unique, must it stay stable across rebuilds and as other rows change, and how do tables holding legacy key values map to it?
 - If unresolved, how are subtotal levels published, as the legacy labels or explicit per-column flags, how are label collisions handled, and what does the output show when there are no input rows?
 - If unresolved, what does a pivot or unpivot publish: which columns, what happens to values outside them, spelling variants, null rows and missing cells?
@@ -106,7 +110,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 ### Guardrails
 
 - Do not run, edit or recompile the legacy routine, and do not write to the legacy source; every statement sent to it only reads.
-- Do not correct a legacy defect; reproduce it and report it as follow-up work, and report any output change an approved choice makes as a deliberate difference.
+- Do not correct a legacy defect that shapes the statement's rows; reproduce it and report it as follow-up work, and report any output change an approved choice makes as a deliberate difference.
 - Do not trim, case-fold, truncate, round or cast values to hide a difference from the legacy result beyond what the approved comparison rule allows; reproduce it or report it.
 - A depth limit, cycle stop or recursion error the legacy logic applies is reproduced unless an approved treatment replaces it, which is reported as a difference; a bound the translation adds never truncates rows silently.
 - Do not build the expected rows from the model's own logic, copy result rows by hand into the evidence, or claim a comparison the legacy query's logic did not produce.
