@@ -14,6 +14,7 @@
     "visual-etl-mapping-to-dlt-dbt",
     "power-query-preparation-to-dbt",
     "legacy-sql-to-dbt",
+    "translate-engine-specific-sql-to-dbt",
     "managed-connector-to-dlt",
     "bi-calculations-to-governed-metrics",
     "materialized-view-to-dbt",
