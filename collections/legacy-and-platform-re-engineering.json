@@ -8,6 +8,7 @@
     "assess-synapse-ssis-for-fabric",
     "inventory-legacy-database-over-mcp",
     "plan-legacy-procedure-package-intents",
+    "split-multi-table-procedure-to-dbt",
     "consolidate-duplicate-source-extracts",
     "ssis-package-to-versioned-pipeline",
     "visual-etl-mapping-to-dlt-dbt",
