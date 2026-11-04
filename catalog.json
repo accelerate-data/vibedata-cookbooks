@@ -35,6 +35,7 @@
         "bounded-partition-backfill",
         "business-event-fact",
         "consolidate-duplicate-source-extracts",
+        "consolidate-legacy-table-writers-to-dbt",
         "cross-platform-dbt-macro",
         "cross-platform-live-reconciliation",
         "cross-platform-scheduled-job",
@@ -164,6 +165,7 @@
         "bounded-partition-backfill",
         "business-event-fact",
         "consolidate-duplicate-source-extracts",
+        "consolidate-legacy-table-writers-to-dbt",
         "cost-attribution-by-model-job",
         "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
@@ -450,6 +452,7 @@
         "assess-synapse-ssis-for-fabric",
         "inventory-legacy-database-over-mcp",
         "plan-legacy-procedure-package-intents",
+        "consolidate-legacy-table-writers-to-dbt",
         "consolidate-duplicate-source-extracts",
         "ssis-package-to-versioned-pipeline",
         "visual-etl-mapping-to-dlt-dbt",
@@ -472,6 +475,7 @@
         "assess-synapse-ssis-for-fabric",
         "bi-calculations-to-governed-metrics",
         "consolidate-duplicate-source-extracts",
+        "consolidate-legacy-table-writers-to-dbt",
         "inventory-legacy-database-over-mcp",
         "legacy-sql-to-dbt",
         "managed-connector-to-dlt",
@@ -583,6 +587,7 @@
         "bounded-partition-backfill",
         "business-event-fact",
         "consolidate-duplicate-source-extracts",
+        "consolidate-legacy-table-writers-to-dbt",
         "cost-attribution-by-model-job",
         "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
@@ -888,6 +893,7 @@
         "bounded-partition-backfill",
         "business-event-fact",
         "consolidate-duplicate-source-extracts",
+        "consolidate-legacy-table-writers-to-dbt",
         "cost-attribution-by-model-job",
         "cpg-distributor-secondary-sales",
         "cpg-gross-to-net-revenue",
@@ -1894,6 +1900,77 @@
         "tools": [
           "dlt",
           "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Replace every legacy writer and load mode of one table with one incremental dbt model, reading the legacy database over MCP without changing it unless approved, with each approved mode mapped to one way of running the model, parity per mode on the same inputs, writer disagreements and legacy defects reported, and retirement only as approved.",
+      "domain_objects": [
+        "stored_procedure",
+        "maintained_table",
+        "table_writer_map",
+        "load_mode",
+        "dbt_model",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "consolidate-legacy-table-writers-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/consolidate-legacy-table-writers-to-dbt/recipe.md",
+      "pitch": "Replace the routines that write one table with one incremental dbt model, proven against the approved legacy logic for each load mode.",
+      "qualifiers": [
+        "Reads over a connected MCP server only, such as Toolbox for SQL Server and Oracle or postgres-mcp for PostgreSQL.",
+        "Needs the tables the writers read landed in the target; landing them belongs to an ingestion Recipe.",
+        "A login that can write or run routines is reported; whether the run proceeds on it is approved.",
+        "A table one routine maintains, in one or several modes, belongs to stored-procedure-to-dbt.",
+        "Unreadable writers, writers outside the database and string-built writes it cannot resolve are named unassessed.",
+        "Writers that keep row history belong to scd-procedure-to-dbt-snapshot.",
+        "Behaviour outside the table's rows, such as other writes or logging, is reported, not reproduced."
+      ],
+      "readiness": "planned",
+      "related": [
+        "stored-procedure-to-dbt",
+        "inventory-legacy-database-over-mcp",
+        "plan-legacy-procedure-package-intents",
+        "legacy-sql-to-dbt",
+        "scd-procedure-to-dbt-snapshot",
+        "dbt-full-refresh-to-incremental"
+      ],
+      "sha256": "aac5f718b27cdac16800001128de53ae4bf1046518c50cab790721171d37961e",
+      "title": "Consolidate a table's legacy writers into one incremental dbt model and prove parity per load mode",
+      "trigger": [
+        "One legacy table is written by more than one stored procedure or job, and the team wants one dbt model to replace them all.",
+        "A daily load and a separate historical rebuild both write the same fact table, and nobody can say whether they define its rows the same way.",
+        "An inventory of a legacy SQL Server, Oracle or PostgreSQL warehouse shows a table with two or more writers that has to move to dbt."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt",
+          "sql_server",
+          "oracle",
+          "postgresql"
         ]
       }
     },
