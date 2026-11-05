@@ -30,6 +30,7 @@
         "assess-synapse-ssis-for-fabric",
         "banking-aml-features",
         "batch-cdc-current-state",
+        "batched-loop-procedure-to-set-based-dbt",
         "bi-calculations-to-governed-metrics",
         "bitemporal-business-history",
         "bounded-partition-backfill",
@@ -97,7 +98,7 @@
           "cross-functional"
         ]
       },
-      "supported_or_proven_count": 60,
+      "supported_or_proven_count": 61,
       "title": "Any domain",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -163,6 +164,7 @@
         "banking-aml-features",
         "banking-delinquency-vintages",
         "batch-cdc-current-state",
+        "batched-loop-procedure-to-set-based-dbt",
         "bi-calculations-to-governed-metrics",
         "bitemporal-business-history",
         "bounded-partition-backfill",
@@ -288,7 +290,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 119,
+      "supported_or_proven_count": 120,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -476,12 +478,14 @@
         "scalar-sql-function-to-dbt-macro",
         "spark-ingestion-notebook-to-dlt",
         "stored-procedure-to-dbt",
+        "batched-loop-procedure-to-set-based-dbt",
         "scd-procedure-to-dbt-snapshot",
         "move-dbt-project-destination"
       ],
       "resolved_members": [
         "adf-mapping-data-flow-to-dlt-dbt",
         "assess-synapse-ssis-for-fabric",
+        "batched-loop-procedure-to-set-based-dbt",
         "bi-calculations-to-governed-metrics",
         "consolidate-duplicate-source-extracts",
         "consolidate-legacy-table-writers-to-dbt",
@@ -505,7 +509,7 @@
         "translate-engine-specific-sql-to-dbt",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 18,
+      "supported_or_proven_count": 19,
       "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -595,6 +599,7 @@
         "banking-aml-features",
         "banking-delinquency-vintages",
         "batch-cdc-current-state",
+        "batched-loop-procedure-to-set-based-dbt",
         "bitemporal-business-history",
         "bounded-partition-backfill",
         "business-event-fact",
@@ -747,7 +752,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 121,
+      "supported_or_proven_count": 122,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -904,6 +909,7 @@
         "banking-aml-features",
         "banking-delinquency-vintages",
         "batch-cdc-current-state",
+        "batched-loop-procedure-to-set-based-dbt",
         "bitemporal-business-history",
         "bounded-partition-backfill",
         "business-event-fact",
@@ -1031,7 +1037,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 121,
+      "supported_or_proven_count": 122,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1621,6 +1627,82 @@
         "tools": [
           "dlt",
           "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Replace the looping, paging or batching of one legacy load procedure with one set-based dbt model, reading it over MCP without changing it unless approved, with every loop construct mapped, parity with the procedure on each branch the comparison can reach, and failed pages, loop bounds, iteration state and reruns reported against the approved rule.",
+      "domain_objects": [
+        "stored_procedure",
+        "maintained_table",
+        "batch_loop",
+        "loop_map",
+        "dbt_model",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "designing",
+          "planning",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "batched-loop-procedure-to-set-based-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/batched-loop-procedure-to-set-based-dbt/recipe.md",
+      "pitch": "Drop the loop from a legacy load and prove one set-based model leaves the same rows, or the differences you approve, including after a failed page and a rerun.",
+      "qualifiers": [
+        "Reads the legacy database over a connected MCP server; any run of the procedure is approved and recorded.",
+        "A login that can write or run routines is reported; whether the run proceeds on it is approved.",
+        "Needs the tables the loop reads landed in the target; an ingestion Recipe lands them.",
+        "Unifying several writers of one table is consolidate-legacy-table-writers-to-dbt; this replaces one procedure's loop.",
+        "A procedure with no loop is stored-procedure-to-dbt; one that keeps row history is scd-procedure-to-dbt-snapshot.",
+        "A loop with no stated set rule, or one the MCP cannot read, is reported unassessed, not converted.",
+        "Behaviour outside the table's rows, such as logging and checkpoint tables, is reported, not reproduced.",
+        "In-place update or delete loops are in scope and are compared from the same prior table.",
+        "A loop that writes several tables is one outcome per table; the other tables are reported."
+      ],
+      "readiness": "supported",
+      "related": [
+        "stored-procedure-to-dbt",
+        "scd-procedure-to-dbt-snapshot",
+        "consolidate-legacy-table-writers-to-dbt",
+        "legacy-sql-to-dbt",
+        "inventory-legacy-database-over-mcp",
+        "plan-legacy-procedure-package-intents",
+        "dbt-full-refresh-to-incremental"
+      ],
+      "sha256": "43da6c9ccd6353b5dfa58bbad6f37bdd0d3415d8c241a2c6a7a60fbc18653749",
+      "title": "Replace a batched row-loop procedure with one set-based dbt model and prove parity",
+      "trigger": [
+        "A nightly or historical load is a procedure that pages through its rows in a loop, with a batch size, a size threshold or a commit after every page, and nobody trusts replacing it.",
+        "The team wants one set-based dbt model, but consumers need proof of what the table holds however the loop paged, failed or restarted.",
+        "A SQL Server, Oracle or PostgreSQL estate is moving to dbt, and its procedures loop, page or commit in batches where a set-based model should do the work."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt",
+          "sql_server",
+          "oracle",
+          "postgresql"
         ]
       }
     },
