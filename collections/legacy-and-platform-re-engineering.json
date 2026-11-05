@@ -17,13 +17,13 @@
     "managed-connector-to-dlt",
     "bi-calculations-to-governed-metrics",
     "materialized-view-to-dbt",
+    "validation-procedure-to-dbt-tests",
     "notebook-transformation-to-dbt",
     "sas-data-step-to-dbt",
     "spreadsheet-calculation-workbook-to-dbt",
     "scalar-sql-function-to-dbt-macro",
     "spark-ingestion-notebook-to-dlt",
     "stored-procedure-to-dbt",
-    "validation-procedure-to-dbt-tests",
     "scd-procedure-to-dbt-snapshot",
     "move-dbt-project-destination"
   ]
