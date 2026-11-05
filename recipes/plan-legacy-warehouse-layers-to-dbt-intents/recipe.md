@@ -35,10 +35,10 @@ works_with:
     - oracle
     - postgresql
 qualifiers:
-  - Reads SQL Server and Oracle through Google MCP Toolbox for Databases and PostgreSQL through postgres-mcp.
-  - None of these MCP servers enforces read-only access by default; a login that can write needs the owner's approval.
+  - Reads over a connected MCP server only, such as Toolbox for SQL Server and Oracle or postgres-mcp for PostgreSQL.
+  - A login that can write or run routines is reported; whether the run proceeds on it is approved.
   - The entry layer is the owner's choice; layer words such as silver and gold mean different things in different estates.
-  - Covers every approved chain object, including ones no entry routine reaches; one routine's package is a sibling Recipe.
+  - Covers chain objects no entry routine reaches; one routine's package belongs to plan-legacy-procedure-package-intents.
   - Stops at approved requirements; building models and proving parity belong to the conversion Recipes.
   - An empty legacy target has no output to compare; its check follows the approved basis.
   - Writers outside the database and objects the login cannot read are named unassessed.
@@ -61,20 +61,20 @@ evidence:
 
 ## Prompt
 
-Plan <legacy_database> on the connected <source_engine> MCP for re-engineering as dbt models, from <entry_layer> through the reports, reading it through the MCP only and changing nothing in it. Inherit the Intent's repository, Domain, connected sources and approved requirements, and resolve only the semantics they leave open. Deliver one plan that lists every object in the chain in layer order with its type, the writers of each table it touches, its readers and callers, and what it becomes in dbt, then say how each layer is checked, on the approved basis, and what that check can and cannot prove about parity, name the objects an existing model already covers with their owners, and open one Intent per approved unit, or reuse one already open where approved, each stopping once its approved requirements name the dbt model and the agreed tests, traced to the legacy behaviour they check. Measure every figure on this engine's own definitions and data, reproduce legacy behaviour as approved and raise each defect separately, and state what the plan cannot prove.
+Plan <legacy_database> on the connected <source_engine> MCP for re-engineering as dbt models, from <entry_layer> through the reports, reading it through the MCP only and changing nothing in it. Inherit the Intent's repository, Domain, connected sources and approved requirements, and resolve only the semantics they leave open. Deliver one plan that lists every object in the chain in layer order, beside the legacy run order and what a failure part-way leaves, with its type, the writers of each table it touches, its readers and callers, and what it becomes in dbt, then say how each layer is checked, on the approved basis, and what that check can and cannot prove about parity, name the objects an existing model already covers with their owners, and open one Intent per approved unit, or reuse one already open where approved, each stopping once its approved requirements name the dbt model and the agreed tests, traced to the legacy behaviour they check. Measure every figure on this engine's own definitions and data, specify legacy behaviour as approved and raise each defect separately, and state what the plan cannot prove.
 
 ## Verified by
 
-- The plan lists every object in the approved chain once, in layer order and in dependency order within a layer, cycles marked, with its type; the object counts equal an independent read of the source catalog, and objects outside the chain are named.
+- The plan lists every object in the approved chain once, in layer order and dependency order within a layer, cycles marked, with its type and the legacy run order a readable schedule or routine sets, or none; counts equal an independent catalog read, and objects outside the chain are named.
 - Every table shows each writer, inside or outside any entry routine, with statement kinds read from definition text including built statements, or says no writer was found in the readable definitions; it never says the table is never written.
 - Every object shows who calls or reads it, or that nothing readable does and what that does not prove; objects no entry routine reaches are listed, and a call or write the catalog cannot see is reported beside the catalog's own reading.
 - Each object has one disposition, the dbt artifact it becomes with kind, layer and name, or the reason it becomes none; an object an existing model covers names that model and its owner, and this run deletes or renames nothing existing.
 - Each layer states its check per the approved basis, naming inputs and comparison, or that none exists; no check rests on a row count alone, a shape-only check is reported as proving no parity, and an empty target is stated with its measured count and never cited as legacy rows.
 - Every measured figure cites the query or definition behind it and equals what that query returns; a figure from a procedure's own select over defined inputs says so, and a figure measured on live data is never presented as a test result.
-- Where a table's contents disagree with its loader, or an engine behaviour changes a result, the plan reports both with the measurement and states which the approved rule treats as the promise and what the target must do to keep it.
+- Where a table's contents disagree with its loader, the legacy run order or a part-way failure leaves layers unlike the dependency order would, or engine behaviour changes a result, the plan reports both with the measurement, which the approved rule treats as the promise and what the target must do.
 - Each object with a dbt disposition is covered by an Intent of the approved unit, or listed as not yet opened with the approved reason; none is left uncovered, and one covered twice shows the approved reason.
 - Each opened Intent stops at requirements naming the dbt models, each upstream it reads with its supplier, and tests whose expected values the plan measures or proves; none designs or builds.
-- Legacy behaviour is reproduced as approved, including behaviour that looks like a defect; each defect is raised separately with its measured effect, and each approved correction is recorded as its own change.
+- Each requirements document specifies legacy behaviour as the approved parity rule says, including behaviour that looks like a defect; each defect is raised separately with its measured effect, and each approved correction is recorded as its own change.
 - A record lists every statement sent to the legacy database and each is a read; no routine is called and nothing in the database changes.
 - Anything the plan cannot prove is stated, such as loaders outside the database, unreadable definitions, missing run history or behaviour only defined inputs reach.
 
@@ -82,7 +82,7 @@ Plan <legacy_database> on the connected <source_engine> MCP for re-engineering a
 
 ### Instructions
 
-Inherit the Intent's repository, Domain, connected sources and approved requirements, and resolve only the semantics they leave open. Read the catalog and every definition in the chain through the MCP with reads only, and follow calls and writes in the definition text, including built statements; compare the catalog's reading with the text's and report each difference. Order the objects by layer and by dependency measured from the definitions, not from names, and record each layer's inputs and consumers. Measure each figure on this engine's own definitions and data within the approved load limits, and where a target is empty measure what the procedure's own select returns over defined inputs and say so. Compare each table's contents with what its loader would produce. Check the engine behaviours that change results and record what the target must do to keep each. Give each Intent its object's plan section and the approved decisions, since an Intent cannot see an unmerged plan. Settle the entry layer, the Intent unit, the overlap with existing models, the check basis and the parity rule with the user before planning, audit each requirements document against the source before it is approved, and stop each Intent there.
+Inherit the Intent's repository, Domain, connected sources and approved requirements, and resolve only the semantics they leave open. Read the catalog and every definition in the chain through the MCP with reads only, and follow calls and writes in the definition text, including built statements; compare the catalog's reading with the text's and report each difference. Order the objects by layer and by dependency measured from the definitions, not from names, record the run order a schedule or entry routine sets beside it, and record each layer's inputs and consumers. Measure each figure on this engine's own definitions and data within the approved load limits, and where a target is empty measure what the procedure's own select returns over defined inputs and say so. Compare each table's contents with what its loader would produce. Check the engine behaviours that change results and record what the target must do to keep each. Give each Intent its object's plan section and the approved decisions, since an Intent cannot see an unmerged plan. Settle the entry layer, the Intent unit, the overlap with existing models, the check basis and the parity rule with the user before planning, audit each requirements document against the source before it is approved, and stop each Intent there.
 
 ### Compose
 
@@ -99,7 +99,7 @@ Inherit the Intent's repository, Domain, connected sources and approved requirem
 - If unresolved, how objects an existing model already covers are treated, named and escalated, extended or rebuilt, and who decides which of several ports survives.
 - If unresolved, what each layer's check uses where a target is empty or disagrees with its loader, defined inputs replayed, a copy of legacy data with a named owner and cleanup, or shape only, and whether the loader or the live contents is the promise.
 - If unresolved, the parity rule: reproduce legacy exactly or correct named behaviours as recorded changes, and whether surrogate key values are compared.
-- If unresolved, how clock- and history-dependent logic is checked: a pinned, run-supplied or legacy clock, incremental or full load, the time zone, prior state or empty, and how SCD, deleted and late rows compare.
+- If unresolved, how clock-, order- and history-dependent logic is checked: a pinned, run-supplied or legacy clock, the legacy run order or the dependency order, what a failure part-way leaves, incremental or full load, the time zone, prior state or empty, and how SCD, deleted and late rows compare.
 - If unresolved, the load, locking or time window the legacy database may take, whether the run proceeds on a login that can write, and whether sensitive columns appear as shape only or as values.
 
 ### Guardrails
