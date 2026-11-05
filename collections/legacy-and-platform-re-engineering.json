@@ -8,6 +8,7 @@
     "assess-synapse-ssis-for-fabric",
     "inventory-legacy-database-over-mcp",
     "plan-legacy-procedure-package-intents",
+    "plan-legacy-warehouse-layers-to-dbt-intents",
     "consolidate-legacy-table-writers-to-dbt",
     "consolidate-duplicate-source-extracts",
     "ssis-package-to-versioned-pipeline",
