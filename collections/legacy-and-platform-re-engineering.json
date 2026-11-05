@@ -23,6 +23,7 @@
     "scalar-sql-function-to-dbt-macro",
     "spark-ingestion-notebook-to-dlt",
     "stored-procedure-to-dbt",
+    "validation-procedure-to-dbt-tests",
     "scd-procedure-to-dbt-snapshot",
     "move-dbt-project-destination"
   ]
