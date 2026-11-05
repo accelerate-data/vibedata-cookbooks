@@ -9,7 +9,7 @@ description: Replace the looping, paging or batching of one legacy load procedur
 pitch: Drop the loop from a legacy load and prove one set-based model leaves the same rows, or the differences you approve, including after a failed page and a rerun.
 job_category: re-engineer
 area: transformation
-readiness: planned
+readiness: supported
 function:
   - cross-functional
 domain_objects:
@@ -40,7 +40,6 @@ qualifiers:
   - Needs the tables the loop reads landed in the target; an ingestion Recipe lands them.
   - Unifying several writers of one table is consolidate-legacy-table-writers-to-dbt; this replaces one procedure's loop.
   - A procedure with no loop is stored-procedure-to-dbt; one that keeps row history is scd-procedure-to-dbt-snapshot.
-  - Planned until Databricks target support and read-only MCP enforcement ship.
   - A loop with no stated set rule, or one the MCP cannot read, is reported unassessed, not converted.
   - Behaviour outside the table's rows, such as logging and checkpoint tables, is reported, not reproduced.
   - In-place update or delete loops are in scope and are compared from the same prior table.
@@ -56,6 +55,8 @@ related:
 evidence:
   features:
     - capturing-requirements
+    - designing
+    - planning
     - generating-dbt-model
     - running-dbt-in-sandbox
     - verifying
@@ -64,13 +65,13 @@ evidence:
 
 ## Prompt
 
-Replace the batch loop of <legacy_procedure>, which loads <target_table> for <consumers> by looping, paging or committing in batches, with one set-based dbt model in the current Intent. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Read the procedure and its data over the connected MCP server and change nothing in the legacy database unless the owner approves. Deliver a loop map that shows each looping, paging, batching, commit and error-handling construct, what it does to the rows and what the model does instead, the one model, and evidence that its rows equal the procedure's, as observed or reconstructed and labelled so, at the approved precision, on inputs that reach each branch the comparison can reach, including each arm the procedure chooses by size, with the rest stated unproven. Show what a failed page or row leaves behind and what a rerun leaves, apply the approved rule to each difference instead of reproducing it silently, report each defect as follow-up work, handle cutover as approved, and state what the comparison cannot prove, such as runtime, locking and volume.
+Replace the batch loop of <legacy_procedure>, which loads <target_table> for <consumers> by looping, paging or committing in batches, with one set-based dbt model in the current Intent. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Read the procedure and its data over the MCP and change nothing in the legacy database unless approved. Deliver a loop map that shows each looping, paging, batching, commit and error-handling construct, what it does to the rows and what the model does instead, the one model, built from its inputs as landed, and evidence that its rows equal those the procedure leaves, observed or reconstructed and labelled so, at the approved precision, on inputs that reach each branch the comparison can reach, including each arm the procedure chooses by size, with the rest stated unproven. Show what a failed page or row leaves behind and what a rerun leaves, apply the approved rule to each difference instead of reproducing it silently, report each defect as follow-up work, handle cutover as approved, and state what the comparison cannot prove, such as runtime, locking and volume.
 
 ## Verified by
 
 - Every loop, cursor, paging, batching, commit and error-handling construct is listed with its parameters, thresholds and arm, its effect on the rows and its replacement or approved difference; a part left unconverted is named unassessed, the model is labelled partial, and no parity is claimed for it.
-- One model publishes the table's rows at the legacy grain and columns unless an approved rule differs; its compiled SQL has no procedural loop or cursor; page arithmetic, a batch-size input or a set recursion appears only where an approved rule needs one.
-- On inputs that reach each branch the approved comparison can reach, such as each side of a size threshold, a final partial page, an empty or inverted range and a page edge that splits related rows, the model's rows equal the procedure's at the approved precision; a difference is named with its rows.
+- One model builds the table's rows from the loop's inputs as landed in the target, at the legacy grain and columns unless an approved rule differs; its compiled SQL has no procedural loop or cursor; page arithmetic, a batch-size input or a set recursion appears only where an approved rule needs one.
+- On inputs reaching each branch the comparison can reach, such as each side of a size threshold, a final partial page, an empty or inverted range and a page edge splitting related rows, the model's rows equal what the procedure leaves in the table at the approved precision; differences are named.
 - A branch the inputs cannot reach is shown equivalent by an approved check or stated unproven, with no parity claimed. The procedure's rows are observed from an approved run or reconstructed from its readable rules independently of the model and labelled so; behaviour only a run shows stays unproven.
 - Rows are compared as multisets on named columns, so a row present twice on one side and once on the other is a difference; the model adds no filter or de-duplication the procedure lacks except as an approved difference. A generated key follows the approved rule.
 - Each tested value of a loop parameter, such as the batch size, gives the same rows, or the differing rows are listed with their cause. Where order is undefined or batches run concurrently, that is reported, an outcome no rule fixes is stated unproven, and order that matters is an approved column.
@@ -91,6 +92,8 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 
 - capturing-requirements
 - profiling-source-data
+- designing
+- planning
 - generating-dbt-model
 - running-dbt-in-sandbox
 - verifying
@@ -98,18 +101,18 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 ### Ask first
 
 - If unresolved, which parameters, modes, thresholds, batch sizes and range, partition or entity-list loops, with their end points and defaults, are in scope, which values does the comparison use around each threshold, and does the run stop or proceed, named unassessed, on a part the MCP cannot read?
-- If unresolved, what must the model do when a page, row or step fails: fail the build and publish nothing, or publish the rows that load and report the rows the failure would have lost? Reproducing page logic is not an option: a failure is environmental, not a data rule.
+- If unresolved, what must the model do when a page, row or step fails: fail the build and publish nothing, or publish the rows that load and report the rows the failure would have lost?
 - If unresolved, what must a run and a rerun leave in the table, such as a truncate and full reload, a resume from a mark or an append, does the model rebuild or add, and how is a half-loaded table recognised?
 - If unresolved, how are ties, unordered paging keys and concurrent batches handled, and does the order of rows within or across pages matter to consumers?
 - If unresolved, which behaviours that change rows are reproduced by an approved set rule, including recursion where the platform allows, corrected separately or accepted as differences: rows missed past a bound, repeated at an edge, dropped by joins or depending on earlier iterations?
 - If unresolved, which columns and grain count as unchanged output, how is a generated key assigned, and at what precision are rows compared?
-- If unresolved, where do the procedure's rows come from, such as its select over the same inputs through the MCP, an approved copy reachable through the MCP or approved snapshots, how are branches the inputs cannot reach checked, and may a login that can write be used?
+- If unresolved, where do the rows the procedure leaves come from, such as its select logic run read-only on the same inputs with the write applied, an approved copy over the MCP or approved snapshots, how are unreachable branches checked, and may a login that can write be used?
 - If unresolved, once parity is accepted, do consumers move now or later, is the procedure kept, marked retired or removed, and may readers ever see a table loaded only in part?
 
 ### Guardrails
 
 - Do not run the legacy procedure or write to the legacy database unless the owner approves it.
-- Do not put a procedural loop or cursor in the model to make parity pass; page arithmetic, a batch-size input or a recursion is allowed only where an approved rule needs one.
+- Do not put a procedural loop or cursor in the model to make parity pass, or reproduce a page, row or step failure as page logic, since a failure is environmental, not a data rule; page arithmetic, a batch-size input or a recursion is allowed only where an approved rule needs one.
 - Do not claim parity from inputs that cannot reach a loop branch, such as an input below the size threshold when the loop runs only above it.
 - Do not filter or de-duplicate rows the procedure does not, and do not repair a legacy defect the approved rule reproduces.
 - Do not take the procedure's rows from the model, or from a table the procedure wrote that the inputs do not match.
