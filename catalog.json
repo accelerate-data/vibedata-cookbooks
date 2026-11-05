@@ -70,6 +70,7 @@
         "operational-state-duration",
         "pii-classification-and-masking",
         "plan-legacy-procedure-package-intents",
+        "plan-legacy-warehouse-layers-to-dbt-intents",
         "point-in-time-training-dataset",
         "power-query-preparation-to-dbt",
         "product-sessionization-funnels",
@@ -82,10 +83,12 @@
         "shared-calendar-fiscal-periods",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
+        "split-multi-table-procedure-to-dbt",
         "spreadsheet-calculation-workbook-to-dbt",
         "ssis-package-to-versioned-pipeline",
         "stored-procedure-to-dbt",
         "telecom-cdr-usage",
+        "translate-engine-specific-sql-to-dbt",
         "versioned-data-contract-cutover",
         "visual-etl-mapping-to-dlt-dbt"
       ],
@@ -94,7 +97,7 @@
           "cross-functional"
         ]
       },
-      "supported_or_proven_count": 59,
+      "supported_or_proven_count": 60,
       "title": "Any domain",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -237,6 +240,7 @@
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
         "plan-legacy-procedure-package-intents",
+        "plan-legacy-warehouse-layers-to-dbt-intents",
         "point-in-time-training-dataset",
         "power-query-preparation-to-dbt",
         "procurement-open-commitment-rollforward",
@@ -269,9 +273,11 @@
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
+        "split-multi-table-procedure-to-dbt",
         "spreadsheet-calculation-workbook-to-dbt",
         "ssis-package-to-versioned-pipeline",
         "telecom-cdr-usage",
+        "translate-engine-specific-sql-to-dbt",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover",
@@ -282,7 +288,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 118,
+      "supported_or_proven_count": 119,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -452,12 +458,15 @@
         "assess-synapse-ssis-for-fabric",
         "inventory-legacy-database-over-mcp",
         "plan-legacy-procedure-package-intents",
+        "plan-legacy-warehouse-layers-to-dbt-intents",
         "consolidate-legacy-table-writers-to-dbt",
+        "split-multi-table-procedure-to-dbt",
         "consolidate-duplicate-source-extracts",
         "ssis-package-to-versioned-pipeline",
         "visual-etl-mapping-to-dlt-dbt",
         "power-query-preparation-to-dbt",
         "legacy-sql-to-dbt",
+        "translate-engine-specific-sql-to-dbt",
         "managed-connector-to-dlt",
         "bi-calculations-to-governed-metrics",
         "materialized-view-to-dbt",
@@ -483,17 +492,20 @@
         "move-dbt-project-destination",
         "notebook-transformation-to-dbt",
         "plan-legacy-procedure-package-intents",
+        "plan-legacy-warehouse-layers-to-dbt-intents",
         "power-query-preparation-to-dbt",
         "sas-data-step-to-dbt",
         "scalar-sql-function-to-dbt-macro",
         "scd-procedure-to-dbt-snapshot",
         "spark-ingestion-notebook-to-dlt",
+        "split-multi-table-procedure-to-dbt",
         "spreadsheet-calculation-workbook-to-dbt",
         "ssis-package-to-versioned-pipeline",
         "stored-procedure-to-dbt",
+        "translate-engine-specific-sql-to-dbt",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 17,
+      "supported_or_proven_count": 18,
       "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -662,6 +674,7 @@
         "people-payroll-gl-tieout",
         "pii-classification-and-masking",
         "plan-legacy-procedure-package-intents",
+        "plan-legacy-warehouse-layers-to-dbt-intents",
         "point-in-time-training-dataset",
         "power-query-preparation-to-dbt",
         "procurement-open-commitment-rollforward",
@@ -694,9 +707,11 @@
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
+        "split-multi-table-procedure-to-dbt",
         "spreadsheet-calculation-workbook-to-dbt",
         "stored-procedure-to-dbt",
         "telecom-cdr-usage",
+        "translate-engine-specific-sql-to-dbt",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover",
@@ -732,7 +747,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 120,
+      "supported_or_proven_count": 121,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -967,6 +982,7 @@
         "people-pay-band-gaps",
         "people-payroll-gl-tieout",
         "plan-legacy-procedure-package-intents",
+        "plan-legacy-warehouse-layers-to-dbt-intents",
         "point-in-time-training-dataset",
         "power-query-preparation-to-dbt",
         "procurement-open-commitment-rollforward",
@@ -1000,9 +1016,11 @@
         "shift-unit-economics",
         "source-freshness-sla",
         "spark-ingestion-notebook-to-dlt",
+        "split-multi-table-procedure-to-dbt",
         "spreadsheet-calculation-workbook-to-dbt",
         "ssis-package-to-versioned-pipeline",
         "telecom-cdr-usage",
+        "translate-engine-specific-sql-to-dbt",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover",
@@ -1013,7 +1031,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 120,
+      "supported_or_proven_count": 121,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -6919,6 +6937,78 @@
       }
     },
     {
+      "area": "re-engineering",
+      "description": "Plan a legacy warehouse from the layer the owner names as its entry through its reports, read over MCP without changing anything, with each object's type, writers, readers and dbt target in layer order and how each layer is checked, then open one Intent per approved unit that stops at approved requirements.",
+      "domain_objects": [
+        "legacy_database",
+        "database_object",
+        "stored_procedure",
+        "table_writer_map",
+        "migration_plan",
+        "migration_unit",
+        "requirements_document",
+        "dbt_model"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "designing",
+          "planning",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "plan-legacy-warehouse-layers-to-dbt-intents",
+      "job_category": "re-engineer",
+      "path": "recipes/plan-legacy-warehouse-layers-to-dbt-intents/recipe.md",
+      "pitch": "Turn a legacy warehouse into a layer-ordered migration plan and requirements-only Intents, before anyone converts an object.",
+      "qualifiers": [
+        "Reads over a connected MCP server only, such as Toolbox for SQL Server and Oracle or postgres-mcp for PostgreSQL.",
+        "A login that can write or run routines is reported; whether the run proceeds on it is approved.",
+        "The entry layer is the owner's choice; layer words such as silver and gold mean different things in different estates.",
+        "Covers chain objects no entry routine reaches; one routine's package belongs to plan-legacy-procedure-package-intents.",
+        "Stops at approved requirements; building models and proving parity belong to the conversion Recipes.",
+        "An empty legacy target has no output to compare; its check follows the approved basis.",
+        "Writers outside the database and objects the login cannot read are named unassessed.",
+        "Inherits an approved inventory where one exists and adds layer order and the per-unit Intents."
+      ],
+      "readiness": "planned",
+      "related": [
+        "plan-legacy-procedure-package-intents",
+        "inventory-legacy-database-over-mcp",
+        "stored-procedure-to-dbt",
+        "legacy-sql-to-dbt",
+        "scd-procedure-to-dbt-snapshot",
+        "materialized-view-to-dbt"
+      ],
+      "sha256": "b94702aca6e3891d03adc9b5dd0d594db24db9a57477972ecb15ebdfd28fe997",
+      "title": "Plan a legacy warehouse layer by layer through its reports and open a requirements-only Intent per unit",
+      "trigger": [
+        "A legacy SQL Server, Oracle or PostgreSQL warehouse is moving to dbt from a landed layer up through dimensions, facts and reports, and nobody holds one plan for the whole chain.",
+        "Procedures load the layers but only some are reached from one entry routine, and the team needs every object, writer and reader in layer order before converting any.",
+        "Some targets are empty or already ported elsewhere, so the team needs to know what each layer can be checked against and who owns the overlap."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt",
+          "sql_server",
+          "oracle",
+          "postgresql"
+        ]
+      }
+    },
+    {
       "area": "transformation",
       "description": "Build one batch table with one row per approved entity and prediction time, features from only the fact versions known by then, a forward label whose unfinished windows are marked or excluded as approved, and every entity-time and fact version accounted for.",
       "domain_objects": [
@@ -9061,6 +9151,79 @@
     },
     {
       "area": "transformation",
+      "description": "Split a legacy procedure that writes several tables into one dbt model per table, reading the legacy database without changing it, with every table it writes found, shared logic defined once, parity shown for each table separately, run order and failure behaviour recorded, and each table's cutover and the procedure's retirement handled as approved.",
+      "domain_objects": [
+        "stored_procedure",
+        "maintained_table",
+        "table_writer_map",
+        "dbt_model",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "designing",
+          "planning",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "split-multi-table-procedure-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/split-multi-table-procedure-to-dbt/recipe.md",
+      "pitch": "Turn one procedure that loads several tables into one dbt model per table, each with its own parity proof.",
+      "qualifiers": [
+        "Not yet assessed end to end on motherduck, fabric_lakehouse, fabric_warehouse, redshift or databricks.",
+        "Reads over a connected MCP server only, such as Toolbox for SQL Server and Oracle or postgres-mcp for PostgreSQL.",
+        "A login that can write or run routines is reported; whether the run proceeds on it is approved.",
+        "Needs the tables the procedure reads landed in the target; landing them belongs to an ingestion Recipe.",
+        "A procedure with one in-scope table belongs to stored-procedure-to-dbt.",
+        "Tables that keep row history, such as hand-rolled slowly changing dimensions, belong to scd-procedure-to-dbt-snapshot.",
+        "A table other routines also write belongs to consolidate-legacy-table-writers-to-dbt."
+      ],
+      "readiness": "planned",
+      "related": [
+        "stored-procedure-to-dbt",
+        "consolidate-legacy-table-writers-to-dbt",
+        "scd-procedure-to-dbt-snapshot",
+        "plan-legacy-procedure-package-intents",
+        "inventory-legacy-database-over-mcp",
+        "legacy-sql-to-dbt"
+      ],
+      "sha256": "14603bc0d633c9044223a299ee1ba76fce1a8d048b32471a00d0905398cca667",
+      "title": "Split a procedure that writes several tables into one dbt model per table, with parity for each",
+      "trigger": [
+        "One legacy stored procedure loads several tables in a single run, and each table should become its own dbt model.",
+        "A procedure that rebuilds several report or mart tables has to move into dbt before it can be retired, and each table has its own consumers.",
+        "Part of a procedure's work is hidden in dynamic SQL or routines it calls, and splitting it into models first needs every table it writes."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt",
+          "sql_server",
+          "oracle",
+          "postgresql"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Rebuild one frozen workbook version's calculation as governed input tables and dbt models that publish its output range, keep every manual override as its own record, register what was not carried over, and compare it cell by cell with a fresh recalculation, with a written cutover plan.",
       "domain_objects": [
         "workbook",
@@ -9322,6 +9485,79 @@
         "tools": [
           "dlt",
           "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Rebuild the pivots, subtotals, recursive hierarchies and generated keys of a legacy reporting query in dbt, reading the source over MCP without changing it, with each construct mapped to a target form, shown equal to the legacy result or different only as approved, and legacy defects reported, not fixed.",
+      "domain_objects": [
+        "legacy_sql",
+        "construct_map",
+        "dbt_model",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "designing",
+          "planning",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "translate-engine-specific-sql-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/translate-engine-specific-sql-to-dbt/recipe.md",
+      "pitch": "Rebuild a legacy report's pivots, subtotals, hierarchies and keys in dbt and prove each matches the legacy query or differs only as approved.",
+      "qualifiers": [
+        "Reads the legacy source over a connected MCP server only, such as Toolbox or postgres-mcp.",
+        "Needs the tables the construct reads landed in the target; landing them belongs to an ingestion Recipe.",
+        "A login that can write or run routines is reported; whether the run proceeds on it is approved.",
+        "Compares each construct's own statement; the routine, the table it writes and cutover stay with related Recipes.",
+        "Constructs in statements the source will not show, such as unreadable dynamic SQL, are named unassessed.",
+        "Behaviour outside the output rows, such as other writes or logging, is reported, not reproduced."
+      ],
+      "readiness": "supported",
+      "related": [
+        "stored-procedure-to-dbt",
+        "legacy-sql-to-dbt",
+        "consolidate-legacy-table-writers-to-dbt",
+        "inventory-legacy-database-over-mcp",
+        "plan-legacy-procedure-package-intents",
+        "scd-procedure-to-dbt-snapshot",
+        "scalar-sql-function-to-dbt-macro",
+        "cross-platform-dbt-macro"
+      ],
+      "sha256": "10e5f3a8e5dd3677e4048668c8de0e051046735017d57e2a1d6e1ba0ec47de08",
+      "title": "Translate a legacy query's engine-specific constructs into dbt and prove each matches or differs only as approved",
+      "trigger": [
+        "A legacy SQL Server, Oracle or PostgreSQL report relies on PIVOT, UNPIVOT, CUBE, ROLLUP, grouping sets, a recursive hierarchy or generated keys that the target platform handles differently.",
+        "The team wants a reporting routine's pivots, subtotals and hierarchies in dbt, but consumers need proof that every result is the same or differs only as agreed.",
+        "A migration plan lists routines with engine-specific constructs, and nobody knows which of them translate exactly."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt",
+          "sql_server",
+          "oracle",
+          "postgresql"
         ]
       }
     },
