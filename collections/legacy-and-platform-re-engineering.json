@@ -9,6 +9,7 @@
     "inventory-legacy-database-over-mcp",
     "plan-legacy-procedure-package-intents",
     "consolidate-legacy-table-writers-to-dbt",
+    "split-multi-table-procedure-to-dbt",
     "consolidate-duplicate-source-extracts",
     "ssis-package-to-versioned-pipeline",
     "visual-etl-mapping-to-dlt-dbt",
