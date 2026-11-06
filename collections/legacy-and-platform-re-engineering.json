@@ -10,6 +10,7 @@
     "plan-legacy-procedure-package-intents",
     "plan-legacy-warehouse-layers-to-dbt-intents",
     "consolidate-legacy-table-writers-to-dbt",
+    "late-arriving-fact-keys-to-dbt",
     "split-multi-table-procedure-to-dbt",
     "consolidate-duplicate-source-extracts",
     "ssis-package-to-versioned-pipeline",
