@@ -5,7 +5,7 @@ trigger:
   - A team inherited dbt marts nobody has described, and no one can say what each table is, what one row stands for or how its numbers roll up.
   - Aggregate marts sit beside a detail fact and nobody has shown they add up to it, or which of them are not a true rollup at all.
   - A semantic layer has to start from marts that already exist, without definitions copied by hand that then drift from the SQL.
-description: Describe the approved existing dbt marts as a governed Ossie semantic model, with each table's row grain and how its numbers roll up. Prove each aggregate matches its SQL and the detail and each field matches the warehouse, and name every mart that cannot honestly be described, with the reason. No mart is changed.
+description: Describe the approved existing dbt marts as a governed Ossie semantic model, with each table's row grain and how its numbers roll up. Prove each aggregate described as a rollup matches its SQL and the detail and each field matches the warehouse, and name every mart that cannot honestly be described, with the reason. No mart is changed.
 pitch: Turn marts nobody has described into a checked semantic model, and name every table that cannot honestly be described.
 job_category: explain
 area: semantic-layer
@@ -29,7 +29,7 @@ qualifiers:
   - Needs marts that already compile; changing a mart, seed or configuration to fit the description is outside this Recipe.
   - Describes the semantic layer only; ontology, data contracts, new metrics and BI export are other Recipes.
   - Checking aggregation needs compiled SQL only; equality and field-type checks need the marts built.
-  - The generated tests render DuckDB SQL, so warehouses with another dialect are outside this Recipe today.
+  - Runs only where the semantic-model checks execute, today DuckDB-dialect targets.
   - Defining metrics before the marts exist is the forward direction, metricflow-semantic-model, not this Recipe.
 related:
   - metricflow-semantic-model
@@ -39,20 +39,23 @@ related:
 evidence:
   features:
     - capturing-requirements
+    - designing
+    - planning
     - semantic-model
     - validating-semantic-model
+    - running-dbt-in-sandbox
     - verifying
   evals: []
 ---
 
 ## Prompt
 
-Describe <mart_scope> as a governed Ossie semantic model, so analysts and BI tools can learn what each table is, what one row stands for and how its numbers roll up without reading the SQL. Inherit the Intent's repository, platform, Domain, marts and approved requirements, and resolve only the semantics they leave open. Deliver the model documents, with each approved aggregate mart bound to the detail it summarises at its own stated population; every mart in scope either described or named with the reason it cannot be, inside the documents; and proof that each aggregate binding rolls up the way its compiled SQL computes the column, that each aggregate equals the detail over its own population, and that every described field exists in the warehouse with a compatible type. Change no mart.
+Describe <mart_scope> as a governed Ossie semantic model, so analysts and BI tools can learn what each table is, what one row stands for and how its numbers roll up without reading the SQL. Inherit the Intent's repository, platform, Domain, marts and approved requirements, and resolve only the semantics they leave open. Deliver the model documents, with each aggregate mart approved as a rollup bound to the detail it summarises at its own stated population; every mart in scope either described or named with the reason it cannot be, inside the documents; and proof that each aggregate binding rolls up the way its compiled SQL computes the column, that each aggregate described as a rollup equals the detail over its own population, and that every described field exists in the warehouse with a compatible type. Change no mart.
 
 ## Verified by
 
 - Every mart in the approved scope is described or named with the reason it is not, no mart is both, and the counts add up to the scope; each exclusion names what in the mart's SQL or data defeats an honest description, and a mart that can be described is not excluded for convenience.
-- The model describes the detail fact with the dimensions it reaches, or states that none is in scope; an aggregate whose detail is out of scope is recorded as not described, never described as a rollup of nothing.
+- The model describes each detail fact in scope with the dimensions it reaches, or states that none is in scope; an aggregate whose detail is out of scope is recorded as not described, never described as a rollup of nothing.
 - Each described table states its row grain as approved; where that differs from the grain the mart declares, the difference is reported with its evidence.
 - Each aggregate described as a rollup states the population it covers, and each additive measure in it equals the same measure recomputed independently from the detail over that population, within the approved tolerance.
 - A mart whose rows depend on a group-level floor, a lossy or inverted join, or a population the detail cannot state is never described as a rollup of the detail; it is excluded or kept outside the rollup claim as approved, with its own population stated.
@@ -61,8 +64,8 @@ Describe <mart_scope> as a governed Ossie semantic model, so analysts and BI too
 - Every aggregate described as a rollup is reported proven or unproven against its compiled SQL, with the reason where unproven; an unproven aggregate never counts as agreeing, and a check that examined nothing is not a pass.
 - Every field described exists in the built relation with a compatible type; a difference of type class is an error, and a difference within a class is reported as a finding about the mart, not hidden.
 - Levels, keys and hierarchies follow the marts' declared keys and the approved intent, not what the data happens to satisfy; a departure the data shows is reported as a finding and the declaration stays as approved.
-- Every figure, count and grain a description states equals what the build compared returns, no description claims a population or rollup the relation does not show, and a stale build is reported as stale, not compared as current.
-- No existing mart, seed or configuration is changed to fit the description, and only the model documents and the tests generated from them change; a mart defect is reported with its evidence. A deliberately wrong description is rejected by its matching check.
+- Every figure and count a description states equals what the build compared returns, a stated grain the relation does not hold carries its reported difference, no description claims a population or rollup the relation does not show, and a stale build is reported as stale, not compared as current.
+- No existing mart, seed or configuration is changed to fit the description, and only the model documents and the tests generated from them change; a mart defect is reported with its evidence, and each check is shown able to fail.
 
 ## Agent guidance
 
@@ -74,6 +77,8 @@ Inherit the Intent's repository, platform, Domain, marts and approved requiremen
 
 - capturing-requirements
 - profiling-source-data
+- designing
+- planning
 - semantic-model
 - validating-semantic-model
 - running-dbt-in-sandbox
