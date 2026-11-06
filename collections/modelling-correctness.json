@@ -16,6 +16,7 @@
     "product-sessionization-funnels",
     "logistics-fleet-utilization",
     "logistics-lane-on-time-performance",
+    "reverse-engineer-semantic-model-from-dbt-marts",
     "shift-unit-economics",
     "effective-dated-business-rules",
     "effective-dated-bom-requirements",
