@@ -6,7 +6,7 @@ trigger:
   - Two reports carry the same metric name with different figures, and neither owner can show the SQL or sources behind theirs.
   - A reviewer or auditor asks which source tables sit behind a governed metric before relying on it.
   - A data team inherits a governed metric and needs to see what the semantic layer really runs, in the Domain and in the workspace being built.
-description: Show, for one governed metric named by its business name, the SQL the semantic layer compiles it to and the lineage from that SQL back to the source tables, from the Domain and from the Intent's workspace, with the chosen source, the rejected sources and every gap named; it changes no model or Domain relation.
+description: Show, for one governed metric named by its business name, the SQL the semantic layer compiles it to and the lineage from that SQL back to the source tables, from the Domain, the Intent's workspace or both as approved, with the chosen source, the rejected sources and every gap named; it changes no model or Domain relation.
 pitch: Name a governed metric and see the SQL it compiles to and the source tables behind it, with every gap in the trace named.
 job_category: explain
 area: semantic-layer
@@ -23,6 +23,8 @@ works_with:
   platforms:
     - duckdb_local
     - motherduck
+    - fabric_lakehouse
+    - fabric_warehouse
     - redshift
     - databricks
   tools:
@@ -52,7 +54,7 @@ Show how <metric> is built: the SQL the semantic layer compiles it to for <group
 - Every relation the compiled SQL reads is traced upstream to source tables with each hop named, and the trace says where it stops and why, such as an external landing relation, an unlinked loader or an unreadable artifact; no gap is filled by guess.
 - A relation the SQL reads that is not a source table, such as a time spine or dimension, is shown as what it is.
 - A relation the reader may not access or disclose is shown as restricted, never skipped, guessed or exposed.
-- Where the query was run, each total equals an independent computation of the metric as its definition says, from the relations the lineage names for each of its inputs, within floating-point rounding; a metric type the layer cannot compile or run is reported with its refusal.
+- Where the query was run, each total equals an independent computation of the metric as its definition says, from the relations the lineage names for each of its inputs, within the approved tolerance; a metric type the layer cannot compile or run is reported with its refusal.
 - Any refusal or failed run is quoted with its error and the metric is reported as not run there; no figure is presented as the semantic layer's answer when the layer did not produce it.
 - A relation outside the semantic layer is stated as not governed, never presented as an answer from it.
 - A relation that fails to build is reported with its error and the cause is classed as a stale built upstream, a defect in its definition or a missing capability, never blamed on the definition without checking its upstream first.
@@ -72,7 +74,7 @@ Inherit the Intent's repository, platform, Domain, semantic model and approved r
 
 ### Ask first
 
-- If unresolved, which metric, named by its business name, and over which grouping and filter, is to be traced, and which definition when the name resolves to more than one?
+- If unresolved, which metric, named by its business name, and over which grouping and filter, is to be traced, which definition when the name resolves to more than one, and within what tolerance must an independent check of a run match?
 - If unresolved, which targets are traced, the production Domain, the workspace or both?
 - If unresolved, when a target lacks relations the SQL reads, is the metric run on a target that has them, is the SQL shown without running it, or are the existing models built in the workspace first?
 - If unresolved, when the semantic layer can serve the metric from more than one source, does the trace follow the source it chooses or a named one?
