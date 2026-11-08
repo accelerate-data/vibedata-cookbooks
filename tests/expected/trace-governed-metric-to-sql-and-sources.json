@@ -1,0 +1,9 @@
+{
+  "readiness": "supported",
+  "platforms": [
+    "duckdb_local",
+    "motherduck",
+    "redshift",
+    "databricks"
+  ]
+}
