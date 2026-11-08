@@ -52,6 +52,7 @@
     "public-sector-grant-funds",
     "cost-attribution-by-model-job",
     "versioned-data-contract-cutover",
+    "adopt-boundary-data-contracts-on-existing-dbt-repo",
     "order-return-contribution-margin",
     "retail-pos-till-settlement",
     "procurement-savings-realization",
@@ -67,7 +68,6 @@
     "marketing-campaign-budget-pacing",
     "finance-thirteen-week-cash-plan",
     "finance-gross-margin-variance-bridge",
-    "procurement-open-commitment-rollforward",
-    "adopt-boundary-data-contracts-on-existing-dbt-repo"
+    "procurement-open-commitment-rollforward"
   ]
 }
