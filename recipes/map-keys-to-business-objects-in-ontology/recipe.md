@@ -22,12 +22,15 @@ works_with:
   platforms:
     - duckdb_local
     - motherduck
+    - fabric_lakehouse
+    - fabric_warehouse
+    - redshift
+    - databricks
   tools:
     - ossie
 qualifiers:
   - Needs Ossie documents already in the repository; writing them is the semantic-model Recipes' job.
   - A declaration only, so no mapping is executed and it stays unproven as a query until a consumer runs it.
-  - Runs where Ossie documents exist and the semantic-model checks execute, today DuckDB-dialect targets.
   - Resolving one customer across systems is identity-golden-record-crosswalk, not this Recipe.
   - The ontology has no construct for a version of an object, so a key that names only a version stays unmapped.
 related:
@@ -59,7 +62,7 @@ Declare the business objects behind the keys of <ossie_documents> in the Domain 
 - Roles of one object, such as two dates on a line or a pickup and a drop-off, are separate named relationships to that one object, never one relationship used for both and never a second object.
 - Every document is mapped or its description says why no object reaches it, and every object reaches a dataset or its description says it is declared ahead of its data.
 - Every dataset keyed by an object no mapping names is listed with the decision taken, mapped or kept out with its reason; each warning the identity checks raise is cleared by a mapping or left standing with its reason.
-- Each identity check is shown to report a defect introduced on a copy, such as a dropped mapping or a key mapped on a version surrogate, and a check that reports nothing is not read as a pass; a result from a copy is never evidence about the committed ontology.
+- Each identity check is shown able to report a defect, and a check that reports nothing is not read as a pass; a result from a copy is never evidence about the committed ontology.
 - Every statement about members, versions or placeholder members matches what the served relation holds; a description that omits a member the relation carries, or names one it does not, is a finding.
 - A key value that names no member of its own dimension, such as a placeholder key on a fact, is reported as a finding about the model, never mapped around or repaired here.
 - The outcome says plainly that the ontology is a declaration: no mapping is described as proven against a built relation unless a consumer has run it.
@@ -87,7 +90,7 @@ Inherit the Intent's repository, platform, Domain, Ossie documents, glossary and
 - If unresolved, which documents and datasets are in scope, and which kinds of table, such as dimension, fact, snapshot or reference, get an object and which are exempt with a reason?
 - If unresolved, which object does each key identify, and where one word names several things, such as a customer as order party, a resolved customer or a source record, which distinct objects exist and are they ever asserted equal?
 - If unresolved, is an object carried by two documents with different coverage, such as two calendars, one object or two, and where is the difference in coverage stated?
-- If unresolved, how is a key handled that holds a version, or a derived hash with no natural code: left unmapped and reported, or does the owner supply a natural code or change the model?
+- If unresolved, how is a key handled that holds a version, or a derived hash with no natural code: left unmapped and reported, or mapped once the owner supplies a natural code, with any model change made outside this Recipe?
 - If unresolved, which keys are placeholder members, such as unknown, unassigned or unmapped, do they stay inside the object's population, and how is a fact key that matches no member handled?
 - If unresolved, is a dataset keyed by an object no mapping names mapped or kept out with its reason, is an identity warning cleared or left standing, and who owns the answer when the members are held elsewhere?
 - If unresolved, which terms may be added to the glossary, and which identity decisions need a decision record?
@@ -101,5 +104,5 @@ Inherit the Intent's repository, platform, Domain, Ossie documents, glossary and
 - Do not map a dataset only to silence an identity warning; map it where it holds the object's members.
 - Do not change a model, seed, contract or Ossie document to make a mapping resolve; report the defect with its evidence.
 - Do not describe a declaration as proven; no mapping is executed unless a consumer runs it.
-- Do not stage a dataset or fixture to make an identity check fire, or present a result from a copy as evidence about the committed ontology.
+- Do not stage a dataset or fixture in the repository to make an identity check fire, or present a result from a copy as evidence about the committed ontology.
 - Do not choose the object set, whether two objects are the same, or the disposition of an unmapped dataset without approval.
