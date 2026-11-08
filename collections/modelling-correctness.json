@@ -67,6 +67,7 @@
     "marketing-campaign-budget-pacing",
     "finance-thirteen-week-cash-plan",
     "finance-gross-margin-variance-bridge",
-    "procurement-open-commitment-rollforward"
+    "procurement-open-commitment-rollforward",
+    "adopt-boundary-data-contracts-on-existing-dbt-repo"
   ]
 }
