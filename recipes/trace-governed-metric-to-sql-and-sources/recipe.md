@@ -6,7 +6,7 @@ trigger:
   - Two reports carry the same metric name with different figures, and neither owner can show the SQL or sources behind theirs.
   - A reviewer or auditor asks which source tables sit behind a governed metric before relying on it.
   - A data team inherits a governed metric and needs to see what the semantic layer really runs, in the Domain and in the workspace being built.
-description: Show, for one governed metric named by its business name, the SQL the semantic layer compiles it to and the lineage from that SQL back to the source tables, from the Domain and from the Intent's workspace, with the chosen source, the rejected sources and every gap named; read-only.
+description: Show, for one governed metric named by its business name, the SQL the semantic layer compiles it to and the lineage from that SQL back to the source tables, from the Domain and from the Intent's workspace, with the chosen source, the rejected sources and every gap named; it changes no model or Domain relation.
 pitch: Name a governed metric and see the SQL it compiles to and the source tables behind it, with every gap in the trace named.
 job_category: explain
 area: semantic-layer
@@ -28,11 +28,12 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets are unassessed.
   - Needs the Domain's semantic model to exist and validate; this Recipe does not author, audit or fix one.
-  - Explains one metric; reconciling two sources that disagree is the reconciliation Recipes' work.
+  - Explains one metric; reconciling two reports that disagree is a separate outcome.
 related:
   - metricflow-semantic-model
+  - bi-calculations-to-governed-metrics
+  - metric-population-and-rollups
 evidence:
   features:
     - querying-semantic-model
@@ -80,7 +81,7 @@ Inherit the Intent's repository, platform, Domain, semantic model and approved r
 
 ### Guardrails
 
-- Do not write SQL around the semantic layer to produce a governed metric's number or to show its SQL, and do not present a hand-computed figure as the semantic layer's answer.
+- Do not present SQL written around the semantic layer as the metric's governed SQL, or its figure as the semantic layer's answer; label an independent check as one.
 - Do not edit a model, semantic document, test or warehouse relation to make the trace work; build in the workspace only existing definitions, and only as approved.
 - Do not fill a lineage gap by guess; name where the trace stops and why.
 - Do not describe a relation outside the semantic layer as governed, or a refusal as an answer.
