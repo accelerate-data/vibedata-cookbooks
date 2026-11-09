@@ -66,7 +66,7 @@ evidence:
 
 ## Prompt
 
-Move the dimension-key resolution of <legacy_fact_load>, which fills <fact_table> from <staging_inputs> and <dimension_tables>, into one dbt model in the current Intent. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Read the legacy load and its data over the MCP and change nothing in the legacy database unless approved. Deliver a lookup map that shows each dimension lookup with its version rule, what a miss does, and each filter or window deciding which lines a run reaches, the one model, built from its inputs as landed, with each approved load mode mapped to one way of running it, and evidence that a line arriving after its period and a line naming a member the dimension has not seen both land exactly as the approved legacy rule puts them, at the approved precision. Publish or list every staged line once with its approved reason, place a listed line as approved once its member arrives without disturbing rows already loaded, report each legacy defect as follow-up work instead of repairing it, handle cutover as approved, and state what the comparison cannot prove.
+Move the dimension-key resolution of <legacy_fact_load>, which fills <fact_table> from <staging_inputs> and <dimension_tables>, into one dbt model in the current Intent. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Read the legacy load and its data over the MCP and change nothing in the legacy database unless approved. Deliver a lookup map that shows each dimension lookup with its version rule, what a miss does, and each filter or window deciding which lines a run reaches, the one model, built from its inputs as landed, with each approved load mode mapped to one way of running it, and evidence that a line arriving after its period and a line naming a member the dimension has not seen both land exactly as the approved legacy rule puts them, at the approved precision. Publish or list every staged line once with its approved reason, place a listed line as approved once its member arrives without disturbing rows a normal run already loaded, report each legacy defect as follow-up work instead of repairing it, handle cutover as approved, and state what the comparison cannot prove.
 
 ## Verified by
 
@@ -76,7 +76,7 @@ Move the dimension-key resolution of <legacy_fact_load>, which fills <fact_table
 - A key the legacy leaves null where an optional lookup misses stays null unless the approved disposition places it elsewhere; a null key is not counted as a drop and carries no not-null promise.
 - In each completed run every staged line is published or listed once with its reason from the approved set, the first in the approved order or every one as approved; distinct published plus listed lines equal staged lines with zero residue.
 - A line a normal run's own window or filter skips is listed in that run with that reason, and it lands only where the approved rule lets it, such as a full rebuild.
-- A listed line whose member later arrives follows the approved placement, such as the next normal run with its real keys, and then leaves the list; every published row keeps its values and key, and a repeat on unchanged inputs changes neither the fact nor the list.
+- A listed line whose member later arrives follows the approved placement, such as the next normal run with its real keys, then leaves the list; a normal run keeps every published row's values and key, a rebuild changes one only by the approved rule and names it; an unchanged rerun changes nothing.
 - Published rows, built from the inputs as landed, equal the rows the legacy load leaves in the fact for the same inputs and prior table, derived independently of the model, at the approved precision, after a rebuild and a normal run; columns outside parity and approved differences are named.
 - Legacy behaviours that change rows, such as join multiplication, filters that depend on other rows or ties with no defined order, are reproduced or approved as differences and listed with their rows as follow-up work; the published grain is stated and holds.
 - A generated key is unique, never null and stable across rebuilds and reruns, so a late line never renumbers an existing key; it is left out of parity unless the legacy value is reproducible.
@@ -92,7 +92,6 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 ### Compose
 
 - capturing-requirements
-- profiling-source-data
 - designing
 - planning
 - generating-dbt-model
@@ -116,7 +115,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - Do not invent an unknown member, sentinel key or default dimension row unless approved, and do not repair a drop the approved rule reproduces.
 - Do not let a staged line vanish: every line is published or listed once with its approved reason, and a null key the legacy allows is not a drop.
 - Do not choose the dimension version by assuming a record timestamp; the approved version rule decides, and a late line is not moved or re-dated to fit.
-- Do not let a placed line stay in the list or appear twice, and do not change or re-key a row already published when a late line or member arrives.
+- Do not let a placed line stay in the list or appear twice; on a normal run do not change or re-key a row already published when a late line or member arrives, and on a rebuild change one only as the approved rule gives and name it.
 - Do not claim parity from inputs on which a late line, an unseen member or a line failing two checks cannot occur.
 - Do not take the legacy's rows from the model, and do not describe a reconstruction of them as an observed run.
 - Do not edit a legacy answer or expected output, or widen the approved precision, to make a comparison pass.

@@ -9,6 +9,7 @@
     "profile-api-source-from-docs",
     "batch-cdc-current-state",
     "consolidate-duplicate-source-extracts",
+    "late-arriving-fact-keys-to-dbt",
     "cross-platform-live-reconciliation",
     "database-tables-to-bronze",
     "file-drop-to-bronze",
