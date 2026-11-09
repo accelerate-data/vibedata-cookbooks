@@ -26,6 +26,7 @@
       "kind": "function",
       "resolved_members": [
         "adf-mapping-data-flow-to-dlt-dbt",
+        "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "api-to-bronze-incremental-contract",
         "assess-synapse-ssis-for-fabric",
         "banking-aml-features",
@@ -49,9 +50,11 @@
         "dbt-snapshot-history",
         "effective-dated-business-rules",
         "event-resource-attribution",
+        "explain-report-number-differences",
         "fabric-data-pipeline-as-code",
         "fabric-direct-lake-semantic-model",
         "file-drop-to-bronze",
+        "governed-metrics-in-semantic-model",
         "governed-spreadsheet-table",
         "healthcare-readmission-cohort",
         "hospitality-occupancy-adr-revpar",
@@ -64,7 +67,6 @@
         "managed-connector-to-dlt",
         "materialized-view-to-dbt",
         "metric-population-and-rollups",
-        "metricflow-semantic-model",
         "motherduck-flight-scheduling",
         "move-dbt-project-destination",
         "notebook-transformation-to-dbt",
@@ -77,6 +79,7 @@
         "product-sessionization-funnels",
         "profile-api-source-from-docs",
         "prove-dbt-change-safe",
+        "publish-boundary-contracts-on-re-engineered-gold",
         "readiness-gated-orchestration",
         "sas-data-step-to-dbt",
         "scalar-sql-function-to-dbt-macro",
@@ -98,7 +101,7 @@
           "cross-functional"
         ]
       },
-      "supported_or_proven_count": 61,
+      "supported_or_proven_count": 64,
       "title": "Any domain",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -159,6 +162,7 @@
       "kind": "platform",
       "resolved_members": [
         "adf-mapping-data-flow-to-dlt-dbt",
+        "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "api-to-bronze-incremental-contract",
         "assess-synapse-ssis-for-fabric",
         "banking-aml-features",
@@ -189,6 +193,7 @@
         "effective-dated-bom-requirements",
         "effective-dated-business-rules",
         "event-resource-attribution",
+        "explain-report-number-differences",
         "file-drop-to-bronze",
         "finance-ap-aging",
         "finance-ar-aging-dso",
@@ -202,6 +207,7 @@
         "finance-trial-balance-close",
         "finops-cloud-allocation",
         "finops-saas-license-utilization",
+        "governed-metrics-in-semantic-model",
         "governed-spreadsheet-table",
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
@@ -229,7 +235,6 @@
         "master-b2b-account-hierarchy",
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
-        "metricflow-semantic-model",
         "move-dbt-project-destination",
         "notebook-transformation-to-dbt",
         "operational-state-duration",
@@ -253,6 +258,7 @@
         "profile-api-source-from-docs",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
+        "publish-boundary-contracts-on-re-engineered-gold",
         "retail-consignment-stock-liability",
         "retail-marketplace-settlement",
         "retail-pos-till-settlement",
@@ -290,7 +296,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 120,
+      "supported_or_proven_count": 123,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -403,6 +409,7 @@
         "consolidate-duplicate-source-extracts",
         "cross-platform-live-reconciliation",
         "database-tables-to-bronze",
+        "explain-report-number-differences",
         "file-drop-to-bronze",
         "governed-spreadsheet-table",
         "managed-connector-to-dlt",
@@ -418,6 +425,7 @@
         "consolidate-duplicate-source-extracts",
         "cross-platform-live-reconciliation",
         "database-tables-to-bronze",
+        "explain-report-number-differences",
         "file-drop-to-bronze",
         "governed-spreadsheet-table",
         "managed-connector-to-dlt",
@@ -427,7 +435,7 @@
         "telecom-cdr-usage",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 14,
+      "supported_or_proven_count": 15,
       "title": "Ingest and reconcile source data",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -461,6 +469,7 @@
         "inventory-legacy-database-over-mcp",
         "plan-legacy-procedure-package-intents",
         "plan-legacy-warehouse-layers-to-dbt-intents",
+        "publish-boundary-contracts-on-re-engineered-gold",
         "consolidate-legacy-table-writers-to-dbt",
         "split-multi-table-procedure-to-dbt",
         "consolidate-duplicate-source-extracts",
@@ -498,6 +507,7 @@
         "plan-legacy-procedure-package-intents",
         "plan-legacy-warehouse-layers-to-dbt-intents",
         "power-query-preparation-to-dbt",
+        "publish-boundary-contracts-on-re-engineered-gold",
         "sas-data-step-to-dbt",
         "scalar-sql-function-to-dbt-macro",
         "scd-procedure-to-dbt-snapshot",
@@ -509,7 +519,7 @@
         "translate-engine-specific-sql-to-dbt",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 19,
+      "supported_or_proven_count": 20,
       "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -594,6 +604,7 @@
       "kind": "platform",
       "resolved_members": [
         "adf-mapping-data-flow-to-dlt-dbt",
+        "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "api-to-bronze-incremental-contract",
         "assess-synapse-ssis-for-fabric",
         "banking-aml-features",
@@ -623,6 +634,7 @@
         "effective-dated-bom-requirements",
         "effective-dated-business-rules",
         "event-resource-attribution",
+        "explain-report-number-differences",
         "fabric-data-pipeline-as-code",
         "fabric-direct-lake-semantic-model",
         "file-drop-to-bronze",
@@ -638,6 +650,7 @@
         "finance-trial-balance-close",
         "finops-cloud-allocation",
         "finops-saas-license-utilization",
+        "governed-metrics-in-semantic-model",
         "governed-spreadsheet-table",
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
@@ -690,6 +703,7 @@
         "profile-api-source-from-docs",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
+        "publish-boundary-contracts-on-re-engineered-gold",
         "readiness-gated-orchestration",
         "retail-marketplace-settlement",
         "retail-pos-till-settlement",
@@ -752,7 +766,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 122,
+      "supported_or_proven_count": 126,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -810,6 +824,7 @@
         "public-sector-grant-funds",
         "cost-attribution-by-model-job",
         "versioned-data-contract-cutover",
+        "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "order-return-contribution-margin",
         "retail-pos-till-settlement",
         "procurement-savings-realization",
@@ -828,6 +843,7 @@
         "procurement-open-commitment-rollforward"
       ],
       "resolved_members": [
+        "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "banking-aml-features",
         "banking-delinquency-vintages",
         "bitemporal-business-history",
@@ -893,7 +909,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 64,
+      "supported_or_proven_count": 65,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -904,6 +920,7 @@
       "kind": "platform",
       "resolved_members": [
         "adf-mapping-data-flow-to-dlt-dbt",
+        "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "api-to-bronze-incremental-contract",
         "assess-synapse-ssis-for-fabric",
         "banking-aml-features",
@@ -934,6 +951,7 @@
         "effective-dated-bom-requirements",
         "effective-dated-business-rules",
         "event-resource-attribution",
+        "explain-report-number-differences",
         "file-drop-to-bronze",
         "finance-ap-aging",
         "finance-ar-aging-dso",
@@ -947,6 +965,7 @@
         "finance-trial-balance-close",
         "finops-cloud-allocation",
         "finops-saas-license-utilization",
+        "governed-metrics-in-semantic-model",
         "governed-spreadsheet-table",
         "healthcare-claims-remittance",
         "healthcare-readmission-cohort",
@@ -974,7 +993,6 @@
         "master-b2b-account-hierarchy",
         "master-product-sku-hierarchy",
         "metric-population-and-rollups",
-        "metricflow-semantic-model",
         "motherduck-flight-scheduling",
         "move-dbt-project-destination",
         "notebook-transformation-to-dbt",
@@ -999,6 +1017,7 @@
         "profile-api-source-from-docs",
         "prove-dbt-change-safe",
         "public-sector-grant-funds",
+        "publish-boundary-contracts-on-re-engineered-gold",
         "readiness-gated-orchestration",
         "retail-consignment-stock-liability",
         "retail-marketplace-settlement",
@@ -1037,7 +1056,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 122,
+      "supported_or_proven_count": 125,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1178,13 +1197,13 @@
       "kind": "problem-area",
       "members": [
         "bi-calculations-to-governed-metrics",
-        "metricflow-semantic-model",
+        "governed-metrics-in-semantic-model",
         "fabric-direct-lake-semantic-model"
       ],
       "resolved_members": [
         "bi-calculations-to-governed-metrics",
         "fabric-direct-lake-semantic-model",
-        "metricflow-semantic-model"
+        "governed-metrics-in-semantic-model"
       ],
       "supported_or_proven_count": 3,
       "title": "Semantic layers",
@@ -1315,6 +1334,64 @@
         ],
         "tools": [
           "dlt",
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "data-quality",
+      "description": "Draft one data contract per relation in the approved scope, work the review queue so each answer becomes a description, a rule or a written no-rule reason, add dbt enforcement and a CI diff gate, and report every gate that could not run.",
+      "domain_objects": [
+        "boundary_relation",
+        "data_contract",
+        "output_contract",
+        "review_queue_item",
+        "diff_gate"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "planning",
+          "data-contract",
+          "validating-data-contract",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "adopt-boundary-data-contracts-on-existing-dbt-repo",
+      "job_category": "build",
+      "path": "recipes/adopt-boundary-data-contracts-on-existing-dbt-repo/recipe.md",
+      "pitch": "Give every published and landed relation in the approved scope a stated promise, with open questions queued and a gate that flags a contract changing silently.",
+      "qualifiers": [
+        "Renaming a published relation or file, or versioning a breaking change, belongs to the contract cutover Recipe.",
+        "Semantic model and ontology authoring are outside this Recipe."
+      ],
+      "readiness": "supported",
+      "related": [
+        "versioned-data-contract-cutover",
+        "incremental-dbt-model-with-contract",
+        "consolidate-duplicate-source-extracts"
+      ],
+      "sha256": "1c67d5e00a004390a08b76ac717e854fd4a47366fab5cd89af6d4609a1d1a92a",
+      "title": "Adopt boundary data contracts on an existing dbt repo with a review queue and a CI diff gate",
+      "trigger": [
+        "A dbt repo publishes relations to readers, and loader landings feed them, but nothing states each relation's grain, nulls, allowed values or links to other relations.",
+        "Consumers cannot tell which column meanings and rules are promised, and a change to a published relation is only noticed when a reader breaks.",
+        "A contract tool can draft contracts from the data, but the open business questions behind them must be answered and recorded rather than guessed."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
           "dbt"
         ]
       }
@@ -1740,17 +1817,17 @@
         "The source measures and relationships must be readable as text, such as a TMDL or BIM export.",
         "The report's tables must already be Domain relations; loading exported files belongs to file-drop-to-bronze.",
         "Rebuilding the report's data preparation, such as Power Query steps, is a separate outcome.",
-        "Does not author MetricFlow models or publish Direct Lake models; sources are existing BI measures.",
+        "Does not publish Direct Lake models; sources are existing BI measures.",
         "Code and documents only; the report, its row-level security and access rules are not switched, edited or retired."
       ],
       "readiness": "supported",
       "related": [
-        "metricflow-semantic-model",
+        "governed-metrics-in-semantic-model",
         "fabric-direct-lake-semantic-model",
         "metric-population-and-rollups",
         "file-drop-to-bronze"
       ],
-      "sha256": "14e7f2511ae3ae899aa52ee7ee0aacfa75735379fab5dcdbe50f52938072a028",
+      "sha256": "0f53f0b34269bc089ce9089407e679b689294f348e9433216fea65ccd8126c15",
       "title": "Rebuild selected BI calculations as governed metrics in the canonical semantic model",
       "trigger": [
         "Key numbers live as measures inside BI reports, so each report page defines the same number its own way and nobody can review it.",
@@ -3268,6 +3345,63 @@
       }
     },
     {
+      "area": "data-quality",
+      "description": "Re-derive each report's value for one measure from its sources where its logic can be read, align both to one grain, and name each cause of the gap with its amount, record count and re-runnable query, closing causes, residual and unexplained to the measured gap to the approved precision.",
+      "domain_objects": [
+        "report",
+        "metric",
+        "governed_metric",
+        "difference_cause",
+        "reconciliation_finding",
+        "reconciliation_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "reconciliation",
+          "querying-semantic-model"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "explain-report-number-differences",
+      "job_category": "explain",
+      "path": "recipes/explain-report-number-differences/recipe.md",
+      "pitch": "Show which filter, definition or grain makes two reports disagree, with every cause measured and closed to the gap.",
+      "qualifiers": [
+        "Stops at the explanation, so changing a report or restating a figure belongs to its owner.",
+        "Proving the same data across two live systems for cutover belongs to cross-platform-live-reconciliation.",
+        "Rebuilding a report measure as a governed metric belongs to bi-calculations-to-governed-metrics.",
+        "Building a metric with reconcilable rollups belongs to metric-population-and-rollups.",
+        "A figure whose logic cannot be read stays as published, with its causes unproven."
+      ],
+      "readiness": "supported",
+      "related": [
+        "cross-platform-live-reconciliation",
+        "bi-calculations-to-governed-metrics",
+        "metric-population-and-rollups"
+      ],
+      "sha256": "e5961be2662e38982d962ac89a9c694f7c2532003fca1bf6ce97030096916432",
+      "title": "Explain why two reports differ on one measure, with each cause measured and closed to the gap",
+      "trigger": [
+        "Two reports that should show the same measure disagree, and nobody can say which table, filter, grain or definition accounts for the gap.",
+        "A small gap has been called rounding or timing without being shown, and two opposite causes may be cancelling inside it.",
+        "A new or migrated report shows a different figure from the one it replaces, and the gap has to be explained before anyone signs off.",
+        "The totals agree but a month, region or service slice does not, or the other way round."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ]
+      }
+    },
+    {
       "area": "orchestration",
       "description": "Author a Fabric Data Pipeline and its schedule as committed code that runs the approved loads, the dbt build and a downstream refresh in order under approved failure, retry and overlap rules, prove its order and failure paths against the committed definition, and run it where an ephemeral Fabric run is approved.",
       "domain_objects": [
@@ -3357,14 +3491,14 @@
         "Needs the gold layer in a Fabric lakehouse or warehouse that Direct Lake can read through OneLake.",
         "Studio authors the model offline; deploying it and running its acceptance queries need a Fabric workspace.",
         "Proving the model loads needs the platform's semantic-model parser; Studio's managed runtime does not include it today.",
-        "A MetricFlow semantic model of the same metrics belongs to metricflow-semantic-model.",
+        "An Ossie semantic model of the same metrics belongs to governed-metrics-in-semantic-model.",
         "Reports and security roles are outside this Recipe."
       ],
       "readiness": "supported",
       "related": [
         "metric-population-and-rollups"
       ],
-      "sha256": "9399a11ea4ea71683185343bd9982151151da21cb67b3385c796878f1505450c",
+      "sha256": "8e35c1b113a67a83e14d77476417a6d29c78ee66aa6851d83ffae7258337e51d",
       "title": "Author a Direct Lake semantic model as code over governed gold tables",
       "trigger": [
         "The gold marts exist and the Power BI team is about to rebuild the star schema by hand in every report.",
@@ -4255,6 +4389,72 @@
       }
     },
     {
+      "area": "semantic-layer",
+      "description": "Define the approved metrics once in a governed Ossie semantic model over a gold fact mart, prove that what the model returns for each metric it can compile equals an independent computation of the approved definition, keep a refused shape as an independent value, and reconcile to the agreed reference figures, every difference named and sized; code only.",
+      "domain_objects": [
+        "semantic_model",
+        "governed_metric",
+        "metric_population",
+        "dimension",
+        "metric_reconciliation"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "designing",
+          "planning",
+          "semantic-model",
+          "validating-semantic-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "governed-metrics-in-semantic-model",
+      "job_category": "build",
+      "path": "recipes/governed-metrics-in-semantic-model/recipe.md",
+      "pitch": "Define each metric once, prove its numbers, and name and size every difference from the agreed reference figures.",
+      "qualifiers": [
+        "Needs a gold fact mart with a declared grain; changing marts or building a new fact mart is outside this Recipe.",
+        "A metric population that reads another dimension's attribute cannot be stated in the model today; see Ask first.",
+        "A shape the compiler refuses is reported with its refusal and an independent value, not queried.",
+        "Code only; publishing to a semantic-layer service or BI tool is outside this Recipe.",
+        "Migrating existing BI measures belongs to bi-calculations-to-governed-metrics.",
+        "A metric built as a materialised table belongs to metric-population-and-rollups."
+      ],
+      "readiness": "supported",
+      "related": [
+        "metric-population-and-rollups",
+        "bi-calculations-to-governed-metrics",
+        "fabric-direct-lake-semantic-model"
+      ],
+      "sha256": "eff9eff76385c841ba96fe265b6c2f5dedac6a3b5fa4b6c0784ca322004cafac",
+      "title": "Define governed metrics once in the Domain's semantic model over a gold fact and prove their values",
+      "trigger": [
+        "Revenue or average order value means different things in different marts and dashboards, and nobody can say which number is right.",
+        "Each new report re-implements the same KPI in SQL with its own filters, and the copies drift apart.",
+        "A rate gives a different answer by day than by month because copies aggregate it differently.",
+        "Analysts need agreed metrics they can slice by agreed dimensions and periods without knowing the joins."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt",
+          "ossie"
+        ]
+      }
+    },
+    {
       "area": "ingestion",
       "description": "Build a dlt pipeline and a governed table that load each new export of a hand-maintained spreadsheet under an approved structure contract, keep the last accepted version live when an export breaks it, set aside bad rows with reasons, retain accepted versions as approved, and document every column with its owner.",
       "domain_objects": [
@@ -4495,10 +4695,10 @@
         "shared-calendar-fiscal-periods",
         "metric-population-and-rollups",
         "business-event-fact",
-        "metricflow-semantic-model",
+        "governed-metrics-in-semantic-model",
         "shared-fx-conversion"
       ],
-      "sha256": "50f0815bee2c570bade4a7bae8b45dd7a208236e68ff0d59139efe0203c5130d",
+      "sha256": "01e8a27ce903a6a45ee6ea4cea59070f2c3cf8445ec3c78a1d52a3f99f20f4f9",
       "title": "Build nightly occupancy, ADR and RevPAR by property with closed-night restatements",
       "trigger": [
         "Occupancy, ADR and RevPAR differ between reports because each one counts stays, comps, out-of-order rooms and cancellations its own way.",
@@ -6064,66 +6264,6 @@
         ],
         "tools": [
           "dbt"
-        ]
-      }
-    },
-    {
-      "area": "semantic-layer",
-      "description": "Define the approved metrics once as dbt MetricFlow semantic models over a gold fact mart, prove that the values the semantic layer returns equal an independent computation of each approved definition at the approved precision, and reconcile them to the agreed reference figures, every difference named and sized; code only, nothing published.",
-      "domain_objects": [
-        "semantic_model",
-        "governed_metric",
-        "metric_population",
-        "dimension",
-        "time_spine",
-        "metric_reconciliation"
-      ],
-      "evidence": {
-        "evals": [],
-        "features": [
-          "capturing-requirements",
-          "profiling-source-data",
-          "generating-semantic-model",
-          "generating-dbt-model",
-          "running-dbt-in-sandbox",
-          "verifying"
-        ]
-      },
-      "function": [
-        "cross-functional"
-      ],
-      "id": "metricflow-semantic-model",
-      "job_category": "build",
-      "path": "recipes/metricflow-semantic-model/recipe.md",
-      "pitch": "Define each metric once, prove its numbers, and name and size every difference from the agreed reference figures.",
-      "qualifiers": [
-        "Assessed end to end on duckdb_local only; the other listed targets rely on MetricFlow support and are unassessed.",
-        "Needs MetricFlow installed where metrics are queried; Studio's managed runtime does not include it today.",
-        "Needs a gold fact mart with a declared grain; changing existing marts or building new fact marts is outside this Recipe.",
-        "Code only; publishing to a semantic-layer service or BI tool is outside this Recipe."
-      ],
-      "readiness": "supported",
-      "related": [
-        "metric-population-and-rollups"
-      ],
-      "sha256": "367683a8cd3f355487502c6fcbfceae74339d1ce2dd447716a598e0530552af3",
-      "title": "Define governed metrics as a MetricFlow semantic model over a gold mart",
-      "trigger": [
-        "Revenue or average order value means different things in different marts and dashboards, and nobody can say which number is right.",
-        "Each new report re-implements the same KPI in SQL with its own filters, and the copies drift apart.",
-        "A rate gives a different answer by day than by month because copies aggregate it differently.",
-        "Analysts need agreed metrics they can slice by agreed dimensions and periods without knowing the joins."
-      ],
-      "works_with": {
-        "platforms": [
-          "duckdb_local",
-          "motherduck",
-          "redshift",
-          "databricks"
-        ],
-        "tools": [
-          "dbt",
-          "metricflow"
         ]
       }
     },
@@ -7715,6 +7855,68 @@
         "Grants accountants cannot say per award how much is authorized, obligated, spent and drawn, and each report gives a different answer.",
         "An amendment, a cancelled commitment, a late posting or a draw ahead of spend changes an award's position and nobody can see why.",
         "Program managers and auditors need over-commitment and cash exceptions flagged per award and budget category while every transaction line stays accounted for."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "re-engineering",
+      "description": "Publish one boundary data contract on each re-engineered gold table in the approved scope, drafted from the built table and checked against the legacy output it replaced, read over MCP without changing the source, with every difference and doubt queued and, where the owner approves, the contracts enforced in the build.",
+      "domain_objects": [
+        "legacy_database",
+        "gold_table",
+        "data_contract",
+        "output_contract",
+        "review_queue",
+        "legacy_report",
+        "dbt_model"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "data-contract",
+          "validating-data-contract",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "publish-boundary-contracts-on-re-engineered-gold",
+      "job_category": "re-engineer",
+      "path": "recipes/publish-boundary-contracts-on-re-engineered-gold/recipe.md",
+      "pitch": "Put a reviewed data contract on each re-engineered gold table in scope and check it against the legacy report.",
+      "qualifiers": [
+        "Needs the gold tables already built and a legacy source readable over a connected MCP.",
+        "Key and uniqueness enforcement varies by target; where unenforced, tests carry them.",
+        "Moving consumers, retiring legacy reports and non-gold layers belong elsewhere."
+      ],
+      "readiness": "supported",
+      "related": [
+        "inventory-legacy-database-over-mcp",
+        "plan-legacy-warehouse-layers-to-dbt-intents",
+        "legacy-sql-to-dbt",
+        "versioned-data-contract-cutover",
+        "incremental-dbt-model-with-contract"
+      ],
+      "sha256": "82706784a56a9cc197252ad4a01faa97c3fa60b90dfd1127a806581a4d3b9df5",
+      "title": "Publish boundary data contracts on re-engineered gold tables and queue what the legacy output leaves open",
+      "trigger": [
+        "A legacy warehouse is re-engineered into dbt and consumers read its gold tables, but nothing states their grain, nulls or allowed values, or how they differ from the legacy reports.",
+        "The legacy report tables are the only evidence of what consumers used to get, and the new tables' promises must be written down and checked against them.",
+        "A re-engineered report table is about to replace a legacy one, and the owner wants its contract reviewed before consumers move."
       ],
       "works_with": {
         "platforms": [

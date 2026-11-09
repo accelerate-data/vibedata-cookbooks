@@ -12,6 +12,7 @@
     "late-arriving-fact-keys-to-dbt",
     "cross-platform-live-reconciliation",
     "database-tables-to-bronze",
+    "explain-report-number-differences",
     "file-drop-to-bronze",
     "governed-spreadsheet-table",
     "managed-connector-to-dlt",

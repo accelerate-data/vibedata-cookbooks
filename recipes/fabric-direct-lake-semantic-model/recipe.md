@@ -31,7 +31,7 @@ qualifiers:
   - Needs the gold layer in a Fabric lakehouse or warehouse that Direct Lake can read through OneLake.
   - Studio authors the model offline; deploying it and running its acceptance queries need a Fabric workspace.
   - Proving the model loads needs the platform's semantic-model parser; Studio's managed runtime does not include it today.
-  - A MetricFlow semantic model of the same metrics belongs to metricflow-semantic-model.
+  - An Ossie semantic model of the same metrics belongs to governed-metrics-in-semantic-model.
   - Reports and security roles are outside this Recipe.
 related:
   - metric-population-and-rollups
@@ -97,4 +97,4 @@ Inherit the Intent's repository, platform, Domain, gold tables and approved requ
 - Do not treat a format check or a green build as proof that the model loads.
 - Do not claim the model's numbers are proven in the target engine until its acceptance queries have run against the deployed model.
 - Do not widen the approved precision or tolerance to make values match.
-- Do not extend into reports, security roles or a MetricFlow semantic model, or into deployment or refresh unless approved.
+- Do not extend into reports, security roles or an Ossie semantic model, or into deployment or refresh unless approved.
