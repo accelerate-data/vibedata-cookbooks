@@ -14,6 +14,7 @@
     "explain-report-number-differences",
     "file-drop-to-bronze",
     "governed-spreadsheet-table",
+    "legacy-reference-table-to-dbt-seed",
     "managed-connector-to-dlt",
     "spark-ingestion-notebook-to-dlt",
     "ssis-package-to-versioned-pipeline",
