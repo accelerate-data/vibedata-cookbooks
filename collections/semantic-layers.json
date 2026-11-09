@@ -6,7 +6,7 @@
   "members": [
     "bi-calculations-to-governed-metrics",
     "reverse-engineer-semantic-model-from-dbt-marts",
-    "metricflow-semantic-model",
+    "governed-metrics-in-semantic-model",
     "fabric-direct-lake-semantic-model"
   ]
 }

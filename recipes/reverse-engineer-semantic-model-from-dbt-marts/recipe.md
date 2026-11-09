@@ -30,9 +30,9 @@ qualifiers:
   - Describes the semantic layer only; ontology, data contracts, new metrics and BI export are other Recipes.
   - Checking aggregation needs compiled SQL only; equality and field-type checks need the marts built.
   - Runs only where the semantic-model checks execute, today DuckDB-dialect targets.
-  - Defining metrics before the marts exist is the forward direction, metricflow-semantic-model, not this Recipe.
+  - Defining governed metrics once over an existing gold fact mart is governed-metrics-in-semantic-model, not this Recipe.
 related:
-  - metricflow-semantic-model
+  - governed-metrics-in-semantic-model
   - bi-calculations-to-governed-metrics
   - metric-population-and-rollups
   - fabric-direct-lake-semantic-model
