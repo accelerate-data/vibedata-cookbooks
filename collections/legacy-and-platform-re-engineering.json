@@ -9,6 +9,7 @@
     "inventory-legacy-database-over-mcp",
     "plan-legacy-procedure-package-intents",
     "plan-legacy-warehouse-layers-to-dbt-intents",
+    "publish-boundary-contracts-on-re-engineered-gold",
     "consolidate-legacy-table-writers-to-dbt",
     "split-multi-table-procedure-to-dbt",
     "consolidate-duplicate-source-extracts",
