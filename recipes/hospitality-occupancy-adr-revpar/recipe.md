@@ -45,7 +45,7 @@ related:
   - shared-calendar-fiscal-periods
   - metric-population-and-rollups
   - business-event-fact
-  - metricflow-semantic-model
+  - governed-metrics-in-semantic-model
   - shared-fx-conversion
 evidence:
   features:

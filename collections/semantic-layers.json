@@ -6,7 +6,7 @@
   "members": [
     "map-keys-to-business-objects-in-ontology",
     "bi-calculations-to-governed-metrics",
-    "metricflow-semantic-model",
+    "governed-metrics-in-semantic-model",
     "fabric-direct-lake-semantic-model"
   ]
 }
