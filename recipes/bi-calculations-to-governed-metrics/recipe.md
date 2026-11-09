@@ -31,10 +31,10 @@ qualifiers:
   - The source measures and relationships must be readable as text, such as a TMDL or BIM export.
   - The report's tables must already be Domain relations; loading exported files belongs to file-drop-to-bronze.
   - Rebuilding the report's data preparation, such as Power Query steps, is a separate outcome.
-  - Does not author MetricFlow models or publish Direct Lake models; sources are existing BI measures.
+  - Does not publish Direct Lake models; sources are existing BI measures.
   - Code and documents only; the report, its row-level security and access rules are not switched, edited or retired.
 related:
-  - metricflow-semantic-model
+  - ossie-governed-metrics
   - fabric-direct-lake-semantic-model
   - metric-population-and-rollups
   - file-drop-to-bronze

@@ -5,7 +5,7 @@
   "description": "Recipes for defining governed metrics and semantic models that downstream tools query.",
   "members": [
     "bi-calculations-to-governed-metrics",
-    "metricflow-semantic-model",
+    "ossie-governed-metrics",
     "fabric-direct-lake-semantic-model"
   ]
 }
