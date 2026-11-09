@@ -6,6 +6,7 @@
   "members": [
     "bi-calculations-to-governed-metrics",
     "governed-metrics-in-semantic-model",
+    "audit-semantic-model-against-sql-and-warehouse",
     "fabric-direct-lake-semantic-model"
   ]
 }
