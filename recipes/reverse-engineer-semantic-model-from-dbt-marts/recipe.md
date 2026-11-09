@@ -22,6 +22,10 @@ works_with:
   platforms:
     - duckdb_local
     - motherduck
+    - fabric_lakehouse
+    - fabric_warehouse
+    - redshift
+    - databricks
   tools:
     - dbt
     - ossie
@@ -29,8 +33,7 @@ qualifiers:
   - Needs marts that already compile; changing a mart, seed or configuration to fit the description is outside this Recipe.
   - Describes the semantic layer only; ontology, data contracts, new metrics and BI export are other Recipes.
   - Checking aggregation needs compiled SQL only; equality and field-type checks need the marts built.
-  - Runs only where the semantic-model checks execute, today DuckDB-dialect targets.
-  - Defining governed metrics once over an existing gold fact mart is governed-metrics-in-semantic-model, not this Recipe.
+  - Defining new governed metrics from approved definitions over a gold fact is governed-metrics-in-semantic-model.
 related:
   - governed-metrics-in-semantic-model
   - bi-calculations-to-governed-metrics
