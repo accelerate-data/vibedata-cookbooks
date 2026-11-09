@@ -35,7 +35,7 @@ qualifiers:
   - The ontology has no construct for a version of an object, so a key that names only a version stays unmapped.
 related:
   - identity-golden-record-crosswalk
-  - metricflow-semantic-model
+  - governed-metrics-in-semantic-model
   - bi-calculations-to-governed-metrics
 evidence:
   features:
