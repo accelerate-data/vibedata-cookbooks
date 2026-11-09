@@ -31,11 +31,12 @@ works_with:
     - dbt
 qualifiers:
   - Needs the Domain's semantic model to exist and validate; this Recipe does not author, audit or fix one.
-  - Explains one metric; reconciling two reports that disagree is a separate outcome.
+  - Explains one metric; reconciling two reports that disagree belongs to explain-report-number-differences.
 related:
   - governed-metrics-in-semantic-model
   - bi-calculations-to-governed-metrics
   - metric-population-and-rollups
+  - explain-report-number-differences
 evidence:
   features:
     - querying-semantic-model
