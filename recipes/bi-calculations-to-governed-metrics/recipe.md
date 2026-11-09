@@ -34,7 +34,7 @@ qualifiers:
   - Does not publish Direct Lake models; sources are existing BI measures.
   - Code and documents only; the report, its row-level security and access rules are not switched, edited or retired.
 related:
-  - ossie-governed-metrics
+  - governed-metrics-in-semantic-model
   - fabric-direct-lake-semantic-model
   - metric-population-and-rollups
   - file-drop-to-bronze

@@ -1,6 +1,6 @@
 ---
-id: ossie-governed-metrics
-title: Define governed metrics once in an Ossie semantic model over a gold fact and prove their values
+id: governed-metrics-in-semantic-model
+title: Define governed metrics once in the Domain's semantic model over a gold fact and prove their values
 trigger:
   - Revenue or average order value means different things in different marts and dashboards, and nobody can say which number is right.
   - Each new report re-implements the same KPI in SQL with its own filters, and the copies drift apart.
@@ -23,6 +23,8 @@ works_with:
   platforms:
     - duckdb_local
     - motherduck
+    - fabric_lakehouse
+    - fabric_warehouse
     - redshift
     - databricks
   tools:
@@ -46,6 +48,7 @@ evidence:
     - planning
     - semantic-model
     - validating-semantic-model
+    - running-dbt-in-sandbox
     - verifying
   evals: []
 ---
@@ -57,15 +60,15 @@ Define <metrics> once in a governed Ossie semantic model over <gold_fact_mart>, 
 ## Verified by
 
 - Each approved metric is defined once in the model with its approved name, description and population, or reported as not governed by the model with its independent value where it cannot be expressed; no mart, grain or governed metric is changed, and no second governed copy exists.
-- For each approved metric at each approved grain, the value the model's query returns when run equals an independent computation of the approved definition from the source records, at the approved precision; a shape the model refuses keeps the independent value, with the refusal recorded.
-- Every population rule changes the model's result as approved; a rule the model cannot express is reported as not governed by the model, with the size of the difference it would make, never left as a rule the model silently ignores.
+- For each approved metric at each approved grain, unsliced and by each approved slicing dimension, the model's result equals an independent computation of the approved definition from the source records, at the approved precision; a shape the model refuses keeps the independent value and its refusal.
+- Every population rule is shown in effect, in the compiled query or by the result it changes on records it covers; a rule the model cannot express is reported as not governed by the model, with the size of the difference it would make, never left as a rule the model silently ignores.
 - Every record in the fact is accounted for in each metric as its approved population says; a record whose dimension member is missing or unresolved is shown, excluded and counted, or flagged as approved, never silently dropped by a filter or join.
 - Each ratio follows the approved aggregation order over the records its rule names; a missing value or zero denominator shows as approved, never as zero unless the rule says so; a distinct count or balance is recomputed at each level, and currencies or units are never summed.
 - Each record falls in the period its approved instant, time zone, day boundary, week start and calendar place it in, at every approved grain; no record in a metric's population is silently lost outside periods covered, and one the approved population leaves out is shown or counted with its reason.
 - A cumulative or to-date metric resets and reports each period as the approved rules say, including periods with no activity and periods that cross a reset boundary, and a coarser grain reports what the approved rule says rather than a silent accumulation.
 - A dimension used to slice or filter matches each fact record to at most one member under the approved version rule, so no metric is inflated by a join fan-out.
 - A derived metric that restates its operand's population keeps it identical to the operand's, held by a check able to fail when they differ.
-- Every metric name is unique among the Domain's governed metrics, and its name and description state its population, so a metric over a different population of the same measure cannot be mistaken for it.
+- Every metric name is unique among the Domain's governed metrics, and its description states its population, so a metric over a different population of the same measure cannot be mistaken for it.
 - Each difference from an agreed reference figure is sized and classed as the approved rule says, such as defect, accepted or follow-up; where the reference can be inspected, named causes such as population, column, window or stale data cover all of it, else the rest is sized and named unexplained.
 - Each check is shown able to fail, and a gate that is red or could not run is reported with its reason, never counted as a pass.
 
@@ -73,7 +76,7 @@ Define <metrics> once in a governed Ossie semantic model over <gold_fact_mart>, 
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, marts and approved requirements, and resolve only the semantics they leave open. Confirm the fact mart's declared grain, the fields each population rule can draw on, the dimensions with their versioning, the dates the mart holds including outliers, and the governed metrics the Domain already has. Profile how many records each candidate rule would move, then agree the definitions still open with the user. Author each approved metric once, stating its population in the metric itself, and confirm that each rule changes the compiled result. Compile and run each metric's queries, compare them with an independent computation from the source records, and reconcile each metric to the agreed reference figures, classing each difference as the approved rule says. Report any change the existing marts would need as work outside this Recipe.
+Inherit the Intent's repository, platform, Domain, marts and approved requirements, and resolve only the semantics they leave open. Confirm the fact mart's declared grain, the fields each population rule can draw on, the dimensions with their versioning, the dates the mart holds including outliers, and the governed metrics the Domain already has. Profile how many records each candidate rule would move, then agree the definitions still open with the user. Author each approved metric once, stating its population in the metric itself, and confirm that each rule is in effect in the compiled query. Compile and run each metric's queries, compare them with an independent computation from the source records, and reconcile each metric to the agreed reference figures, classing each difference as the approved rule says. Report any change the existing marts would need as work outside this Recipe.
 
 ### Compose
 
@@ -100,7 +103,7 @@ Inherit the Intent's repository, platform, Domain, marts and approved requiremen
 ### Guardrails
 
 - Do not choose or apply a metric definition, population, ratio rule, period rule or unresolved-member policy without approval; explain the alternatives if asked.
-- Do not rely on a population rule the model silently ignores: check that each rule changes the compiled result, and report one the model cannot express.
+- Do not rely on a population rule the model silently ignores: check that each rule is in effect in the compiled query, and report one the model cannot express.
 - Do not let a filter or join on a dimension attribute drop records whose member is missing or unresolved unless the approved policy excludes and counts them.
 - Do not treat an existing published figure as ground truth, and do not change an existing mart to make the numbers agree; report the difference, sized, with its cause where it can be found.
 - Do not join a dimension unless each fact record matches at most one of its rows under the approved version rule.

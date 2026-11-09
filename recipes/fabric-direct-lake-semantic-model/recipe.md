@@ -31,7 +31,7 @@ qualifiers:
   - Needs the gold layer in a Fabric lakehouse or warehouse that Direct Lake can read through OneLake.
   - Studio authors the model offline; deploying it and running its acceptance queries need a Fabric workspace.
   - Proving the model loads needs the platform's semantic-model parser; Studio's managed runtime does not include it today.
-  - An Ossie semantic model of the same metrics belongs to ossie-governed-metrics.
+  - An Ossie semantic model of the same metrics belongs to governed-metrics-in-semantic-model.
   - Reports and security roles are outside this Recipe.
 related:
   - metric-population-and-rollups

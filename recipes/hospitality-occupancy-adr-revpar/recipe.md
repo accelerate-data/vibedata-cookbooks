@@ -45,7 +45,7 @@ related:
   - shared-calendar-fiscal-periods
   - metric-population-and-rollups
   - business-event-fact
-  - ossie-governed-metrics
+  - governed-metrics-in-semantic-model
   - shared-fx-conversion
 evidence:
   features:
