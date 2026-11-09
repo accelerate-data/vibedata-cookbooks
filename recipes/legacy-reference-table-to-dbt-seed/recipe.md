@@ -41,7 +41,9 @@ qualifiers:
 related:
   - governed-spreadsheet-table
   - file-drop-to-bronze
+  - database-tables-to-bronze
   - consolidate-legacy-table-writers-to-dbt
+  - legacy-sql-to-dbt
   - inventory-legacy-database-over-mcp
   - plan-legacy-warehouse-layers-to-dbt-intents
   - prove-dbt-change-safe
