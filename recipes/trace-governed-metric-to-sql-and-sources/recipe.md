@@ -33,7 +33,7 @@ qualifiers:
   - Needs the Domain's semantic model to exist and validate; this Recipe does not author, audit or fix one.
   - Explains one metric; reconciling two reports that disagree is a separate outcome.
 related:
-  - metricflow-semantic-model
+  - governed-metrics-in-semantic-model
   - bi-calculations-to-governed-metrics
   - metric-population-and-rollups
 evidence:
