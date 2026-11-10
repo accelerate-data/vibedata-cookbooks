@@ -7,6 +7,7 @@
     "bi-calculations-to-governed-metrics",
     "reverse-engineer-semantic-model-from-dbt-marts",
     "governed-metrics-in-semantic-model",
+    "trace-governed-metric-to-sql-and-sources",
     "fabric-direct-lake-semantic-model"
   ]
 }
