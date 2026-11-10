@@ -9,6 +9,7 @@
     "metric-population-and-rollups",
     "event-resource-attribution",
     "dbt-snapshot-history",
+    "accumulating-snapshot-procedure-to-dbt",
     "bitemporal-business-history",
     "retail-marketplace-settlement",
     "retail-reservation-availability-ledger",

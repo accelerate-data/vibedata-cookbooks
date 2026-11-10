@@ -32,6 +32,7 @@
     "stored-procedure-to-dbt",
     "batched-loop-procedure-to-set-based-dbt",
     "scd-procedure-to-dbt-snapshot",
+    "accumulating-snapshot-procedure-to-dbt",
     "move-dbt-project-destination"
   ]
 }
