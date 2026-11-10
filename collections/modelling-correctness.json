@@ -5,6 +5,7 @@
   "description": "Recipes for building analytical models with explicit grain, populations, relationships, history, operational time and business rules.",
   "members": [
     "business-event-fact",
+    "late-arriving-fact-keys-to-dbt",
     "metric-population-and-rollups",
     "event-resource-attribution",
     "dbt-snapshot-history",
@@ -16,6 +17,7 @@
     "product-sessionization-funnels",
     "logistics-fleet-utilization",
     "logistics-lane-on-time-performance",
+    "reverse-engineer-semantic-model-from-dbt-marts",
     "shift-unit-economics",
     "effective-dated-business-rules",
     "effective-dated-bom-requirements",
@@ -52,6 +54,7 @@
     "public-sector-grant-funds",
     "cost-attribution-by-model-job",
     "versioned-data-contract-cutover",
+    "adopt-boundary-data-contracts-on-existing-dbt-repo",
     "order-return-contribution-margin",
     "retail-pos-till-settlement",
     "procurement-savings-realization",
