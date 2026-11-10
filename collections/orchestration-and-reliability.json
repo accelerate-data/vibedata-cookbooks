@@ -6,6 +6,7 @@
   "members": [
     "readiness-gated-orchestration",
     "cross-platform-scheduled-job",
+    "validation-procedure-to-dbt-tests",
     "fabric-data-pipeline-as-code",
     "motherduck-flight-scheduling",
     "source-freshness-sla"

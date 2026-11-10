@@ -93,6 +93,7 @@
         "stored-procedure-to-dbt",
         "telecom-cdr-usage",
         "translate-engine-specific-sql-to-dbt",
+        "validation-procedure-to-dbt-tests",
         "versioned-data-contract-cutover",
         "visual-etl-mapping-to-dlt-dbt"
       ],
@@ -101,7 +102,7 @@
           "cross-functional"
         ]
       },
-      "supported_or_proven_count": 64,
+      "supported_or_proven_count": 65,
       "title": "Any domain",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -288,6 +289,7 @@
         "translate-engine-specific-sql-to-dbt",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
+        "validation-procedure-to-dbt-tests",
         "versioned-data-contract-cutover",
         "visual-etl-mapping-to-dlt-dbt"
       ],
@@ -296,7 +298,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 123,
+      "supported_or_proven_count": 124,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -481,6 +483,7 @@
         "managed-connector-to-dlt",
         "bi-calculations-to-governed-metrics",
         "materialized-view-to-dbt",
+        "validation-procedure-to-dbt-tests",
         "notebook-transformation-to-dbt",
         "sas-data-step-to-dbt",
         "spreadsheet-calculation-workbook-to-dbt",
@@ -517,9 +520,10 @@
         "ssis-package-to-versioned-pipeline",
         "stored-procedure-to-dbt",
         "translate-engine-specific-sql-to-dbt",
+        "validation-procedure-to-dbt-tests",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 20,
+      "supported_or_proven_count": 21,
       "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -733,6 +737,7 @@
         "translate-engine-specific-sql-to-dbt",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
+        "validation-procedure-to-dbt-tests",
         "versioned-data-contract-cutover",
         "visual-etl-mapping-to-dlt-dbt"
       ],
@@ -766,7 +771,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 126,
+      "supported_or_proven_count": 127,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1048,6 +1053,7 @@
         "translate-engine-specific-sql-to-dbt",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
+        "validation-procedure-to-dbt-tests",
         "versioned-data-contract-cutover",
         "visual-etl-mapping-to-dlt-dbt"
       ],
@@ -1056,7 +1062,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 125,
+      "supported_or_proven_count": 126,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1068,6 +1074,7 @@
       "members": [
         "readiness-gated-orchestration",
         "cross-platform-scheduled-job",
+        "validation-procedure-to-dbt-tests",
         "fabric-data-pipeline-as-code",
         "motherduck-flight-scheduling",
         "source-freshness-sla"
@@ -1077,9 +1084,10 @@
         "fabric-data-pipeline-as-code",
         "motherduck-flight-scheduling",
         "readiness-gated-orchestration",
-        "source-freshness-sla"
+        "source-freshness-sla",
+        "validation-procedure-to-dbt-tests"
       ],
-      "supported_or_proven_count": 5,
+      "supported_or_proven_count": 6,
       "title": "Orchestration and reliability",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -9983,6 +9991,77 @@
         ],
         "tools": [
           "dbt"
+        ]
+      }
+    },
+    {
+      "area": "data-quality",
+      "description": "Replace a legacy validation procedure with dbt tests and source checks, read from the legacy database over MCP without changing it unless approved, with every check mapped to a replacement, the approved failure policy kept, each check shown to pass on good data and fail on bad, and retirement only as approved.",
+      "domain_objects": [
+        "stored_procedure",
+        "check_map",
+        "source_check",
+        "dbt_test",
+        "failure_policy",
+        "check_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "designing",
+          "planning",
+          "registering-dbt-sources",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "validation-procedure-to-dbt-tests",
+      "job_category": "re-engineer",
+      "path": "recipes/validation-procedure-to-dbt-tests/recipe.md",
+      "pitch": "Move a staging-data validation procedure into dbt so bad input fails the build and stops the work that reads it, or warns where you approve.",
+      "qualifiers": [
+        "Reads over a connected MCP server only, such as Toolbox for SQL Server and Oracle or postgres-mcp for PostgreSQL.",
+        "Needs the checked tables landed in the target; landing them belongs to an ingestion Recipe.",
+        "A login that can write or run routines is reported; whether the run proceeds on it is approved.",
+        "A procedure that also loads a table belongs to stored-procedure-to-dbt; freshness to source-freshness-sla.",
+        "Notices, logging and other side effects of the procedure are replaced as approved or reported as not reproduced."
+      ],
+      "readiness": "supported",
+      "related": [
+        "stored-procedure-to-dbt",
+        "source-freshness-sla",
+        "consolidate-legacy-table-writers-to-dbt",
+        "inventory-legacy-database-over-mcp",
+        "plan-legacy-procedure-package-intents",
+        "legacy-sql-to-dbt"
+      ],
+      "sha256": "b25a1e8599889b7a4be1a07edd3fe81cc58229e0d6149e1e3f0ec9e3b29a677e",
+      "title": "Convert a validation procedure into dbt tests and source checks that gate the build",
+      "trigger": [
+        "A load runs behind a stored procedure that checks the staging data, and nobody can say which checks it makes or what happens when one fails.",
+        "The team wants the checks as dbt tests and source checks, so bad input stops the work that depends on it inside the build.",
+        "A procedure that only validates, writing no table, has to move into the dbt project before it can be retired."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt",
+          "sql_server",
+          "oracle",
+          "postgresql"
         ]
       }
     },
