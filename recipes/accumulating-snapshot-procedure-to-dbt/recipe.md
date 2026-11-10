@@ -18,8 +18,10 @@ domain_objects:
   - business_process
   - milestone_date
   - replay_runs
+  - dbt_model
   - approved_baseline
   - parity_report
+  - follow_up
 works_with:
   platforms:
     - duckdb_local
@@ -33,6 +35,7 @@ works_with:
 qualifiers:
   - Needs the load's per-run output or an approved rule baseline; history it never kept is not rebuilt.
   - One row per process filled in place; period, version and all-dates-at-insert loads belong elsewhere.
+  - Versioned history is scd-procedure-to-dbt-snapshot; a fact with every date set at insert is stored-procedure-to-dbt.
 related:
   - stored-procedure-to-dbt
   - scd-procedure-to-dbt-snapshot
@@ -52,7 +55,7 @@ evidence:
 
 ## Prompt
 
-Convert <legacy_load>, which keeps one row per <business_process> in <fact_table> by inserting it at the first milestone and filling later milestone dates in place as they arrive, into dbt for <fact_consumers> in the current Intent. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Deliver a map from each load rule that inserts a row, fills a milestone, leaves one unchanged or reacts to a cancellation, reopening, delete, correction or missing row to its dbt equivalent, the dbt model, and evidence that after every run in the agreed replay the dbt table matches the approved baseline for that run: the same rows, milestone dates, statuses, duration measures and other contract columns, at the approved precision. Reproduce load behaviours that look like mistakes and report each as follow-up work. Keep agreement on today's rows separate from agreement after every run, and keep parity separate from cutover and retirement of the load.
+Convert <legacy_load>, which keeps one row per <business_process> in <fact_table> by inserting it at the first milestone and filling later milestone dates in place as they arrive, into dbt for <fact_consumers> in the current Intent. Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Deliver a map from each load rule that inserts a row, fills a milestone, leaves one unchanged or reacts to a cancellation, reopening, delete, correction or missing row to its dbt equivalent, the dbt model, and evidence that after every run in the agreed replay the dbt table matches the approved baseline for that run: the same rows, milestone dates, statuses, duration measures and other compared contract columns, at the approved precision, with any excluded column named. Reproduce load behaviours that look like mistakes and report each as follow-up work. Keep agreement on today's rows separate from agreement after every run, and keep parity separate from cutover and retirement of the load.
 
 ## Verified by
 
@@ -60,12 +63,12 @@ Convert <legacy_load>, which keeps one row per <business_process> in <fact_table
 - The load is confirmed to be an accumulating snapshot: a row per process inserted at its first milestone and filled in place. A load that adds a row per period, keeps versions, or fills every date at insert is reported and routed elsewhere.
 - After every run in the agreed replay, which holds both incomplete and completed processes, the dbt table equals the approved baseline for that run on every consumer-contract column at the approved precision, except columns the comparison excludes, which are listed.
 - Expected tables per run are the load's own output or approved extracts where they exist, otherwise built from the feed and approved rules; they are never read from the dbt output, and a rule-built baseline is labelled as rules, not legacy output.
-- The comparison can fail: a milestone date moved by one unit of the approved precision, or an earlier milestone overwritten where the approved rule keeps it, fails on the first run it appears, while a check on row counts or the last run alone would still pass.
-- Each process has one row from its first appearance; an unfilled milestone is shown as the approved contract shows it and never mistaken for a real date; a filled date is not cleared or changed except as the approved rule says.
+- The comparison can fail: a milestone date moved by one unit of the approved precision, or an earlier milestone overwritten where the approved rule keeps it, fails at the first run it appears, not only at a later one, while a check on row counts alone would still pass.
+- Each process has one row from its first appearance; an unfilled milestone is shown as the approved contract shows it and is not treated as a real date unless the approved rule does so; a filled date is not cleared or changed except as the approved rule says.
 - A different value for a filled milestone, a corrected date, and a late or out-of-order milestone each follow the approved rule, and the processes they affect are counted with the rule applied.
 - Duration measures follow the approved derivation and emptiness rule, are empty only where it says so, and any value the rule keeps, such as a negative count, stays visible.
 - A cancelled, reopened, first-seen-cancelled or deleted process follows the approved rules for its status and its milestones, and nothing already filled is erased or rewritten except as those rules say.
-- A process absent from a run, an unchanged redelivery and a repeated run follow the approved rules; repeating a run leaves the table unchanged unless the approved rule says otherwise.
+- A process absent from a run, an unchanged redelivery and a repeated run follow the approved rules, and a repeated run changes nothing unless they say otherwise; excluded processes, duplicates and rows with no usable key are counted with their reason.
 - Where the run feeds are retained, a rebuild from the approved starting table plus the runs in order equals the incrementally built table after each run, otherwise reported unproven; each load behaviour that looks like a defect is reproduced and listed with what correcting it would change.
 - The published table keeps the approved consumer contract; relations outside the approved scope are unchanged or named with parity unverified; the load is neither changed nor retired until cutover is approved; what the comparison cannot prove, including unexercised branches, is stated.
 
@@ -73,7 +76,7 @@ Convert <legacy_load>, which keeps one row per <business_process> in <fact_table
 
 ### Instructions
 
-Read the load end to end first: how a row is created and what the first milestone is, which statements fill later milestone dates and under which conditions, what it does with a different later value, an out-of-order milestone, a cancellation, a reopening, a delete and a process that stops arriving, how status and duration measures are set, and every consumer of the table. Confirm it is an accumulating snapshot, and report any other pattern. Report behaviour the table cannot show, such as writes elsewhere or error paths, as out of scope. Settle where the table after each run comes from, then author the dbt model. Where the run feeds are retained, make a rebuild from the approved starting table and an incremental run reach the same table. Where the baseline is rule-built, build the expected table per run with a committed builder that never reads the dbt output. Replay the agreed runs in order from the approved starting table, compare after each one, and run negative controls that prove the comparison can fail. Record which replay branches were exercised and which were not.
+Read the load end to end first: how a row is created and what the first milestone is, which statements fill later milestone dates and under which conditions, what it does with a different later value, an out-of-order milestone, a cancellation, a reopening, a delete and a process that stops arriving, how status and duration measures are set, and every consumer of the table. Confirm it is an accumulating snapshot, and report any other pattern. Profile the feeds' keys, blank and sentinel dates, and duplicates. Report behaviour the table cannot show, such as writes elsewhere or error paths, as out of scope. Settle where the table after each run comes from, then author the dbt model. Where the run feeds are retained, make a rebuild from the approved starting table and an incremental run reach the same table. Where the baseline is rule-built, build the expected table per run with a committed builder that never reads the dbt output. Replay the agreed runs in order from the approved starting table, compare after each one, and run negative controls that prove the comparison can fail. Record which replay branches were exercised and which were not.
 
 ### Compose
 
@@ -100,11 +103,11 @@ Read the load end to end first: how a row is created and what the first mileston
 
 - Do not edit the load or its captured per-run output to make the comparison pass, or widen a tolerance, shorten the replay or narrow the approved contract to do so.
 - Do not accept agreement on the final table as run-by-run parity; a table that matches only after the last run has not been shown to match what consumers read in between.
-- Do not overwrite or clear a filled milestone unless the approved rule says so, and never let an unfilled milestone pass as a real date unless the approved contract shows it that way.
+- Do not overwrite or clear a filled milestone unless the approved rule says so, and do not treat an unfilled milestone as a real date unless the approved rule does so.
 - Where the approved rule uses the run date, supply each run's date as an input to the replay; otherwise do not use the run clock as a milestone date, and a replay must not depend on when it ran.
 - Do not clamp, hide or repair a duration measure the approved rule keeps as computed, and do not carry a measure from the feed where the approved rule recomputes it from stored dates.
 - Do not rebuild history the load never kept, and do not assign a milestone a date the feed or approved rule does not give it; coverage starts where the approved starting table does.
 - Do not correct a load defect; reproduce it, report it as follow-up work and route any wanted change to a separate change.
-- Do not let the load and dbt both maintain the consumer-facing table at once, or retire the load before parity is accepted and consumers have moved.
+- Do not let the load and dbt both maintain the consumer-facing table at once, or retire the load before parity is accepted and cutover is approved.
 - Do not present a synthetic or rule-built baseline as the load's real output; label it and state that cutover needs validation against the real load.
-- Keep Domain sources read-only and the published table within the approved contract; use a labelled synthetic fixture or an approved writable one, and do not change relations outside the conversion.
+- Keep Domain sources read-only and the published table within the approved contract; write replays only to a labelled synthetic fixture or an approved writable one, and do not change relations outside the conversion.
