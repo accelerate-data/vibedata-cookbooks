@@ -4,6 +4,7 @@
   "kind": "problem-area",
   "description": "Recipes for defining governed metrics and semantic models that downstream tools query.",
   "members": [
+    "map-keys-to-business-objects-in-ontology",
     "bi-calculations-to-governed-metrics",
     "reverse-engineer-semantic-model-from-dbt-marts",
     "governed-metrics-in-semantic-model",
