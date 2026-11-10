@@ -29,6 +29,7 @@
         "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "api-to-bronze-incremental-contract",
         "assess-synapse-ssis-for-fabric",
+        "audit-semantic-model-against-sql-and-warehouse",
         "banking-aml-features",
         "batch-cdc-current-state",
         "batched-loop-procedure-to-set-based-dbt",
@@ -107,7 +108,7 @@
           "cross-functional"
         ]
       },
-      "supported_or_proven_count": 70,
+      "supported_or_proven_count": 71,
       "title": "Any domain",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -171,6 +172,7 @@
         "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "api-to-bronze-incremental-contract",
         "assess-synapse-ssis-for-fabric",
+        "audit-semantic-model-against-sql-and-warehouse",
         "banking-aml-features",
         "banking-delinquency-vintages",
         "batch-cdc-current-state",
@@ -308,7 +310,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 129,
+      "supported_or_proven_count": 130,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -629,6 +631,7 @@
         "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "api-to-bronze-incremental-contract",
         "assess-synapse-ssis-for-fabric",
+        "audit-semantic-model-against-sql-and-warehouse",
         "banking-aml-features",
         "banking-delinquency-vintages",
         "batch-cdc-current-state",
@@ -794,7 +797,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 132,
+      "supported_or_proven_count": 133,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -955,6 +958,7 @@
         "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "api-to-bronze-incremental-contract",
         "assess-synapse-ssis-for-fabric",
+        "audit-semantic-model-against-sql-and-warehouse",
         "banking-aml-features",
         "banking-delinquency-vintages",
         "batch-cdc-current-state",
@@ -1094,7 +1098,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 131,
+      "supported_or_proven_count": 132,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1241,9 +1245,11 @@
         "reverse-engineer-semantic-model-from-dbt-marts",
         "governed-metrics-in-semantic-model",
         "trace-governed-metric-to-sql-and-sources",
-        "fabric-direct-lake-semantic-model"
+        "fabric-direct-lake-semantic-model",
+        "audit-semantic-model-against-sql-and-warehouse"
       ],
       "resolved_members": [
+        "audit-semantic-model-against-sql-and-warehouse",
         "bi-calculations-to-governed-metrics",
         "fabric-direct-lake-semantic-model",
         "governed-metrics-in-semantic-model",
@@ -1251,7 +1257,7 @@
         "reverse-engineer-semantic-model-from-dbt-marts",
         "trace-governed-metric-to-sql-and-sources"
       ],
-      "supported_or_proven_count": 6,
+      "supported_or_proven_count": 7,
       "title": "Semantic layers",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1554,6 +1560,77 @@
           "fabric_warehouse",
           "redshift",
           "databricks"
+        ]
+      }
+    },
+    {
+      "area": "semantic-layer",
+      "description": "Check a semantic model against its marts' SQL, the built warehouse and the agreed reference figures, report each finding with its evidence, fix what the evidence settles, move each touched contract's version by the approved rule, and leave findings that change what a number means open with their question; code only.",
+      "domain_objects": [
+        "semantic_model",
+        "governed_metric",
+        "data_contract",
+        "audit_finding",
+        "metric_reconciliation"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "designing",
+          "planning",
+          "semantic-model",
+          "validating-semantic-model",
+          "data-contract",
+          "validating-data-contract",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "audit-semantic-model-against-sql-and-warehouse",
+      "job_category": "build",
+      "path": "recipes/audit-semantic-model-against-sql-and-warehouse/recipe.md",
+      "pitch": "Find where a semantic model no longer matches its marts, warehouse and contracts, fix what the evidence settles, and put the rest to the owner.",
+      "qualifiers": [
+        "Needs an existing semantic model and the marts it reads; authoring either from nothing is outside this Recipe.",
+        "Marts, seeds and mart data are never changed to match the model; a wrong mart is reported, not edited.",
+        "Without agreed reference figures, the comparison to them is reported unproven, never passed.",
+        "Only existing contracts are touched; relations without one are listed as uncovered for the contract-adoption Recipe.",
+        "A fix that breaks a published contract's readers is an open finding for versioned-data-contract-cutover.",
+        "Realigning a metric to its stated meaning is here; changing what it means is an open finding.",
+        "Code only; publishing to a semantic-layer service or BI tool is outside this Recipe."
+      ],
+      "readiness": "supported",
+      "related": [
+        "governed-metrics-in-semantic-model",
+        "bi-calculations-to-governed-metrics",
+        "adopt-boundary-data-contracts-on-existing-dbt-repo",
+        "versioned-data-contract-cutover",
+        "explain-report-number-differences"
+      ],
+      "sha256": "96b22ec120a04e1172d11799faff48775a0829add8ab28847e303eaea29a246e",
+      "title": "Audit a semantic model against its SQL and warehouse, fix the drift the evidence settles, and report the rest",
+      "trigger": [
+        "A semantic model was written once, the marts behind it have moved on, and nobody can say which declared fields, bindings, metric definitions and contracts still match.",
+        "A metric's description says it cannot run, or says something other than what it returns, and the claim has not been checked since the model last changed.",
+        "The model's code checks pass, but nobody has compared what its metrics return with the figures the business already trusts."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt",
+          "ossie",
+          "odcs"
         ]
       }
     },
