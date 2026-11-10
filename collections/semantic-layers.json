@@ -5,6 +5,7 @@
   "description": "Recipes for defining governed metrics and semantic models that downstream tools query.",
   "members": [
     "bi-calculations-to-governed-metrics",
+    "reverse-engineer-semantic-model-from-dbt-marts",
     "governed-metrics-in-semantic-model",
     "fabric-direct-lake-semantic-model"
   ]
