@@ -9,6 +9,7 @@
     "reverse-engineer-semantic-model-from-dbt-marts",
     "governed-metrics-in-semantic-model",
     "trace-governed-metric-to-sql-and-sources",
-    "fabric-direct-lake-semantic-model"
+    "fabric-direct-lake-semantic-model",
+    "audit-semantic-model-against-sql-and-warehouse"
   ]
 }
