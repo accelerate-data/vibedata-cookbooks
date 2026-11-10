@@ -5,6 +5,7 @@
   "description": "Recipes for building analytical models with explicit grain, populations, relationships, history, operational time and business rules.",
   "members": [
     "business-event-fact",
+    "late-arriving-fact-keys-to-dbt",
     "metric-population-and-rollups",
     "event-resource-attribution",
     "dbt-snapshot-history",

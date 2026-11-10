@@ -11,6 +11,7 @@
     "plan-legacy-warehouse-layers-to-dbt-intents",
     "publish-boundary-contracts-on-re-engineered-gold",
     "consolidate-legacy-table-writers-to-dbt",
+    "late-arriving-fact-keys-to-dbt",
     "split-multi-table-procedure-to-dbt",
     "consolidate-duplicate-source-extracts",
     "ssis-package-to-versioned-pipeline",
