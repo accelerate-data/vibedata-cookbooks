@@ -29,6 +29,7 @@
         "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "api-to-bronze-incremental-contract",
         "assess-synapse-ssis-for-fabric",
+        "audit-semantic-model-against-sql-and-warehouse",
         "banking-aml-features",
         "batch-cdc-current-state",
         "batched-loop-procedure-to-set-based-dbt",
@@ -62,9 +63,12 @@
         "identity-standardize-names-addresses",
         "incremental-dbt-model-with-contract",
         "inventory-legacy-database-over-mcp",
+        "late-arriving-fact-keys-to-dbt",
+        "legacy-reference-table-to-dbt-seed",
         "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "managed-connector-to-dlt",
+        "map-keys-to-business-objects-in-ontology",
         "materialized-view-to-dbt",
         "metric-population-and-rollups",
         "motherduck-flight-scheduling",
@@ -81,6 +85,7 @@
         "prove-dbt-change-safe",
         "publish-boundary-contracts-on-re-engineered-gold",
         "readiness-gated-orchestration",
+        "reverse-engineer-semantic-model-from-dbt-marts",
         "sas-data-step-to-dbt",
         "scalar-sql-function-to-dbt-macro",
         "scd-procedure-to-dbt-snapshot",
@@ -92,7 +97,9 @@
         "ssis-package-to-versioned-pipeline",
         "stored-procedure-to-dbt",
         "telecom-cdr-usage",
+        "trace-governed-metric-to-sql-and-sources",
         "translate-engine-specific-sql-to-dbt",
+        "validation-procedure-to-dbt-tests",
         "versioned-data-contract-cutover",
         "visual-etl-mapping-to-dlt-dbt"
       ],
@@ -101,7 +108,7 @@
           "cross-functional"
         ]
       },
-      "supported_or_proven_count": 64,
+      "supported_or_proven_count": 71,
       "title": "Any domain",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -165,6 +172,7 @@
         "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "api-to-bronze-incremental-contract",
         "assess-synapse-ssis-for-fabric",
+        "audit-semantic-model-against-sql-and-warehouse",
         "banking-aml-features",
         "banking-delinquency-vintages",
         "batch-cdc-current-state",
@@ -219,6 +227,8 @@
         "inventory-legacy-database-over-mcp",
         "inventory-lot-traceability",
         "inventory-valuation-cogs",
+        "late-arriving-fact-keys-to-dbt",
+        "legacy-reference-table-to-dbt-seed",
         "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
@@ -228,6 +238,7 @@
         "manufacturing-production-order-flow",
         "manufacturing-standard-actual-cost",
         "manufacturing-subcontract-production-reconciliation",
+        "map-keys-to-business-objects-in-ontology",
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "marketing-campaign-budget-pacing",
@@ -264,6 +275,7 @@
         "retail-pos-till-settlement",
         "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
+        "reverse-engineer-semantic-model-from-dbt-marts",
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
         "revops-quota-commission",
@@ -285,9 +297,11 @@
         "spreadsheet-calculation-workbook-to-dbt",
         "ssis-package-to-versioned-pipeline",
         "telecom-cdr-usage",
+        "trace-governed-metric-to-sql-and-sources",
         "translate-engine-specific-sql-to-dbt",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
+        "validation-procedure-to-dbt-tests",
         "versioned-data-contract-cutover",
         "visual-etl-mapping-to-dlt-dbt"
       ],
@@ -296,7 +310,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 123,
+      "supported_or_proven_count": 130,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -407,11 +421,13 @@
         "profile-api-source-from-docs",
         "batch-cdc-current-state",
         "consolidate-duplicate-source-extracts",
+        "late-arriving-fact-keys-to-dbt",
         "cross-platform-live-reconciliation",
         "database-tables-to-bronze",
         "explain-report-number-differences",
         "file-drop-to-bronze",
         "governed-spreadsheet-table",
+        "legacy-reference-table-to-dbt-seed",
         "managed-connector-to-dlt",
         "spark-ingestion-notebook-to-dlt",
         "ssis-package-to-versioned-pipeline",
@@ -428,6 +444,8 @@
         "explain-report-number-differences",
         "file-drop-to-bronze",
         "governed-spreadsheet-table",
+        "late-arriving-fact-keys-to-dbt",
+        "legacy-reference-table-to-dbt-seed",
         "managed-connector-to-dlt",
         "profile-api-source-from-docs",
         "spark-ingestion-notebook-to-dlt",
@@ -435,7 +453,7 @@
         "telecom-cdr-usage",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 15,
+      "supported_or_proven_count": 17,
       "title": "Ingest and reconcile source data",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -471,16 +489,19 @@
         "plan-legacy-warehouse-layers-to-dbt-intents",
         "publish-boundary-contracts-on-re-engineered-gold",
         "consolidate-legacy-table-writers-to-dbt",
+        "late-arriving-fact-keys-to-dbt",
         "split-multi-table-procedure-to-dbt",
         "consolidate-duplicate-source-extracts",
         "ssis-package-to-versioned-pipeline",
         "visual-etl-mapping-to-dlt-dbt",
         "power-query-preparation-to-dbt",
         "legacy-sql-to-dbt",
+        "legacy-reference-table-to-dbt-seed",
         "translate-engine-specific-sql-to-dbt",
         "managed-connector-to-dlt",
         "bi-calculations-to-governed-metrics",
         "materialized-view-to-dbt",
+        "validation-procedure-to-dbt-tests",
         "notebook-transformation-to-dbt",
         "sas-data-step-to-dbt",
         "spreadsheet-calculation-workbook-to-dbt",
@@ -499,6 +520,8 @@
         "consolidate-duplicate-source-extracts",
         "consolidate-legacy-table-writers-to-dbt",
         "inventory-legacy-database-over-mcp",
+        "late-arriving-fact-keys-to-dbt",
+        "legacy-reference-table-to-dbt-seed",
         "legacy-sql-to-dbt",
         "managed-connector-to-dlt",
         "materialized-view-to-dbt",
@@ -517,9 +540,10 @@
         "ssis-package-to-versioned-pipeline",
         "stored-procedure-to-dbt",
         "translate-engine-specific-sql-to-dbt",
+        "validation-procedure-to-dbt-tests",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 20,
+      "supported_or_proven_count": 23,
       "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -607,6 +631,7 @@
         "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "api-to-bronze-incremental-contract",
         "assess-synapse-ssis-for-fabric",
+        "audit-semantic-model-against-sql-and-warehouse",
         "banking-aml-features",
         "banking-delinquency-vintages",
         "batch-cdc-current-state",
@@ -662,6 +687,8 @@
         "inventory-legacy-database-over-mcp",
         "inventory-lot-traceability",
         "inventory-valuation-cogs",
+        "late-arriving-fact-keys-to-dbt",
+        "legacy-reference-table-to-dbt-seed",
         "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
@@ -671,6 +698,7 @@
         "manufacturing-production-order-flow",
         "manufacturing-standard-actual-cost",
         "manufacturing-subcontract-production-reconciliation",
+        "map-keys-to-business-objects-in-ontology",
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "marketing-campaign-budget-pacing",
@@ -709,6 +737,7 @@
         "retail-pos-till-settlement",
         "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
+        "reverse-engineer-semantic-model-from-dbt-marts",
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
         "revops-quota-commission",
@@ -730,9 +759,11 @@
         "spreadsheet-calculation-workbook-to-dbt",
         "stored-procedure-to-dbt",
         "telecom-cdr-usage",
+        "trace-governed-metric-to-sql-and-sources",
         "translate-engine-specific-sql-to-dbt",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
+        "validation-procedure-to-dbt-tests",
         "versioned-data-contract-cutover",
         "visual-etl-mapping-to-dlt-dbt"
       ],
@@ -766,7 +797,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 126,
+      "supported_or_proven_count": 133,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -777,6 +808,7 @@
       "kind": "curated",
       "members": [
         "business-event-fact",
+        "late-arriving-fact-keys-to-dbt",
         "metric-population-and-rollups",
         "event-resource-attribution",
         "dbt-snapshot-history",
@@ -788,6 +820,7 @@
         "product-sessionization-funnels",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
+        "reverse-engineer-semantic-model-from-dbt-marts",
         "shift-unit-economics",
         "effective-dated-business-rules",
         "effective-dated-bom-requirements",
@@ -870,6 +903,7 @@
         "insurance-loss-triangles",
         "inventory-lot-traceability",
         "inventory-valuation-cogs",
+        "late-arriving-fact-keys-to-dbt",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
@@ -896,6 +930,7 @@
         "retail-pos-till-settlement",
         "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
+        "reverse-engineer-semantic-model-from-dbt-marts",
         "saas-mrr-waterfall-nrr",
         "sales-commission-payout-ledger",
         "sales-forecast-backtesting",
@@ -909,7 +944,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 65,
+      "supported_or_proven_count": 67,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -923,6 +958,7 @@
         "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "api-to-bronze-incremental-contract",
         "assess-synapse-ssis-for-fabric",
+        "audit-semantic-model-against-sql-and-warehouse",
         "banking-aml-features",
         "banking-delinquency-vintages",
         "batch-cdc-current-state",
@@ -977,6 +1013,8 @@
         "inventory-legacy-database-over-mcp",
         "inventory-lot-traceability",
         "inventory-valuation-cogs",
+        "late-arriving-fact-keys-to-dbt",
+        "legacy-reference-table-to-dbt-seed",
         "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
@@ -986,6 +1024,7 @@
         "manufacturing-production-order-flow",
         "manufacturing-standard-actual-cost",
         "manufacturing-subcontract-production-reconciliation",
+        "map-keys-to-business-objects-in-ontology",
         "marketing-acquisition-cost-payback",
         "marketing-attribution-models",
         "marketing-campaign-budget-pacing",
@@ -1024,6 +1063,7 @@
         "retail-pos-till-settlement",
         "retail-reservation-availability-ledger",
         "retail-sell-through-stockout",
+        "reverse-engineer-semantic-model-from-dbt-marts",
         "revops-bookings-billings-cash",
         "revops-pipeline-snapshots",
         "revops-quota-commission",
@@ -1045,9 +1085,11 @@
         "spreadsheet-calculation-workbook-to-dbt",
         "ssis-package-to-versioned-pipeline",
         "telecom-cdr-usage",
+        "trace-governed-metric-to-sql-and-sources",
         "translate-engine-specific-sql-to-dbt",
         "usage-metering-rated-charges",
         "utilities-meter-to-bill",
+        "validation-procedure-to-dbt-tests",
         "versioned-data-contract-cutover",
         "visual-etl-mapping-to-dlt-dbt"
       ],
@@ -1056,7 +1098,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 125,
+      "supported_or_proven_count": 132,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1068,6 +1110,7 @@
       "members": [
         "readiness-gated-orchestration",
         "cross-platform-scheduled-job",
+        "validation-procedure-to-dbt-tests",
         "fabric-data-pipeline-as-code",
         "motherduck-flight-scheduling",
         "source-freshness-sla"
@@ -1077,9 +1120,10 @@
         "fabric-data-pipeline-as-code",
         "motherduck-flight-scheduling",
         "readiness-gated-orchestration",
-        "source-freshness-sla"
+        "source-freshness-sla",
+        "validation-procedure-to-dbt-tests"
       ],
-      "supported_or_proven_count": 5,
+      "supported_or_proven_count": 6,
       "title": "Orchestration and reliability",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1196,16 +1240,24 @@
       "id": "semantic-layers",
       "kind": "problem-area",
       "members": [
+        "map-keys-to-business-objects-in-ontology",
         "bi-calculations-to-governed-metrics",
+        "reverse-engineer-semantic-model-from-dbt-marts",
         "governed-metrics-in-semantic-model",
-        "fabric-direct-lake-semantic-model"
+        "trace-governed-metric-to-sql-and-sources",
+        "fabric-direct-lake-semantic-model",
+        "audit-semantic-model-against-sql-and-warehouse"
       ],
       "resolved_members": [
+        "audit-semantic-model-against-sql-and-warehouse",
         "bi-calculations-to-governed-metrics",
         "fabric-direct-lake-semantic-model",
-        "governed-metrics-in-semantic-model"
+        "governed-metrics-in-semantic-model",
+        "map-keys-to-business-objects-in-ontology",
+        "reverse-engineer-semantic-model-from-dbt-marts",
+        "trace-governed-metric-to-sql-and-sources"
       ],
-      "supported_or_proven_count": 3,
+      "supported_or_proven_count": 7,
       "title": "Semantic layers",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1508,6 +1560,77 @@
           "fabric_warehouse",
           "redshift",
           "databricks"
+        ]
+      }
+    },
+    {
+      "area": "semantic-layer",
+      "description": "Check a semantic model against its marts' SQL, the built warehouse and the agreed reference figures, report each finding with its evidence, fix what the evidence settles, move each touched contract's version by the approved rule, and leave findings that change what a number means open with their question; code only.",
+      "domain_objects": [
+        "semantic_model",
+        "governed_metric",
+        "data_contract",
+        "audit_finding",
+        "metric_reconciliation"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "designing",
+          "planning",
+          "semantic-model",
+          "validating-semantic-model",
+          "data-contract",
+          "validating-data-contract",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "audit-semantic-model-against-sql-and-warehouse",
+      "job_category": "build",
+      "path": "recipes/audit-semantic-model-against-sql-and-warehouse/recipe.md",
+      "pitch": "Find where a semantic model no longer matches its marts, warehouse and contracts, fix what the evidence settles, and put the rest to the owner.",
+      "qualifiers": [
+        "Needs an existing semantic model and the marts it reads; authoring either from nothing is outside this Recipe.",
+        "Marts, seeds and mart data are never changed to match the model; a wrong mart is reported, not edited.",
+        "Without agreed reference figures, the comparison to them is reported unproven, never passed.",
+        "Only existing contracts are touched; relations without one are listed as uncovered for the contract-adoption Recipe.",
+        "A fix that breaks a published contract's readers is an open finding for versioned-data-contract-cutover.",
+        "Realigning a metric to its stated meaning is here; changing what it means is an open finding.",
+        "Code only; publishing to a semantic-layer service or BI tool is outside this Recipe."
+      ],
+      "readiness": "supported",
+      "related": [
+        "governed-metrics-in-semantic-model",
+        "bi-calculations-to-governed-metrics",
+        "adopt-boundary-data-contracts-on-existing-dbt-repo",
+        "versioned-data-contract-cutover",
+        "explain-report-number-differences"
+      ],
+      "sha256": "96b22ec120a04e1172d11799faff48775a0829add8ab28847e303eaea29a246e",
+      "title": "Audit a semantic model against its SQL and warehouse, fix the drift the evidence settles, and report the rest",
+      "trigger": [
+        "A semantic model was written once, the marts behind it have moved on, and nobody can say which declared fields, bindings, metric definitions and contracts still match.",
+        "A metric's description says it cannot run, or says something other than what it returns, and the claim has not been checked since the model last changed.",
+        "The model's code checks pass, but nobody has compared what its metrics return with the figures the business already trusts."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt",
+          "ossie",
+          "odcs"
         ]
       }
     },
@@ -5170,6 +5293,153 @@
     },
     {
       "area": "transformation",
+      "description": "Move one legacy fact load's dimension-key resolution into dbt, read over MCP without changing the legacy unless approved, with late and unseen-member lines landing as the approved rule gives, every staged line published or listed once with its approved reason, and a set-aside line placed once its member arrives.",
+      "domain_objects": [
+        "stored_procedure",
+        "fact_table",
+        "dimension_member",
+        "late_arriving_line",
+        "unplaced_line",
+        "dbt_model",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "designing",
+          "planning",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "late-arriving-fact-keys-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/late-arriving-fact-keys-to-dbt/recipe.md",
+      "pitch": "Prove a dbt fact puts late and unseen-member lines where the legacy load did, with each line it cannot place listed with its reason.",
+      "qualifiers": [
+        "Reads over a connected MCP server, such as Toolbox for SQL Server and Oracle or postgres-mcp for PostgreSQL.",
+        "Any run of a legacy routine is approved and recorded; a login that can write or run routines is reported.",
+        "Needs the fact's inputs and dimensions landed in the target; an ingestion Recipe lands them.",
+        "Several writers of one table is consolidate-legacy-table-writers-to-dbt.",
+        "A paging loop is batched-loop-procedure-to-set-based-dbt; a load with no dimension lookup is stored-procedure-to-dbt.",
+        "Keeping dimension history is scd-procedure-to-dbt-snapshot; replayed deliveries belong to business-event-fact.",
+        "A lookup the MCP cannot read is reported unassessed, not converted.",
+        "Behaviour outside the fact's rows, such as logging, is reported, not reproduced."
+      ],
+      "readiness": "supported",
+      "related": [
+        "consolidate-legacy-table-writers-to-dbt",
+        "batched-loop-procedure-to-set-based-dbt",
+        "stored-procedure-to-dbt",
+        "scd-procedure-to-dbt-snapshot",
+        "business-event-fact",
+        "legacy-sql-to-dbt",
+        "inventory-legacy-database-over-mcp",
+        "plan-legacy-procedure-package-intents"
+      ],
+      "sha256": "f7b43d433dd1d486271b8c16a34d34d6bcb792ad7d37f829b92217e348873310",
+      "title": "Resolve late-arriving facts and unseen dimension members in a dbt fact and list every line it cannot place",
+      "trigger": [
+        "A legacy fact load looks up dimension keys, and a line that arrives late or names a member never seen lands on a key nobody can explain, or vanishes.",
+        "The load is moving to dbt, and consumers need proof that late lines and unseen-member lines land where the legacy load put them, or are shown with a reason.",
+        "A SQL Server, Oracle or PostgreSQL fact load moves to dbt, and a line set aside for a missing member must be placed once it arrives, with loaded rows undisturbed."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt",
+          "sql_server",
+          "oracle",
+          "postgresql"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
+      "description": "Turn one approved small, static legacy reference table into a version-controlled dbt seed from an approved extract with a stated boundary, with typed columns, keys, tests and an ownership record, and prove the dbt consumers' output unchanged or changed only as approved; unsuitable tables are reported, not seeded.",
+      "domain_objects": [
+        "reference_table",
+        "dbt_seed",
+        "extraction_boundary",
+        "ownership_record",
+        "consumer_contract",
+        "parity_report"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "legacy-reference-table-to-dbt-seed",
+      "job_category": "re-engineer",
+      "path": "recipes/legacy-reference-table-to-dbt-seed/recipe.md",
+      "pitch": "Give a legacy lookup table to the dbt project as a seed, and show the reports that read it change only as you approve.",
+      "qualifiers": [
+        "Starts from an approved extract of the table with a stated boundary; it does not read the legacy database.",
+        "A table that keeps arriving as exports or grows belongs to an ingestion Recipe, not a seed.",
+        "Large or frequently changing tables are reported unsuitable, not seeded.",
+        "Retiring the legacy table or its writer is a separate approved step.",
+        "A table a routine derives from other data belongs to a writer-conversion Recipe, not a seed.",
+        "Needs the consuming dbt models to exist; moving them is another outcome.",
+        "History to preserve belongs to dbt-snapshot-history; this seed holds the rows of the approved extract."
+      ],
+      "readiness": "supported",
+      "related": [
+        "governed-spreadsheet-table",
+        "file-drop-to-bronze",
+        "database-tables-to-bronze",
+        "consolidate-legacy-table-writers-to-dbt",
+        "legacy-sql-to-dbt",
+        "inventory-legacy-database-over-mcp",
+        "plan-legacy-warehouse-layers-to-dbt-intents",
+        "prove-dbt-change-safe",
+        "dbt-snapshot-history"
+      ],
+      "sha256": "b4a7639e94d16df29e7c39034d644d1134b7921e64c8ce3e897fb5e72de63ef6",
+      "title": "Move an approved legacy reference table into a dbt seed and prove downstream parity",
+      "trigger": [
+        "A small, static lookup or code list that dbt models read lives in a legacy database, and its owner wants the dbt project to own it.",
+        "A legacy job still reloads a reference table that dbt models join, and nobody can say who may change it or what a change would do to the reports.",
+        "A migration plan marks a table as reference data, but nothing records that anyone approved it for seed ownership.",
+        "A table proposed as a seed may be too large or change too often, and needs a suitability decision before any file is made."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Bring a legacy SQL script or view into dbt as models that publish the same contract, proven against the legacy logic's own output on the same inputs, with legacy defects reproduced and reported as follow-up work.",
       "domain_objects": [
         "legacy_sql",
@@ -5767,6 +6037,68 @@
         ],
         "tools": [
           "dbt"
+        ]
+      }
+    },
+    {
+      "area": "semantic-layer",
+      "description": "Declare the business objects behind the keys of the approved Ossie documents, each identified by its natural code, and map each key to the object it identifies. Leave version surrogates and derived hashes unmapped and named, and report every dataset keyed by an object no mapping names. Declaration only; no model changes.",
+      "domain_objects": [
+        "ontology",
+        "business_object",
+        "business_key",
+        "semantic_model",
+        "glossary_term"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "designing",
+          "planning",
+          "ontology",
+          "domain-modeling",
+          "validating-ontology",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "map-keys-to-business-objects-in-ontology",
+      "job_category": "explain",
+      "path": "recipes/map-keys-to-business-objects-in-ontology/recipe.md",
+      "pitch": "Say which object every key identifies, and name every dataset keyed by an object nothing maps.",
+      "qualifiers": [
+        "Needs Ossie documents already in the repository; writing them is the semantic-model Recipes' job.",
+        "A declaration only, so no mapping is executed and it stays unproven as a query until a consumer runs it.",
+        "Resolving one customer across systems is identity-golden-record-crosswalk, not this Recipe.",
+        "The ontology has no construct for a version of an object, so a key that names only a version stays unmapped."
+      ],
+      "readiness": "supported",
+      "related": [
+        "identity-golden-record-crosswalk",
+        "governed-metrics-in-semantic-model",
+        "bi-calculations-to-governed-metrics"
+      ],
+      "sha256": "8c9234dfd2658a803915308929c96c5b2c11ae1319128f77da767beee0a84f7e",
+      "title": "Map each key to the business object it identifies across a Domain and find datasets keyed by an unmapped object",
+      "trigger": [
+        "Several datasets carry customer, product or order keys, and nobody can say which business object a key identifies or whether two keys name the same one.",
+        "A key holds a version, a hash or a code and nothing records which, so a join on it counts a changed member twice or matches nothing.",
+        "A dataset is keyed by an object that no mapping names, and the gap shows only when someone asks where that object lives."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "ossie"
         ]
       }
     },
@@ -8353,6 +8685,70 @@
       }
     },
     {
+      "area": "semantic-layer",
+      "description": "Describe the approved existing dbt marts as a governed Ossie semantic model, with each table's row grain and how its numbers roll up. Prove each aggregate described as a rollup matches its SQL and the detail and each field matches the warehouse, and name every mart that cannot honestly be described, with the reason. No mart is changed.",
+      "domain_objects": [
+        "semantic_model",
+        "dbt_model",
+        "dimension",
+        "governed_metric",
+        "aggregate_mart"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "designing",
+          "planning",
+          "semantic-model",
+          "validating-semantic-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "reverse-engineer-semantic-model-from-dbt-marts",
+      "job_category": "explain",
+      "path": "recipes/reverse-engineer-semantic-model-from-dbt-marts/recipe.md",
+      "pitch": "Turn marts nobody has described into a checked semantic model, and name every table that cannot honestly be described.",
+      "qualifiers": [
+        "Needs marts that already compile; changing a mart, seed or configuration to fit the description is outside this Recipe.",
+        "Describes the semantic layer only; ontology, data contracts, new metrics and BI export are other Recipes.",
+        "Checking aggregation needs compiled SQL only; equality and field-type checks need the marts built.",
+        "Defining new governed metrics from approved definitions over a gold fact is governed-metrics-in-semantic-model."
+      ],
+      "readiness": "supported",
+      "related": [
+        "governed-metrics-in-semantic-model",
+        "bi-calculations-to-governed-metrics",
+        "metric-population-and-rollups",
+        "fabric-direct-lake-semantic-model"
+      ],
+      "sha256": "4018410d9cc9c17ce628c191e99abbd1d6922fb9566322e3d31327524de70e6b",
+      "title": "Reverse-engineer a semantic model from existing dbt marts and prove it matches the SQL",
+      "trigger": [
+        "A team inherited dbt marts nobody has described, and no one can say what each table is, what one row stands for or how its numbers roll up.",
+        "Aggregate marts sit beside a detail fact and nobody has shown they add up to it, or which of them are not a true rollup at all.",
+        "A semantic layer has to start from marts that already exist, without definitions copied by hand that then drift from the SQL."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt",
+          "ossie"
+        ]
+      }
+    },
+    {
       "area": "transformation",
       "description": "For each approved as-of date, tie every in-scope booking line to what was scheduled, billed after credit memos and collected, split each gap into breaks classed under the user's approved rules, show any residual as unexplained, and keep every unplaceable record visible with its reason.",
       "domain_objects": [
@@ -9773,6 +10169,63 @@
       }
     },
     {
+      "area": "semantic-layer",
+      "description": "Show, for one governed metric named by its business name, the SQL the semantic layer compiles it to and the lineage from that SQL back to the source tables, from the Domain, the Intent's workspace or both as approved, with the chosen source, the rejected sources and every gap named; it changes no model or Domain relation.",
+      "domain_objects": [
+        "governed_metric",
+        "semantic_model",
+        "compiled_sql",
+        "data_lineage",
+        "source_table"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "querying-semantic-model",
+          "running-dbt-in-sandbox"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "trace-governed-metric-to-sql-and-sources",
+      "job_category": "explain",
+      "path": "recipes/trace-governed-metric-to-sql-and-sources/recipe.md",
+      "pitch": "Name a governed metric and see the SQL it compiles to and the source tables behind it, with every gap in the trace named.",
+      "qualifiers": [
+        "Needs the Domain's semantic model to exist and validate; this Recipe does not author, audit or fix one.",
+        "Explains one metric; reconciling two reports that disagree belongs to explain-report-number-differences."
+      ],
+      "readiness": "supported",
+      "related": [
+        "governed-metrics-in-semantic-model",
+        "bi-calculations-to-governed-metrics",
+        "metric-population-and-rollups",
+        "explain-report-number-differences"
+      ],
+      "sha256": "c6f443711020cdd979da059247608e0886d10d3bbd7d9211456c7f6bb6c58fc4",
+      "title": "Trace a governed metric to the SQL and source tables behind it",
+      "trigger": [
+        "A number is reported under a business metric name and nobody can say how it is computed or which tables it comes from.",
+        "Two reports carry the same metric name with different figures, and neither owner can show the SQL or sources behind theirs.",
+        "A reviewer or auditor asks which source tables sit behind a governed metric before relying on it.",
+        "A data team inherits a governed metric and needs to see what the semantic layer really runs, in the Domain and in the workspace being built."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
       "area": "transformation",
       "description": "Rebuild the pivots, subtotals, recursive hierarchies and generated keys of a legacy reporting query in dbt, reading the source over MCP without changing it, with each construct mapped to a target form, shown equal to the legacy result or different only as approved, and legacy defects reported, not fixed.",
       "domain_objects": [
@@ -9983,6 +10436,77 @@
         ],
         "tools": [
           "dbt"
+        ]
+      }
+    },
+    {
+      "area": "data-quality",
+      "description": "Replace a legacy validation procedure with dbt tests and source checks, read from the legacy database over MCP without changing it unless approved, with every check mapped to a replacement, the approved failure policy kept, each check shown to pass on good data and fail on bad, and retirement only as approved.",
+      "domain_objects": [
+        "stored_procedure",
+        "check_map",
+        "source_check",
+        "dbt_test",
+        "failure_policy",
+        "check_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "designing",
+          "planning",
+          "registering-dbt-sources",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "validation-procedure-to-dbt-tests",
+      "job_category": "re-engineer",
+      "path": "recipes/validation-procedure-to-dbt-tests/recipe.md",
+      "pitch": "Move a staging-data validation procedure into dbt so bad input fails the build and stops the work that reads it, or warns where you approve.",
+      "qualifiers": [
+        "Reads over a connected MCP server only, such as Toolbox for SQL Server and Oracle or postgres-mcp for PostgreSQL.",
+        "Needs the checked tables landed in the target; landing them belongs to an ingestion Recipe.",
+        "A login that can write or run routines is reported; whether the run proceeds on it is approved.",
+        "A procedure that also loads a table belongs to stored-procedure-to-dbt; freshness to source-freshness-sla.",
+        "Notices, logging and other side effects of the procedure are replaced as approved or reported as not reproduced."
+      ],
+      "readiness": "supported",
+      "related": [
+        "stored-procedure-to-dbt",
+        "source-freshness-sla",
+        "consolidate-legacy-table-writers-to-dbt",
+        "inventory-legacy-database-over-mcp",
+        "plan-legacy-procedure-package-intents",
+        "legacy-sql-to-dbt"
+      ],
+      "sha256": "b25a1e8599889b7a4be1a07edd3fe81cc58229e0d6149e1e3f0ec9e3b29a677e",
+      "title": "Convert a validation procedure into dbt tests and source checks that gate the build",
+      "trigger": [
+        "A load runs behind a stored procedure that checks the staging data, and nobody can say which checks it makes or what happens when one fails.",
+        "The team wants the checks as dbt tests and source checks, so bad input stops the work that depends on it inside the build.",
+        "A procedure that only validates, writing no table, has to move into the dbt project before it can be retired."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt",
+          "sql_server",
+          "oracle",
+          "postgresql"
         ]
       }
     },
