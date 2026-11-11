@@ -1,0 +1,16 @@
+{
+  "id": "run-from-a-pull-request-comment",
+  "title": "Run from a pull-request comment",
+  "kind": "curated",
+  "description": "Recipes for a change already open in a Domain pull request, which a writer can ask for with @vibedata in a top-level comment. Needs a Domain with a CI bundle (not Redshift, BigQuery, MotherDuck without auth or local installs). Agent questions are answered in Studio.",
+  "members": [
+    "prove-dbt-change-safe",
+    "dbt-refactor-output-identical",
+    "versioned-data-contract-cutover",
+    "bounded-partition-backfill",
+    "dbt-full-refresh-to-incremental",
+    "adopt-boundary-data-contracts-on-existing-dbt-repo",
+    "scalar-sql-function-to-dbt-macro",
+    "cross-platform-dbt-macro"
+  ]
+}
