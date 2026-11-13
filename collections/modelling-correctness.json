@@ -10,6 +10,7 @@
     "event-resource-attribution",
     "dbt-snapshot-history",
     "accumulating-snapshot-procedure-to-dbt",
+    "legacy-periodic-snapshot-to-dbt",
     "bitemporal-business-history",
     "retail-marketplace-settlement",
     "retail-reservation-availability-ledger",

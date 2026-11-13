@@ -9,6 +9,7 @@
     "inventory-legacy-database-over-mcp",
     "plan-legacy-procedure-package-intents",
     "plan-legacy-warehouse-layers-to-dbt-intents",
+    "legacy-sql-repository-migration-index",
     "publish-boundary-contracts-on-re-engineered-gold",
     "consolidate-legacy-table-writers-to-dbt",
     "late-arriving-fact-keys-to-dbt",
@@ -33,6 +34,7 @@
     "batched-loop-procedure-to-set-based-dbt",
     "scd-procedure-to-dbt-snapshot",
     "accumulating-snapshot-procedure-to-dbt",
+    "legacy-periodic-snapshot-to-dbt",
     "move-dbt-project-destination"
   ]
 }
