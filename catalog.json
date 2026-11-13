@@ -64,7 +64,9 @@
         "incremental-dbt-model-with-contract",
         "inventory-legacy-database-over-mcp",
         "late-arriving-fact-keys-to-dbt",
+        "legacy-periodic-snapshot-to-dbt",
         "legacy-reference-table-to-dbt-seed",
+        "legacy-sql-repository-migration-index",
         "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "managed-connector-to-dlt",
@@ -108,7 +110,7 @@
           "cross-functional"
         ]
       },
-      "supported_or_proven_count": 71,
+      "supported_or_proven_count": 72,
       "title": "Any domain",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -228,7 +230,9 @@
         "inventory-lot-traceability",
         "inventory-valuation-cogs",
         "late-arriving-fact-keys-to-dbt",
+        "legacy-periodic-snapshot-to-dbt",
         "legacy-reference-table-to-dbt-seed",
+        "legacy-sql-repository-migration-index",
         "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
@@ -310,7 +314,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 130,
+      "supported_or_proven_count": 131,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -487,6 +491,7 @@
         "inventory-legacy-database-over-mcp",
         "plan-legacy-procedure-package-intents",
         "plan-legacy-warehouse-layers-to-dbt-intents",
+        "legacy-sql-repository-migration-index",
         "publish-boundary-contracts-on-re-engineered-gold",
         "consolidate-legacy-table-writers-to-dbt",
         "late-arriving-fact-keys-to-dbt",
@@ -510,6 +515,7 @@
         "stored-procedure-to-dbt",
         "batched-loop-procedure-to-set-based-dbt",
         "scd-procedure-to-dbt-snapshot",
+        "legacy-periodic-snapshot-to-dbt",
         "move-dbt-project-destination"
       ],
       "resolved_members": [
@@ -521,7 +527,9 @@
         "consolidate-legacy-table-writers-to-dbt",
         "inventory-legacy-database-over-mcp",
         "late-arriving-fact-keys-to-dbt",
+        "legacy-periodic-snapshot-to-dbt",
         "legacy-reference-table-to-dbt-seed",
+        "legacy-sql-repository-migration-index",
         "legacy-sql-to-dbt",
         "managed-connector-to-dlt",
         "materialized-view-to-dbt",
@@ -543,7 +551,7 @@
         "validation-procedure-to-dbt-tests",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 23,
+      "supported_or_proven_count": 24,
       "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -688,7 +696,9 @@
         "inventory-lot-traceability",
         "inventory-valuation-cogs",
         "late-arriving-fact-keys-to-dbt",
+        "legacy-periodic-snapshot-to-dbt",
         "legacy-reference-table-to-dbt-seed",
+        "legacy-sql-repository-migration-index",
         "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
@@ -797,7 +807,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 133,
+      "supported_or_proven_count": 134,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -812,6 +822,7 @@
         "metric-population-and-rollups",
         "event-resource-attribution",
         "dbt-snapshot-history",
+        "legacy-periodic-snapshot-to-dbt",
         "bitemporal-business-history",
         "retail-marketplace-settlement",
         "retail-reservation-availability-ledger",
@@ -904,6 +915,7 @@
         "inventory-lot-traceability",
         "inventory-valuation-cogs",
         "late-arriving-fact-keys-to-dbt",
+        "legacy-periodic-snapshot-to-dbt",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
         "logistics-lane-on-time-performance",
@@ -944,7 +956,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 67,
+      "supported_or_proven_count": 68,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1014,7 +1026,9 @@
         "inventory-lot-traceability",
         "inventory-valuation-cogs",
         "late-arriving-fact-keys-to-dbt",
+        "legacy-periodic-snapshot-to-dbt",
         "legacy-reference-table-to-dbt-seed",
+        "legacy-sql-repository-migration-index",
         "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
@@ -1098,7 +1112,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 132,
+      "supported_or_proven_count": 133,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -5370,6 +5384,80 @@
     },
     {
       "area": "transformation",
+      "description": "Replace a legacy periodic snapshot load, one row per entity per period, with a dbt model, and prove after every compared run that each period matches the approved legacy result, including the migrated history, a missing period, a rerun, a correction and later runs that change earlier periods.",
+      "domain_objects": [
+        "snapshot_job",
+        "period_snapshot",
+        "run_calendar",
+        "retained_history",
+        "balance_measure",
+        "dbt_model",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "generating-dbt-model",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "legacy-periodic-snapshot-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/legacy-periodic-snapshot-to-dbt/recipe.md",
+      "pitch": "Move a legacy period-by-period snapshot into dbt and show every period still matches after each run.",
+      "qualifiers": [
+        "Needs the job's definition and its run record, or inputs from which its runs can be replayed.",
+        "Needs the tables the job reads landed in the target; landing them belongs to an ingestion Recipe.",
+        "A job that only keeps the version history of an entity belongs to scd-procedure-to-dbt-snapshot.",
+        "A new append-only snapshot with no legacy job to match belongs to revops-pipeline-snapshots.",
+        "A routine that maintains a table with no period grain belongs to stored-procedure-to-dbt.",
+        "Full-rebuild views and tables with several writers go to legacy-sql-to-dbt and consolidate-legacy-table-writers-to-dbt.",
+        "Costing or valuing the measure belongs to inventory-valuation-cogs.",
+        "Other writes, logging and measures outside the snapshot relation are reported, not reproduced.",
+        "A job that cannot be read or replayed is named unassessed, and its parity is stated unproven."
+      ],
+      "readiness": "supported",
+      "related": [
+        "stored-procedure-to-dbt",
+        "scd-procedure-to-dbt-snapshot",
+        "dbt-snapshot-history",
+        "revops-pipeline-snapshots",
+        "legacy-sql-to-dbt",
+        "late-arriving-fact-keys-to-dbt",
+        "dbt-full-refresh-to-incremental",
+        "inventory-valuation-cogs",
+        "consolidate-legacy-table-writers-to-dbt"
+      ],
+      "sha256": "0b77de638299cb9228f1870a29643fc251af2f4cb3e2ec161185ea0a67c80fcd",
+      "title": "Convert a legacy periodic snapshot load into dbt and prove parity period by period",
+      "trigger": [
+        "A scheduled job publishes one row per entity per period, such as stock on hand at each month-end, and the team wants it in dbt.",
+        "Consumers read the snapshot's history, so a move needs proof that every period still matches, not only the latest one.",
+        "Earlier periods are restated by late arrivals or corrections, or a period was never run, and nobody has written down what the legacy job does then."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
+    {
+      "area": "transformation",
       "description": "Turn one approved small, static legacy reference table into a version-controlled dbt seed from an approved extract with a stated boundary, with typed columns, keys, tests and an ownership record, and prove the dbt consumers' output unchanged or changed only as approved; unsuitable tables are reported, not seeded.",
       "domain_objects": [
         "reference_table",
@@ -5435,6 +5523,73 @@
         ],
         "tools": [
           "dbt"
+        ]
+      }
+    },
+    {
+      "area": "re-engineering",
+      "description": "Scan the SQL files of a legacy repository at a named revision without changing them, index its tables, views, procedures and functions and the reads, writes and calls between them with source evidence, and report what cannot be resolved, the dependency order, blockers and candidate migration scopes.",
+      "domain_objects": [
+        "legacy_sql",
+        "database_object",
+        "stored_procedure",
+        "procedure_call_graph",
+        "table_writer_map",
+        "inventory_report",
+        "migration_plan"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "legacy-sql-repository-migration-index",
+      "job_category": "re-engineer",
+      "path": "recipes/legacy-sql-repository-migration-index/recipe.md",
+      "pitch": "Know what a legacy SQL repository holds and what depends on what, with evidence and honest gaps, before anyone picks a migration scope.",
+      "qualifiers": [
+        "Planned until a product parser splits and classifies routine bodies and calls in T-SQL, PL/SQL and PL/pgSQL.",
+        "Reads files in the Intent's repository; a live database is inventory-legacy-database-over-mcp.",
+        "Fabric verdicts and a go or no-go for a Synapse or SSIS export belong to assess-synapse-ssis-for-fabric.",
+        "Stops at the index and candidate scopes; plans, dispositions, conversion and Intents are other Recipes.",
+        "Business-domain ownership of tables and views is not assigned; the index is an engineering input.",
+        "A dialect the scan cannot read is reported unparsed, never guessed or skipped.",
+        "Static reading cannot show runtime behaviour, string-built targets or objects created outside the repository."
+      ],
+      "readiness": "planned",
+      "related": [
+        "inventory-legacy-database-over-mcp",
+        "plan-legacy-procedure-package-intents",
+        "plan-legacy-warehouse-layers-to-dbt-intents",
+        "stored-procedure-to-dbt",
+        "legacy-sql-to-dbt",
+        "assess-synapse-ssis-for-fabric"
+      ],
+      "sha256": "1233df3b685f08348d4668a4e8551e05438ff31d1739971a70127dd74c6ac635",
+      "title": "Index a legacy SQL repository's objects and dependencies for migration planning",
+      "trigger": [
+        "A legacy warehouse's SQL, or a DDL snapshot, is committed to a repository and nobody can say what objects exist or what depends on what before migration scope is chosen.",
+        "The team needs the tables, views, procedures and functions found, with what reads, writes or calls each, before it picks what to migrate first.",
+        "The repository holds duplicate definitions, objects with no definition, string-built SQL or files that do not parse, and the team needs them listed, not guessed."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "sql_server",
+          "oracle",
+          "postgresql"
         ]
       }
     },
