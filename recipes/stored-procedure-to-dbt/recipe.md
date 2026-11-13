@@ -29,11 +29,11 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Not yet assessed end to end on fabric_warehouse, redshift or databricks.
   - Needs the procedure's table after each compared run, from the unchanged procedure or approved snapshots.
   - Views and one-shot scripts that rebuild their whole output each run belong to the legacy-sql-to-dbt Recipe.
   - Procedures that keep row history, such as hand-rolled slowly changing dimensions, are out of scope.
   - Applies when the maintained table is the required outcome and all relevant behaviour is represented through its state.
+  - Not yet assessed end to end on fabric_warehouse, redshift or databricks.
 related:
   - legacy-sql-to-dbt
   - dbt-full-refresh-to-incremental

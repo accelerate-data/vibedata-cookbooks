@@ -30,10 +30,10 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Linking breaks to documents needs a document reference on ledger lines or an approved matching rule.
   - Reproducing a past tie-out after rule or source changes needs kept history of the tie-out.
   - Stops at the classified tie-out; correcting postings, sign-off and close packs are separate outcomes.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - effective-dated-business-rules
   - dbt-snapshot-history

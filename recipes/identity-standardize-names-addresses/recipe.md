@@ -31,8 +31,8 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Addresses are standardized by rule, not verified against a postal service, so deliverability is not checked.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
 related:
   - business-event-fact
 evidence:

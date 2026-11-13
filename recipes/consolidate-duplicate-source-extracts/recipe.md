@@ -32,7 +32,6 @@ works_with:
     - dlt
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
   - Needs read access to the source table, a stable key, and a change signal or an approved full read.
   - Studio's source setup cannot register a sql_database connection; it is declared with approval.
   - Stops at the feed, projections, proof and a written plan; switching off or repointing extracts is out of scope.
@@ -40,6 +39,7 @@ qualifiers:
   - Landing a table with no team extracts to reproduce belongs to database-tables-to-bronze.
   - Extracts that are models over an already-landed table belong to dbt-refactor-output-identical.
   - Log-based CDC replication is out of scope; each run reads the source table.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
 related:
   - database-tables-to-bronze
   - managed-connector-to-dlt

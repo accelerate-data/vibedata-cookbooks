@@ -23,12 +23,12 @@ works_with:
     - dlt
     - dbt
 qualifiers:
-  - Not yet assessed end to end on motherduck.
   - Schedules the load and build on MotherDuck only; local DuckDB has no scheduler.
   - The dbt project the Flight carries must fit MotherDuck's Flight source-code size limit.
   - A schedule only runs on a MotherDuck plan that offers scheduled Flight runs.
   - The load must reach its source from the Flight runtime, with credentials held as Flight secrets.
   - Scheduling on Fabric belongs to fabric-data-pipeline-as-code.
+  - Not yet assessed end to end on motherduck.
 related:
   - fabric-data-pipeline-as-code
   - readiness-gated-orchestration

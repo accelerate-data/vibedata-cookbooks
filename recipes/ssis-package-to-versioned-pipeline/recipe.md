@@ -34,12 +34,12 @@ works_with:
     - dlt
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; motherduck, redshift and databricks are unassessed.
-  - On databricks the grouped publish needs catalog-commit managed tables, written by DML with no DDL in the transaction.
   - Needs the exported package, its parameter values and connection references, and read access to its sources.
   - Needs the package's own output on the agreed window, or an approved reference built from its declared semantics.
+  - On databricks the grouped publish needs catalog-commit managed tables, written by DML with no DDL in the transaction.
   - Studio has no SSIS runtime; the package is read from its export and never run, edited or retired.
   - A task body or setting the export lacks stays visible as blocked or not in the package, never guessed.
+  - Assessed end to end on duckdb_local only; motherduck, redshift and databricks are unassessed.
 related:
   - adf-mapping-data-flow-to-dlt-dbt
   - visual-etl-mapping-to-dlt-dbt

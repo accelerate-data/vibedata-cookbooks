@@ -30,10 +30,10 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Protects only work whose source is judged in the same build; how often builds run is outside this Recipe.
   - Each checked table needs a measurable load time, such as a landing column, a load log, table metadata or a proxy.
   - Gating consumer pipelines on upstream readiness belongs to the readiness-gated-orchestration Recipe.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 evidence:
   features:
     - registering-dbt-sources

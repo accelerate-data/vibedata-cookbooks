@@ -29,9 +29,9 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Needs a source that carries a key and a version or update timestamp for each record, and can be read in full.
   - Converting an existing full-refresh model belongs to the dbt-full-refresh-to-incremental Recipe.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 evidence:
   features:
     - profiling-source-data

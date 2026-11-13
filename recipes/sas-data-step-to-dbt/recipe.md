@@ -30,10 +30,10 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed on duckdb_local only; date, number and type handling on other platforms is unassessed.
   - Needs the resolved SAS program and formats; the job's output may come from a run or an approved reference.
   - Covers tabular preparation in DATA steps and approved PROC steps; statistics, modelling and reports are out of scope.
   - Inputs are landed tables; loading SAS datasets or extracts belongs to file-drop-to-bronze.
+  - Assessed on duckdb_local only; date, number and type handling on other platforms is unassessed.
 related:
   - legacy-sql-to-dbt
   - notebook-transformation-to-dbt

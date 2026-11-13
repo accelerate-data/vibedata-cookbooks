@@ -29,10 +29,10 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Stops at commission-eligible bookings and attainment; payout amounts are a separate outcome.
-  - Assessed with a labelled synthetic fixture standing in for CRM bookings, rep assignments, quotas and plan rules.
   - Credit ignoring today's owner needs owner history in the source; the assessed fixture had none.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
+  - Assessed with a labelled synthetic fixture standing in for CRM bookings, rep assignments, quotas and plan rules.
 related:
   - effective-dated-business-rules
   - metric-population-and-rollups

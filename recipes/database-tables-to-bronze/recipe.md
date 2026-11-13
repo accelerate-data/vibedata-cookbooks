@@ -28,12 +28,12 @@ works_with:
   tools:
     - dlt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
+  - Needs read access to the source database, a key per merged table, and a change signal per incremental table.
   - Studio's source setup cannot register a sql_database connection; it is declared with approval.
   - Replacing an existing managed connector belongs to managed-connector-to-dlt.
   - Log-based CDC replication is out of scope; each run reads the source tables.
   - Without direct database access, loading exported files belongs to file-drop-to-bronze.
-  - Needs read access to the source database, a key per merged table, and a change signal per incremental table.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
 related:
   - api-to-bronze-incremental-contract
   - managed-connector-to-dlt

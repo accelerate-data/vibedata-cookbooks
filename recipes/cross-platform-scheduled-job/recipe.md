@@ -26,12 +26,12 @@ works_with:
     - dlt
     - dbt
 qualifiers:
-  - Not yet assessed end to end on any listed target.
   - Needs the original job's definition or recorded runs; behavior it never shows is reported unproven.
   - Reports each behavior the target's scheduler or runtime cannot express; it does not add the missing capability.
   - Authors the converted job only; deployment and retiring the original are separate decisions.
   - Converting the workload code the job calls belongs to the Recipe for that source.
   - Readiness gating on upstream feeds belongs to readiness-gated-orchestration; here it is carried or reported.
+  - Not yet assessed end to end on any listed target.
 related:
   - motherduck-flight-scheduling
   - fabric-data-pipeline-as-code

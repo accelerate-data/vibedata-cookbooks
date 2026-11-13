@@ -29,9 +29,9 @@ works_with:
   tools:
     - dlt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
   - Needs a per-record cursor on each resource, such as an update or creation time; a resource without one is out of scope.
   - Studio's rest_api connector is a stub; the API needs another dlt route.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
 related:
   - managed-connector-to-dlt
 evidence:

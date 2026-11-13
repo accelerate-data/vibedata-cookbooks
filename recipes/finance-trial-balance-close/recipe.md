@@ -31,10 +31,10 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Detecting a change to a closed period needs state that later builds and full refreshes do not rewrite.
   - Naming a changed line needs stable line ids; lateness and an as-at-hard-close record need posting instants and history.
   - Stops at the close pack; subledger tie-out, consolidation, FX and posting corrections are separate outcomes.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - dbt-snapshot-history
   - effective-dated-business-rules

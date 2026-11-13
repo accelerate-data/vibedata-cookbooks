@@ -32,10 +32,10 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Settling as of a past date needs dated cash applications, or an approved rule linking payments to documents.
   - Reproducing results as known on a past date needs entry timestamps or kept snapshots of the results.
   - Stops at aging and DSO; collections, disputes and bad-debt provisioning are separate outcomes.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - dbt-snapshot-history
 evidence:

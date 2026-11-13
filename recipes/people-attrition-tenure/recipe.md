@@ -33,11 +33,11 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Needs per-worker period-end state with population status (and FTE if the base uses it) and its roll-forward.
   - Needs termination records with a date, a reason code and the worker's placement on the last day worked.
   - Results as known on a past date need kept snapshots; backdated HR changes restate past periods.
   - Stops at attrition, tenure and retention; building headcount, pay and forecasting are separate outcomes.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - metric-population-and-rollups
   - effective-dated-business-rules

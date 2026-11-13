@@ -34,13 +34,13 @@ works_with:
     - oracle
     - postgresql
 qualifiers:
-  - Not yet assessed end to end on motherduck, fabric_lakehouse, fabric_warehouse, redshift or databricks.
+  - Needs the tables the procedure reads landed in the target; landing them belongs to an ingestion Recipe.
   - Reads over a connected MCP server only, such as Toolbox for SQL Server and Oracle or postgres-mcp for PostgreSQL.
   - A login that can write or run routines is reported; whether the run proceeds on it is approved.
-  - Needs the tables the procedure reads landed in the target; landing them belongs to an ingestion Recipe.
   - A procedure with one in-scope table belongs to stored-procedure-to-dbt.
   - Tables that keep row history, such as hand-rolled slowly changing dimensions, belong to scd-procedure-to-dbt-snapshot.
   - A table other routines also write belongs to consolidate-legacy-table-writers-to-dbt.
+  - Not yet assessed end to end on motherduck, fabric_lakehouse, fabric_warehouse, redshift or databricks.
 related:
   - stored-procedure-to-dbt
   - consolidate-legacy-table-writers-to-dbt

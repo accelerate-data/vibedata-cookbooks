@@ -36,12 +36,12 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Needs sale lines, a stock position per store, SKU and day (or movements), the ranging and any source the rules need.
   - A risk measure that reads past sales needs history before the first published day; shorter shows the approved treatment.
   - Stops at the day-grain states; forecasting, reorder quantities, available-to-promise and shelf life are separate.
   - Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze.
   - Conforming item codes across systems belongs to master-product-sku-hierarchy.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - ops-inventory-reconciliation
   - master-product-sku-hierarchy

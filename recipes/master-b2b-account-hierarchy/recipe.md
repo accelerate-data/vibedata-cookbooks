@@ -32,9 +32,9 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Families as they stood in past periods need dated parent-link history; without it they cannot be rebuilt.
   - Accounts must already be one record per company; this Recipe does not deduplicate accounts.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
 related:
   - metric-population-and-rollups
   - effective-dated-business-rules

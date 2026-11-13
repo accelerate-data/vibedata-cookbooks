@@ -32,11 +32,11 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
-  - Stops at the lifecycle and conversion links; stage conversion and slippage belong to revops-pipeline-snapshots.
   - Needs timestamped lead status history and conversion links naming the records the approved accepted test relies on.
+  - Stops at the lifecycle and conversion links; stage conversion and slippage belong to revops-pipeline-snapshots.
   - As-of or at-conversion values need dated opportunity amount versions; without them they are reported as unproven.
   - Credits value across converting leads only; multi-touch marketing credit belongs to marketing-attribution-models.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
 related:
   - revops-pipeline-snapshots
   - master-b2b-account-hierarchy

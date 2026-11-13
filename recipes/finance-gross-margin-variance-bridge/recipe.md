@@ -38,11 +38,11 @@ works_with:
     - dbt
 qualifiers:
   - Needs sales lines for two comparable periods; lines lacking quantity or cost follow the approved disposition.
+  - Needs dated line, rate and mapping versions to prove a restatement; without them it reads unproven.
   - Takes line revenue and cost as given; allocating shared charges to lines is a separate outcome.
   - Explains the margin amount; a margin-rate bridge is a separate outcome.
   - Keeps each currency and unit of measure separate unless an approved rule applies.
   - Explains a change between two periods; plan versus actual and forecasting are separate.
-  - Needs dated line, rate and mapping versions to prove a restatement; without them it reads unproven.
   - Stops at the bridge; commentary, charts and repricing advice are separate outcomes.
 related:
   - finance-budget-forecast-actual

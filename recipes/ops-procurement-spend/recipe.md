@@ -32,12 +32,12 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Invoice lines, purchase-order lines and contracts arrive as landed tables; landing them is a separate outcome.
   - Supplier identity and item categories arrive conformed; matching suppliers and mapping items are separate outcomes.
   - Stops at the cube and contract flags; aging, duplicates, three-way match, rebates and savings are separate outcomes.
   - Without an approved contract-exempt list, spend with no contract on file is unproven, not non-compliant.
   - Currency conversion needs an approved rate source; without one, other-currency lines are shown apart from the totals.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - finance-ap-aging
   - finance-duplicate-invoice-detection

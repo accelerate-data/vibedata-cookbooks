@@ -31,12 +31,12 @@ works_with:
   tools:
     - dbt
 qualifiers:
+  - Needs the consuming dbt models to exist; moving them is another outcome.
   - Starts from an approved extract of the table with a stated boundary; it does not read the legacy database.
   - A table that keeps arriving as exports or grows belongs to an ingestion Recipe, not a seed.
   - Large or frequently changing tables are reported unsuitable, not seeded.
   - Retiring the legacy table or its writer is a separate approved step.
   - A table a routine derives from other data belongs to a writer-conversion Recipe, not a seed.
-  - Needs the consuming dbt models to exist; moving them is another outcome.
   - History to preserve belongs to dbt-snapshot-history; this seed holds the rows of the approved extract.
 related:
   - governed-spreadsheet-table

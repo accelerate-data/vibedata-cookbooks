@@ -34,7 +34,6 @@ works_with:
     - dlt
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; other listed targets rely on dlt and dbt support and are unassessed.
   - Needs a Studio route for dlt to read the drop; cloud buckets (ADLS, S3) have none today.
   - Needs each batch to arrive with a manifest stating its declared record count, or the batch cannot be judged.
   - Needs a source of expected batches; a batch neither expected nor delivered cannot be seen.
@@ -42,6 +41,7 @@ qualifiers:
   - Stops at subscriber-day usage; rating, billing, churn, ARPU, fraud and network quality are separate work.
   - Landing controls for layout, rescans and part-way failure follow file-drop-to-bronze.
   - A generic file drop with no usage rollup belongs to file-drop-to-bronze.
+  - Assessed end to end on duckdb_local only; other listed targets rely on dlt and dbt support and are unassessed.
 related:
   - file-drop-to-bronze
   - business-event-fact
