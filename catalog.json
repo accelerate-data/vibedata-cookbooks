@@ -25,6 +25,7 @@
       "id": "cross-functional",
       "kind": "function",
       "resolved_members": [
+        "accumulating-snapshot-procedure-to-dbt",
         "adf-mapping-data-flow-to-dlt-dbt",
         "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "api-to-bronze-incremental-contract",
@@ -110,7 +111,7 @@
           "cross-functional"
         ]
       },
-      "supported_or_proven_count": 72,
+      "supported_or_proven_count": 73,
       "title": "Any domain",
       "website_publication_threshold": 3,
       "website_visible": true
@@ -170,6 +171,7 @@
       "id": "duckdb",
       "kind": "platform",
       "resolved_members": [
+        "accumulating-snapshot-procedure-to-dbt",
         "adf-mapping-data-flow-to-dlt-dbt",
         "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "api-to-bronze-incremental-contract",
@@ -314,7 +316,7 @@
           "duckdb_local"
         ]
       },
-      "supported_or_proven_count": 131,
+      "supported_or_proven_count": 132,
       "title": "DuckDB",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -515,10 +517,12 @@
         "stored-procedure-to-dbt",
         "batched-loop-procedure-to-set-based-dbt",
         "scd-procedure-to-dbt-snapshot",
+        "accumulating-snapshot-procedure-to-dbt",
         "legacy-periodic-snapshot-to-dbt",
         "move-dbt-project-destination"
       ],
       "resolved_members": [
+        "accumulating-snapshot-procedure-to-dbt",
         "adf-mapping-data-flow-to-dlt-dbt",
         "assess-synapse-ssis-for-fabric",
         "batched-loop-procedure-to-set-based-dbt",
@@ -551,7 +555,7 @@
         "validation-procedure-to-dbt-tests",
         "visual-etl-mapping-to-dlt-dbt"
       ],
-      "supported_or_proven_count": 24,
+      "supported_or_proven_count": 25,
       "title": "Legacy and platform re-engineering",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -635,6 +639,7 @@
       "id": "microsoft-fabric",
       "kind": "platform",
       "resolved_members": [
+        "accumulating-snapshot-procedure-to-dbt",
         "adf-mapping-data-flow-to-dlt-dbt",
         "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "api-to-bronze-incremental-contract",
@@ -807,7 +812,7 @@
           "title": "Warehouse"
         }
       ],
-      "supported_or_proven_count": 134,
+      "supported_or_proven_count": 135,
       "title": "Microsoft Fabric",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -822,6 +827,7 @@
         "metric-population-and-rollups",
         "event-resource-attribution",
         "dbt-snapshot-history",
+        "accumulating-snapshot-procedure-to-dbt",
         "legacy-periodic-snapshot-to-dbt",
         "bitemporal-business-history",
         "retail-marketplace-settlement",
@@ -887,6 +893,7 @@
         "procurement-open-commitment-rollforward"
       ],
       "resolved_members": [
+        "accumulating-snapshot-procedure-to-dbt",
         "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "banking-aml-features",
         "banking-delinquency-vintages",
@@ -956,7 +963,7 @@
         "utilities-meter-to-bill",
         "versioned-data-contract-cutover"
       ],
-      "supported_or_proven_count": 68,
+      "supported_or_proven_count": 69,
       "title": "Build models that answer the right questions",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -966,6 +973,7 @@
       "id": "motherduck",
       "kind": "platform",
       "resolved_members": [
+        "accumulating-snapshot-procedure-to-dbt",
         "adf-mapping-data-flow-to-dlt-dbt",
         "adopt-boundary-data-contracts-on-existing-dbt-repo",
         "api-to-bronze-incremental-contract",
@@ -1112,7 +1120,7 @@
           "motherduck"
         ]
       },
-      "supported_or_proven_count": 133,
+      "supported_or_proven_count": 134,
       "title": "MotherDuck",
       "website_publication_threshold": 1,
       "website_visible": true
@@ -1334,6 +1342,72 @@
     }
   ],
   "recipes": [
+    {
+      "area": "transformation",
+      "description": "Move a legacy accumulating snapshot load into dbt, with later milestone dates filled in place, and prove after every run that process rows, milestone dates, statuses and duration measures match the approved baseline.",
+      "domain_objects": [
+        "legacy_load",
+        "accumulating_snapshot",
+        "business_process",
+        "milestone_date",
+        "replay_runs",
+        "dbt_model",
+        "approved_baseline",
+        "parity_report",
+        "follow_up"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "authoring-dbt-project-artifact",
+          "generating-dbt-model",
+          "dbt-unit-testing",
+          "running-dbt-in-sandbox",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "accumulating-snapshot-procedure-to-dbt",
+      "job_category": "re-engineer",
+      "path": "recipes/accumulating-snapshot-procedure-to-dbt/recipe.md",
+      "pitch": "Retire a hand-rolled milestone-filling load by proving dbt keeps every process row and milestone date after each run.",
+      "qualifiers": [
+        "Needs the load's per-run output or an approved rule baseline; history it never kept is not rebuilt.",
+        "One row per process filled in place; period, version and all-dates-at-insert loads belong elsewhere.",
+        "Versioned history is scd-procedure-to-dbt-snapshot; a fact with every date set at insert is stored-procedure-to-dbt."
+      ],
+      "readiness": "supported",
+      "related": [
+        "stored-procedure-to-dbt",
+        "scd-procedure-to-dbt-snapshot",
+        "dbt-snapshot-history",
+        "batched-loop-procedure-to-set-based-dbt",
+        "legacy-sql-to-dbt"
+      ],
+      "sha256": "dce972904e937f417c69acf189f13d97631f613b5e02425e44823fbfc621c61a",
+      "title": "Convert a legacy accumulating snapshot load into dbt and prove milestone parity",
+      "trigger": [
+        "A fact table holds one row per order, claim or case, filled in place as each milestone date arrives, by a procedure nobody wants to maintain.",
+        "The team is moving that load into dbt, but consumers need proof every row and milestone date still matches after each run, not only today.",
+        "A migration must keep the legacy fill, cancel and correction behaviour exactly before anyone improves it."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "dbt"
+        ]
+      }
+    },
     {
       "area": "transformation",
       "description": "Convert one exported ADF mapping data flow into a dlt pipeline for its external source reads and dbt models for its transformation graph, with a verdict for every step and each sink proven against the flow's approved reference output on an agreed slice.",
