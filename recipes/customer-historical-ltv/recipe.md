@@ -33,15 +33,15 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Needs revenue events with a customer key, a date and an amount, refunds with a recorded date, and a cost source.
+  - Needs a signup date source when the cohort anchors on signup, and kept history to reproduce a past as-of result.
   - Takes cost at order grain or as an order rate; allocating pooled cost is a separate outcome.
   - Keeps each currency separate; currency conversion is a separate outcome.
-  - Needs a signup date source when the cohort anchors on signup, and kept history to reproduce a past as-of result.
   - Reports realised history to an as-of date; predictive value and forecasting are separate outcomes.
   - Takes one customer key as given; customer matching and merging are separate outcomes.
   - Uses order or billed amounts as given; recognition, deferral, churn and retention are separate outcomes.
   - Stops at value by cohort and tenure; acquisition cost, payback and segmentation are separate outcomes.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - effective-dated-business-rules
   - metric-population-and-rollups

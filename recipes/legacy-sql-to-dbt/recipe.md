@@ -30,8 +30,8 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Needs the legacy output on the same inputs, from the legacy SQL or its current table.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
 related:
   - prove-dbt-change-safe
   - dbt-full-refresh-to-incremental

@@ -25,10 +25,10 @@ works_with:
     - dbt
 qualifiers:
   - Needs each required upstream feed to expose an approved readiness signal per period.
-  - Not yet assessed end to end on any listed target.
   - Needs an orchestrator that can wait for readiness, check it and fail a run.
   - Studio's orchestration templates do not yet include a readiness gate for every listed target.
   - Checks readiness by polling within an approved window; event-triggered starts are out of scope.
+  - Not yet assessed end to end on any listed target.
 related:
   - source-freshness-sla
   - fabric-data-pipeline-as-code

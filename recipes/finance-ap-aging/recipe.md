@@ -33,10 +33,10 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Settling as of a past date needs dated applications, or an approved rule linking payments and credits to bills.
   - Reproducing results as known on a past date needs entry timestamps or kept snapshots of the results.
   - Stops at aging and its roll-forward; duplicate detection, payment runs and ledger tie-out are separate.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - finance-ar-aging-dso
   - finance-gl-subledger-tieout

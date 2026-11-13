@@ -35,9 +35,9 @@ works_with:
     - oracle
     - postgresql
 qualifiers:
+  - Needs the tables the loop reads landed in the target; an ingestion Recipe lands them.
   - Reads the legacy database over a connected MCP server; any run of the procedure is approved and recorded.
   - A login that can write or run routines is reported; whether the run proceeds on it is approved.
-  - Needs the tables the loop reads landed in the target; an ingestion Recipe lands them.
   - Unifying several writers of one table is consolidate-legacy-table-writers-to-dbt; this replaces one procedure's loop.
   - A procedure with no loop is stored-procedure-to-dbt; one that keeps row history is scd-procedure-to-dbt-snapshot.
   - A loop with no stated set rule, or one the MCP cannot read, is reported unassessed, not converted.

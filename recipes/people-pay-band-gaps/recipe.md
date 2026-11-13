@@ -32,7 +32,6 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Pay, band and worker records arrive as landed tables; landing them is a separate outcome.
   - Stops at the check and the aggregate report; remediation, adjusted-gap modelling and pay planning are separate outcomes.
   - Restricting worker-level pay needs roles and grants (pii-classification-and-masking); without them it is a label.
@@ -40,6 +39,7 @@ qualifiers:
   - Statutory report formats and statistical significance are separate outcomes.
   - Hiding small groups alone does not make a figure safe to release; totals and other releases can reveal one.
   - Unless issued reports are frozen, a later correction restates them; frozen ones need kept snapshots.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - governed-spreadsheet-table
   - pii-classification-and-masking

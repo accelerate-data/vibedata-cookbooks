@@ -30,9 +30,9 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Downstream incremental models may still miss late, changed or deleted rows; fixing them is separate work.
   - Structural refactors with no materialization change belong to the dbt-refactor-output-identical Recipe.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
 related:
   - prove-dbt-change-safe
 evidence:

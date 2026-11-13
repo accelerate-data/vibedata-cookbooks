@@ -33,8 +33,8 @@ works_with:
     - oracle
     - postgresql
 qualifiers:
-  - Reads the legacy source over a connected MCP server only, such as Toolbox or postgres-mcp.
   - Needs the tables the construct reads landed in the target; landing them belongs to an ingestion Recipe.
+  - Reads the legacy source over a connected MCP server only, such as Toolbox or postgres-mcp.
   - A login that can write or run routines is reported; whether the run proceeds on it is approved.
   - Compares each construct's own statement; the routine, the table it writes and cutover stay with related Recipes.
   - Constructs in statements the source will not show, such as unreadable dynamic SQL, are named unassessed.

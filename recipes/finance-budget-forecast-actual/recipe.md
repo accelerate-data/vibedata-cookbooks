@@ -34,10 +34,10 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Budget and forecast arrive as landed tables; landing and governing the budget spreadsheet is a separate outcome.
   - A past report as issued needs kept snapshots; without them a later posting into a closed period restates it.
   - Stops at the comparison; allocations, driver-based planning and plan write-back are separate outcomes.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - governed-spreadsheet-table
   - effective-dated-business-rules

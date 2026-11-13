@@ -33,13 +33,13 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Needs consent events already landed as tables with source, status, event time, received time and identifier.
   - Takes the customer key and identifier mapping as given; matching and merging customers are separate outcomes.
   - Shows permission to contact only; contact frequency, pressure and send eligibility are separate outcomes.
   - Carries the lawful basis the user approves; deciding lawful basis or regional law is not part of it.
   - Publishes tables only; syncing the state or suppression list into sending tools is a separate outcome.
   - Cannot prove consent given outside the delivered feeds, or a state as known on a past date without received times kept.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - identity-golden-record-crosswalk
   - effective-dated-business-rules

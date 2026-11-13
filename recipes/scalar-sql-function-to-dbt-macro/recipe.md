@@ -31,10 +31,10 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Needs the unchanged function runnable on the same inputs, or its outputs captured on them.
   - Scalar functions only; rewriting a caller's own logic belongs to legacy-sql-to-dbt.
   - Excludes nondeterministic functions and those whose semantics need side effects, privileges or unreproducible state.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
 related:
   - legacy-sql-to-dbt
   - prove-dbt-change-safe

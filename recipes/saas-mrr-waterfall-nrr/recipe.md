@@ -35,9 +35,9 @@ works_with:
     - dbt
 qualifiers:
   - Subscription records must already be landed as tables; this Recipe does not ingest them.
+  - Needs dated, priced subscription terms; past results after backdated changes need kept history.
   - Keeps each currency separate; conversion is a separate outcome.
   - Counts recurring subscription revenue only; usage, one-off and recognised revenue are separate outcomes.
-  - Needs dated, priced subscription terms; past results after backdated changes need kept history.
   - Stops at MRR, waterfall and retention; forecasting, customer-count churn and billing ties are separate outcomes.
   - Restricting customer-level rows needs roles and grants; without them the restriction is a label only.
 related:

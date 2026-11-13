@@ -37,7 +37,6 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Contract, invoice, assignment and activity records arrive as landed tables; landing them is a separate outcome.
   - Stops at the utilisation report; renewal terms, deprovisioning and seat reclaim are separate outcomes.
   - Other plan models (usage-based, unlimited, pooled) need an approved treatment before they count as seats.
@@ -47,6 +46,7 @@ qualifiers:
   - Hiding small groups alone does not make a figure safe to release; totals and sibling cells can reveal one.
   - Unless issued periods are kept as retained copies, a late or backdated event restates the periods it affects.
   - Vendor activity feeds differ; unless approved otherwise, no feed or a declared gap reads unknown, not inactive.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - people-pay-band-gaps
   - metric-population-and-rollups

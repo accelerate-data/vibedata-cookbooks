@@ -27,8 +27,8 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Complete snapshot outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Records available changes; present-state snapshots cannot reconstruct unobserved history.
+  - Complete snapshot outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
 evidence:
   features:
     - profiling-source-data

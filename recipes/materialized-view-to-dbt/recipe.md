@@ -28,8 +28,8 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Not yet assessed end to end on fabric_lakehouse, redshift or databricks.
   - Needs the view's definition (Studio can't yet read it on these targets), refresh rule and output at refresh points.
+  - Not yet assessed end to end on fabric_lakehouse, redshift or databricks.
 related:
   - legacy-sql-to-dbt
   - dbt-full-refresh-to-incremental

@@ -35,11 +35,11 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Needs order lines (promise date, quantity) and shipment legs (dates, quantities, plus plant and carrier for the cuts).
   - Stops at delivery verdicts and cuts; freight cost, carrier contracts, forecasting and inventory are separate outcomes.
   - A past as-of date reproduces only from kept promise and cancellation history; a rebuild restates it.
   - Order and shipment tables already in the Domain; exported files go to file-drop-to-bronze first.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - logistics-fleet-utilization
   - service-ticket-sla

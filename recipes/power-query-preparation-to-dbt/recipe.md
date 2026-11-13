@@ -30,11 +30,11 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed on duckdb_local only; date, number and type handling on other platforms is unassessed.
   - Needs the exported M of the selected queries, the parameter values they run with and the project locale.
   - Needs the queries' own refresh output on the agreed window, or an approved reference built from their semantics.
   - Reads landed source tables; Studio has no Power Query engine, so the queries are read from their export.
   - Incremental-refresh partitions, fuzzy merges and privacy-level behaviour are out of scope and reported as not converted.
+  - Assessed on duckdb_local only; date, number and type handling on other platforms is unassessed.
 related:
   - file-drop-to-bronze
   - visual-etl-mapping-to-dlt-dbt

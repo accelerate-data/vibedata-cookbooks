@@ -25,11 +25,11 @@ works_with:
     - dlt
     - dbt
 qualifiers:
-  - Not yet assessed end to end on fabric_lakehouse or fabric_warehouse.
+  - Needs a Studio route for dlt to read source files; cloud buckets (ADLS, S3) have none today.
   - Sequences existing loads and dbt models; it authors only the pipeline, its schedule and the items that invoke them.
   - Outside a Fabric Domain only the committed definition can be proven; running it needs a Fabric workspace.
-  - Needs a Studio route for dlt to read source files; cloud buckets (ADLS, S3) have none today.
   - Scheduling on MotherDuck belongs to motherduck-flight-scheduling.
+  - Not yet assessed end to end on fabric_lakehouse or fabric_warehouse.
 related:
   - motherduck-flight-scheduling
   - source-freshness-sla

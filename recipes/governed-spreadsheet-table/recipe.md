@@ -30,12 +30,12 @@ works_with:
     - dlt
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
+  - Needs a Studio route for dlt to read the file; cloud buckets (ADLS, S3) have none today.
   - A recurring feed of delivered files that state their own completeness is file-drop-to-bronze.
   - Each export must be a full copy of the sheet; a partial extract or change feed is out of scope.
   - Covers a delimited text export such as CSV; reading a workbook directly is out of scope.
   - Sized for spreadsheet-scale files, not large extracts.
-  - Needs a Studio route for dlt to read the file; cloud buckets (ADLS, S3) have none today.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
 evidence:
   features:
     - capturing-requirements

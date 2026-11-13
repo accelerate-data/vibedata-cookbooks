@@ -32,11 +32,11 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Needs contract lines carrying their allocated price and dated terms; price allocation is a separate outcome.
   - Treats each contract line as one performance obligation; combining lines into one obligation is a separate outcome.
   - On business dates alone, a backdated change restates earlier periods; reproducing them needs kept history.
   - Stops at the schedule and roll-forward; journal postings, period locking and translation are separate.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - finance-ar-aging-dso
   - finance-gl-subledger-tieout

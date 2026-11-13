@@ -35,8 +35,8 @@ works_with:
     - oracle
     - postgresql
 qualifiers:
-  - Reads over a connected MCP server only, such as Toolbox for SQL Server and Oracle or postgres-mcp for PostgreSQL.
   - Needs the tables the writers read landed in the target; landing them belongs to an ingestion Recipe.
+  - Reads over a connected MCP server only, such as Toolbox for SQL Server and Oracle or postgres-mcp for PostgreSQL.
   - A login that can write or run routines is reported; whether the run proceeds on it is approved.
   - A table one routine maintains, in one or several modes, belongs to stored-procedure-to-dbt.
   - Unreadable writers, writers outside the database and string-built writes it cannot resolve are named unassessed.

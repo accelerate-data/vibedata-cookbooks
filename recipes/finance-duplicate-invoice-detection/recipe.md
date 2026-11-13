@@ -33,11 +33,11 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Produces a candidate and hold list; it does not block, release or post anything in the payables or payment system.
   - Stops at duplicate candidates; purchase order matching, recovering paid duplicates and supplier clean-up are separate.
   - Results as known on a past date need entry timestamps or kept snapshots of the results.
   - Past hold lists are not kept; a rule or list change restates every result.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - finance-ap-aging
   - identity-golden-record-crosswalk

@@ -31,9 +31,9 @@ works_with:
     - dlt
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Needs read access to the connector's landed tables and to the source the connector reads.
   - Database sources need a dlt route Studio supports; its sql_database route is not supported today.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
 related:
   - api-to-bronze-incremental-contract
   - legacy-sql-to-dbt

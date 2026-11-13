@@ -32,9 +32,9 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Needs a source recording when each change was captured; knowledge is never rebuilt from a snapshot.
   - Both time axes at once; business-axis history alone belongs to the dimension history Recipe.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
 evidence:
   features:
     - profiling-source-data

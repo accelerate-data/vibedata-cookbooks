@@ -33,10 +33,10 @@ works_with:
     - dlt
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Needs the exported data flow definition and read access to the sources its reads and sinks name.
   - Needs the flow's own output on the agreed slice, or an approved reference built from its declared semantics.
   - Studio has no ADF connection; the flow is read from its exported definition and never run or edited.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
 related:
   - legacy-sql-to-dbt
   - spark-ingestion-notebook-to-dlt

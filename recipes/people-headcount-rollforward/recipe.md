@@ -35,10 +35,10 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Past headcount needs effective-dated job history; a current-state worker table cannot show past moves.
   - Reproducing figures as known on a past date needs entry timestamps or kept snapshots of the results.
   - Stops at headcount, FTE and the roll-forward; attrition, tenure, payroll and positions are separate.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - effective-dated-business-rules
   - dbt-snapshot-history

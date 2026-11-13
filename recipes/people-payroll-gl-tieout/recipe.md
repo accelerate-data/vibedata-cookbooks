@@ -33,12 +33,12 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
-  - Linking postings to pay runs needs a run reference on the ledger or an approved matching rule.
   - Needs a pay-code mapping to GL accounts, supplied or agreed; the Recipe never infers one.
+  - Linking postings to pay runs needs a run reference on the ledger or an approved matching rule.
   - Reproducing a past tie-out after rule or source changes needs kept history of the tie-out.
   - Stops at the classified tie-out; payroll calculation, correcting journals and sign-off are separate outcomes.
   - Payroll registers keyed by pay run; document-linked control accounts belong to finance-gl-subledger-tieout.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - finance-gl-subledger-tieout
   - effective-dated-business-rules
