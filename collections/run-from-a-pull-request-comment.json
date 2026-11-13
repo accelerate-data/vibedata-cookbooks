@@ -2,7 +2,7 @@
   "id": "run-from-a-pull-request-comment",
   "title": "Run from a pull-request comment",
   "kind": "curated",
-  "description": "Recipes for a change already open in a Domain pull request, which a writer can ask for with @vibedata in a top-level comment. Needs a Domain with a CI bundle (not Redshift, BigQuery, MotherDuck without auth or local installs). Agent questions are answered in Studio.",
+  "description": "Recipes whose result is a change pushed to a Domain pull request, asked for by a repository writer tagging @vibedata in a top-level comment. On a pull request no Vibedata Intent owns, the work arrives as a new pull request. Needs a Domain with a CI bundle (not Redshift or MotherDuck without authentication) on a non-ambient install GitHub can reach. Agent questions are answered in Studio.",
   "members": [
     "prove-dbt-change-safe",
     "dbt-refactor-output-identical",
