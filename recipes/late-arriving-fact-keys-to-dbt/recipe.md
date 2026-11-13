@@ -36,9 +36,9 @@ works_with:
     - oracle
     - postgresql
 qualifiers:
+  - Needs the fact's inputs and dimensions landed in the target; an ingestion Recipe lands them.
   - Reads over a connected MCP server, such as Toolbox for SQL Server and Oracle or postgres-mcp for PostgreSQL.
   - Any run of a legacy routine is approved and recorded; a login that can write or run routines is reported.
-  - Needs the fact's inputs and dimensions landed in the target; an ingestion Recipe lands them.
   - Several writers of one table is consolidate-legacy-table-writers-to-dbt.
   - A paging loop is batched-loop-procedure-to-set-based-dbt; a load with no dimension lookup is stored-procedure-to-dbt.
   - Keeping dimension history is scd-procedure-to-dbt-snapshot; replayed deliveries belong to business-event-fact.

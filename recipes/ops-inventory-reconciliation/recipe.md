@@ -30,12 +30,12 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - A timing reason needs a movement log and evidence the approved rule accepts of which system lagged.
   - Quantities only; valuation, availability promising and consignment ownership settlement are separate outcomes.
   - Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze.
   - Stops at the classified reconciliation; posting adjustments back to a system is a separate outcome.
   - Reproducing a past count date after rule or source changes needs kept history of the sources.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - finance-gl-subledger-tieout
   - effective-dated-business-rules

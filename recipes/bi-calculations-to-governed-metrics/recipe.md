@@ -22,17 +22,23 @@ domain_objects:
 works_with:
   platforms:
     - duckdb_local
+    - motherduck
+    - fabric_lakehouse
+    - fabric_warehouse
+    - redshift
+    - databricks
   tools:
     - dbt
+    - ossie
 qualifiers:
-  - Assessed end to end on duckdb_local only; other platforms are unassessed.
-  - Defines metrics in the Domain's canonical semantic model, creating it where the Domain has none.
-  - A metric shape the model's compiler refuses is declared, proven independently and not queryable until it compiles.
   - The source measures and relationships must be readable as text, such as a TMDL or BIM export.
   - The report's tables must already be Domain relations; loading exported files belongs to file-drop-to-bronze.
+  - Defines metrics in the Domain's canonical semantic model, creating it where the Domain has none.
+  - A metric shape the model's compiler refuses is declared, proven independently and not queryable until it compiles.
   - Rebuilding the report's data preparation, such as Power Query steps, is a separate outcome.
   - Does not publish Direct Lake models; sources are existing BI measures.
   - Code and documents only; the report, its row-level security and access rules are not switched, edited or retired.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
 related:
   - governed-metrics-in-semantic-model
   - fabric-direct-lake-semantic-model

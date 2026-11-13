@@ -33,8 +33,8 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Flights, revisions, spend and bills arrive as landed tables; ingesting them is a separate outcome.
   - Needs recorded times on revisions, pauses, spend, bills, adjustments, versioned flights; past knowledge is not rebuilt.
+  - Flights, revisions, spend and bills arrive as landed tables; ingesting them is a separate outcome.
   - Reporting only; bid changes, forecasts and acquisition payback are separate outcomes.
 related:
   - finance-budget-forecast-actual

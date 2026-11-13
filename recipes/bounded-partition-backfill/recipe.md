@@ -29,8 +29,8 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Converting a model to incremental for routine runs belongs to the dbt-full-refresh-to-incremental Recipe.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
 related:
   - dbt-full-refresh-to-incremental
   - dbt-refactor-output-identical

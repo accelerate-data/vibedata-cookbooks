@@ -33,10 +33,10 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Billing needs a stated booking-line reference and cash a stated invoice application, or an approved matching rule.
   - Stops at the classified tie; revenue recognition, ageing, commission and ledger tie-out are separate outcomes.
   - Reproducing a past as-of result after back-dated changes needs kept history; a rebuild restates it.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - finance-gl-subledger-tieout
   - finance-ar-aging-dso

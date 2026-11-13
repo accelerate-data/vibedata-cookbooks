@@ -34,8 +34,8 @@ works_with:
     - oracle
     - postgresql
 qualifiers:
-  - Reads over a connected MCP server only, such as Toolbox for SQL Server and Oracle or postgres-mcp for PostgreSQL.
   - Needs the checked tables landed in the target; landing them belongs to an ingestion Recipe.
+  - Reads over a connected MCP server only, such as Toolbox for SQL Server and Oracle or postgres-mcp for PostgreSQL.
   - A login that can write or run routines is reported; whether the run proceeds on it is approved.
   - A procedure that also loads a table belongs to stored-procedure-to-dbt; freshness to source-freshness-sla.
   - Notices, logging and other side effects of the procedure are replaced as approved or reported as not reproduced.

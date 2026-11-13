@@ -26,13 +26,13 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Not yet assessed end to end on fabric_warehouse, redshift or databricks.
   - Needs database roles or groups and per-object grants on the target; DuckDB and MotherDuck have neither.
   - Applying the roles and grants and running the role checks need a live warehouse and approval to change access.
   - Fabric Lakehouse is excluded because its SQL endpoint grants do not govern OneLake or Spark reads.
   - Assumes the lower-privilege audience has no storage-level read path that bypasses database grants.
   - Finds personal data inside free text only as far as the approved discovery rules reach.
   - Row-level security, sensitivity labels, encryption, erasure and access auditing are outside this Recipe.
+  - Not yet assessed end to end on fabric_warehouse, redshift or databricks.
 related:
   - identity-standardize-names-addresses
   - identity-golden-record-crosswalk

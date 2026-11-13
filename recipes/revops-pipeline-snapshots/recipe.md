@@ -28,9 +28,9 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - History starts at the first snapshot; earlier pipeline cannot be reconstructed from present state.
   - Capture cannot see changes that happen and revert between two captures; longer periods hide more.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Assessed with a labelled synthetic fixture standing in for the CRM; no live opportunity source was captured.
   - Assessed at a daily period only; rules for other periods, capture moments, late runs and empty reads are unassessed.
 related:

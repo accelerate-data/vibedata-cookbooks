@@ -35,7 +35,6 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Inputs are landed tables; loading files or extracts belongs to file-drop-to-bronze.
   - A sale's owner comes from the source or an approved rule; a sale with neither follows the approved disposition.
   - Amounts stay in the contract currency unless approved conversion rates are supplied.
@@ -43,6 +42,7 @@ qualifiers:
   - Obligations from the passage of time (aged-stock title transfer), minimum guarantees or tax postings are separate.
   - Repricing sales after the terms change needs dated contract versions; without them restatement is unproven.
   - A late or backdated record is detected only with a posted time; without one restatement is unproven.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - ops-inventory-reconciliation
   - inventory-valuation-cogs

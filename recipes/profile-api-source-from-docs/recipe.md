@@ -29,11 +29,11 @@ works_with:
   tools:
     - dlt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
-  - Stops at a profiled sample; loading, cursors and schema contracts belong to the API ingestion Recipe.
   - Needs the API's documentation in Context7 or supplied by the user; unreadable docs stop the run.
+  - Stops at a profiled sample; loading, cursors and schema contracts belong to the API ingestion Recipe.
   - An API with no mounted connector is declared by hand; add-or-update-source cannot configure it.
   - A sample shows only its own slice; behaviour outside it stays unproven.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
 related:
   - api-to-bronze-incremental-contract
 evidence:

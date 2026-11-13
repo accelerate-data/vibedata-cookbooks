@@ -30,9 +30,9 @@ works_with:
   tools:
     - dlt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
   - Needs the notebook's code, the tables it landed, and read access to the files it reads.
   - Needs a Studio route for dlt to read the notebook's source files; cloud buckets (ADLS, S3) have none today.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
 related:
   - managed-connector-to-dlt
   - notebook-transformation-to-dbt

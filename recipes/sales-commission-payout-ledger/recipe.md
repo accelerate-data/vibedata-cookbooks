@@ -31,10 +31,10 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
-  - Prices approved credit against plan and quota data; payments, holds and cancellations are separate inputs.
   - Needs approved eligible credit; plan rules may be captured as data. Eligibility belongs to the quota Recipe.
+  - Prices approved credit against plan and quota data; payments, holds and cancellations are separate inputs.
   - Calculates obligations only; it never executes payroll or payment.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
 related:
   - revops-quota-commission
   - effective-dated-business-rules

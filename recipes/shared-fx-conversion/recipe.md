@@ -30,13 +30,13 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Needs amounts with a currency code and a date, and rate quotes with a quote date and a source.
   - Takes the quotes as supplied; sourcing a rate feed and checking it against a provider are separate outcomes.
   - Converts to an approved reporting currency; translation, exchange gain or loss, hedging and consolidation are separate.
   - Reproducing a past run needs kept rate versions with their recorded time; without them the outcome says it cannot.
   - Keeps each original currency apart; netting across currencies, pricing and rate forecasting are separate outcomes.
   - Rates are inputs to conversion, not general dated business rules; effective-dated rules are a separate outcome.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - effective-dated-business-rules
   - customer-historical-ltv

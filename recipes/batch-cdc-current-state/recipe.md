@@ -29,8 +29,8 @@ works_with:
     - dlt
     - dbt
 qualifiers:
-  - Finite exported batches only; a live streaming connector is out of scope.
   - Needs a source position that orders events within a table, and a signal of transaction completeness.
+  - Finite exported batches only; a live streaming connector is out of scope.
   - Reading the source tables belongs to database-tables-to-bronze; delivering the files belongs to file-drop-to-bronze.
   - Keeping every event as a fact, or history of row versions, belongs to business-event-fact and dbt-snapshot-history.
 related:

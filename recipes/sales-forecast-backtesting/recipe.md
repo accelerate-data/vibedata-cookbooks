@@ -30,9 +30,9 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Submissions must have been captured when made; a present-day CRM export cannot supply missing history.
   - Scores forecast accuracy only; capturing pipeline state and building a forecast are separate outcomes.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - revops-pipeline-snapshots
   - revops-bookings-billings-cash

@@ -30,8 +30,8 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
   - Needs the notebook's output on the same inputs, from a run of the unchanged notebook or its current table.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
 related:
   - legacy-sql-to-dbt
   - prove-dbt-change-safe

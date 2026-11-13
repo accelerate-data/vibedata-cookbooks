@@ -33,13 +33,13 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
   - Accounts and transactions must already be landed as tables with the dates the approved time basis needs.
   - Features derive from transactions only; balance-based features need an as-known balance source and are out of scope.
   - Publishes features only; alerts, cases, SAR filing, sanctions screening and risk rating are separate.
   - Account grain only; customer or network roll-ups need entity resolution first.
   - Where a risk-list feature is approved, the list is needed with its effective dates.
   - Reader restriction needs platform roles; DuckDB and MotherDuck have none, so access there is reported unproven.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dbt support and are unassessed.
 related:
   - customer-retention-churn-features
   - identity-golden-record-crosswalk

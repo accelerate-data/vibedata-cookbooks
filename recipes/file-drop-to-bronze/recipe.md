@@ -29,12 +29,12 @@ works_with:
   tools:
     - dlt
 qualifiers:
-  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
   - Needs a Studio route for dlt to read the drop; cloud buckets (ADLS, S3) have none today.
   - Needs each delivery to state its own completeness, such as a control file.
   - Covers delimited text files such as CSV; JSON, Parquet and Excel are out of scope.
   - Reading an API or a database belongs to api-to-bronze-incremental-contract or database-tables-to-bronze.
   - A hand-maintained sheet re-exported whole belongs to governed-spreadsheet-table.
+  - Assessed end to end on duckdb_local only; the other listed targets rely on dlt support and are unassessed.
 related:
   - api-to-bronze-incremental-contract
   - managed-connector-to-dlt
