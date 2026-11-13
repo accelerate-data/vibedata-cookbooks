@@ -65,6 +65,7 @@
         "inventory-legacy-database-over-mcp",
         "late-arriving-fact-keys-to-dbt",
         "legacy-reference-table-to-dbt-seed",
+        "legacy-sql-repository-migration-index",
         "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "managed-connector-to-dlt",
@@ -229,6 +230,7 @@
         "inventory-valuation-cogs",
         "late-arriving-fact-keys-to-dbt",
         "legacy-reference-table-to-dbt-seed",
+        "legacy-sql-repository-migration-index",
         "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
@@ -487,6 +489,7 @@
         "inventory-legacy-database-over-mcp",
         "plan-legacy-procedure-package-intents",
         "plan-legacy-warehouse-layers-to-dbt-intents",
+        "legacy-sql-repository-migration-index",
         "publish-boundary-contracts-on-re-engineered-gold",
         "consolidate-legacy-table-writers-to-dbt",
         "late-arriving-fact-keys-to-dbt",
@@ -522,6 +525,7 @@
         "inventory-legacy-database-over-mcp",
         "late-arriving-fact-keys-to-dbt",
         "legacy-reference-table-to-dbt-seed",
+        "legacy-sql-repository-migration-index",
         "legacy-sql-to-dbt",
         "managed-connector-to-dlt",
         "materialized-view-to-dbt",
@@ -689,6 +693,7 @@
         "inventory-valuation-cogs",
         "late-arriving-fact-keys-to-dbt",
         "legacy-reference-table-to-dbt-seed",
+        "legacy-sql-repository-migration-index",
         "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
@@ -1015,6 +1020,7 @@
         "inventory-valuation-cogs",
         "late-arriving-fact-keys-to-dbt",
         "legacy-reference-table-to-dbt-seed",
+        "legacy-sql-repository-migration-index",
         "legacy-sql-to-dbt",
         "life-sciences-enrollment",
         "logistics-fleet-utilization",
@@ -5435,6 +5441,73 @@
         ],
         "tools": [
           "dbt"
+        ]
+      }
+    },
+    {
+      "area": "re-engineering",
+      "description": "Scan the SQL files of a legacy repository at a named revision without changing them, index its tables, views, procedures and functions and the reads, writes and calls between them with source evidence, and report what cannot be resolved, the dependency order, blockers and candidate migration scopes.",
+      "domain_objects": [
+        "legacy_sql",
+        "database_object",
+        "stored_procedure",
+        "procedure_call_graph",
+        "table_writer_map",
+        "inventory_report",
+        "migration_plan"
+      ],
+      "evidence": {
+        "evals": [],
+        "features": [
+          "capturing-requirements",
+          "verifying"
+        ]
+      },
+      "function": [
+        "cross-functional"
+      ],
+      "id": "legacy-sql-repository-migration-index",
+      "job_category": "re-engineer",
+      "path": "recipes/legacy-sql-repository-migration-index/recipe.md",
+      "pitch": "Know what a legacy SQL repository holds and what depends on what, with evidence and honest gaps, before anyone picks a migration scope.",
+      "qualifiers": [
+        "Planned until a product parser splits and classifies routine bodies and calls in T-SQL, PL/SQL and PL/pgSQL.",
+        "Reads files in the Intent's repository; a live database is inventory-legacy-database-over-mcp.",
+        "Fabric verdicts and a go or no-go for a Synapse or SSIS export belong to assess-synapse-ssis-for-fabric.",
+        "Stops at the index and candidate scopes; plans, dispositions, conversion and Intents are other Recipes.",
+        "Business-domain ownership of tables and views is not assigned; the index is an engineering input.",
+        "A dialect the scan cannot read is reported unparsed, never guessed or skipped.",
+        "Static reading cannot show runtime behaviour, string-built targets or objects created outside the repository."
+      ],
+      "readiness": "planned",
+      "related": [
+        "inventory-legacy-database-over-mcp",
+        "plan-legacy-procedure-package-intents",
+        "plan-legacy-warehouse-layers-to-dbt-intents",
+        "stored-procedure-to-dbt",
+        "legacy-sql-to-dbt",
+        "assess-synapse-ssis-for-fabric"
+      ],
+      "sha256": "1233df3b685f08348d4668a4e8551e05438ff31d1739971a70127dd74c6ac635",
+      "title": "Index a legacy SQL repository's objects and dependencies for migration planning",
+      "trigger": [
+        "A legacy warehouse's SQL, or a DDL snapshot, is committed to a repository and nobody can say what objects exist or what depends on what before migration scope is chosen.",
+        "The team needs the tables, views, procedures and functions found, with what reads, writes or calls each, before it picks what to migrate first.",
+        "The repository holds duplicate definitions, objects with no definition, string-built SQL or files that do not parse, and the team needs them listed, not guessed."
+      ],
+      "works_with": {
+        "platforms": [
+          "duckdb_local",
+          "motherduck",
+          "fabric_lakehouse",
+          "fabric_warehouse",
+          "redshift",
+          "databricks"
+        ],
+        "tools": [
+          "sql_server",
+          "oracle",
+          "postgresql"
         ]
       }
     },
