@@ -32,7 +32,7 @@ works_with:
     - dbt
 qualifiers:
   - Needs the consuming dbt models to exist; moving them is another outcome.
-  - Starts from an approved extract with a stated boundary, supplied or taken once over approved read-only access.
+  - Starts from an approved extract with a stated boundary, supplied or read over approved read-only access.
   - A table that keeps arriving as exports or grows belongs to an ingestion Recipe, not a seed.
   - Large or frequently changing tables are reported unsuitable, not seeded.
   - Retiring the legacy table or its writer is a separate approved step.
@@ -65,7 +65,7 @@ Move the approved reference table <legacy_table> into a version-controlled dbt s
 
 - The owner's approval as a seed, with size, rate of change and storage permission, is recorded before any seed exists; a table the repository may not hold, above the approved size or rate, derived by a routine, or seeded only because nothing writes it, is reported unsuitable and no seed is made.
 - The extraction boundary (rows, as-of time or version, how taken) is stated and rows it leaves out are counted with their reason as approved. The seed equals the current approved extract value for value, apart from approved corrections and set-aside rows, each listed, shown by count and checksum.
-- Each column holds its approved type, read back from the target rather than guessed from the file; the approved key is unique and never null in the seed, or each exception is named under its approved disposition, and keys are compared under the approved case, whitespace and collation rule.
+- Each column holds its approved type, read back from the target, with any part it does not enforce, such as a length, held by a test; the approved key is unique and non-null, or each exception is named under its approved disposition, compared under the approved case, whitespace and collation rule.
 - Values that file formats alter survive on cases the shipped data may not hold: a leading-zero code keeps its zeros, numeric text its precision, and delimiters, quotes, accents and long text are unchanged. Empty and missing stay distinct under the approved encoding, or the gap is reported unproven.
 - A duplicate key or missing key in the extract, and a consumer key the seed lacks, each follow the approved disposition, with offending items named and any set-aside row counted with its reason; none is dropped, collapsed or defaulted outside it.
 - Every key the consuming models carry resolves to the seed, or follows its approved disposition and is counted; references from the seed to other tables and from other tables to it are checked as approved, and consumer rows with an empty key are counted, not lost.
@@ -93,7 +93,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 ### Ask first
 
 - If unresolved, is this table suitable to be a seed, who approves that, what size or rate of change makes it unsuitable, may its values be stored in the repository and read by whom, and is it derived by a routine rather than maintained directly?
-- If unresolved, what is the extraction boundary: which rows, as of what time or version, taken how, which rows it leaves out, such as inactive or deleted ones, and which count and checksum stand for it?
+- If unresolved, what is the extraction boundary: which rows, as of what time or version, taken how and over which approved read-only access if read from the legacy database, which rows it leaves out, such as inactive or deleted ones, and which count and checksum stand for it?
 - If unresolved, what is the key, how are keys compared for case, whitespace and collation, what are the column types, and how are leading zeros, empty versus missing values, precision, length and encoding kept?
 - If unresolved, how are a duplicate key, a missing key, a consumer row with an empty key, a consumer key absent from the seed, and references to or from other tables treated: failed, set aside, kept as today or flagged?
 - If unresolved, does the table carry validity ranges or effective dates, and how are overlaps, gaps and each consumer's as-of rule handled?
