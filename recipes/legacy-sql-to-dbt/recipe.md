@@ -2,10 +2,10 @@
 id: legacy-sql-to-dbt
 title: Convert a legacy SQL script or view into a dbt model and prove parity
 trigger:
-  - A report or table is still produced by a hand-run SQL script or a database view outside dbt, with no tests, lineage or review.
+  - A report or table is still produced by a hand-run SQL script, a database view or a procedure that rebuilds it in full each run, outside dbt, with no tests, lineage or review.
   - The team wants to retire a legacy script, but its consumers need proof that the dbt version returns exactly the same rows.
   - Transformation logic written as step-by-step SQL (temp tables, updates, deletes) has to move into the dbt project.
-description: Bring a legacy SQL script or view into dbt as models that publish the same contract, proven against the legacy logic's own output on the same inputs, with legacy defects reproduced and reported as follow-up work.
+description: Bring a legacy SQL script, view or procedure that rebuilds its whole output each run into dbt as models that publish the same contract, proven against the legacy logic's own output on the same inputs, with legacy defects reproduced and reported as follow-up work.
 pitch: Retire a hand-run SQL script by rebuilding it in dbt and proving the new models return exactly what the old one did.
 job_category: re-engineer
 area: transformation
@@ -60,7 +60,7 @@ Convert <legacy_sql> into dbt models in the current Intent so that the published
 - The published model keeps the approved contract, covering whichever of relation name, columns, column order, types and materialization the approved contract counts as unchanged output.
 - Published rows match the output of the unchanged legacy logic on the agreed inputs at the approved precision, compared both ways with duplicate rows counted; any difference left is reported and parity is not claimed for it.
 - The match holds in each approved execution environment and time zone; independence from the time zone is required only where the consumer contract already includes it.
-- Every legacy behaviour that affects the published output is reproduced, including implicit ones such as nulls that void a sum or inner joins that drop unmatched records.
+- Every legacy behaviour that affects the published output is reproduced, including implicit ones such as nulls that void a sum, inner joins that drop unmatched records or the source engine's case-insensitive collation.
 - Each legacy defect found is listed with the output it affects, the rule it appears to break and what correcting it would change, as follow-up work.
 - For material legacy behaviours the comparison inputs do not exercise, such as a boundary outside the compared period or a key with no match, parity is verified with the unchanged legacy logic or another approved oracle where one is available; otherwise the gap is stated.
 - Output parity is kept separate from consumer cutover: where the published model takes over the existing consumer-facing interface, the legacy implementation is retired as approved after parity is accepted; where consumers move later, that interface stays available until the cutover.
@@ -89,7 +89,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - If unresolved, which project structure and layering conventions must the models follow, or should they mirror the legacy SQL as one model?
 - If unresolved, which parameters does the legacy SQL take, what value stands in for any current date or time it reads while comparing, which values and inputs form the comparison, are values compared exactly or within an approved precision, and in which environments and time zones must it match?
 - If unresolved, once parity is accepted and any consumer cutover is complete, is the legacy artifact kept and marked retired, or removed?
-- If unresolved, when the legacy SQL cannot run on the target engine, where does the baseline output come from, for example the legacy relation's current table, and who approves it?
+- If unresolved, where does the baseline output come from (the legacy SQL run on the agreed inputs, its current table, or both where they agree), what happens when they differ, and who approves it?
 
 ### Guardrails
 
@@ -98,7 +98,8 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - Do not correct a legacy defect, such as turning an inner join into an outer join; reproduce it, report it as follow-up work, and route any wanted output change to a separate change.
 - Do not treat a green build or a passing test suite as proof of parity; the proof is the comparison against the legacy output.
 - Do not claim exact parity when the legacy output itself varies from run to run; report what cannot be proven.
-- Do not let constructed proof inputs reach the published model or the copies that stand for the legacy data; keep them apart, named as such, and report their results separately.
+- Do not let constructed proof inputs reach the published relations or the copies that stand for the legacy data; run them only in a separate, named test build, and report their results separately.
+- Do not fix the stand-in for a current date or time into the published model; use it only for the comparison, and keep reading the clock where the legacy SQL does.
 - Do not widen a tolerance, or narrow the contract, the compared inputs or the approved precision, to make the comparison pass.
 - Do not change the output of models outside the conversion.
 - Do not extend the conversion into restructuring other models, incremental loading, performance tuning, repointing dashboards or moving to another platform.

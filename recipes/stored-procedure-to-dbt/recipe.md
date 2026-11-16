@@ -30,7 +30,7 @@ works_with:
     - dbt
 qualifiers:
   - Needs the procedure's table after each compared run, from the unchanged procedure or approved snapshots.
-  - Views and one-shot scripts that rebuild their whole output each run belong to the legacy-sql-to-dbt Recipe.
+  - Views, one-shot scripts and procedures that rebuild their whole output each run belong to legacy-sql-to-dbt.
   - Procedures that keep row history, such as hand-rolled slowly changing dimensions, are out of scope.
   - Applies when the maintained table is the required outcome and all relevant behaviour is represented through its state.
   - Not yet assessed end to end on fabric_warehouse, redshift or databricks.
