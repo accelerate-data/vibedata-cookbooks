@@ -32,7 +32,7 @@ works_with:
     - dbt
 qualifiers:
   - Needs the consuming dbt models to exist; moving them is another outcome.
-  - Starts from an approved extract of the table with a stated boundary; it does not read the legacy database.
+  - Starts from an approved extract with a stated boundary, supplied or taken once over approved read-only access.
   - A table that keeps arriving as exports or grows belongs to an ingestion Recipe, not a seed.
   - Large or frequently changing tables are reported unsuitable, not seeded.
   - Retiring the legacy table or its writer is a separate approved step.
@@ -80,7 +80,7 @@ Move the approved reference table <legacy_table> into a version-controlled dbt s
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. From the extract, the project's lineage and the owner's statement, find who reads the table and judge its size and rate of change; state consumers and writers outside the project as unknown. Profile the extract for keys, types, nulls and text edge cases. Record what the extract is, how it was taken and checked, so the seed is never both the copy and its own proof. Declare column types rather than letting the loader infer them, and check what the target stores. Prove content, type, key and relationship rules with inputs that separate a faithful load from a lossy one: leading-zero codes, empty versus missing values, trailing-zero decimals, delimiters, quotes, accents, a duplicate code, a missing code, a reworded code and a deleted code. Run them on throwaway copies outside the seed paths, restore the seed after each, and record what was observed. Compare consumer output with an expectation held outside the model. Keep the owner, approval, boundary, change procedure and measured effect of a change beside the seed. Report how other platforms would load the seed and what was not assessed.
+Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. From the extract, the project's lineage and the owner's statement, find who reads the table and judge its size and rate of change; state consumers and writers outside the project as unknown. Profile the extract for keys, types, nulls and text edge cases. Record what the extract is, how it was taken and checked, so the seed is never both the copy and its own proof. Declare column types rather than letting the loader infer them, establishing whether each declared length counts characters or bytes on the source and on the target, and check what the target stores; test any approved limit the target does not enforce, such as a text length. Prove content, type, key and relationship rules with inputs that separate a faithful load from a lossy one: leading-zero codes, empty versus missing values, trailing-zero decimals, delimiters, quotes, accents, a duplicate code, a missing code, a reworded code and a deleted code. Run them through the same loader the seed uses, on throwaway copies outside the seed paths, restore the seed after each, and record what was observed. Compare consumer output with an expectation held outside the model. Keep the owner, approval, boundary, change procedure and measured effect of a change beside the seed. Report how other platforms would load the seed and what was not assessed.
 
 ### Compose
 
