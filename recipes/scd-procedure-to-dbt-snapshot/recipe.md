@@ -33,7 +33,7 @@ works_with:
 qualifiers:
   - Needs the routine's per-run history or an approved rule baseline; history it never kept is not rebuilt.
   - Current-state-only procedures belong to stored-procedure-to-dbt; new history to dbt-snapshot-history.
-  - Each history table is one outcome; its other writers and other tables the routine writes are named, parity unverified.
+  - One history table per outcome; its other writers and other tables the routine writes are named, parity unverified.
   - Routines that insert backdated corrections between closed versions are reported; a snapshot cannot reproduce them.
   - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
 related:
@@ -62,7 +62,7 @@ Convert <history_routine>, which keeps row history in <history_table> by closing
 - After every batch in the agreed replay, not only the last, the published history equals the expected history for that batch, derived from source rows and approved rules without reading the snapshot: same versions, dates and current flag at the approved precision, duplicate rows counted.
 - The replay build and the consumer-facing build share the snapshot and published-relation definitions and differ only in named inputs and clock, and the consumer-facing history holds no replay batch, constructed key or replay time.
 - The comparison can fail: a deliberately wrong end date on a closed version fails it, while an agreement check on current rows alone would still pass.
-- Within one continuous presence of a key, versions neither overlap nor leave gaps, each closed end follows the approved convention from the next start, and a key present in the feed has exactly one current version, unless a reproduced, listed routine defect gives another shape.
+- Within one continuous presence of a key, versions neither overlap nor leave gaps, each closed end follows the approved convention from the next start, and a key present in the feed has exactly one current version, unless a routine behaviour, listed with its shape, gives another one.
 - A change to one tracked attribute alone, judged by the routine's own comparison on the source engine (null versus empty, sentinels, case, trailing spaces, precision), opens one version with the new value unless approved rules or a listed defect say otherwise; an untracked change opens none.
 - Replaying a batch again leaves the published history unchanged and adds no version under the approved effective-time rule; a batch whose rerun changes it, such as several rows for a new key, is named with what the rerun does and kept out of that claim.
 - Null versus empty values, unchanged redelivery, same-day changes, duplicate rows, stale changes and rows with no usable key each follow the approved rule, and rows the rule ignores or the approved scope leaves out are counted with their reason.
