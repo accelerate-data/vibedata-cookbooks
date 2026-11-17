@@ -58,7 +58,7 @@ Convert <history_routine>, which keeps row history in <history_table> by closing
 
 - Each routine rule that opens, closes, ignores or removes a version maps to a snapshot behaviour or a stated reason none is needed; behaviour the history cannot show, such as writes elsewhere or error paths, is reported out of scope.
 - After every batch in the agreed replay, not only the last, the published history equals the approved baseline for that batch: same versions, effective-from and effective-to dates and current flag at the approved precision.
-- Expected history per batch is derived from the source rows and approved rules without reading the snapshot, and the published history equals it at the approved precision; where no routine output exists the baseline is labelled as rules, not routine output.
+- Expected history per batch is derived from the source rows and approved rules without reading the snapshot, and the published history equals it at the approved precision, duplicate rows counted; where no routine output exists the baseline is labelled as rules, not routine output.
 - The comparison can fail: a deliberately wrong end date on a closed version fails it, while an agreement check on current rows alone would still pass.
 - Within one continuous presence of a key, versions neither overlap nor leave gaps, each closed end follows the approved convention from the next start, and a key present in the feed has exactly one current version.
 - A change to one tracked attribute alone, judged by the source engine's semantics (null versus empty, sentinels, case, trailing spaces, precision), opens exactly one version with the new value unless approved batch rules set it aside; an untracked column change opens none.
