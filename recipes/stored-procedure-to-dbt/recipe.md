@@ -38,7 +38,7 @@ qualifiers:
   - A procedure that writes several consumer tables belongs to split-multi-table-procedure-to-dbt.
   - A procedure that loops or pages through rows belongs to batched-loop-procedure-to-set-based-dbt.
   - Applies when the maintained table, plus any selection state a later run reads, carries all relevant behaviour.
-  - Accumulating snapshots, periodic snapshots and late-arriving fact keys each have their own Recipe.
+  - Accumulating snapshots, periodic snapshots and fact loads that resolve dimension keys have their own Recipes.
   - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
 related:
   - legacy-sql-to-dbt
