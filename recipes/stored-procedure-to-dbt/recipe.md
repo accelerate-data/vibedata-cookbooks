@@ -30,7 +30,7 @@ works_with:
   tools:
     - dbt
 qualifiers:
-  - Needs the procedure's table after each compared run, from the unchanged procedure or approved snapshots.
+  - Needs the procedure's table after each compared run, from the procedure, snapshots or another approved baseline.
   - Views and one-shot scripts that rebuild their whole output each run belong to the legacy-sql-to-dbt Recipe.
   - Procedures that keep row history, such as hand-rolled slowly changing dimensions, are out of scope.
   - Applies when the maintained table is the required outcome and all relevant behaviour is represented through its state.
@@ -62,12 +62,12 @@ Convert <stored_procedure>, which maintains <target_table> for <consumers> by in
 - Each procedure step that shapes the table, including the conditions that make an insert, update, delete or merge fire, maps to a dbt equivalent or to a stated reason none is needed.
 - Any procedure behaviour that cannot be represented through the maintained table's state, such as writes to other tables, transaction or rollback semantics, output parameters, external side effects or error paths, is reported as out of scope.
 - The maintained table keeps the approved contract, covering whichever of relation name, columns, column order, types and materialization the approved contract counts as unchanged output.
-- After every run in the agreed sequence, not only the last, the table matches what the unchanged procedure leaves after the same run on the same inputs at the approved precision, including, where the procedure can be run or its snapshots allow, runs that exercise each kind of change it makes.
+- After every run in the agreed sequence, not only the last, the table matches the unchanged procedure's after that run on the same inputs, on every compared column at the approved precision, including runs exercising each kind of change it makes; each column outside parity is named with its reason.
 - The match holds in each approved execution environment and time zone.
 - A repeated run in the agreed sequence leaves the table exactly as the unchanged procedure leaves it after the same repeat, at the approved precision; any change a repeat makes is stated, and is follow-up work only where it violates an approved operational requirement.
 - Where the model can also rebuild the table from scratch, any input for which a rebuild as of a run would differ from the procedure's table after that run is reported.
 - Every procedure behaviour that affects the table is reproduced, including source-engine semantics such as collation in key matches, empty strings and rounding; each defect is listed with the rows it affects, the rule it breaks and what fixing it changes; repeats follow the repeated-run rule.
-- A run whose inputs hold several rows for one key leaves the table as the procedure would, whether its engine rejects the run or applies every row; where the target cannot hold that result, the difference is stated and held by a committed check.
+- A run whose inputs hold several rows for one key leaves the table as the procedure would, whether it rejects the run, applies every row or keeps one row its engine does not determine; that row follows the approved rule, and any result the target cannot hold is stated and held by a committed check.
 - For procedure behaviours the compared runs never exercise, such as a row removed on one run and changed on a later one, parity is checked with the unchanged procedure or another approved oracle where available; otherwise the gap is stated.
 - Output parity is kept separate from cutover and retirement: where the dbt model takes over the table, the procedure stops maintaining it after parity is accepted; where consumers move later, its table stays maintained until the cutover; the procedure is kept or removed as approved.
 - Anything the comparison cannot prove is stated.
@@ -95,7 +95,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - If unresolved, which parameter values and modes of the procedure are in scope, how does each map to one way of running the model, and which compared runs exercise each?
 - If unresolved, which run sequence and inputs form the comparison, what value stands in for any current date or time the procedure reads while comparing, are values compared exactly or within an approved precision, and in which execution environments and time zones must the table match?
 - If unresolved, when the procedure cannot run beside the model, for example on another engine, where does its table after each run come from, and who approves that baseline?
-- If unresolved, which repeated runs, such as a retried run, does the agreed sequence include, and does an approved operational requirement limit what a repeat may change?
+- If unresolved, which repeated runs, such as a retried run, does the agreed sequence include, and does an approved operational requirement limit what a repeat may change, and which row does the model keep when inputs hold several rows for one key and the procedure keeps an undetermined one?
 - If unresolved, which project structure and layering conventions must the models follow?
 - If unresolved, once parity is accepted and any cutover is complete, is the procedure kept and marked retired, or removed?
 
@@ -107,7 +107,7 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - Do not let the procedure and the dbt model both maintain the consumer-facing table at the same time.
 - Do not remove or disable the procedure before parity is accepted, or while consumers still depend on it; proven parity alone does not authorize removal.
 - Do not fix the stand-in for a current date or time into the model; use it only for the comparison, and keep reading the clock where the procedure does.
-- Do not let constructed proof inputs reach the consumer-facing table or the copies that stand for the legacy data; run them only in a separate, named test build, and report their results separately.
+- Do not let constructed proof inputs reach the consumer-facing table or the copies of legacy sources and tables that the published build reads; run them only in a separate, named test build, and report their results separately.
 - Do not edit the procedure or its captured per-run output, widen a tolerance, or narrow the contract, the compared runs or the approved precision, to make the comparison pass.
 - Do not change the output of models outside the conversion.
 - Do not extend the conversion into keeping row history the procedure did not keep, scheduling, performance tuning or moving to another platform.
