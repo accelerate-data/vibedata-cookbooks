@@ -33,6 +33,7 @@ works_with:
 qualifiers:
   - Needs the routine's per-run history or an approved rule baseline; history it never kept is not rebuilt.
   - Current-state-only procedures belong to stored-procedure-to-dbt; new history to dbt-snapshot-history.
+  - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
 related:
   - stored-procedure-to-dbt
   - dbt-snapshot-history
@@ -60,19 +61,19 @@ Convert <history_routine>, which keeps row history in <history_table> by closing
 - Expected history per batch is derived from the source rows and approved rules without reading the snapshot, and the published history equals it at the approved precision; where no routine output exists the baseline is labelled as rules, not routine output.
 - The comparison can fail: a deliberately wrong end date on a closed version fails it, while an agreement check on current rows alone would still pass.
 - Within one continuous presence of a key, versions neither overlap nor leave gaps, each closed end follows the approved convention from the next start, and a key present in the feed has exactly one current version.
-- A change to one tracked attribute alone opens exactly one version carrying the new value unless the approved batch rules set it aside, and a change confined to an untracked column opens none.
+- A change to one tracked attribute alone, judged by the source engine's semantics (null versus empty, sentinels, case, trailing spaces, precision), opens exactly one version with the new value unless approved batch rules set it aside; an untracked column change opens none.
 - Replaying the same batch again leaves the published history unchanged and adds no version, because effective dates follow the approved effective-time rule.
 - Null versus empty values, unchanged redelivery, same-day changes, duplicate rows, stale changes and rows with no usable key each follow the approved rule, and rows the rule ignores or the approved scope leaves out are counted with their reason.
 - A key that leaves the feed follows the approved delete rule with no invented version for the absence, a returning key follows the approved return rule, and closed versions are never rewritten.
 - Each routine behaviour that looks like a defect is reproduced and listed with the versions it affects and what correcting it would change; none is silently corrected.
 - The published relation keeps the approved consumer contract, relations outside the approved scope are left unchanged or any change reaching one is named and its parity marked unverified, and the routine stays in place until cutover is approved.
-- What the comparison cannot prove is stated, including a baseline that was not the routine's own output and any replay branch never exercised.
+- What the comparison cannot prove is stated, including a baseline that was not the routine's own output, any replay branch never exercised, and history a snapshot cannot hold, such as two current versions for one key, which a committed test holds in its exact shape.
 
 ## Agent guidance
 
 ### Instructions
 
-Read the routine end to end first: its key, tracked columns and comparison rule, how effective-from, effective-to and the current flag are set, what it does with deletes, returning keys and several rows for one key in a batch, and every consumer of the history table. Report behaviour the history cannot show as out of scope. Settle where the routine's history after each batch comes from, check the snapshot options the installed dbt and adapter support, and author the snapshot and a published relation that maps its internal dates to the approved convention. Build the expected history per batch with a committed builder that never reads the snapshot, replay the agreed batches in order from the approved starting history, compare after each one, and run a negative control that proves the comparison can fail. Record which replay branches were exercised and which were not.
+Read the routine end to end first: its key, tracked columns and comparison rule, how effective-from, effective-to and the current flag are set, what it does with deletes, returning keys and several rows for one key in a batch, and every consumer of the history table. Report behaviour the history cannot show as out of scope. Measure whether the existing history was written by the routine; if not, it is the starting history, not a batch result. Settle where the routine's history after each batch comes from, check the snapshot options the installed dbt and adapter support, and author the snapshot and a published relation that maps its internal dates to the approved convention. Build the expected history per batch with a committed builder that never reads the snapshot, replay the agreed batches in order from the approved starting history, compare after each one, and run a negative control that proves the comparison can fail. Before the snapshot runs, check each batch for several rows per key: a snapshot gives each the same version id and grows on every rerun, so where the routine rejects such a batch, reject it the same way. Apply batches in order; a snapshot closes versions at the incoming row's time, so an older batch backdates them. Name any key left out of later comparison and why. Record which replay branches were exercised and which were not.
 
 ### Compose
 
@@ -105,4 +106,5 @@ Read the routine end to end first: its key, tracked columns and comparison rule,
 - Do not correct a routine defect; reproduce it, report it as follow-up work and route any wanted change to a separate change.
 - Do not let the routine and the snapshot both maintain the consumer-facing history at once, or retire the routine before parity is accepted and consumers have moved.
 - Do not present a synthetic or rule-built baseline as the routine's real output; label it and state that cutover needs validation against the real routine.
+- Keep constructed batches and any fixed clock in a separately named test build; the published history reads the live source and is never rebuilt by the replay.
 - Keep Domain sources read-only and the published relation's output within the approved contract; use a labelled synthetic fixture or an approved writable one, and do not change relations outside the conversion.
