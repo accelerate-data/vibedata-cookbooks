@@ -37,7 +37,8 @@ qualifiers:
   - A table other routines also write belongs to consolidate-legacy-table-writers-to-dbt.
   - A procedure that writes several consumer tables belongs to split-multi-table-procedure-to-dbt.
   - A procedure that loops or pages through rows belongs to batched-loop-procedure-to-set-based-dbt.
-  - Applies when the maintained table is the required outcome and all relevant behaviour is represented through its state.
+  - Applies when the maintained table, plus any selection state a later run reads, carries all relevant behaviour.
+  - Accumulating snapshots, periodic snapshots and late-arriving fact keys each have their own Recipe.
   - Complete outcome assessed for duckdb_local only; the other listed platforms remain unassessed.
 related:
   - legacy-sql-to-dbt
@@ -47,6 +48,9 @@ related:
   - consolidate-legacy-table-writers-to-dbt
   - split-multi-table-procedure-to-dbt
   - batched-loop-procedure-to-set-based-dbt
+  - accumulating-snapshot-procedure-to-dbt
+  - legacy-periodic-snapshot-to-dbt
+  - late-arriving-fact-keys-to-dbt
 evidence:
   features:
     - capturing-requirements
@@ -72,9 +76,9 @@ Convert <stored_procedure>, which maintains <target_table> for <consumers> by in
 - The match holds in each approved execution environment and time zone.
 - A repeated run in the agreed sequence leaves the table as the unchanged procedure leaves it after the same repeat, at the approved precision; any change a repeat makes is stated, and is follow-up work only where it violates an approved operational requirement.
 - Where the model starts from, or can rebuild, the table from current inputs, every row in which that build differs from the procedure's table after the same run, such as a row only the procedure's table holds, is listed and handled as the approved starting rule says.
-- Every procedure behaviour that affects the table is reproduced, including source-engine semantics such as collation in key matches, empty strings and rounding; each defect is listed with the rows it affects, the rule it appears to break and what fixing it changes.
+- Every procedure behaviour that affects the table, including source-engine semantics such as collation in key matches, empty strings and rounding, is reproduced or, where approved, listed as a difference; each defect is listed with its rows, the rule it appears to break and what fixing it changes.
 - A run whose inputs hold several rows for one key leaves the table as the procedure would, whether its engine rejects the run, applies every row or applies one; an outcome that is not deterministic, or that the model cannot reproduce, follows the approved rule and is listed with its rows.
-- Each generated key follows the approved rule: keys in the approved starting table are kept, a new key is assigned once and kept across runs, never null, and distinct wherever the procedure's table gives distinct keys.
+- Each generated key follows the approved rule for assigning and keeping it; it is distinct and non-null wherever the procedure's keys are, and any key the model assigns differently from the procedure is listed with its rows.
 - Behaviours the compared runs never exercise, such as a row removed on one run and changed on a later one, are checked with the procedure or another approved oracle where available; any gap, and any run whose baseline is not the procedure's own output, is stated unproven.
 - Output parity is kept separate from cutover and retirement: where the dbt model takes over the table, the procedure stops maintaining it after parity is accepted; where consumers move later, its table stays maintained until the cutover; the procedure is kept or removed as approved.
 
@@ -82,7 +86,7 @@ Convert <stored_procedure>, which maintains <target_table> for <consumers> by in
 
 ### Instructions
 
-Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Read the procedure end to end first: its parameters, what it reads on each run, every step in order, the conditions under which each insert, update, delete or merge fires, its temporary tables, joins and null handling, and find every consumer of the table it maintains. Report any behaviour the table's state cannot represent, such as other writes, rollback semantics, output parameters, side effects or error paths, as out of scope. Settle how the procedure's table after each compared run is obtained, by running the unchanged procedure on the same inputs or from the approved baseline, and which run sequence is compared, including runs that exercise each kind of change the procedure makes. Map each step to a dbt equivalent under the approved project structure, and choose how the model maintains the table from the procedure's behaviour and the approved requirements, and state what the choice relies on and what it would miss. Reproduce each behaviour, including the ones that look like mistakes, and report each defect as follow-up work. Compare the model's table with the procedure's after every compared run, check behaviours the compared runs never exercise against the unchanged procedure or another approved oracle where one exists, stating the gap where none does, handle cutover and the procedure as approved, and state what cannot be proven.
+Inherit the Intent's repository, platform, Domain, sources and approved requirements, and resolve only the semantics they leave open. Read the procedure end to end first: its parameters, what it reads on each run, every step in order, the conditions under which each insert, update, delete or merge fires, its temporary tables, joins and null handling, and find every consumer of the table it maintains. Report any behaviour the table's state cannot represent, such as writes no later run reads, rollback semantics, output parameters, side effects or error paths, as out of scope. Settle how the procedure's table after each compared run is obtained, by running the unchanged procedure on the same inputs or from the approved baseline, and which run sequence is compared, including runs that exercise each kind of change the procedure makes. Map each step to a dbt equivalent under the approved project structure, and choose how the model maintains the table from the procedure's behaviour and the approved requirements, and state what it relies on and would miss. Reproduce each behaviour, including the ones that look like mistakes, and report each defect as follow-up work. Compare the model's table with the procedure's after every compared run, check behaviours the compared runs never exercise against the unchanged procedure or another approved oracle where one exists, stating the gap where none does, handle cutover and the procedure as approved, and state what cannot be proven.
 
 ### Compose
 
