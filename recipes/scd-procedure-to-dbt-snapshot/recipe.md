@@ -20,6 +20,7 @@ domain_objects:
   - replay_batches
   - approved_baseline
   - parity_report
+  - follow_up
 works_with:
   platforms:
     - duckdb_local
@@ -59,10 +60,10 @@ Convert <history_routine>, which keeps row history in <history_table> by closing
 ## Verified by
 
 - Each routine rule that opens, closes, ignores or removes a version maps to a snapshot behaviour or a stated reason none is needed; writes elsewhere are reported out of scope, and what a failed run leaves committed in the history is matched or reported unverified.
-- After every batch in the agreed replay, not only the last, the published history equals the expected history for that batch, derived from source rows and approved rules without reading the snapshot: same versions, dates and current flag at the approved precision, duplicate rows counted.
+- After every batch in the agreed replay, not only the last, the published history equals the approved baseline for that batch (routine output, or history derived from sources and approved rules without the snapshot): same versions, dates and current flag at the approved precision, duplicates counted.
 - The replay build and the consumer-facing build share the snapshot and published-relation definitions and differ only in named inputs and clock, and the consumer-facing history holds no replay batch, constructed key or replay time.
 - The comparison can fail: a deliberately wrong end date on a closed version fails it, while an agreement check on current rows alone would still pass.
-- Within one continuous presence of a key, versions neither overlap nor leave gaps, each closed end follows the approved convention from the next start, and a key present in the feed has exactly one current version, unless a routine behaviour, listed with its shape, gives another one.
+- Within one continuous presence of a key, versions neither overlap nor gap, each closed end follows the approved convention from the next start, and each included key left current by the approved delete rule has one current version, unless a routine behaviour, listed with its shape, gives another.
 - A change to one tracked attribute alone, judged by the routine's own comparison on the source engine (null versus empty, sentinels, case, trailing spaces, precision), opens one version with the new value unless approved rules or a listed defect say otherwise; an untracked change opens none.
 - Replaying a batch again leaves the published history unchanged and adds no version under the approved effective-time rule; a batch whose rerun changes it, such as several rows for a new key, is named with what the rerun does and kept out of that claim.
 - Null versus empty values, unchanged redelivery, same-day changes, duplicate rows, stale changes and rows with no usable key each follow the approved rule, and rows the rule ignores or the approved scope leaves out are counted with their reason.
@@ -94,7 +95,7 @@ Read the routine end to end first: its key, tracked columns and comparison rule,
 - If unresolved, what happens with several rows for one key in a batch, existing or new, several changes on one day, stale or out-of-order changes, unchanged redelivery, rows with no usable key, and a batch the routine fails on partway?
 - If unresolved, is a key deleted by its absence from a complete batch or by a source delete flag, what happens to its current version and its closing date, and how does a returning key reopen?
 - If unresolved, where does the routine's history after each batch come from, such as running it beside the snapshot, approved extracts or approved rules, and who approves that baseline?
-- If unresolved, which batch sequence forms the replay, how does existing history enter the snapshot at its start, and is the comparison exact or within a stated precision?
+- If unresolved, which batch sequence forms the replay, how does existing history enter the snapshot at its start, is the comparison exact or within a stated precision, and may a key whose history the snapshot cannot reproduce be left out of parity, named?
 - If unresolved, which entities or records belong in the history, which key identifies one entity, and how are excluded ones listed with their reasons?
 - If unresolved, what counts as unchanged output (name, columns, types, order), does the snapshot take over the history table's name or do consumers move later, and is the routine kept or removed after parity?
 
