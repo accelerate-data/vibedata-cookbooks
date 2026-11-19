@@ -59,6 +59,7 @@ Convert <legacy_sql> into dbt models in the current Intent so that the published
 
 - The published model keeps the approved contract, covering whichever of relation name, columns, column order, types and materialization the approved contract counts as unchanged output.
 - Published rows match the output of the unchanged legacy logic on the agreed inputs at the approved precision, compared both ways with duplicate rows counted; any difference left is reported and parity is not claimed for it.
+- The comparison can fail: a published value changed beyond the approved precision, a lost row or an added duplicate row fails it.
 - The match holds in each approved execution environment and time zone; independence from the time zone is required only where the consumer contract already includes it.
 - Every legacy behaviour that affects the published output is reproduced, including implicit ones such as nulls that void a sum, inner joins that drop unmatched records or the source engine's case-insensitive collation.
 - Each legacy defect found is listed with the output it affects, the rule it appears to break and what correcting it would change, as follow-up work.
