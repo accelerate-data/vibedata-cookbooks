@@ -90,11 +90,11 @@ Inherit the Intent's repository, platform, Domain, sources and approved requirem
 - If unresolved, which project structure and layering conventions must the models follow, or should they mirror the legacy SQL as one model?
 - If unresolved, which parameters does the legacy SQL take, what value stands in for any current date or time it reads while comparing, which values and inputs form the comparison, are values compared exactly or within an approved precision, and in which environments and time zones must it match?
 - If unresolved, once parity is accepted and any consumer cutover is complete, is the legacy artifact kept and marked retired, or removed?
-- If unresolved, where does the baseline output come from (the legacy SQL run on the agreed inputs, its current table, or both where they agree), what happens when they differ, and who approves it?
+- If unresolved, where does the baseline output come from (the legacy SQL run on the agreed inputs, its current table, or both where they agree), what happens when they differ, who approves it, and where may the frozen comparison inputs and baseline be kept for reruns, and for how long?
 
 ### Guardrails
 
-- Do not edit the legacy logic or its captured output to make the comparison pass.
+- Do not edit the legacy logic or its captured output to make the comparison pass, or commit copies of source or legacy data to the repository unless approved.
 - Do not remove or disable the legacy artifact before the parity result has been accepted, or while current consumers still use it; proven parity alone does not authorize removal.
 - Do not correct a legacy defect, such as turning an inner join into an outer join; reproduce it, report it as follow-up work, and route any wanted output change to a separate change.
 - Do not treat a green build or a passing test suite as proof of parity; the proof is the comparison against the legacy output.
