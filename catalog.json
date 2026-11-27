@@ -5567,7 +5567,7 @@
       "pitch": "Give a legacy lookup table to the dbt project as a seed, and show the reports that read it change only as you approve.",
       "qualifiers": [
         "Needs the consuming dbt models to exist; moving them is another outcome.",
-        "Starts from an approved extract of the table with a stated boundary; it does not read the legacy database.",
+        "Starts from an approved extract with a stated boundary, supplied or read over approved read-only access.",
         "A table that keeps arriving as exports or grows belongs to an ingestion Recipe, not a seed.",
         "Large or frequently changing tables are reported unsuitable, not seeded.",
         "Retiring the legacy table or its writer is a separate approved step.",
@@ -5586,7 +5586,7 @@
         "prove-dbt-change-safe",
         "dbt-snapshot-history"
       ],
-      "sha256": "62fa01b9dc9d324794373f224913fa31b01fbd7019ef6f954d970f66308c065e",
+      "sha256": "7f9503248bc332b46b5ab4e0a540a958d75d0d4dbab8f796327274ad89866732",
       "title": "Move an approved legacy reference table into a dbt seed and prove downstream parity",
       "trigger": [
         "A small, static lookup or code list that dbt models read lives in a legacy database, and its owner wants the dbt project to own it.",
